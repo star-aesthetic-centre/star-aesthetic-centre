@@ -7,6 +7,7 @@ import { GET_PRODUCT } from "@/lib/queries/products";
 import type { ProductDetail } from "@/lib/queries/products";
 import ProductCard from "@/components/shop/ProductCard";
 import ProductDescription from "@/components/shop/ProductDescription";
+import AddToCartControls from "@/components/shop/AddToCartControls";
 
 interface ProductPageProps {
     params: Promise<{ slug: string }>;
@@ -57,6 +58,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
     const allImages = [product.image, ...(product.galleryImages?.nodes ?? [])].filter(Boolean);
     const priceFormatted = product.price?.replace("R", "").replace("&nbsp;", " ").trim();
+    const priceNumber = parseFloat(
+        (product.price ?? "0").replace(/R|&nbsp;|,|\s/g, "")
+    ) || 0;
     const tags = product.productTags?.nodes?.map((t) => t.name) ?? [];
 
     return (
@@ -168,19 +172,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                             )}
 
                             {/* Qty + Add to Cart */}
-                            <div className="mb-4 flex items-center gap-3">
-                                <div className="flex items-center border border-[#E2E2E6]">
-                                    <button className="flex h-12 w-12 items-center justify-center text-lg text-[#939EBA] transition-colors hover:bg-[#EEF0F6] ">
-                                        −
-                                    </button>
-                                    <span className="w-10 text-center text-sm font-semibold text-[#1A1A1F]">1</span>
-                                    <button className="flex h-12 w-12 items-center justify-center text-lg text-[#939EBA] transition-colors hover:bg-[#EEF0F6] ">
-                                        +
-                                    </button>
-                                </div>
-                                <button className="flex-1 bg-[#939EBA] py-4 text-sm font-semibold text-white transition-colors hover:bg-[#7A87A6]">
-                                    Add to Cart
-                                </button>
+                            <div className="mb-4">
+                                <AddToCartControls
+                                    productId={product.id}
+                                    productSlug={product.slug}
+                                    productName={product.name}
+                                    productImage={product.image?.sourceUrl ?? ""}
+                                    productPrice={priceNumber}
+                                />
                             </div>
 
                             {/* WhatsApp order */}
@@ -252,9 +251,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                             )}
 
                             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                                <button className="w-full sm:w-auto bg-[#1A1A1F] text-white px-8 py-4 font-semibold hover:bg-[#292929] transition-colors">
-                                    Add to Cart
-                                </button>
+                                <AddToCartControls
+                                    productId={product.id}
+                                    productSlug={product.slug}
+                                    productName={product.name}
+                                    productImage={product.image?.sourceUrl ?? ""}
+                                    productPrice={priceNumber}
+                                    showQuantity={false}
+                                />
                                 <a
                                     href="https://wa.me/27830000000"
                                     target="_blank" rel="noopener noreferrer"

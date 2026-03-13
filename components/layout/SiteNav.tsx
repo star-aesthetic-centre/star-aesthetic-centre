@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef } from "react";
 import { ShoppingCart, Menu, X, ChevronRight, ChevronDown } from "lucide-react";
+import { useCart } from "@/lib/cart-context";
 
 /* ─── Data ─────────────────────────────────────────────────── */
 const treatmentsColumns = [
@@ -57,7 +58,7 @@ export default function SiteNav() {
     const [mobileExpanded, setMobileExpanded] = useState<"treatments" | "shop" | null>(null);
     const [activeMega, setActiveMega] = useState<MegaKey>(null);
     const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const cartCount = 0;
+    const { cartCount, dispatch: cartDispatch } = useCart();
 
     const openMega = (key: MegaKey) => {
         if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
@@ -223,18 +224,18 @@ export default function SiteNav() {
                 {/* Right: Book Now + Cart + Mobile toggle */}
                 <div className="flex items-center gap-3">
                     {/* Cart */}
-                    <Link
-                        href="/cart"
+                    <button
+                        onClick={() => cartDispatch({ type: "OPEN_DRAWER" })}
                         className="relative flex h-10 w-10 items-center justify-center text-[#636374] transition-colors hover:bg-[#EEF0F6] hover:text-[#939EBA]"
-                        aria-label={`Cart — ${cartCount} items`}
+                        aria-label={`Cart — ${cartCount} item${cartCount !== 1 ? "s" : ""}`}
                     >
                         <ShoppingCart size={20} strokeWidth={1.5} />
                         {cartCount > 0 && (
                             <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center bg-[#939EBA] text-[10px] font-bold text-white">
-                                {cartCount}
+                                {cartCount > 99 ? "99+" : cartCount}
                             </span>
                         )}
-                    </Link>
+                    </button>
 
                     {/* Book Now */}
                     <Link
