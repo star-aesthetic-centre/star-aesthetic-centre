@@ -1,0 +1,109 @@
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import { ShoppingCart, Menu, X } from "lucide-react";
+
+const navLinks = [
+    { label: "Treatments", href: "/treatments" },
+    { label: "Shop", href: "/shop" },
+    { label: "About Dr. Bangalee", href: "/about" },
+    { label: "Contact", href: "/contact" },
+];
+
+export default function SiteNav() {
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const cartCount = 0; // TODO: wire to WooCommerce cart
+
+    return (
+        <header className="sticky top-0 z-50 w-full border-b border-[#E2E2E6] bg-white/95 backdrop-blur-sm">
+            <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+
+                {/* Logo */}
+                <Link href="/" className="flex items-center">
+                    <Image
+                        src="http://star-aesthetic-centre.local/wp-content/uploads/star-aesthetic-centre-durban-logo-001.png"
+                        alt="Star Aesthetic Centre Durban"
+                        width={250}
+                        height={82}
+                        priority
+                        unoptimized
+                        className="h-12 w-auto object-contain"
+                    />
+                </Link>
+
+                {/* Desktop nav */}
+                <nav className="hidden items-center gap-8 md:flex">
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.href}
+                            href={link.href}
+                            className="text-sm font-medium text-[#636374] transition-colors hover:text-[#939EBA]"
+                        >
+                            {link.label}
+                        </Link>
+                    ))}
+                </nav>
+
+                {/* Right: Book Now + Cart + Mobile toggle */}
+                <div className="flex items-center gap-3">
+                    {/* Cart */}
+                    <Link
+                        href="/cart"
+                        className="relative flex h-10 w-10 items-center justify-center text-[#636374] transition-colors hover:bg-[#EEF0F6] hover:text-[#939EBA]"
+                        aria-label={`Cart — ${cartCount} items`}
+                    >
+                        <ShoppingCart size={20} strokeWidth={1.5} />
+                        {cartCount > 0 && (
+                            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center bg-[#939EBA] text-[10px] font-bold text-white">
+                                {cartCount}
+                            </span>
+                        )}
+                    </Link>
+
+                    {/* Book Now */}
+                    <Link
+                        href="/book"
+                        className="hidden bg-[#939EBA] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#7A87A6] sm:inline-flex"
+                    >
+                        Book Now »
+                    </Link>
+
+                    {/* Mobile menu toggle */}
+                    <button
+                        className="flex h-10 w-10 items-center justify-center text-[#636374] md:hidden"
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                        aria-label="Toggle menu"
+                    >
+                        {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile nav drawer */}
+            {mobileOpen && (
+                <div className="border-t border-[#E2E2E6] bg-white px-4 pb-6 md:hidden">
+                    <nav className="flex flex-col gap-1 pt-4">
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className="px-4 py-3 text-base font-medium text-[#1A1A1F] transition-colors hover:bg-[#EEF0F6] hover:text-[#939EBA]"
+                                onClick={() => setMobileOpen(false)}
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                        <Link
+                            href="/book"
+                            className="mt-4 bg-[#939EBA] px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-[#7A87A6]"
+                            onClick={() => setMobileOpen(false)}
+                        >
+                            Book a Consultation »
+                        </Link>
+                    </nav>
+                </div>
+            )}
+        </header>
+    );
+}
