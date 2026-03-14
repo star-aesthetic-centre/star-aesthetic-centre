@@ -59,7 +59,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     const allImages = [product.image, ...(product.galleryImages?.nodes ?? [])].filter(Boolean);
     const priceFormatted = product.price?.replace("R", "").replace("&nbsp;", " ").trim();
     const priceNumber = parseFloat(
-        (product.price ?? "0").replace(/R|&nbsp;|,|\s/g, "")
+        (product.price ?? "0")
+            .replace(/R|&nbsp;|\s/g, "")   // strip R, &nbsp;, spaces
+            .replace(",", ".")              // SA decimal comma → period
     ) || 0;
     const tags = product.productTags?.nodes?.map((t) => t.name) ?? [];
 
