@@ -82,7 +82,7 @@ export default function DoctorTrust() {
  </div>
 
  <Link
- href="/about"
+ href="/dr-rajeev-bangalee"
  className="inline-flex items-center gap-2.5 border border-[#939EBA] px-8 py-3.5 text-sm font-semibold text-[#939EBA] transition-all hover:bg-[#EEF0F6] hover:-translate-y-0.5"
  >
  About Dr. Bangalee

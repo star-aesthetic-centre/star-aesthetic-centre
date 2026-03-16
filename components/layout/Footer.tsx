@@ -3,13 +3,14 @@ import Image from "next/image";
 import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
 
 const treatmentLinks = [
-    { label: "Acne & Acne Scarring", href: "/treatments/medical-skin/acne" },
-    { label: "Pigmentation Treatment", href: "/treatments/medical-skin/pigmentation" },
-    { label: "Skin Peel Treatment", href: "/treatments/medical-skin/skin-peel" },
-    { label: "Botox", href: "/treatments/injectables/botox" },
-    { label: "Lip Filler", href: "/treatments/injectables/lip-filler" },
-    { label: "Vitamin Drips", href: "/treatments/health-wellness/vitamin-drips" },
-    { label: "Body Contouring", href: "/treatments/body/body-contouring" },
+    { label: "Botox & Anti-Ageing", href: "/treatments/face/botox" },
+    { label: "Lip Fillers", href: "/treatments/face/lip-filler" },
+    { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring" },
+    { label: "Skin Peels", href: "/treatments/skin/skin-peel" },
+    { label: "Pigmentation Treatment", href: "/treatments/skin/pigmentation-treatment" },
+    { label: "Acne Treatment", href: "/treatments/skin/acne" },
+    { label: "Vitamin Drips", href: "/treatments/body-wellness/vitamin-drips" },
+    { label: "Body Contouring", href: "/treatments/body-wellness/body-contouring" },
 ];
 
 const shopLinks = [
@@ -151,12 +152,18 @@ export default function Footer() {
                     <p className="text-xs text-[#636374]">
                         © {new Date().getFullYear()} Star Aesthetic Centre · Dr. Rajeev Bangalee · All rights reserved.
                     </p>
-                    <div className="flex gap-6">
-                        <Link href="/privacy" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
+                    <div className="flex flex-wrap gap-5">
+                        <Link href="/legal/privacy-policy" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
                             Privacy Policy
                         </Link>
-                        <Link href="/terms" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
-                            Terms
+                        <Link href="/legal/terms-and-conditions" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
+                            Terms &amp; Conditions
+                        </Link>
+                        <Link href="/legal/returns-policy" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
+                            Returns Policy
+                        </Link>
+                        <Link href="/contact" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
+                            Contact Us
                         </Link>
                     </div>
                 </div>

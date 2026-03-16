@@ -31,7 +31,7 @@ export default function HeroSection() {
                     </div>
 
                     {/* Main heading */}
-                    <h1 className="font-heading text-[clamp(2.2rem,4vw,3.8rem)] font-bold uppercase leading-[1.08] tracking-wide text-[#E8EDF7]">
+                    <h1 className="font-heading text-[clamp(2.2rem,4vw,3.8rem)] font-bold uppercase leading-[1.08] tracking-wide text-white">
                         Reveal your
                         <br />
                         <em className="not-italic text-[#939EBA]">natural beauty.</em>

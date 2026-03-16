@@ -39,12 +39,12 @@ const treatmentsColumns = [
 const shopColumns = [
     {
         brand: "Dermaceutic",
-        href: "/shop/dermaceutic",
+        href: "/shop/brands/dermaceutic",
         tagline: "Clinical skincare solutions",
     },
     {
         brand: "Heliocare",
-        href: "/shop/heliocare",
+        href: "/shop/brands/heliocare",
         tagline: "Advanced sun protection",
     },
 ];
@@ -208,10 +208,10 @@ export default function SiteNav() {
 
                     {/* Static links */}
                     <Link
-                        href="/about"
+                        href="/dr-rajeev-bangalee"
                         className="text-sm font-medium text-[#636374] transition-colors hover:text-[#939EBA]"
                     >
-                        About Dr. Bangalee
+                        Dr. Bangalee
                     </Link>
                     <Link
                         href="/contact"
@@ -338,11 +338,11 @@ export default function SiteNav() {
 
                         {/* Static links */}
                         <Link
-                            href="/about"
+                            href="/dr-rajeev-bangalee"
                             className="px-4 py-3 text-base font-medium text-[#1A1A1F] transition-colors hover:bg-[#F8F9FC] hover:text-[#939EBA]"
                             onClick={() => setMobileOpen(false)}
                         >
-                            About Dr. Bangalee
+                            Dr. Bangalee
                         </Link>
                         <Link
                             href="/contact"
