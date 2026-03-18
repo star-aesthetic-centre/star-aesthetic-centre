@@ -10,7 +10,6 @@
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient }              from '@supabase/supabase-js';
-import { GoogleGenAI }               from '@google/genai';
 
 // ── Supabase client (server-side) ─────────────────────────────────────────────
 const supabase = createClient(
@@ -40,48 +39,46 @@ interface ExtractedContact {
   email?: string;
 }
 
-// ── Extract contact details from transcript via Gemini ────────────────────────
-async function extractContact(transcript: string): Promise<ExtractedContact> {
+// ── Extract contact details from transcript using regex ───────────────────────
+// Niki explicitly confirms phone and email back to the visitor in the transcript,
+// so we can extract the confirmed values directly — no API call needed.
+function extractContact(transcript: string): ExtractedContact {
   if (!transcript || transcript.length < 20) return {};
 
-  try {
-    const ai  = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
-    const res = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-001',
-      contents: [{
-        role: 'user',
-        parts: [{ text: `Extract any contact details mentioned in this conversation transcript. Return ONLY a raw JSON object (no markdown, no code fences, no explanation) with these fields (omit fields not found): name, phone, email.
+  const contact: ExtractedContact = {};
 
-Example output: {"name":"Sarah","phone":"0821234567","email":"sarah@gmail.com"}
+  // ── Name ──────────────────────────────────────────────────────────────────
+  // Visitor says: "My name is Ignatius" / "It's Ignatius" / "I'm Ignatius"
+  const nameMatch = transcript.match(
+    /(?:my name is|it'?s|i'?m)\s+([A-Za-z]+)/i
+  );
+  if (nameMatch?.[1]) contact.name = nameMatch[1];
 
-Transcript:
-${transcript}` }],
-      }],
-    });
+  // ── Phone — use Niki's confirmed version ──────────────────────────────────
+  // Niki says: "your number is 076 180 9799" — capture until comma/question mark
+  const phoneMatch = transcript.match(
+    /your number is\s+([\d][\d\s\-]+[\d])(?:\s*[,?])/i
+  );
+  if (phoneMatch?.[1]) contact.phone = phoneMatch[1].replace(/[\s\-]/g, '');
 
-    // Get text — try multiple paths for SDK compatibility
-    const raw = (
-      res.text ??
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (res as any).candidates?.[0]?.content?.parts?.[0]?.text ??
-      ''
-    ).trim();
-
-    console.log('🤖 Gemini extraction raw response:', raw);
-
-    if (!raw) return {};
-
-    // Strip any markdown code fences Gemini may have added despite instructions
-    const jsonStr = raw
-      .replace(/^```(?:json)?\s*/i, '')
-      .replace(/\s*```$/,           '')
-      .trim();
-
-    return JSON.parse(jsonStr) as ExtractedContact;
-  } catch (err) {
-    console.error('⚠️  extractContact failed:', err);
-    return {};
+  // ── Email — use Niki's confirmed version ──────────────────────────────────
+  // Niki may spell it with spaces: "i g n a t i u s a c k @ gmail com"
+  // Strategy: grab everything between "your email is" and "correct" / "?" then
+  // strip spaces and validate as an email address.
+  const emailSection = transcript.match(
+    /your email is\s+(.+?)(?:\s*,\s*correct|\s*correct|\s*\?|$)/im
+  );
+  if (emailSection?.[1]) {
+    // Collapse all whitespace, then look for a valid email pattern
+    const collapsed = emailSection[1].replace(/\s+/g, '');
+    const emailMatch = collapsed.match(
+      /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/i
+    );
+    if (emailMatch) contact.email = emailMatch[0];
   }
+
+  console.log('📋 Extracted contact (regex):', contact);
+  return contact;
 }
 
 // ── Handler ───────────────────────────────────────────────────────────────────
@@ -101,7 +98,7 @@ export async function POST(req: NextRequest) {
     console.log('══════════════════════════════════════════════\n');
 
     // ── Extract contact details from transcript ────────────────────────────
-    const contact = await extractContact(payload.transcript);
+    const contact = extractContact(payload.transcript);
     if (Object.keys(contact).length > 0) {
       console.log('📋 Extracted contact:', contact);
     }
