@@ -93,9 +93,15 @@ export async function POST(req: NextRequest) {
 
         if (!wcRes.ok) {
             const errBody = await wcRes.json().catch(() => ({}));
-            console.error("[orders/route] WooCommerce error:", errBody);
+            console.error("[orders/route] WooCommerce HTTP", wcRes.status, errBody);
+            // In dev, surface the full WC error so we can diagnose it
             return NextResponse.json(
-                { error: "Failed to create order in WooCommerce" },
+                {
+                    error: "Failed to create order in WooCommerce",
+                    wcStatus: wcRes.status,
+                    wcError: errBody,
+                    lineItems,
+                },
                 { status: 502 }
             );
         }
