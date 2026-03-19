@@ -31,6 +31,56 @@ function RichBody({ text }: { text: string }) {
     );
 }
 
+/**
+ * Renders "Expected Results & Timeline" content.
+ * If the text contains time-period markers (Days, Week, Weeks, Month, Months)
+ * it renders a visual dot-and-line timeline. Otherwise falls back to RichText.
+ */
+function ResultsTimeline({ text }: { text: string }) {
+    // Split on timeline markers, keeping the marker at the start of each chunk
+    const parts = text
+        .split(/(?=(?:Days?|Weeks?|Months?)\s+[\d–\-]+:)/i)
+        .map(s => s.trim())
+        .filter(Boolean);
+
+    if (parts.length <= 1) {
+        return <RichText text={text} as="p" className="text-[#636374] leading-relaxed" />;
+    }
+
+    const items = parts.map(part => {
+        const match = part.match(/^((?:Days?|Weeks?|Months?)\s+[\d–\-]+):\s*([\s\S]*)/i);
+        return match
+            ? { period: match[1], description: match[2].trim() }
+            : { period: '', description: part };
+    }).filter(item => item.period && item.description);
+
+    return (
+        <div className="space-y-0">
+            {items.map((item, i) => (
+                <div key={i} className="flex gap-4 relative">
+                    {/* Connecting line between dots */}
+                    {i < items.length - 1 && (
+                        <div className="absolute left-[7px] top-5 bottom-0 w-[2px] bg-[#E2E2E6]" />
+                    )}
+                    {/* Dot */}
+                    <div className="mt-1 w-4 h-4 rounded-full bg-[#939EBA] shrink-0 relative z-10 border-2 border-white ring-2 ring-[#939EBA]" />
+                    {/* Content */}
+                    <div className="pb-5 flex-1">
+                        <span className="block text-sm font-bold text-[#1A1A1F] mb-1">
+                            {item.period}
+                        </span>
+                        <RichText
+                            text={item.description}
+                            as="p"
+                            className="text-sm text-[#636374] leading-relaxed"
+                        />
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
 export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     const { category, slug } = await params;
     const treatment = treatmentsData.find((t: any) => t.slug === slug);
@@ -188,15 +238,11 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                     Expected Results &amp; Timeline
                                 </h2>
                                 <div className="bg-white p-8 border border-[#E2E2E6]">
-                                    <RichText
-                                        text={treatment.expectedResults}
-                                        as="p"
-                                        className="text-[#636374] leading-relaxed mb-6"
-                                    />
+                                    <ResultsTimeline text={treatment.expectedResults} />
                                     {treatment.downtimeDetail && (
                                         <>
                                             <h4 className="font-bold text-[#1A1A1F] mt-8 mb-3">Downtime &amp; Aftercare:</h4>
-                                            <p className="text-[#636374] leading-relaxed">{treatment.downtimeDetail}</p>
+                                            <RichText text={treatment.downtimeDetail} as="p" className="text-[#636374] leading-relaxed" />
                                         </>
                                     )}
                                 </div>
@@ -259,7 +305,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
 
                         {/* CTA Box */}
                         <div className="bg-[#0F2647] p-8 text-white">
-                            <h3 className="font-heading text-2xl font-bold mb-4">Ready to start?</h3>
+                            <h3 className="font-heading text-2xl font-bold mb-4 text-white">Ready to start?</h3>
                             <p className="text-[#939EBA] mb-6 pb-6 border-b border-[#1B3D6E] text-sm leading-relaxed">
                                 Book a consultation with Dr. Bangalee to discuss a tailored treatment plan for your specific concerns.
                             </p>
