@@ -174,14 +174,33 @@ _Last updated: 2026-03-20_
 
 ---
 
-## Booking Engine — Next Build 🔲
+## Booking Engine — Built ✅ (2026-03-20)
 
 **Decision:** Custom-built (not SSA plugin — $99/yr too expensive)
 **Stack:** Next.js `/book` page + Supabase `bookings` table + Resend email confirmations
 **Appointment types:** 13 total (12 treatments + Free 15-min Assessment)
-**Availability:** Mon–Fri 09:00–17:00 (last slot 16:00) · Sat 09:00–13:00 (last slot 12:00)
-**Calendar:** 1 only — Dr. Bangalee
-**HealthBridge:** Clinic uses HealthBridge for consultation room — check if API/iCal sync is possible before building to avoid double bookings
+**Availability:** Mon–Fri 09:00–17:00 · Sat 09:00–13:00 · Sundays closed
+**Slot logic:** 60-min blocks; 1-slot (≤60 min) or 2-slot (>60 min) per treatment
+**HealthBridge:** Build without sync for now — add webhook later
+
+| File | Purpose |
+|---|---|
+| `lib/booking-config.ts` | 13 appointment types, durations, slot counts, schedule helpers |
+| `lib/availability.ts` | Pure slot generation + conflict detection + reference generator |
+| `app/api/bookings/available-slots/route.ts` | GET — returns slots with availability for a date+treatment |
+| `app/api/bookings/route.ts` | POST — creates booking, race-check, Supabase insert, Resend emails |
+| `app/book/page.tsx` | Metadata wrapper |
+| `app/book/BookingWizard.tsx` | 4-step client wizard: Treatment → Date → Calendar → Contact |
+| `.claude/bookings-schema.sql` | SQL to run in Supabase to create `bookings` table |
+
+**To activate:**
+1. Run `.claude/bookings-schema.sql` in Supabase SQL Editor
+2. Add `RESEND_API_KEY=` to `.env.local` (get from resend.com → API Keys)
+3. Resend domain `staraesthetic.site` — DNS being verified (propagation in progress as of 2026-03-20)
+
+**Email flow:**
+- Patient → `bookings@staraesthetic.site` (confirmation with appointment details + reference)
+- Nikita → `info@staraesthetic.site` (new booking alert with patient contact + appointment)
 
 ---
 
@@ -198,9 +217,9 @@ _Last updated: 2026-03-20_
 
 ## Next Session — Suggested Priorities
 
-1. 🏗️ **Build custom booking engine** — `/book` page, Supabase `bookings` table, availability logic, email confirmations
-2. 🔍 **Check HealthBridge API** — does it support iCal or webhook sync to avoid double bookings?
-3. 📧 **Resend email** — wire up Nikita email alert when Niki session ends (Phase 3)
+1. 🧪 **End-to-end booking test** — complete a real test booking, verify Supabase row created + both emails received
+2. 📧 **Niki session email** — wire Resend into `/api/niki-session` so Nikita gets alerted when a voice session ends (Phase 3)
+3. 🏗️ Build `/about` page — Star Aesthetic Centre story, team, clinic photos
 4. ✏️ Fix hero text colour (homepage + Dr. Bangalee page) → `text-white`
 5. ✏️ Dr. Bangalee hero: reduce height to 90vh, ALL CAPS single line name
-6. 🏗️ Build `/about` page for Star Aesthetic Centre
+6. 🔗 **HealthBridge webhook** — research API/iCal sync for double-booking prevention (future phase)
