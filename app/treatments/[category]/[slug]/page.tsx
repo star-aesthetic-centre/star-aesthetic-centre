@@ -130,7 +130,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
 
                             <div className="flex flex-wrap gap-4">
                                 <a
-                                    href="#book"
+                                    href="/book"
                                     className="bg-[#939EBA] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#7A87A6]"
                                 >
                                     Book Consultation
@@ -310,8 +310,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 Book a consultation with Dr. Bangalee to discuss a tailored treatment plan for your specific concerns.
                             </p>
                             <a
-                                id="book"
-                                href="/contact"
+                                href="/book"
                                 className="w-full justify-center flex items-center gap-2 bg-white px-8 py-4 text-sm font-semibold text-[#0F2647] transition-colors hover:bg-[#F2F1EF]"
                             >
                                 Book Your Consultation
