@@ -735,18 +735,35 @@ export default function BookingWizard() {
     }
   }
 
+  const confirmed = !!(reference && apt && date && slot);
+
   // Confirmation screen (no step indicator)
-  if (reference && apt && date && slot) {
+  if (confirmed && apt && date && slot) {
     return (
-      <div className="rounded-none border border-[#E5E4E0] bg-white p-8 sm:p-12">
-        <ConfirmationScreen
-          reference={reference}
-          apt={apt}
-          date={date}
-          timeSlot={slot}
-          patientName={contact.name}
-        />
-      </div>
+      <>
+        <div className="bg-[#0F2647] px-4 py-16 text-center">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[3px] text-[#C8A882]">
+            Star Aesthetic Centre
+          </p>
+          <h1 className="font-[family-name:var(--font-roboto-condensed)] text-3xl font-light tracking-wide text-white sm:text-4xl">
+            Appointment Confirmed
+          </h1>
+          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#939EBA]">
+            A confirmation has been sent to your email address.
+          </p>
+        </div>
+        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+          <div className="rounded-none border border-[#E5E4E0] bg-white p-8 sm:p-12">
+            <ConfirmationScreen
+              reference={reference!}
+              apt={apt}
+              date={date}
+              timeSlot={slot}
+              patientName={contact.name}
+            />
+          </div>
+        </div>
+      </>
     );
   }
 
@@ -758,6 +775,20 @@ export default function BookingWizard() {
   ];
 
   return (
+    <>
+      <div className="bg-[#0F2647] px-4 py-16 text-center">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[3px] text-[#C8A882]">
+          Star Aesthetic Centre
+        </p>
+        <h1 className="font-[family-name:var(--font-roboto-condensed)] text-3xl font-light tracking-wide text-white sm:text-4xl">
+          Book Your Appointment
+        </h1>
+        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#939EBA]">
+          Select your treatment, choose a date and time, and confirm — we'll send a confirmation
+          straight to your inbox.
+        </p>
+      </div>
+      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
     <div className="rounded-none border border-[#E5E4E0] bg-white p-6 sm:p-10">
       <StepIndicator current={step} />
 
@@ -826,5 +857,7 @@ export default function BookingWizard() {
         </div>
       )}
     </div>
+    </div>
+    </>
   );
 }
