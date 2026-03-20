@@ -1,5 +1,5 @@
 # Star Aesthetic Centre — Project State Log
-_Last updated: 2026-03-17_
+_Last updated: 2026-03-20_
 
 ---
 
@@ -152,12 +152,55 @@ _Last updated: 2026-03-17_
 
 ---
 
+## Niki Voice Agent — Completed ✅ (2026-03-20)
+
+| Feature | Status | Notes |
+|---|---|---|
+| Gemini Live API connection | ✅ | Model: `gemini-2.5-flash-native-audio-preview-12-2025` (expires ~Mar 19 → swap to `gemini-live-2.5-flash-native-audio` when available) |
+| Real-time voice (bi-directional) | ✅ | Aoede voice, audio transcription both sides |
+| Context-aware per treatment page | ✅ | System prompt includes treatment name |
+| Supabase session storage | ✅ | `niki_sessions` table — transcript, contact, duration, treatment page |
+| Contact extraction from transcript | ✅ | Regex-based — phone, email, name from Niki's confirmed values |
+| Phone/email confirmation by Niki | ✅ | Niki repeats back and confirms before ending |
+| Double/triple digit handling | ✅ | "double nine" = 99, "triple eight" = 888 etc. |
+| Dr. Bangalee = male pronouns | ✅ | System prompt |
+| Price pronunciation (Rand) | ✅ | "3500 Rand" not "R 3500" |
+| API key proxy | ✅ | `/api/gemini-token` — key never exposed to browser |
+| Email to Nikita | 🔲 Phase 3 | Resend integration — not yet built |
+| Return visitor recognition | 🔲 Phase 4 | Cookie → Supabase lookup → inject prior context into system prompt |
+
+**Supabase project:** `star-aesthetic-centre` (kprfezokgsmbizisvcrb.supabase.co)
+**Keys location:** `.env.local` — `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` + `GEMINI_API_KEY`
+
+---
+
+## Booking Engine — Next Build 🔲
+
+**Decision:** Custom-built (not SSA plugin — $99/yr too expensive)
+**Stack:** Next.js `/book` page + Supabase `bookings` table + Resend email confirmations
+**Appointment types:** 13 total (12 treatments + Free 15-min Assessment)
+**Availability:** Mon–Fri 09:00–17:00 (last slot 16:00) · Sat 09:00–13:00 (last slot 12:00)
+**Calendar:** 1 only — Dr. Bangalee
+**HealthBridge:** Clinic uses HealthBridge for consultation room — check if API/iCal sync is possible before building to avoid double bookings
+
+---
+
+## Treatment Pages — Polish Done ✅ (2026-03-20)
+
+- Full stops added to all `suitableFor`, `howWorks`, FAQ answer fields
+- `&amp;` HTML entities replaced with `&`
+- `downtimeDetail` now renders **bold** markdown correctly (RichText)
+- "Ready to start?" heading now `text-white` on dark navy
+- `ResultsTimeline` component: visual dot-and-line timeline for expectedResults
+- Jaw & Chin Contouring entity fix applied
+
+---
+
 ## Next Session — Suggested Priorities
 
-1. ✏️ Fix hero text colour (both homepage + Dr. Bangalee page) → `text-white`
-2. ✏️ Dr. Bangalee hero: reduce height to 90vh, ALL CAPS single line name
-3. ✏️ Restructure Assessment Part 2 (personal profile questions)
-4. 🔍 Research competitor skin assessment quizzes (Skin Renewal, POV Clinic, etc.)
-5. 🏗️ Load remaining product catalogue (balance of Dermaceutic + other brands)
-6. 🏗️ Build `/about` page for Star Aesthetic Centre (separate from Dr. Bangalee)
-7. 🗓️ Meeting with Dr. Bangalee & Nikita — get real credentials, photos, certifications
+1. 🏗️ **Build custom booking engine** — `/book` page, Supabase `bookings` table, availability logic, email confirmations
+2. 🔍 **Check HealthBridge API** — does it support iCal or webhook sync to avoid double bookings?
+3. 📧 **Resend email** — wire up Nikita email alert when Niki session ends (Phase 3)
+4. ✏️ Fix hero text colour (homepage + Dr. Bangalee page) → `text-white`
+5. ✏️ Dr. Bangalee hero: reduce height to 90vh, ALL CAPS single line name
+6. 🏗️ Build `/about` page for Star Aesthetic Centre
