@@ -1,9 +1,19 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useRef } from "react";
-import { ShoppingCart, Menu, X, ChevronRight, ChevronDown } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { ShoppingCart, Menu, X, ChevronRight, ChevronDown, Search } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
+
+/* ─── Search types ──────────────────────────────────────────── */
+type SearchResult = {
+  id: string;
+  name: string;
+  slug: string;
+  brand: string;
+  price: number;
+  image: string | null;
+};
 
 /* ─── Data ─────────────────────────────────────────────────── */
 const treatmentsColumns = [
@@ -40,12 +50,32 @@ const shopColumns = [
     {
         brand: "Dermaceutic",
         href: "/shop/brands/dermaceutic",
-        tagline: "Clinical skincare solutions",
+        tagline: "Pharmaceutical-grade skincare",
     },
     {
         brand: "Heliocare",
         href: "/shop/brands/heliocare",
-        tagline: "Advanced sun protection",
+        tagline: "360° sun protection",
+    },
+    {
+        brand: "ISDIN",
+        href: "/shop/brands/isdin",
+        tagline: "Dermatologist-developed",
+    },
+    {
+        brand: "Mesoestetic",
+        href: "/shop/brands/mesoestetic",
+        tagline: "Aesthetic medicine cosmetics",
+    },
+    {
+        brand: "NeoStrata",
+        href: "/shop/brands/neostrata",
+        tagline: "The science of skin renewal",
+    },
+    {
+        brand: "SkinCeuticals",
+        href: "/shop/brands/skinceuticals",
+        tagline: "Prevent. Correct. Protect.",
     },
 ];
 
@@ -59,6 +89,48 @@ export default function SiteNav() {
     const [activeMega, setActiveMega] = useState<MegaKey>(null);
     const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const { cartCount, dispatch: cartDispatch } = useCart();
+
+    // Search state
+    const [searchOpen, setSearchOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+    const [searchLoading, setSearchLoading] = useState(false);
+    const searchInputRef = useRef<HTMLInputElement>(null);
+    const searchDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const openSearch = () => {
+        setSearchOpen(true);
+        setActiveMega(null);
+        setTimeout(() => searchInputRef.current?.focus(), 50);
+    };
+
+    const closeSearch = useCallback(() => {
+        setSearchOpen(false);
+        setSearchQuery("");
+        setSearchResults([]);
+    }, []);
+
+    const handleSearchInput = (value: string) => {
+        setSearchQuery(value);
+        if (searchDebounce.current) clearTimeout(searchDebounce.current);
+        if (value.trim().length < 2) { setSearchResults([]); return; }
+        setSearchLoading(true);
+        searchDebounce.current = setTimeout(async () => {
+            try {
+                const res = await fetch(`/api/search?q=${encodeURIComponent(value.trim())}`);
+                const data = await res.json();
+                setSearchResults(data.results ?? []);
+            } finally {
+                setSearchLoading(false);
+            }
+        }, 250);
+    };
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeSearch(); };
+        if (searchOpen) document.addEventListener("keydown", onKey);
+        return () => document.removeEventListener("keydown", onKey);
+    }, [searchOpen, closeSearch]);
 
     const openMega = (key: MegaKey) => {
         if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
@@ -80,7 +152,7 @@ export default function SiteNav() {
                 {/* Logo */}
                 <Link href="/" className="flex items-center">
                     <Image
-                        src="http://star-aesthetic-centre.local/wp-content/uploads/star-aesthetic-centre-durban-logo-001.png"
+                        src="/images/star-aesthetic-centre-durban-logo-001.png"
                         alt="Star Aesthetic Centre Durban"
                         width={200}
                         height={66}
@@ -221,8 +293,17 @@ export default function SiteNav() {
                     </Link>
                 </nav>
 
-                {/* Right: Book Now + Cart + Mobile toggle */}
+                {/* Right: Search + Cart + Book Now + Mobile toggle */}
                 <div className="flex items-center gap-3">
+                    {/* Search icon */}
+                    <button
+                        onClick={openSearch}
+                        className="flex h-10 w-10 items-center justify-center text-[#636374] transition-colors hover:bg-[#EEF0F6] hover:text-[#1B3D6E]"
+                        aria-label="Search products"
+                    >
+                        <Search size={19} strokeWidth={1.5} />
+                    </button>
+
                     {/* Cart */}
                     <button
                         onClick={() => cartDispatch({ type: "OPEN_DRAWER" })}
@@ -255,6 +336,90 @@ export default function SiteNav() {
                     </button>
                 </div>
             </div>
+
+            {/* Search overlay */}
+            {searchOpen && (
+                <>
+                    {/* Backdrop */}
+                    <div
+                        className="fixed inset-0 top-[73px] bg-black/20 z-40"
+                        onClick={closeSearch}
+                    />
+                    {/* Search panel */}
+                    <div className="absolute left-0 right-0 top-full z-50 bg-white border-b border-[#E2E2E6] shadow-lg">
+                        <div className="mx-auto max-w-3xl px-4 sm:px-6 py-5">
+                            {/* Input row */}
+                            <div className="flex items-center gap-3 border-b border-[#1A1917] pb-3">
+                                <Search size={18} className="shrink-0 text-[#939EBA]" strokeWidth={1.5} />
+                                <input
+                                    ref={searchInputRef}
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={e => handleSearchInput(e.target.value)}
+                                    placeholder="Search products, brands…"
+                                    className="flex-1 bg-transparent text-base text-[#1A1917] placeholder:text-[#939EBA] focus:outline-none"
+                                />
+                                {searchQuery && (
+                                    <button onClick={() => { setSearchQuery(""); setSearchResults([]); searchInputRef.current?.focus(); }} className="text-[#939EBA] hover:text-[#1A1917] transition-colors">
+                                        <X size={16} />
+                                    </button>
+                                )}
+                                <button onClick={closeSearch} className="ml-2 text-xs font-medium text-[#636374] hover:text-[#1A1917] transition-colors whitespace-nowrap">
+                                    Close
+                                </button>
+                            </div>
+
+                            {/* Results */}
+                            {searchLoading && (
+                                <p className="py-6 text-center text-sm text-[#939EBA]">Searching…</p>
+                            )}
+                            {!searchLoading && searchResults.length > 0 && (
+                                <div className="pt-4">
+                                    <ul className="divide-y divide-[#F0F0EE]">
+                                        {searchResults.map(r => (
+                                            <li key={r.id}>
+                                                <Link
+                                                    href={`/shop/products/${r.slug}`}
+                                                    onClick={closeSearch}
+                                                    className="flex items-center gap-4 py-3 group"
+                                                >
+                                                    <div className="h-14 w-14 shrink-0 bg-[#F8F8F7] flex items-center justify-center overflow-hidden">
+                                                        {r.image ? (
+                                                            <Image src={r.image} alt={r.name} width={56} height={56} className="object-contain h-full w-full" unoptimized />
+                                                        ) : (
+                                                            <span className="text-[10px] text-[#939EBA]">No img</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="text-xs font-semibold uppercase tracking-widest text-[#939EBA] mb-0.5">{r.brand}</p>
+                                                        <p className="text-sm font-semibold text-[#1A1917] group-hover:text-[#1B3D6E] transition-colors truncate">{r.name}</p>
+                                                    </div>
+                                                    <p className="shrink-0 text-sm font-bold text-[#1A1917]">R {r.price.toLocaleString("en-ZA")}</p>
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <div className="pt-3 border-t border-[#F0F0EE]">
+                                        <Link
+                                            href={`/shop?q=${encodeURIComponent(searchQuery)}`}
+                                            onClick={closeSearch}
+                                            className="text-xs font-semibold text-[#1B3D6E] hover:underline"
+                                        >
+                                            View all results for "{searchQuery}" →
+                                        </Link>
+                                    </div>
+                                </div>
+                            )}
+                            {!searchLoading && searchQuery.trim().length >= 2 && searchResults.length === 0 && (
+                                <p className="py-6 text-center text-sm text-[#636374]">No products found for "<strong>{searchQuery}</strong>"</p>
+                            )}
+                            {!searchQuery && (
+                                <p className="py-4 text-xs text-[#939EBA]">Type to search across all brands and products.</p>
+                            )}
+                        </div>
+                    </div>
+                </>
+            )}
 
             {/* Mobile nav drawer */}
             {mobileOpen && (

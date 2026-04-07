@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { BANK_DETAILS } from "@/lib/constants/banking";
 import { useRouter } from "next/navigation";
 import { ShoppingCart, AlertCircle } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
@@ -63,6 +64,16 @@ export default function CheckoutPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState("");
 
+    // Gift voucher
+    const [voucherInput, setVoucherInput] = useState("");
+    const [voucherChecking, setVoucherChecking] = useState(false);
+    const [voucherError, setVoucherError] = useState("");
+    const [appliedVoucher, setAppliedVoucher] = useState<{
+        code: string;
+        balance_rands: number;
+        recipient_name: string;
+    } | null>(null);
+
     /* ── Empty cart guard ──────────────────────────────────────── */
     if (items.length === 0) {
         return (
@@ -121,6 +132,33 @@ export default function CheckoutPage() {
         };
     }
 
+    /* ── Voucher discount ──────────────────────────────────────── */
+    const voucherDiscount = appliedVoucher
+        ? Math.min(appliedVoucher.balance_rands, subtotal)
+        : 0;
+    const orderTotal = Math.max(0, subtotal - voucherDiscount);
+
+    async function checkVoucher() {
+        const code = voucherInput.trim().toUpperCase();
+        if (!code) return;
+        setVoucherChecking(true);
+        setVoucherError("");
+        try {
+            const res = await fetch(`/api/vouchers/validate?code=${encodeURIComponent(code)}`);
+            const data = await res.json();
+            if (data.valid) {
+                setAppliedVoucher({ code, balance_rands: data.balance_rands, recipient_name: data.recipient_name });
+                setVoucherInput("");
+            } else {
+                setVoucherError(data.error ?? "Invalid voucher code.");
+            }
+        } catch {
+            setVoucherError("Could not check voucher — please try again.");
+        } finally {
+            setVoucherChecking(false);
+        }
+    }
+
     /* ── Submit ────────────────────────────────────────────────── */
     async function handlePlaceOrder() {
         if (!validate()) return;
@@ -130,7 +168,7 @@ export default function CheckoutPage() {
             const res = await fetch("/api/orders", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ items, billing: form }),
+                body: JSON.stringify({ items, billing: form, voucher_code: appliedVoucher?.code ?? null }),
             });
             if (!res.ok) {
                 const errData = await res.json().catch(() => ({}));
@@ -411,12 +449,57 @@ export default function CheckoutPage() {
                                         Free
                                     </span>
                                 </div>
+
+                                {/* Gift voucher input */}
+                                {!appliedVoucher ? (
+                                    <div className="pt-2">
+                                        <p className="text-xs font-semibold text-[#636374] mb-1.5">Gift Voucher</p>
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="text"
+                                                value={voucherInput}
+                                                onChange={e => { setVoucherInput(e.target.value.toUpperCase()); setVoucherError(""); }}
+                                                onKeyDown={e => e.key === "Enter" && checkVoucher()}
+                                                placeholder="SAC-XXXX-XXXX-XXXX"
+                                                className="flex-1 border border-[#E2E2E6] px-3 py-2 text-xs font-mono focus:outline-none focus:border-[#C8A882] bg-white"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={checkVoucher}
+                                                disabled={voucherChecking || !voucherInput.trim()}
+                                                className="px-3 py-2 bg-[#0F2647] text-white text-xs font-semibold hover:bg-[#1B3D6E] transition-colors disabled:opacity-50 whitespace-nowrap"
+                                            >
+                                                {voucherChecking ? "…" : "Apply"}
+                                            </button>
+                                        </div>
+                                        {voucherError && (
+                                            <p className="text-xs text-red-600 mt-1">{voucherError}</p>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div className="flex justify-between text-sm items-center bg-green-50 border border-green-200 px-3 py-2">
+                                        <div>
+                                            <span className="font-semibold text-green-800">Voucher applied</span>
+                                            <p className="font-mono text-[10px] text-green-700">{appliedVoucher.code}</p>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="font-bold text-green-800">−R {voucherDiscount.toFixed(2)}</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => setAppliedVoucher(null)}
+                                                className="text-green-600 hover:text-green-800 text-xs"
+                                                title="Remove voucher"
+                                            >✕</button>
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className="flex justify-between border-t border-[#E2E2E6] pt-3">
                                     <span className="font-bold text-[#1A1A1F]">
                                         Total
                                     </span>
                                     <span className="font-bold text-[#1A1A1F]">
-                                        R {subtotal.toFixed(2)}
+                                        R {orderTotal.toFixed(2)}
                                     </span>
                                 </div>
                             </div>
@@ -435,33 +518,23 @@ export default function CheckoutPage() {
                                     <dt className="w-28 shrink-0 text-[#636374]">
                                         Bank
                                     </dt>
-                                    <dd className="font-semibold text-[#1A1A1F]">
-                                        Nedbank
-                                    </dd>
+                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.bank}</dd>
                                 </div>
                                 <div className="flex gap-2">
-                                    <dt className="w-28 shrink-0 text-[#636374]">
-                                        Account Name
-                                    </dt>
-                                    <dd className="font-semibold text-[#1A1A1F]">
-                                        Star Aesthetic Centre
-                                    </dd>
+                                    <dt className="w-28 shrink-0 text-[#636374]">Account Name</dt>
+                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.accountName}</dd>
                                 </div>
                                 <div className="flex gap-2">
-                                    <dt className="w-28 shrink-0 text-[#636374]">
-                                        Account No
-                                    </dt>
-                                    <dd className="font-semibold text-[#1A1A1F]">
-                                        [To be confirmed]
-                                    </dd>
+                                    <dt className="w-28 shrink-0 text-[#636374]">Account No</dt>
+                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.accountNo}</dd>
                                 </div>
                                 <div className="flex gap-2">
-                                    <dt className="w-28 shrink-0 text-[#636374]">
-                                        Branch Code
-                                    </dt>
-                                    <dd className="font-semibold text-[#1A1A1F]">
-                                        [To be confirmed]
-                                    </dd>
+                                    <dt className="w-28 shrink-0 text-[#636374]">Branch Code</dt>
+                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.branchCode}</dd>
+                                </div>
+                                <div className="flex gap-2">
+                                    <dt className="w-28 shrink-0 text-[#636374]">Account Type</dt>
+                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.accountType}</dd>
                                 </div>
                                 <div className="flex gap-2">
                                     <dt className="w-28 shrink-0 text-[#636374]">

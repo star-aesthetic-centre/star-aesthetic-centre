@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: "https://star-aesthetic-centre.local/wp-content/uploads/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
+        url: "/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
         width: 800,
         height: 1000,
         alt: "Dr. Rajeev Bangalee — Director of Star Aesthetic Centre Durban",
@@ -63,7 +63,7 @@ const personSchema = {
   description:
     "Dr. Rajeev Bangalee is the Director of Star Aesthetic Centre in Durban North, KwaZulu-Natal. A qualified GP specialising in Aesthetic Medicine with over 15 years of clinical experience in South Africa and the United Kingdom.",
   image:
-    "https://star-aesthetic-centre.local/wp-content/uploads/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
+    "/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
   url: "https://staraesthetic.co.za/dr-rajeev-bangalee",
   worksFor: {
     "@type": "MedicalClinic",
@@ -306,7 +306,7 @@ const faqs = [
 
 /* ─── Page ───────────────────────────────────────────────────────────── */
 export default function DrBangaleePage() {
-  const WP = "https://star-aesthetic-centre.local/wp-content/uploads";
+  const WP = "/images";
 
   return (
     <>

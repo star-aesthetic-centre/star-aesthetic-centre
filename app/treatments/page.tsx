@@ -4,7 +4,7 @@ import { ArrowRight, Eye } from "lucide-react";
 import type { Metadata } from "next";
 import treatmentsData from "@/lib/data/treatments.json";
 
-const WP = "https://star-aesthetic-centre.local/wp-content/uploads";
+const WP = "/images";
 
 export const metadata: Metadata = {
  title: "Treatments | Star Aesthetic Centre",

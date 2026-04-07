@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import BookingWizard from './BookingWizard';
 
 export const metadata: Metadata = {
-  title: 'Book an Appointment',
+  title: 'Book a Consultation',
   description:
-    'Book your appointment online with Dr. Rajeev Bangalee at Star Aesthetic Centre, Durban North. Choose your treatment, select a date and time, and confirm in minutes.',
+    'Book your consultation online with Dr. Rajeev Bangalee at Star Aesthetic Centre, Durban North. Choose your treatment, select a date and time, and confirm in minutes.',
 };
 
 export default function BookPage() {

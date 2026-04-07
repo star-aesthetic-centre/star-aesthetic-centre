@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const WP = "https://star-aesthetic-centre.local/wp-content/uploads";
+const WP = "/images";
 
 /* ── Treatment data: category + slug must match /treatments/[category]/[slug] route ── */
 const treatments = [

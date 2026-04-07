@@ -147,7 +147,36 @@
     "title": "Botox® Wrinkle Treatment",
     "tagline": "Natural-Looking Wrinkle Relaxation by Durban's Trusted Aesthetic Doctor",
     "quickSummary": "**Botox** (Botulinum Toxin Type A) is the world's most popular non-surgical cosmetic treatment — a purified protein that temporarily relaxes the facial muscles responsible for **expression lines**, delivering a smoother, younger-looking complexion with zero downtime.",
-    "priceFrom": "R 1,200 – R 4,500 (area and units dependent)",
+    "priceFrom": "From R 90 per unit · Optimal dosing (64 units) R 5,440",
+    "pricingBreakdown": {
+      "sections": [
+        {
+          "heading": "Pricing Per Unit",
+          "rows": [
+            { "label": "Less than 15 units", "price": "R 90 / unit + consultation fee" },
+            { "label": "15 – 49 units", "price": "R 90 / unit (no consultation fee)" },
+            { "label": "More than 50 units", "price": "R 85 / unit" },
+            { "label": "Optimal dosing — 64 units", "price": "R 5,440" }
+          ]
+        },
+        {
+          "heading": "Typical Unit Ranges by Area",
+          "rows": [
+            { "label": "Forehead lines", "price": "4 – 20 units" },
+            { "label": "Frown lines", "price": "15 – 40 units" },
+            { "label": "Brow lift", "price": "20 – 40 units" },
+            { "label": "Crow's feet (per side)", "price": "5 – 20 units" },
+            { "label": "Bunny lines", "price": "2 – 8 units" },
+            { "label": "Corners of mouth", "price": "2 – 6 units" },
+            { "label": "Dimpled chin", "price": "8 – 20 units" },
+            { "label": "Neck bands", "price": "20 – 30 units" },
+            { "label": "Masseter / jaw clenching (per side)", "price": "15 – 30 units" },
+            { "label": "Hyperhidrosis / Migraines", "price": "80+ units" }
+          ]
+        }
+      ],
+      "notes": ["Unit requirements vary per patient and are assessed at consultation. A consultation fee applies for treatments under 15 units."]
+    },
     "duration": "20–45 minutes (including consultation)",
     "downtime": "Zero downtime — return to normal activities immediately",
     "downtimeDetail": "**Zero clinical downtime.** You can return to work, driving, and most normal activities immediately. Avoid strenuous exercise, alcohol, facial massage, and lying face-down for **24 hours** post-treatment.",
@@ -221,7 +250,33 @@
     "title": "Dermapen® Microneedling Treatment",
     "tagline": "Clinically Proven Skin Rejuvenation — Stimulating Your Skin's Own Collagen",
     "quickSummary": "**Dermapen microneedling** creates thousands of micro-channels in the skin, triggering a controlled healing response that stimulates **collagen and elastin production**. The result: visibly improved texture, reduced scarring, tighter pores, and a younger-looking complexion.",
-    "priceFrom": "R 1,800 – R 2,500 per session",
+    "priceFrom": "From R 950 per session",
+    "pricingBreakdown": {
+      "sections": [
+        {
+          "heading": "Dermapen Microneedling",
+          "rows": [
+            { "label": "Neck", "price": "R 950" },
+            { "label": "Face", "price": "R 1,900" },
+            { "label": "Scalp", "price": "R 2,200" },
+            { "label": "Face and neck", "price": "R 2,800" },
+            { "label": "Face, neck and chest", "price": "R 3,800" },
+            { "label": "Other areas", "price": "Price on request" }
+          ]
+        },
+        {
+          "heading": "Platelet-Rich Plasma (PRP)",
+          "rows": [
+            { "label": "Scalp", "price": "R 3,800" },
+            { "label": "Face with Microneedling", "price": "R 4,200" },
+            { "label": "Scalp with Microneedling", "price": "R 4,600" },
+            { "label": "Face and neck with Microneedling", "price": "R 5,000" },
+            { "label": "Other areas", "price": "Price dependent on area" }
+          ]
+        }
+      ],
+      "notes": ["Numbing cream available: R 110."]
+    },
     "duration": "45–75 minutes (including anaesthetic time)",
     "downtime": "24–48 hours redness (social downtime 2–3 days)",
     "downtimeDetail": "**Social downtime** of 24–48 hours due to redness. Makeup can typically be applied from day 3 post-treatment. Avoid direct sun exposure, swimming, and strenuous exercise for **48–72 hours**. No saunas for 7 days.",
@@ -292,7 +347,20 @@
     "title": "Excessive Sweating Treatment (Hyperhidrosis)",
     "tagline": "Reclaim Your Confidence — Medical Hyperhidrosis Treatment in Durban",
     "quickSummary": "**Excessive sweating (hyperhidrosis)** is a medical condition with a highly effective medical solution. A single **30-minute treatment** with Botulinum Toxin (Botox®) delivers **6–9 months** of dramatic relief — no surgery, no downtime, and a result that quietly transforms how you show up in every area of your life.",
-    "priceFrom": "R 4,500 – R 6,000 per treatment (both underarms)",
+    "priceFrom": "From R 6,800 per treatment (underarms)",
+    "pricingBreakdown": {
+      "sections": [
+        {
+          "heading": "Botox for Hyperhidrosis (Excessive Sweating)",
+          "rows": [
+            { "label": "Less than 15 units", "price": "R 90 / unit + consultation fee" },
+            { "label": "15 – 49 units", "price": "R 90 / unit" },
+            { "label": "More than 50 units", "price": "R 85 / unit" }
+          ]
+        }
+      ],
+      "notes": ["Hyperhidrosis typically requires 80+ units per treatment area. At R 85/unit, underarm treatment starts from approximately R 6,800. Exact dosage assessed at consultation."]
+    },
     "duration": "30–45 minutes",
     "downtime": "Zero — return to work immediately",
     "downtimeDetail": "**Zero.** You can return to work, dress normally, and resume all activities immediately. Avoid strenuous exercise and hot baths for 24 hours.",
@@ -362,7 +430,30 @@
     "title": "Jaw & Chin Contouring",
     "tagline": "Define Your Profile — Non-Surgical Jawline & Chin Enhancement in Durban",
     "quickSummary": "**Jaw and chin contouring** uses dermal fillers to add definition and projection to an underdeveloped chin or jawline, and Botox to slim an over-developed **masseter muscle** (square jaw) — creating a more balanced, harmonious facial profile.",
-    "priceFrom": "R 2,500 – R 8,000 (depending on areas and product volume)",
+    "priceFrom": "From R 4,600 per syringe · HarmonyCA R 11,990",
+    "pricingBreakdown": {
+      "sections": [
+        {
+          "heading": "Dermal Fillers (last approx. 18 – 24 months)",
+          "rows": [
+            { "label": "1ml Juvéderm Volift", "price": "R 4,600" },
+            { "label": "1ml Juvéderm Voluma", "price": "R 4,600" },
+            { "label": "1ml Juvéderm Volux", "price": "R 4,900" }
+          ]
+        },
+        {
+          "heading": "Bio Remodeller / Stimulator",
+          "rows": [
+            { "label": "HarmonyCA — Calcium HA + Hyaluronic Acid (2 × 1.25ml)", "price": "R 11,990" },
+            { "label": "Juvéderm Volite Skin Booster (per syringe)", "price": "R 3,600" },
+            { "label": "Profhilo — high-concentration HA skin remodelling", "price": "Price after assessment" },
+            { "label": "Sculptra — Poly-Lactic Acid collagen biostimulator", "price": "Price after assessment" },
+            { "label": "Facial Thread Lift", "price": "Price after assessment" }
+          ]
+        }
+      ],
+      "notes": ["Volume and number of syringes required is determined at consultation. Filler longevity is based on product guidelines and may vary between patients."]
+    },
     "duration": "30–60 minutes",
     "downtime": "Minimal — mild swelling 24–48 hours",
     "downtimeDetail": "**24–48 hours** mild swelling and possible bruising (cover with makeup from day 2). Avoid strenuous exercise, excessive heat, and pressure on treated areas for 48 hours.",
@@ -433,7 +524,33 @@
     "title": "Lip Filler Treatment",
     "tagline": "Natural-Looking Lip Enhancement — Volume, Definition & Balance",
     "quickSummary": "**Lip fillers** use hyaluronic acid (a naturally occurring sugar molecule) to add volume, improve definition, and restore or enhance the natural shape and proportion of the lips — safely, reversibly, and with results lasting **6–12 months**.",
-    "priceFrom": "R 2,500 – R 4,500 (depending on amount of filler)",
+    "priceFrom": "R 1,800 – R 4,600 (volume and filler dependent)",
+    "pricingBreakdown": {
+      "sections": [
+        {
+          "heading": "Lip Sculpting",
+          "rows": [
+            { "label": "Lip Sculpting (volume and filler type dependent)", "price": "R 1,800 – R 4,600" }
+          ]
+        },
+        {
+          "heading": "Dermal Fillers (last approx. 18 – 24 months)",
+          "rows": [
+            { "label": "1ml Juvéderm Volift", "price": "R 4,600" },
+            { "label": "1ml Juvéderm Voluma", "price": "R 4,600" },
+            { "label": "1ml Juvéderm Volux", "price": "R 4,900" },
+            { "label": "Tear Trough Filler — 1ml", "price": "R 4,800" }
+          ]
+        },
+        {
+          "heading": "Skin Booster",
+          "rows": [
+            { "label": "Juvéderm Volite — improves skin quality for 6 – 9 months", "price": "R 3,600 per syringe" }
+          ]
+        }
+      ],
+      "notes": ["Number of syringes required is determined at consultation. Filler longevity is based on product guidelines and may vary between patients."]
+    },
     "duration": "30–45 minutes (including anaesthetic time)",
     "downtime": "24–48 hours mild swelling; bruising possible",
     "downtimeDetail": "**24–48 hours** mild-to-moderate lip swelling (can be covered with lip gloss). Bruising is possible but not universal. Avoid intense exercise, heat exposure, and alcohol for 24 hours. Avoid dental procedures for 2 weeks.",
@@ -573,7 +690,48 @@
     "title": "Pigmentation Treatment",
     "tagline": "Restore Your Natural Glow — Expert Pigmentation Treatment in Durban",
     "quickSummary": "**Pigmentation** — from dark spots to stubborn melasma — is a medically complex problem that needs more than a brightening cream. **Dr. Bangalee** combines the world-renowned **cosmelan® depigmentation system**, professional chemical peels, and a rigorously supervised home-care programme to deliver real, lasting results.",
-    "priceFrom": "R 1,200 – R 8,500 per session (modality dependent)",
+    "priceFrom": "From R 665 per session (modality dependent)",
+    "pricingBreakdown": {
+      "sections": [
+        {
+          "heading": "Depigmenting Peels",
+          "rows": [
+            { "label": "Mesoesthetic Melanostop Tranex — Eye", "price": "R 500" },
+            { "label": "Mesoesthetic Melanostop Tranex — Face", "price": "R 950" },
+            { "label": "Mesoesthetic Melanostop Tranex — Face and eye", "price": "R 1,350" },
+            { "label": "Mesoesthetic Melanostop Tranex — Face, eye + Microneedling", "price": "R 2,200" },
+            { "label": "Mesopeel MD Melanostop Tranex — Eye", "price": "R 500" },
+            { "label": "Mesopeel MD Melanostop Tranex — Face", "price": "R 1,400" }
+          ]
+        },
+        {
+          "heading": "Resurfacing & Brightening Peels",
+          "rows": [
+            { "label": "NeoStrata Glycolic 20% — Face", "price": "R 665" },
+            { "label": "NeoStrata Glycolic 20% — Face and neck", "price": "R 730" },
+            { "label": "Dermaceutic Crystal Peel — Face", "price": "R 1,300" },
+            { "label": "Dermaceutic Crystal Peel — Face and neck", "price": "R 1,815" },
+            { "label": "Dermaceutic Mela Forte Peel — Face", "price": "R 2,200" },
+            { "label": "Dermaceutic Mela Forte Peel — Face and neck", "price": "R 2,500" }
+          ]
+        },
+        {
+          "heading": "Dermapen Microneedling (scarring & textural pigmentation)",
+          "rows": [
+            { "label": "Face", "price": "R 1,900" },
+            { "label": "Face and neck", "price": "R 2,800" }
+          ]
+        },
+        {
+          "heading": "Platelet-Rich Plasma — PRP (severe scarring & pigmentation)",
+          "rows": [
+            { "label": "Face with Microneedling", "price": "R 4,200" },
+            { "label": "Face and neck with Microneedling", "price": "R 5,000" }
+          ]
+        }
+      ],
+      "notes": ["Numbing cream available: R 110. Treatment modality is selected at consultation based on pigmentation type and severity."]
+    },
     "duration": "30–90 minutes (depending on treatment modality)",
     "downtime": "Cosmelan: 5–7 days peeling/sensitivity; Peels: 2–5 days; Dermapen: 24–48 hours",
     "downtimeDetail": "**cosmelan® mask:** 5–7 days of peeling, redness, and sensitivity. **Chemical peels:** 2–5 days of mild peeling and sensitivity. **Dermapen:** 24–48 hours redness. Home-care products: occasional mild sensitivity during adaptation phase.",
@@ -643,7 +801,88 @@
     "title": "Skin Peel Treatment (Chemical Peel)",
     "tagline": "Reveal Brighter, Younger Skin — Professional Chemical Peels in Durban",
     "quickSummary": "A **professional chemical peel** is one of the most effective, most versatile, and most affordable treatments in aesthetic medicine. Using **mesoestetic's gold-standard mesopeel® range**, Dr. Bangalee delivers precisely calibrated results for texture, pigmentation, acne, and overall skin quality — with treatments ranging from a 'lunch-hour' refresh to a full medium-depth resurfacing.",
-    "priceFrom": "R 1,200 – R 2,500 per session",
+    "priceFrom": "From R 665 per session (peel type dependent)",
+    "pricingBreakdown": {
+      "sections": [
+        {
+          "heading": "NeoStrata Glycolic Peels",
+          "description": "All peels include a brightening or clarifying booster peel.",
+          "rows": [
+            { "label": "20% Glycolic — Face", "price": "R 665" },
+            { "label": "20% Glycolic — Face and neck", "price": "R 730" },
+            { "label": "35% Glycolic — Face", "price": "R 730" },
+            { "label": "35% Glycolic — Face and neck", "price": "R 790" },
+            { "label": "50% Glycolic — Face", "price": "R 790" },
+            { "label": "50% Glycolic — Face and neck", "price": "R 850" }
+          ]
+        },
+        {
+          "heading": "Dermaceutic TCA Peels",
+          "rows": [
+            { "label": "12% TCA — Face", "price": "R 1,595" },
+            { "label": "12% TCA — Face and neck / Hands / Feet", "price": "R 1,870" },
+            { "label": "12% TCA — Half arm", "price": "R 2,805" },
+            { "label": "12% TCA — Full arm / Back / Leg", "price": "R 4,930" },
+            { "label": "15% TCA — Face", "price": "R 1,705" },
+            { "label": "15% TCA — Face and neck / Hands / Feet", "price": "R 1,925" },
+            { "label": "15% TCA — Half arm", "price": "R 2,530" },
+            { "label": "15% TCA — Full arm / Back / Leg", "price": "R 5,060" },
+            { "label": "18% TCA — Face", "price": "R 1,815" },
+            { "label": "18% TCA — Face and neck / Hands / Feet", "price": "R 1,960" },
+            { "label": "18% TCA — Half arm", "price": "R 2,640" },
+            { "label": "18% TCA — Full arm / Back / Leg", "price": "R 5,170" },
+            { "label": "20% TCA — Face", "price": "R 1,925" },
+            { "label": "20% TCA — Face and neck / Hands / Feet", "price": "R 2,090" },
+            { "label": "20% TCA — Half arm", "price": "R 2,750" },
+            { "label": "20% TCA — Full arm / Back / Leg", "price": "R 5,500" }
+          ]
+        },
+        {
+          "heading": "Pixel Peel — Microneedling + TCA",
+          "rows": [
+            { "label": "Face", "price": "R 3,250" }
+          ]
+        },
+        {
+          "heading": "Dermaceutic Crystal Peel",
+          "rows": [
+            { "label": "Face", "price": "R 1,300" },
+            { "label": "Face and neck", "price": "R 1,815" }
+          ]
+        },
+        {
+          "heading": "Dermaceutic Mela Forte Peel",
+          "rows": [
+            { "label": "Face", "price": "R 2,200" },
+            { "label": "Face and neck", "price": "R 2,500" }
+          ]
+        },
+        {
+          "heading": "Mesoesthetic Melanostop Tranex Peel",
+          "rows": [
+            { "label": "Eye", "price": "R 500" },
+            { "label": "Face", "price": "R 950" },
+            { "label": "Face and eye", "price": "R 1,350" },
+            { "label": "Face and eye with Microneedling", "price": "R 2,200" }
+          ]
+        },
+        {
+          "heading": "Mesopeel MD Melanostop Tranex Peel",
+          "rows": [
+            { "label": "Eye", "price": "R 500" },
+            { "label": "Face", "price": "R 1,400" }
+          ]
+        },
+        {
+          "heading": "Dermaplaning",
+          "rows": [
+            { "label": "Face (standalone)", "price": "R 800" },
+            { "label": "Add-on to any skin treatment", "price": "R 600" }
+          ]
+        }
+      ],
+      "notes": ["Numbing cream available: R 110."]
+    },
     "duration": "30–60 minutes",
     "downtime": "Superficial peels: 2–4 days; Medium-depth: 5–7 days",
     "downtimeDetail": "**Superficial peels:** 2–4 days of mild flaking and sensitivity. **Medium-depth peels:** 5–7 days of visible peeling and redness — social downtime advised. All peel types: strict **SPF use** for minimum 4 weeks post-peel, and no direct sun exposure.",
@@ -782,7 +1021,21 @@
     "title": "Vitamin Drips — Intravenous Nutrient Therapy",
     "tagline": "The Star Hydration, Fitness & Ultimate Vitamin Drips in Durban North",
     "quickSummary": "**IV vitamin drips** administer therapeutic doses of vitamins, minerals, antioxidants, and hydration directly into the bloodstream — delivering immediate, measurable results in **energy, hydration, skin radiance, immunity, and recovery** that oral supplements simply cannot match.",
-    "priceFrom": "R 1,800 – R 3,500 (drip protocol dependent)",
+    "priceFrom": "R 1,070 – R 1,870 (drip protocol dependent)",
+    "pricingBreakdown": {
+      "sections": [
+        {
+          "rows": [
+            { "label": "Star Bright — Glutathione 600mg + Vit C 1,000mg · 200ml bag", "price": "R 1,070" },
+            { "label": "Star Hydrating — Full vitamin complex (A, B1–B12, C, D3, E, Folic, Biotin) · 1L bag", "price": "R 1,265" },
+            { "label": "Star Party — Full complex + Vit B12 25,000mcg · 1L bag", "price": "R 1,465" },
+            { "label": "Star Fitness — Full complex + Vit C + Vit B12 25,000mcg · 1L bag", "price": "R 1,620" },
+            { "label": "Star Ultimate — Full complex + Vit C + Vit B12 + Glutathione 600mg · 1L bag", "price": "R 1,870" }
+          ]
+        }
+      ],
+      "notes": ["Additional vitamins can be added at extra cost — request a drip menu for detailed pricing."]
+    },
     "duration": "45–75 minutes per drip",
     "downtime": "None — return to normal activities immediately after",
     "downtimeDetail": "None. You can drive, work, exercise, and resume all normal activities immediately after the infusion.",

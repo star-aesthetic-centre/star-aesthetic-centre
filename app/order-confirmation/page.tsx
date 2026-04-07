@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
+import { BANK_DETAILS } from "@/lib/constants/banking";
 
 /* ─── Bank details block (reused in checkout + here) ─────────── */
 function BankDetails({ orderId }: { orderId: string }) {
@@ -15,25 +16,23 @@ function BankDetails({ orderId }: { orderId: string }) {
             <dl className="space-y-2 text-sm">
                 <div className="flex gap-2">
                     <dt className="w-28 shrink-0 text-[#636374]">Bank</dt>
-                    <dd className="font-semibold text-[#1A1A1F]">Nedbank</dd>
+                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.bank}</dd>
                 </div>
                 <div className="flex gap-2">
                     <dt className="w-28 shrink-0 text-[#636374]">Account Name</dt>
-                    <dd className="font-semibold text-[#1A1A1F]">
-                        Star Aesthetic Centre
-                    </dd>
+                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.accountName}</dd>
                 </div>
                 <div className="flex gap-2">
                     <dt className="w-28 shrink-0 text-[#636374]">Account No</dt>
-                    <dd className="font-semibold text-[#1A1A1F]">
-                        [To be confirmed]
-                    </dd>
+                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.accountNo}</dd>
                 </div>
                 <div className="flex gap-2">
                     <dt className="w-28 shrink-0 text-[#636374]">Branch Code</dt>
-                    <dd className="font-semibold text-[#1A1A1F]">
-                        [To be confirmed]
-                    </dd>
+                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.branchCode}</dd>
+                </div>
+                <div className="flex gap-2">
+                    <dt className="w-28 shrink-0 text-[#636374]">Account Type</dt>
+                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.accountType}</dd>
                 </div>
                 <div className="flex gap-2">
                     <dt className="w-28 shrink-0 text-[#636374]">Reference</dt>

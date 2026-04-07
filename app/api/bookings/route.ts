@@ -5,7 +5,7 @@
  *  1. Validates inputs
  *  2. Re-checks slot availability (race-condition guard)
  *  3. Inserts to Supabase
- *  4. Sends emails via Resend (patient confirmation + Nikita alert)
+ *  4. Sends emails via Resend (patient confirmation + Nakita alert)
  *  5. Returns booking reference
  */
 
@@ -153,12 +153,12 @@ export async function POST(req: NextRequest) {
       }),
     });
 
-    // Nikita alert
+    // Nakita alert
     await resend.emails.send({
       from:    'Star Aesthetic Bookings <bookings@staraesthetic.site>',
       to:      'info@staraesthetic.site',
       subject: `New Booking: ${apt.title} — ${dateDisplay} at ${timeDisplay}`,
-      html:    buildNikitaEmail({
+      html:    buildNakitaEmail({
         reference, patientName, patientEmail, patientPhone,
         apt: apt.title, dateDisplay, timeDisplay, endDisplay, notes,
       }),
@@ -269,7 +269,7 @@ function buildPatientEmail(p: PatientEmailProps): string {
   `.trim();
 }
 
-interface NikitaEmailProps {
+interface NakitaEmailProps {
   reference:    string;
   patientName:  string;
   patientEmail: string;
@@ -281,7 +281,7 @@ interface NikitaEmailProps {
   notes?:       string;
 }
 
-function buildNikitaEmail(p: NikitaEmailProps): string {
+function buildNakitaEmail(p: NakitaEmailProps): string {
   return `
 <!DOCTYPE html>
 <html lang="en">

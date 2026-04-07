@@ -618,7 +618,7 @@ function ConfirmationScreen({
       <div className="mb-8 border border-[#E5E4E0] bg-white p-6 text-left">
         <div className="mb-4 flex items-center justify-between">
           <p className="text-[11px] font-semibold uppercase tracking-[3px] text-[#0F2647]">
-            Appointment Details
+            Consultation Details
           </p>
           <span className="rounded-none bg-[#F8F8F7] px-3 py-1 text-xs font-mono font-semibold text-[#6B6966]">
             {reference}
@@ -746,7 +746,7 @@ export default function BookingWizard() {
             Star Aesthetic Centre
           </p>
           <h1 className="font-[family-name:var(--font-roboto-condensed)] text-3xl font-light tracking-wide text-white sm:text-4xl">
-            Appointment Confirmed
+            Consultation Confirmed
           </h1>
           <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#939EBA]">
             A confirmation has been sent to your email address.
@@ -781,7 +781,7 @@ export default function BookingWizard() {
           Star Aesthetic Centre
         </p>
         <h1 className="font-[family-name:var(--font-roboto-condensed)] text-3xl font-light tracking-wide text-white sm:text-4xl">
-          Book Your Appointment
+          Book Your Consultation
         </h1>
         <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#939EBA]">
           Select your treatment, choose a date and time, and confirm — we'll send a confirmation

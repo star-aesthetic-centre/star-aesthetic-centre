@@ -20,7 +20,7 @@ export default function DoctorTrust() {
  {/* Image frame */}
  <div className="relative aspect-[4/5] overflow-hidden bg-[#F7F7F8] shadow-xl">
  <Image
-  src="https://star-aesthetic-centre.local/wp-content/uploads/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp"
+  src="/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp"
   alt="Dr. Rajeev Bangalee — Director of Star Aesthetic Centre Durban"
   fill
   unoptimized

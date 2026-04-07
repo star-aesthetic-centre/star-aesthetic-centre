@@ -7,7 +7,7 @@ export default function HeroSection() {
 
             {/* ── Background image ──────────────────────────────── */}
             <Image
-                src="https://star-aesthetic-centre.local/wp-content/uploads/star-aesthetic-centre-durban-homepage-hero-005.webp"
+                src="/images/star-aesthetic-centre-durban-homepage-hero-005.webp"
                 alt="Star Aesthetic Centre Durban clinic"
                 fill
                 priority

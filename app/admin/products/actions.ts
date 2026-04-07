@@ -1,0 +1,122 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { createSupabaseAdmin } from "@/lib/supabase-admin";
+
+export async function toggleProductActive(
+  productId: string,
+  isActive: boolean
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const supabase = createSupabaseAdmin();
+    const { error } = await supabase
+      .from("products")
+      .update({ is_active: isActive })
+      .eq("id", productId);
+
+    if (error) return { success: false, error: error.message };
+
+    revalidatePath("/admin/products");
+    revalidatePath("/shop");
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
+
+export async function updateProductPrice(
+  productId: string,
+  priceCents: number
+): Promise<{ success: boolean; error?: string }> {
+  if (priceCents < 0 || priceCents > 10_000_00) {
+    return { success: false, error: "Price out of range" };
+  }
+
+  try {
+    const supabase = createSupabaseAdmin();
+    const { error } = await supabase
+      .from("products")
+      .update({ price_cents: priceCents })
+      .eq("id", productId);
+
+    if (error) return { success: false, error: error.message };
+
+    revalidatePath("/admin/products");
+    revalidatePath("/shop");
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
+
+export async function updateProductStock(
+  productId: string,
+  stockQuantity: number | null
+): Promise<{ success: boolean; error?: string }> {
+  if (stockQuantity !== null && (stockQuantity < 0 || stockQuantity > 99999)) {
+    return { success: false, error: "Stock quantity out of range" };
+  }
+
+  try {
+    const supabase = createSupabaseAdmin();
+    const { error } = await supabase
+      .from("products")
+      .update({ stock_quantity: stockQuantity })
+      .eq("id", productId);
+
+    if (error) return { success: false, error: error.message };
+
+    revalidatePath("/admin/products");
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
+
+export async function updateProductShortDescription(
+  productId: string,
+  shortDescription: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const supabase = createSupabaseAdmin();
+    const { error } = await supabase
+      .from("products")
+      .update({ short_description: shortDescription })
+      .eq("id", productId);
+
+    if (error) return { success: false, error: error.message };
+
+    revalidatePath("/admin/products");
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
+
+export async function updateFullProduct(
+  productId: string,
+  data: {
+    price_cents?: number;
+    stock_quantity?: number | null;
+    short_description?: string;
+    description?: string;
+    is_active?: boolean;
+  }
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const supabase = createSupabaseAdmin();
+    const { error } = await supabase
+      .from("products")
+      .update(data)
+      .eq("id", productId);
+
+    if (error) return { success: false, error: error.message };
+
+    revalidatePath("/admin/products");
+    revalidatePath(`/admin/products/${productId}/edit`);
+    revalidatePath("/shop");
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}

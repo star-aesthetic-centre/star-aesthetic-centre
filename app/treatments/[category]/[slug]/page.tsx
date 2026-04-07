@@ -5,6 +5,9 @@ import { ArrowLeft, Clock, Activity, CreditCard, ChevronDown } from "lucide-reac
 import treatmentsData from "@/lib/data/treatments.json";
 import { RichText } from "@/lib/utils/richText";
 import { NikiAgentCard } from "@/components/treatments/NikiAgentCard";
+import { getTreatmentRecommendations, formatPrice, type TreatmentRecommendation } from "@/lib/queries/supabase-products";
+import { RewardsCard } from "@/components/shared/RewardsCard";
+import { GiftVoucherCard } from "@/components/shared/GiftVoucherCard";
 
 interface TreatmentPageProps {
     params: Promise<{ category: string; slug: string }>;
@@ -81,6 +84,15 @@ function ResultsTimeline({ text }: { text: string }) {
     );
 }
 
+// Phase display order
+const PHASE_ORDER = [
+    "pre-treatment",
+    "post-treatment",
+    "during-protocol",
+    "maintenance",
+    "complementary",
+];
+
 export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     const { category, slug } = await params;
     const treatment = treatmentsData.find((t: any) => t.slug === slug);
@@ -88,6 +100,15 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     if (!treatment) {
         notFound();
     }
+
+    const recommendations = await getTreatmentRecommendations(slug);
+
+    // Group by phase, preserving display order
+    const byPhase = PHASE_ORDER.reduce<Record<string, TreatmentRecommendation[]>>((acc, phase) => {
+        const items = recommendations.filter((r) => r.phase === phase);
+        if (items.length > 0) acc[phase] = items;
+        return acc;
+    }, {});
 
     return (
         <article className="min-h-screen bg-[#F7F7F8]">
@@ -231,6 +252,49 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                             </div>
                         )}
 
+                        {/* Pricing Breakdown */}
+                        {(treatment as any).pricingBreakdown && (
+                            <div>
+                                <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
+                                    Pricing
+                                </h2>
+                                <div className="space-y-6">
+                                    {(treatment as any).pricingBreakdown.sections.map((section: any, si: number) => (
+                                        <div key={si} className="bg-white border border-[#E2E2E6] overflow-hidden">
+                                            {section.heading && (
+                                                <div className="px-6 py-4 bg-[#0F2647]">
+                                                    <h3 className="font-semibold text-sm text-white">{section.heading}</h3>
+                                                    {section.description && (
+                                                        <p className="text-xs text-[#939EBA] mt-1">{section.description}</p>
+                                                    )}
+                                                </div>
+                                            )}
+                                            <table className="w-full text-sm">
+                                                <tbody>
+                                                    {section.rows.map((row: any, ri: number) => (
+                                                        <tr key={ri} className={ri % 2 === 0 ? "bg-white" : "bg-[#F7F7F8]"}>
+                                                            <td className="px-6 py-3 text-[#1A1A1F]">{row.label}</td>
+                                                            <td className="px-6 py-3 text-right font-semibold text-[#0F2647] whitespace-nowrap">{row.price}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    ))}
+                                    {(treatment as any).pricingBreakdown.notes?.length > 0 && (
+                                        <ul className="space-y-1">
+                                            {(treatment as any).pricingBreakdown.notes.map((note: string, ni: number) => (
+                                                <li key={ni} className="text-xs text-[#636374] flex gap-2">
+                                                    <span className="text-[#939EBA] shrink-0">*</span>
+                                                    {note}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
                         {/* Expected Results */}
                         {treatment.expectedResults && (
                             <div>
@@ -316,9 +380,108 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 Book Your Consultation
                             </a>
                         </div>
+
+                        {/* Rewards Programme card */}
+                        <RewardsCard />
+
+                        {/* Gift Vouchers card */}
+                        <GiftVoucherCard />
                     </div>
                 </div>
             </section>
+
+            {/* ── Recommended Products ── */}
+            {Object.keys(byPhase).length > 0 && (
+                <section className="bg-white py-16 lg:py-24 border-t border-[#E2E2E6]">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+                        <div className="mb-10">
+                            <p className="overline mb-3 text-[#939EBA]">Dr. Bangalee Selected</p>
+                            <h2 className="font-heading text-3xl lg:text-4xl font-bold text-[#1A1A1F]">
+                                Products for Your {treatment.title} Journey
+                            </h2>
+                            <p className="mt-3 text-[#636374] max-w-2xl">
+                                Clinically chosen skincare to prepare, protect and prolong your results — available to purchase directly from our practice.
+                            </p>
+                        </div>
+
+                        <div className="space-y-12">
+                            {Object.entries(byPhase).map(([phase, items]) => (
+                                <div key={phase}>
+                                    {/* Phase label */}
+                                    <div className="flex items-center gap-4 mb-6">
+                                        <span className="text-xs font-bold uppercase tracking-widest text-[#939EBA] bg-[#EEF0F6] px-3 py-1.5">
+                                            {items[0].phase_label}
+                                        </span>
+                                        <div className="flex-1 h-px bg-[#E2E2E6]" />
+                                    </div>
+
+                                    {/* Product cards */}
+                                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                        {items.map((rec) => (
+                                            <Link
+                                                key={rec.id}
+                                                href={`/shop/products/${rec.product.slug}`}
+                                                className="group flex flex-col bg-[#F7F7F8] border border-[#E2E2E6] hover:border-[#939EBA] transition-colors"
+                                            >
+                                                {/* Image */}
+                                                <div className="relative aspect-square bg-white overflow-hidden">
+                                                    {rec.product.primaryImage ? (
+                                                        <Image
+                                                            src={rec.product.primaryImage}
+                                                            alt={rec.product.name}
+                                                            fill
+                                                            unoptimized
+                                                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                                        />
+                                                    ) : (
+                                                        <div className="flex h-full items-center justify-center">
+                                                            <span className="text-xs text-[#939EBA]">{rec.product.name}</span>
+                                                        </div>
+                                                    )}
+                                                    {rec.is_essential && (
+                                                        <span className="absolute top-2 left-2 bg-[#939EBA] text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5">
+                                                            Essential
+                                                        </span>
+                                                    )}
+                                                </div>
+
+                                                {/* Info */}
+                                                <div className="flex flex-col flex-1 p-4">
+                                                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#939EBA] mb-1">
+                                                        {rec.product.brand_slug.replace(/-/g, " ")}
+                                                    </p>
+                                                    <h3 className="font-heading font-bold text-[#1A1A1F] text-sm mb-2 leading-snug">
+                                                        {rec.product.name}
+                                                    </h3>
+                                                    {rec.notes && (
+                                                        <p className="text-xs text-[#636374] leading-relaxed mb-3 flex-1">
+                                                            {rec.notes}
+                                                        </p>
+                                                    )}
+                                                    <div className="mt-auto flex items-center justify-between pt-3 border-t border-[#E2E2E6]">
+                                                        {rec.product.price != null ? (
+                                                            <span className="font-bold text-[#1A1A1F] text-sm">
+                                                                R {formatPrice(rec.product.price)}
+                                                            </span>
+                                                        ) : (
+                                                            <span className="text-xs text-[#636374]">Price on request</span>
+                                                        )}
+                                                        <span className="text-xs font-semibold text-[#939EBA] group-hover:underline">
+                                                            Shop →
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
         </article>
     );
 }

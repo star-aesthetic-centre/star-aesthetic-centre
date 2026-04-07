@@ -32,7 +32,7 @@ export default function Footer() {
                     <div className="lg:col-span-1">
                         <Link href="/" className="inline-block mb-6">
                             <Image
-                                src="http://star-aesthetic-centre.local/wp-content/uploads/star-aesthetic-centre-durban-logo-001.png"
+                                src="/images/star-aesthetic-centre-durban-logo-001.png"
                                 alt="Star Aesthetic Centre Durban"
                                 width={200}
                                 height={66}
