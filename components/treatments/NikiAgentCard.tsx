@@ -195,7 +195,7 @@ export function NikiAgentCard({ treatmentName, treatmentPage }: NikiAgentCardPro
 
       const pcm = base64Pcm16ToFloat32(b64);
       const buf = ctx.createBuffer(1, pcm.length, 24000);
-      buf.copyToChannel(pcm, 0);
+      buf.copyToChannel(pcm as Float32Array<ArrayBuffer>, 0);
 
       const src = ctx.createBufferSource();
       src.buffer = buf;
