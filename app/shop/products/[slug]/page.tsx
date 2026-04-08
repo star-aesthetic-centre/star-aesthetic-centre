@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Truck, RotateCcw, ShieldCheck } from "lucide-react";
+import { Truck, RotateCcw } from "lucide-react";
 import { RewardsCard } from "@/components/shared/RewardsCard";
 import { GiftVoucherCard } from "@/components/shared/GiftVoucherCard";
 import type { Metadata } from "next";
@@ -8,6 +8,9 @@ import ProductCard from "@/components/shop/ProductCard";
 import AddToCartControls from "@/components/shop/AddToCartControls";
 import ProductImageGallery from "@/components/shop/ProductImageGallery";
 import LifestyleGallery from "@/components/shop/LifestyleGallery";
+import ProductStarRating from "@/components/shop/ProductStarRating";
+import NikiProductCard from "@/components/shop/NikiProductCard";
+import ProductTrustBadges from "@/components/shop/ProductTrustBadges";
 import { getProductBySlug, getRelatedProducts, getPrimaryImage, formatPrice, getTreatmentsForProduct } from "@/lib/queries/supabase-products";
 import { getBrandBySlug } from "@/lib/brands";
 
@@ -87,12 +90,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 images={product.images}
                 productName={product.name}
               />
+              <NikiProductCard productName={product.name} />
             </div>
 
             {/* Product info — right */}
             <div>
               <span className="overline mb-2 block">{brandName}</span>
               <h1 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-3">{product.name}</h1>
+              <ProductStarRating productId={product.id} productName={product.name} />
 
               {product.short_description && (
                 <div
@@ -145,17 +150,20 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               <div className="flex flex-col gap-2.5 text-xs text-[#636374]">
                 <span className="flex items-center gap-2">
                   <Truck size={14} className="text-[#939EBA]" />
-                  Free shipping on orders over R999
-                </span>
-                <span className="flex items-center gap-2">
-                  <ShieldCheck size={14} className="text-[#939EBA]" />
-                  Dr. Bangalee recommended
+                  <Link href="/legal/shipping" className="hover:text-[#0F2647] transition-colors underline underline-offset-2">
+                    Free delivery on orders over R800
+                  </Link>
+                  <span className="text-[#E5E4E0]">·</span>
+                  <span>R120 standard</span>
                 </span>
                 <span className="flex items-center gap-2">
                   <RotateCcw size={14} className="text-[#939EBA]" />
-                  30-day returns
+                  30-day returns · Dr. Bangalee recommended
                 </span>
               </div>
+
+              {/* SSL + Payment icons */}
+              <ProductTrustBadges />
 
               {/* Rewards Programme card */}
               <RewardsCard price={priceNumber} />

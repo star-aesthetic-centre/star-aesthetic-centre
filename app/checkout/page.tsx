@@ -132,11 +132,16 @@ export default function CheckoutPage() {
         };
     }
 
+    /* ── Shipping ─────────────────────────────────────────────── */
+    const FREE_SHIPPING_THRESHOLD = 800;
+    const STANDARD_SHIPPING = 120;
+    const shippingCost = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING;
+
     /* ── Voucher discount ──────────────────────────────────────── */
     const voucherDiscount = appliedVoucher
         ? Math.min(appliedVoucher.balance_rands, subtotal)
         : 0;
-    const orderTotal = Math.max(0, subtotal - voucherDiscount);
+    const orderTotal = Math.max(0, subtotal + shippingCost - voucherDiscount);
 
     async function checkVoucher() {
         const code = voucherInput.trim().toUpperCase();
@@ -444,10 +449,17 @@ export default function CheckoutPage() {
                                 <div className="flex justify-between text-sm">
                                     <span className="text-[#636374]">
                                         Shipping
+                                        {subtotal < FREE_SHIPPING_THRESHOLD && (
+                                            <span className="ml-1 text-[10px] text-[#939EBA]">
+                                                (free over R{FREE_SHIPPING_THRESHOLD})
+                                            </span>
+                                        )}
                                     </span>
-                                    <span className="font-semibold text-green-600">
-                                        Free
-                                    </span>
+                                    {shippingCost === 0 ? (
+                                        <span className="font-semibold text-green-600">Free</span>
+                                    ) : (
+                                        <span className="font-semibold text-[#1A1A1F]">R {shippingCost.toFixed(2)}</span>
+                                    )}
                                 </div>
 
                                 {/* Gift voucher input */}

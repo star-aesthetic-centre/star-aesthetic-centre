@@ -5,6 +5,7 @@ import SiteNav from "@/components/layout/SiteNav";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/lib/cart-context";
 import CartDrawer from "@/components/shop/CartDrawer";
+import CookieConsent from "@/components/layout/CookieConsent";
 
 const roboto = Roboto({
     variable: "--font-roboto",
@@ -128,6 +129,7 @@ export default function RootLayout({
                     <CartDrawer />
                     <main>{children}</main>
                     <Footer />
+                    <CookieConsent />
                 </CartProvider>
             </body>
         </html>

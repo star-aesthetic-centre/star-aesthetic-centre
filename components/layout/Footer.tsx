@@ -159,6 +159,9 @@ export default function Footer() {
                         <Link href="/legal/terms-and-conditions" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
                             Terms &amp; Conditions
                         </Link>
+                        <Link href="/legal/shipping" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
+                            Shipping &amp; Delivery
+                        </Link>
                         <Link href="/legal/returns-policy" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
                             Returns Policy
                         </Link>
