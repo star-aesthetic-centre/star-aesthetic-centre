@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     },
     description:
         "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling & more — by Dr. Rajeev Bangalee (MB, BS).",
-    metadataBase: new URL("https://star-aesthetic-centre.vercel.app"),
+    metadataBase: new URL("https://www.staraesthetic.online"),
     keywords: ["aesthetic clinic Durban", "botox Durban North", "lip fillers Durban", "skin peel Durban", "Dr Rajeev Bangalee", "medical aesthetics KZN"],
     openGraph: {
         siteName: "Star Aesthetic Centre",
