@@ -23,14 +23,32 @@ const robotoCondensed = Roboto_Condensed({
 export const metadata: Metadata = {
     title: {
         template: "%s | Star Aesthetic Centre",
-        default: "Star Aesthetic Centre — Dr. Rajeev Bangalee, Durban",
+        default: "Star Aesthetic Centre — Dr. Rajeev Bangalee, Durban North",
     },
     description:
-        "Doctor-led aesthetic treatments and curated medical skincare — delivered with personalised care and effortless elegance. Durban North, KZN.",
-    metadataBase: new URL("https://staraesthetic.co.za"),
+        "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling & more — by Dr. Rajeev Bangalee (MB, BS).",
+    metadataBase: new URL("https://star-aesthetic-centre.vercel.app"),
+    keywords: ["aesthetic clinic Durban", "botox Durban North", "lip fillers Durban", "skin peel Durban", "Dr Rajeev Bangalee", "medical aesthetics KZN"],
     openGraph: {
         siteName: "Star Aesthetic Centre",
         locale: "en_ZA",
+        type: "website",
+        title: "Star Aesthetic Centre — Dr. Rajeev Bangalee, Durban North",
+        description: "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling & more.",
+        images: [
+            {
+                url: "/images/star-aesthetic-centre-durban-homepage-hero-005.webp",
+                width: 1200,
+                height: 630,
+                alt: "Star Aesthetic Centre — Doctor-led aesthetics in Durban North",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Star Aesthetic Centre — Dr. Rajeev Bangalee, Durban North",
+        description: "Doctor-led aesthetic treatments and curated medical skincare in Durban North.",
+        images: ["/images/star-aesthetic-centre-durban-homepage-hero-005.webp"],
     },
 };
 

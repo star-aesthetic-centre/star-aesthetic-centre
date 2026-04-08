@@ -3,6 +3,7 @@ import TrustStrip from "@/components/home/TrustStrip";
 import TreatmentCategories from "@/components/home/TreatmentCategories";
 import ProductBrands from "@/components/home/ProductBrands";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
+import PerksSection from "@/components/home/PerksSection";
 import DoctorTrust from "@/components/home/DoctorTrust";
 import SkinAssessmentCTA from "@/components/home/SkinAssessmentCTA";
 import Testimonials from "@/components/home/Testimonials";
@@ -16,6 +17,7 @@ export default function HomePage() {
             <TreatmentCategories />
             <ProductBrands />
             <FeaturedProducts />
+            <PerksSection />
             <DoctorTrust />
             <SkinAssessmentCTA />
             <Testimonials />

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { ShoppingCart, Menu, X, ChevronRight, ChevronDown, Search } from "lucide-react";
+import { ShoppingCart, Menu, X, ChevronRight, ChevronDown, Search, UserCircle } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 
 /* ─── Search types ──────────────────────────────────────────── */
@@ -303,6 +303,16 @@ export default function SiteNav() {
                     >
                         <Search size={19} strokeWidth={1.5} />
                     </button>
+
+                    {/* Login / Admin */}
+                    <Link
+                        href="/admin"
+                        className="flex h-10 w-10 items-center justify-center text-[#636374] transition-colors hover:bg-[#EEF0F6] hover:text-[#1B3D6E]"
+                        aria-label="Staff login"
+                        title="Staff login"
+                    >
+                        <UserCircle size={20} strokeWidth={1.5} />
+                    </Link>
 
                     {/* Cart */}
                     <button
