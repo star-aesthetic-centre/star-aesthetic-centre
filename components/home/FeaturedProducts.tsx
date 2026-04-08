@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getProductsByBrand, getPrimaryImage } from "@/lib/queries/supabase-products";
+import { calculateStarlights } from "@/lib/utils/rewards";
 
 export default async function FeaturedProducts() {
   const products = await getProductsByBrand("dermaceutic");
@@ -47,6 +48,7 @@ export default async function FeaturedProducts() {
             const price = product.price != null
               ? new Intl.NumberFormat("en-ZA", { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(product.price)
               : null;
+            const starlights = product.price ? calculateStarlights(product.price) : null;
 
             return (
               <Link
@@ -88,9 +90,19 @@ export default async function FeaturedProducts() {
                     {product.name}
                   </h3>
                   {price && (
-                    <p className="mt-2 font-heading text-sm font-bold text-[#939EBA]">
+                    <p className="mt-2 font-heading text-sm font-bold text-[#1A1A1F]">
                       R {price}
                     </p>
+                  )}
+                  {starlights !== null && starlights > 0 && (
+                    <div className="mt-2.5 flex items-center gap-1.5 bg-[#0F2647]/5 border border-[#0F2647]/10 px-2.5 py-1.5">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="#C8A882" stroke="none">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                      <span className="text-[10px] font-bold uppercase tracking-wide text-[#0F2647]">
+                        Earn {starlights.toLocaleString("en-ZA")} Starlights
+                      </span>
+                    </div>
                   )}
                 </div>
               </Link>

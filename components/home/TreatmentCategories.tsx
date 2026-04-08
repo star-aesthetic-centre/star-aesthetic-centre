@@ -1,95 +1,24 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { calculateStarlights } from "@/lib/utils/rewards";
 
 const WP = "/images";
 
 /* ── Treatment data: category + slug must match /treatments/[category]/[slug] route ── */
 const treatments = [
-    {
-        name: "Anti-Ageing Injections",
-        category: "face",
-        slug: "botox",
-        image: `${WP}/botox-anti-aging-injections-durban.webp`,
-        imageAlt: "Botox Anti-Aging Injections Durban",
-    },
-    {
-        name: "Lip Augmentation",
-        category: "face",
-        slug: "lip-filler",
-        image: `${WP}/lip-filler-augmentation-durban-north.webp`,
-        imageAlt: "Lip Filler Augmentation Durban North",
-    },
-    {
-        name: "Jaw & Chin Contouring",
-        category: "face",
-        slug: "jaw-amp-chin-contouring",
-        image: `${WP}/jaw-chin-contouring-filler-durban.webp`,
-        imageAlt: "Jaw and Chin Contouring Filler Durban",
-    },
-    {
-        name: "Dermapen Microneedling",
-        category: "face",
-        slug: "dermapen-microneedling",
-        image: `${WP}/dermapen-microneedling-skin-renewal.webp`,
-        imageAlt: "Dermapen Microneedling Skin Renewal",
-    },
-    {
-        name: "Chemical Skin Peel",
-        category: "skin",
-        slug: "skin-peel",
-        image: `${WP}/chemical-skin-peel-rejuvenation.webp`,
-        imageAlt: "Chemical Skin Peel Rejuvenation",
-    },
-    {
-        name: "Pigmentation & Melasma",
-        category: "skin",
-        slug: "pigmentation-treatment",
-        image: `${WP}/pigmentation-melasma-treatment-durban.webp`,
-        imageAlt: "Pigmentation Melasma Treatment Durban",
-    },
-    {
-        name: "Acne Treatment",
-        category: "skin",
-        slug: "acne",
-        image: `${WP}/acne-scarring-treatment-durban-north.webp`,
-        imageAlt: "Acne Treatment Durban North",
-    },
-    {
-        name: "Excessive Sweating",
-        category: "skin",
-        slug: "excessive-sweating",
-        image: `${WP}/excessive-sweating-hyperhidrosis-treatment.webp`,
-        imageAlt: "Excessive Sweating Hyperhidrosis Treatment",
-    },
-    {
-        name: "Body Contouring",
-        category: "body-wellness",
-        slug: "body-contouring",
-        image: `${WP}/body-contouring-fat-reduction-durban.webp`,
-        imageAlt: "Body Contouring Fat Reduction Durban",
-    },
-    {
-        name: "Medi-Lean Weight Loss",
-        category: "body-wellness",
-        slug: "medi-lean",
-        image: `${WP}/medi-lean-weight-loss-diet-program.webp`,
-        imageAlt: "Medi-Lean Weight Loss Diet Program",
-    },
-    {
-        name: "Varicose Vein Removal",
-        category: "body-wellness",
-        slug: "varicose-veins",
-        image: `${WP}/varicose-vein-removal-sclerotherapy.webp`,
-        imageAlt: "Varicose Vein Removal Sclerotherapy",
-    },
-    {
-        name: "Vitamin IV Therapy",
-        category: "body-wellness",
-        slug: "vitamin-drips",
-        image: `${WP}/vitamin-drip-iv-therapy-wellness.webp`,
-        imageAlt: "Vitamin Drip IV Therapy Wellness",
-    },
+    { name: "Anti-Ageing Injections",  category: "face",          slug: "botox",                   priceFrom: 1900, image: `${WP}/botox-anti-aging-injections-durban.webp`,           imageAlt: "Botox Anti-Aging Injections Durban" },
+    { name: "Lip Augmentation",         category: "face",          slug: "lip-filler",              priceFrom: 2500, image: `${WP}/lip-filler-augmentation-durban-north.webp`,          imageAlt: "Lip Filler Augmentation Durban North" },
+    { name: "Jaw & Chin Contouring",    category: "face",          slug: "jaw-amp-chin-contouring", priceFrom: 2500, image: `${WP}/jaw-chin-contouring-filler-durban.webp`,             imageAlt: "Jaw and Chin Contouring Filler Durban" },
+    { name: "Dermapen Microneedling",   category: "face",          slug: "dermapen-microneedling",  priceFrom: 1900, image: `${WP}/dermapen-microneedling-skin-renewal.webp`,           imageAlt: "Dermapen Microneedling Skin Renewal" },
+    { name: "Chemical Skin Peel",       category: "skin",          slug: "skin-peel",               priceFrom: 665,  image: `${WP}/chemical-skin-peel-rejuvenation.webp`,               imageAlt: "Chemical Skin Peel Rejuvenation" },
+    { name: "Pigmentation & Melasma",   category: "skin",          slug: "pigmentation-treatment",  priceFrom: 850,  image: `${WP}/pigmentation-melasma-treatment-durban.webp`,         imageAlt: "Pigmentation Melasma Treatment Durban" },
+    { name: "Acne Treatment",           category: "skin",          slug: "acne",                    priceFrom: 850,  image: `${WP}/acne-scarring-treatment-durban-north.webp`,           imageAlt: "Acne Treatment Durban North" },
+    { name: "Excessive Sweating",       category: "skin",          slug: "excessive-sweating",      priceFrom: 3800, image: `${WP}/excessive-sweating-hyperhidrosis-treatment.webp`,    imageAlt: "Excessive Sweating Hyperhidrosis Treatment" },
+    { name: "Body Contouring",          category: "body-wellness", slug: "body-contouring",         priceFrom: 850,  image: `${WP}/body-contouring-fat-reduction-durban.webp`,          imageAlt: "Body Contouring Fat Reduction Durban" },
+    { name: "Medi-Lean Weight Loss",    category: "body-wellness", slug: "medi-lean",               priceFrom: 850,  image: `${WP}/medi-lean-weight-loss-diet-program.webp`,            imageAlt: "Medi-Lean Weight Loss Diet Program" },
+    { name: "Varicose Vein Removal",    category: "body-wellness", slug: "varicose-veins",          priceFrom: 850,  image: `${WP}/varicose-vein-removal-sclerotherapy.webp`,           imageAlt: "Varicose Vein Removal Sclerotherapy" },
+    { name: "Vitamin IV Therapy",       category: "body-wellness", slug: "vitamin-drips",           priceFrom: 1265, image: `${WP}/vitamin-drip-iv-therapy-wellness.webp`,              imageAlt: "Vitamin Drip IV Therapy Wellness" },
 ];
 
 export default function TreatmentCategories() {
@@ -156,10 +85,18 @@ export default function TreatmentCategories() {
                                 <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-[#1A1A1F]">
                                     {t.name}
                                 </h3>
-                                {/* Placeholder price — update when official prices confirmed */}
                                 <p className="mt-2 text-xs font-semibold text-[#636374]">
-                                    From <span className="font-bold text-[#1B3D6E]">R 850</span> per session
+                                    From <span className="font-bold text-[#1B3D6E]">R {t.priceFrom.toLocaleString("en-ZA")}</span>
                                 </p>
+                                {/* Starlights banner */}
+                                <div className="mt-2.5 flex items-center gap-1.5 bg-[#0F2647]/5 border border-[#0F2647]/10 px-2.5 py-1.5">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="#C8A882" stroke="none">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                    <span className="text-[10px] font-bold uppercase tracking-wide text-[#0F2647]">
+                                        From {calculateStarlights(t.priceFrom).toLocaleString("en-ZA")} Starlights
+                                    </span>
+                                </div>
                             </div>
                         </Link>
                     ))}

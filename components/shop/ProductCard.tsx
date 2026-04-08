@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { calculateStarlights } from "@/lib/utils/rewards";
 
 interface ProductCardProps {
   name: string;
@@ -28,14 +29,21 @@ export default function ProductCard({
 }: ProductCardProps) {
   // Resolve display price
   let displayPrice: string | null = null;
+  let rawPrice: number | null = null;
+
   if (priceNumber != null) {
+    rawPrice = priceNumber;
     displayPrice = new Intl.NumberFormat("en-ZA", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(priceNumber);
   } else if (price) {
+    const parsed = parseFloat(price.replace(/[^0-9.]/g, ""));
+    if (!isNaN(parsed)) rawPrice = parsed;
     displayPrice = price.replace("R", "").replace(/&nbsp;/g, " ").trim();
   }
+
+  const starlights = rawPrice ? calculateStarlights(rawPrice) : null;
 
   // Resolve image source
   const imgSrc = imageUrl ?? image?.sourceUrl ?? null;
@@ -53,7 +61,6 @@ export default function ProductCard({
             src={imgSrc}
             alt={imgAlt}
             fill
-            unoptimized
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
@@ -87,6 +94,18 @@ export default function ProductCard({
           <p className="mt-2 font-heading text-sm font-bold text-[#1A1A1F]">
             R {displayPrice}
           </p>
+        )}
+
+        {/* Starlights banner */}
+        {starlights !== null && starlights > 0 && (
+          <div className="mt-2.5 flex items-center gap-1.5 bg-[#0F2647]/5 border border-[#0F2647]/10 px-2.5 py-1.5">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="#C8A882" stroke="none">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <span className="text-[10px] font-bold uppercase tracking-wide text-[#0F2647]">
+              Earn {starlights.toLocaleString("en-ZA")} Starlights
+            </span>
+          </div>
         )}
       </div>
     </Link>

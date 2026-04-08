@@ -1,22 +1,32 @@
 /**
- * Rewards programme utilities — Star Aesthetic Centre
+ * Starlight Rewards — Star Aesthetic Centre
  *
- * Earning rate: 10% of spend, rounded to the nearest R 10.
+ * 1 Starlight = R1 of rewards value
+ * Earning rate: 10% of spend in Starlights
  *
  * Examples:
- *   R 665   → R  70
- *   R 745   → R  70 (rounds down)
- *   R 1,900 → R 190
- *   R 5,440 → R 540
- *   R 11,990→ R 1,200
+ *   R 665   →  66 Starlights
+ *   R 1,240 → 124 Starlights
+ *   R 1,900 → 190 Starlights
+ *   R 5,440 → 544 Starlights
  */
-export function calculateReward(priceRands: number): number {
+
+/** Calculate Starlights earned — 10% of price, rounded to nearest integer */
+export function calculateStarlights(priceRands: number): number {
   if (priceRands <= 0) return 0;
-  const raw = priceRands * 0.1;
-  return Math.round(raw / 10) * 10;
+  return Math.round(priceRands * 0.1);
 }
 
-/** Format a rand amount as "R 190" */
+/** Format as "124 Starlights" */
+export function formatStarlights(amount: number): string {
+  return `${amount.toLocaleString("en-ZA")} Starlights`;
+}
+
+/** Legacy — kept for backwards compatibility */
+export function calculateReward(priceRands: number): number {
+  return calculateStarlights(priceRands);
+}
+
 export function formatRewardRands(amount: number): string {
   return `R ${amount.toLocaleString("en-ZA")}`;
 }

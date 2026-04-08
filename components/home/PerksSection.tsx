@@ -30,7 +30,7 @@ export default function PerksSection() {
                                     <Star size={18} strokeWidth={1.5} />
                                 </div>
                                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C8A882]">
-                                    Rewards Programme
+                                    Starlight Rewards
                                 </span>
                             </div>
 
