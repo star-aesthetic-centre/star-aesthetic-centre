@@ -52,6 +52,63 @@ export const metadata: Metadata = {
     },
 };
 
+const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "MedicalBusiness", "HealthAndBeautyBusiness"],
+    "name": "Star Aesthetic Centre",
+    "alternateName": "Star Aesthetic Centre Durban North",
+    "url": "https://www.staraesthetic.online",
+    "logo": "https://www.staraesthetic.online/images/star-aesthetic-centre-durban-logo-001.png",
+    "image": "https://www.staraesthetic.online/images/star-aesthetic-centre-durban-homepage-hero-005.webp",
+    "description": "Doctor-led aesthetic treatments and curated medical skincare in Durban North by Dr. Rajeev Bangalee (MB, BS). Botox, fillers, skin peels, microneedling and more.",
+    "telephone": "+27315731325",
+    "email": "info@staraesthetic.site",
+    "priceRange": "R850–R2500",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "22 Ennisdale Drive",
+        "addressLocality": "Durban North",
+        "postalCode": "4051",
+        "addressRegion": "KwaZulu-Natal",
+        "addressCountry": "ZA",
+    },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-29.7489",
+        "longitude": "31.0047",
+    },
+    "openingHoursSpecification": [
+        {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "17:00",
+        },
+        {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "08:00",
+            "closes": "13:00",
+        },
+    ],
+    "founder": {
+        "@type": "Person",
+        "name": "Dr. Rajeev Bangalee",
+        "jobTitle": "Aesthetic Physician",
+        "description": "MB, BS — HPCSA registered aesthetic medicine practitioner",
+    },
+    "medicalSpecialty": "Aesthetic Medicine",
+    "sameAs": [
+        "https://instagram.com/staraesthetic",
+        "https://facebook.com/staraesthetic",
+    ],
+    "knowsAbout": [
+        "Botox", "Lip Fillers", "Dermal Fillers", "Dermapen Microneedling",
+        "Skin Peels", "Pigmentation Treatment", "Excessive Sweating Treatment",
+        "Body Contouring", "Vitamin Drips", "Varicose Vein Treatment",
+    ],
+};
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -59,6 +116,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en-ZA" className={`${roboto.variable} ${robotoCondensed.variable}`}>
+            <head>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+                />
+            </head>
             <body suppressHydrationWarning className="antialiased bg-white text-[#696969] text-[15px] font-[family-name:var(--font-roboto)] font-light leading-[1.6]">
                 <CartProvider>
                     <SiteNav />

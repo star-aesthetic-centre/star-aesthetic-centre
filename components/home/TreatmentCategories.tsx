@@ -130,7 +130,6 @@ export default function TreatmentCategories() {
                                     src={t.image}
                                     alt={t.imageAlt}
                                     fill
-                                    unoptimized
                                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                 />

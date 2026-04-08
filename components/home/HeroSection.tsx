@@ -11,7 +11,6 @@ export default function HeroSection() {
                 alt="Star Aesthetic Centre Durban clinic"
                 fill
                 priority
-                unoptimized
                 className="object-cover object-center"
             />
 

@@ -23,7 +23,6 @@ export default function DoctorTrust() {
   src="/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp"
   alt="Dr. Rajeev Bangalee — Director of Star Aesthetic Centre Durban"
   fill
-  unoptimized
   className="object-cover object-top transition-transform duration-700 ease-in-out group-hover:scale-105"
  />
 
