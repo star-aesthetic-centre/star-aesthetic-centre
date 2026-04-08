@@ -10,6 +10,7 @@ if (process.env.NODE_ENV !== "production") {
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
+      // LocalWP dev
       {
         protocol: "http",
         hostname: "star-aesthetic-centre.local",
@@ -20,6 +21,7 @@ const nextConfig: NextConfig = {
         hostname: "star-aesthetic-centre.local",
         pathname: "/wp-content/uploads/**",
       },
+      // Legacy WordPress hosts
       {
         protocol: "https",
         hostname: "staraesthetic.co.za",
@@ -29,6 +31,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.staraesthetic.site",
         pathname: "/wp-content/uploads/**",
+      },
+      // Supabase Storage — product images for all brands
+      {
+        protocol: "https",
+        hostname: "kprfezokgsmbizisvcrb.supabase.co",
+        pathname: "/storage/v1/object/public/**",
       },
     ],
   },
