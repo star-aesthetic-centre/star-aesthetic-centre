@@ -26,10 +26,10 @@ export default function Footer() {
     return (
         <footer className="bg-[#F7F7F8] border-t border-[#E2E2E6]">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-                <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
 
                     {/* Brand column */}
-                    <div className="lg:col-span-1">
+                    <div className="col-span-2 lg:col-span-1">
                         <Link href="/" className="inline-block mb-6">
                             <Image
                                 src="/images/star-aesthetic-centre-durban-logo-001.png"

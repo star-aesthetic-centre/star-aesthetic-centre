@@ -8,6 +8,7 @@ import DoctorTrust from "@/components/home/DoctorTrust";
 import SkinAssessmentCTA from "@/components/home/SkinAssessmentCTA";
 import Testimonials from "@/components/home/Testimonials";
 import BookingCTA from "@/components/home/BookingCTA";
+import MapSection from "@/components/home/MapSection";
 
 export default function HomePage() {
     return (
@@ -22,6 +23,7 @@ export default function HomePage() {
             <SkinAssessmentCTA />
             <Testimonials />
             <BookingCTA />
+            <MapSection />
         </>
     );
 }
