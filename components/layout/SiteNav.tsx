@@ -171,13 +171,16 @@ export default function SiteNav() {
                         onMouseEnter={() => openMega("treatments")}
                         onMouseLeave={closeMega}
                     >
-                        <button className="flex items-center gap-1 text-sm font-medium text-[#636374] transition-colors hover:text-[#1B3D6E]">
+                        <Link
+                            href="/treatments"
+                            className="flex items-center gap-1 text-sm font-medium text-[#636374] transition-colors hover:text-[#1B3D6E]"
+                        >
                             Treatments
                             <ChevronDown
                                 size={14}
                                 className={`transition-transform duration-200 ${activeMega === "treatments" ? "rotate-180" : ""}`}
                             />
-                        </button>
+                        </Link>
 
                         {/* Treatments Mega Panel */}
                         <div
@@ -233,13 +236,16 @@ export default function SiteNav() {
                         onMouseEnter={() => openMega("shop")}
                         onMouseLeave={closeMega}
                     >
-                        <button className="flex items-center gap-1 text-sm font-medium text-[#636374] transition-colors hover:text-[#1B3D6E]">
+                        <Link
+                            href="/shop"
+                            className="flex items-center gap-1 text-sm font-medium text-[#636374] transition-colors hover:text-[#1B3D6E]"
+                        >
                             Shop
                             <ChevronDown
                                 size={14}
                                 className={`transition-transform duration-200 ${activeMega === "shop" ? "rotate-180" : ""}`}
                             />
-                        </button>
+                        </Link>
 
                         {/* Shop Mega Panel */}
                         <div
@@ -437,16 +443,26 @@ export default function SiteNav() {
                     <nav className="flex flex-col gap-1 pt-4">
 
                         {/* Treatments accordion */}
-                        <button
-                            className="flex w-full items-center justify-between px-4 py-3 text-base font-medium text-[#1A1A1F] transition-colors hover:bg-[#F8F9FC]"
-                            onClick={() => toggleMobileSection("treatments")}
-                        >
-                            Treatments
-                            <ChevronDown
-                                size={16}
-                                className={`text-[#939EBA] transition-transform duration-200 ${mobileExpanded === "treatments" ? "rotate-180" : ""}`}
-                            />
-                        </button>
+                        <div className="flex w-full items-stretch">
+                            <Link
+                                href="/treatments"
+                                onClick={() => setMobileOpen(false)}
+                                className="flex flex-1 items-center px-4 py-3 text-base font-medium text-[#1A1A1F] transition-colors hover:bg-[#F8F9FC]"
+                            >
+                                Treatments
+                            </Link>
+                            <button
+                                type="button"
+                                aria-label="Expand treatments menu"
+                                className="flex items-center px-4 py-3 text-[#1A1A1F] transition-colors hover:bg-[#F8F9FC]"
+                                onClick={() => toggleMobileSection("treatments")}
+                            >
+                                <ChevronDown
+                                    size={16}
+                                    className={`text-[#939EBA] transition-transform duration-200 ${mobileExpanded === "treatments" ? "rotate-180" : ""}`}
+                                />
+                            </button>
+                        </div>
                         {mobileExpanded === "treatments" && (
                             <div className="mb-1 ml-4 border-l-2 border-[#E2E2E6] pl-3">
                                 {treatmentsColumns.map((col) => (
@@ -478,16 +494,26 @@ export default function SiteNav() {
                         )}
 
                         {/* Shop accordion */}
-                        <button
-                            className="flex w-full items-center justify-between px-4 py-3 text-base font-medium text-[#1A1A1F] transition-colors hover:bg-[#F8F9FC]"
-                            onClick={() => toggleMobileSection("shop")}
-                        >
-                            Shop
-                            <ChevronDown
-                                size={16}
-                                className={`text-[#939EBA] transition-transform duration-200 ${mobileExpanded === "shop" ? "rotate-180" : ""}`}
-                            />
-                        </button>
+                        <div className="flex w-full items-stretch">
+                            <Link
+                                href="/shop"
+                                onClick={() => setMobileOpen(false)}
+                                className="flex flex-1 items-center px-4 py-3 text-base font-medium text-[#1A1A1F] transition-colors hover:bg-[#F8F9FC]"
+                            >
+                                Shop
+                            </Link>
+                            <button
+                                type="button"
+                                aria-label="Expand shop menu"
+                                className="flex items-center px-4 py-3 text-[#1A1A1F] transition-colors hover:bg-[#F8F9FC]"
+                                onClick={() => toggleMobileSection("shop")}
+                            >
+                                <ChevronDown
+                                    size={16}
+                                    className={`text-[#939EBA] transition-transform duration-200 ${mobileExpanded === "shop" ? "rotate-180" : ""}`}
+                                />
+                            </button>
+                        </div>
                         {mobileExpanded === "shop" && (
                             <div className="mb-1 ml-4 border-l-2 border-[#E2E2E6] pl-3">
                                 {shopColumns.map((col) => (

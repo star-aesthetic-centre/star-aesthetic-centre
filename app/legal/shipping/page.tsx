@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Shipping & Delivery | Star Aesthetic Centre",
-  description: "Shipping rates and delivery information for Star Aesthetic Centre online shop. Free delivery on orders over R800.",
-};
+  description: "Shipping rates and delivery information for Star Aesthetic Centre online shop. Free delivery on orders over R800 across South Africa.",
+  path: "/legal/shipping",
+  keywords: ["skincare delivery South Africa", "Star Aesthetic Centre shipping", "medical skincare online delivery"],
+});
 
 export default function ShippingPage() {
   return (

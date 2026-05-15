@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { FileText, ChevronRight, Mail, Phone, MapPin, AlertTriangle } from "lucide-react";
 
 /* ─── Metadata ───────────────────────────────────────────────────────── */
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Terms & Conditions | Star Aesthetic Centre Durban",
   description:
     "Terms and Conditions governing the use of Star Aesthetic Centre's website, booking of treatments, purchase of products, and all related services. Governed by South African law.",
-  alternates: { canonical: "https://staraesthetic.co.za/legal/terms-and-conditions" },
-  robots: { index: true, follow: true },
-};
+  path: "/legal/terms-and-conditions",
+});
 
 const lastUpdated = "19 September 2025";
 const effectiveDate = "19 September 2025";

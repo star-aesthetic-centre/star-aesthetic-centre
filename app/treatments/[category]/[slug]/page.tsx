@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowLeft, Clock, Activity, CreditCard, ChevronDown } from "lucide-react";
 import treatmentsData from "@/lib/data/treatments.json";
 import { RichText } from "@/lib/utils/richText";
@@ -8,9 +9,45 @@ import { NikiAgentCard } from "@/components/treatments/NikiAgentCard";
 import { getTreatmentRecommendations, formatPrice, type TreatmentRecommendation } from "@/lib/queries/supabase-products";
 import { RewardsCard } from "@/components/shared/RewardsCard";
 import { GiftVoucherCard } from "@/components/shared/GiftVoucherCard";
+import JsonLd from "@/components/seo/JsonLd";
+import { NikiPageContextBridge } from "@/components/niki/NikiPageContextBridge";
+import {
+  buildPageMetadata,
+  breadcrumbSchema,
+  canonicalUrl,
+  faqPageSchema,
+  medicalProcedureSchema,
+  stripHtml,
+} from "@/lib/seo";
+import { TREATMENT_SLUG_TO_CATEGORY, treatmentPath } from "@/lib/treatment-routes";
 
 interface TreatmentPageProps {
     params: Promise<{ category: string; slug: string }>;
+}
+
+export const revalidate = 3600;
+
+export async function generateMetadata({ params }: TreatmentPageProps): Promise<Metadata> {
+    const { slug } = await params;
+    const treatment = treatmentsData.find((t: { slug: string }) => t.slug === slug);
+    if (!treatment) return { title: "Treatment Not Found" };
+
+    const path = treatmentPath(slug);
+    const title = `${treatment.title} in Durban North | Star Aesthetic Centre`;
+    const description = `Dr. Rajeev Bangalee offers ${treatment.title.toLowerCase()} at our Durban North clinic. ${stripHtml(treatment.quickSummary ?? treatment.tagline).slice(0, 120)} Book a consultation today.`;
+
+    return buildPageMetadata({
+        title,
+        description,
+        path,
+        keywords: [
+            `${treatment.title} Durban`,
+            `${treatment.title} Durban North`,
+            `aesthetic ${treatment.title.toLowerCase()} KZN`,
+            "Dr Rajeev Bangalee",
+            "Star Aesthetic Centre",
+        ],
+    });
 }
 
 /**
@@ -95,11 +132,35 @@ const PHASE_ORDER = [
 
 export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     const { category, slug } = await params;
-    const treatment = treatmentsData.find((t: any) => t.slug === slug);
+    const treatment = treatmentsData.find((t: { slug: string }) => t.slug === slug);
 
     if (!treatment) {
         notFound();
     }
+
+    const expectedCategory = TREATMENT_SLUG_TO_CATEGORY[slug];
+    if (expectedCategory && category !== expectedCategory) {
+        notFound();
+    }
+
+    const pagePath = treatmentPath(slug);
+    const pageUrl = canonicalUrl(pagePath);
+    const faqs = (treatment as { faqs?: { question: string; answer: string }[] }).faqs ?? [];
+
+    const structuredData = [
+        breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Treatments", path: "/treatments" },
+            { name: treatment.title, path: pagePath },
+        ]),
+        medicalProcedureSchema({
+            name: treatment.title,
+            description: treatment.quickSummary ?? treatment.tagline,
+            url: pageUrl,
+            priceFrom: treatment.priceFrom,
+        }),
+        faqPageSchema(faqs),
+    ].filter(Boolean);
 
     const recommendations = await getTreatmentRecommendations(slug);
 
@@ -112,6 +173,12 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
 
     return (
         <article className="min-h-screen bg-[#F7F7F8]">
+            <NikiPageContextBridge
+                type="treatment"
+                treatmentName={treatment.title}
+                treatmentPage={pagePath}
+            />
+            <JsonLd data={structuredData} />
 
             {/* ── Hero Section ── */}
             <section className="bg-white py-16 lg:py-24 border-b border-[#E2E2E6]">
@@ -157,6 +224,14 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                     Book Consultation
                                 </a>
                             </div>
+
+                            <p className="mt-6 text-xs text-[#636374]">
+                                Medically reviewed by{" "}
+                                <Link href="/dr-rajeev-bangalee" className="font-semibold text-[#939EBA] hover:underline">
+                                    Dr. Rajeev Bangalee, MB, BS
+                                </Link>
+                                {" "}· Star Aesthetic Centre, Durban North
+                            </p>
                         </div>
 
                         {/* Right — At a Glance card */}
@@ -482,6 +557,16 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                     </div>
                 </section>
             )}
+
+            <section className="border-t border-[#E2E2E6] bg-white py-8">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <p className="text-xs text-[#636374] leading-relaxed max-w-3xl">
+                        <strong className="text-[#1A1A1F]">Medical disclaimer:</strong> Treatment results vary between individuals.
+                        All procedures are performed by Dr. Rajeev Bangalee (MB, BS), a registered medical practitioner.
+                        Information on this page is for educational purposes and does not replace a personal consultation.
+                    </p>
+                </div>
+            </section>
         </article>
     );
 }

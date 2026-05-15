@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
+import { SITE_URL, DEFAULT_KEYWORDS, DEFAULT_OG_IMAGE, SITE_NAME, SITE_LOCALE } from "@/lib/seo";
 import SiteNav from "@/components/layout/SiteNav";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/lib/cart-context";
 import CartDrawer from "@/components/shop/CartDrawer";
 import CookieConsent from "@/components/layout/CookieConsent";
+import { NikiProvider } from "@/components/niki/NikiProvider";
 
 const roboto = Roboto({
     variable: "--font-roboto",
@@ -28,17 +30,18 @@ export const metadata: Metadata = {
     },
     description:
         "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling & more — by Dr. Rajeev Bangalee (MB, BS).",
-    metadataBase: new URL("https://www.staraesthetic.online"),
-    keywords: ["aesthetic clinic Durban", "botox Durban North", "lip fillers Durban", "skin peel Durban", "Dr Rajeev Bangalee", "medical aesthetics KZN"],
+    metadataBase: new URL(SITE_URL),
+    keywords: DEFAULT_KEYWORDS,
+    alternates: { canonical: SITE_URL },
     openGraph: {
-        siteName: "Star Aesthetic Centre",
-        locale: "en_ZA",
+        siteName: SITE_NAME,
+        locale: SITE_LOCALE,
         type: "website",
         title: "Star Aesthetic Centre — Dr. Rajeev Bangalee, Durban North",
         description: "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling & more.",
         images: [
             {
-                url: "/images/star-aesthetic-centre-durban-homepage-hero-005.webp",
+                url: DEFAULT_OG_IMAGE,
                 width: 1200,
                 height: 630,
                 alt: "Star Aesthetic Centre — Doctor-led aesthetics in Durban North",
@@ -49,7 +52,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Star Aesthetic Centre — Dr. Rajeev Bangalee, Durban North",
         description: "Doctor-led aesthetic treatments and curated medical skincare in Durban North.",
-        images: ["/images/star-aesthetic-centre-durban-homepage-hero-005.webp"],
+        images: [DEFAULT_OG_IMAGE],
     },
 };
 
@@ -58,12 +61,12 @@ const localBusinessSchema = {
     "@type": ["LocalBusiness", "MedicalBusiness", "HealthAndBeautyBusiness"],
     "name": "Star Aesthetic Centre",
     "alternateName": "Star Aesthetic Centre Durban North",
-    "url": "https://www.staraesthetic.online",
-    "logo": "https://www.staraesthetic.online/images/star-aesthetic-centre-durban-logo-001.png",
-    "image": "https://www.staraesthetic.online/images/star-aesthetic-centre-durban-homepage-hero-005.webp",
+    "url": SITE_URL,
+    "logo": `${SITE_URL}/images/star-aesthetic-centre-durban-logo-001.png`,
+    "image": `${SITE_URL}${DEFAULT_OG_IMAGE}`,
     "description": "Doctor-led aesthetic treatments and curated medical skincare in Durban North by Dr. Rajeev Bangalee (MB, BS). Botox, fillers, skin peels, microneedling and more.",
     "telephone": "+27315731325",
-    "email": "info@staraesthetic.site",
+    "email": "info@staraesthetic.co.za",
     "priceRange": "R850–R2500",
     "address": {
         "@type": "PostalAddress",
@@ -125,11 +128,13 @@ export default function RootLayout({
             </head>
             <body suppressHydrationWarning className="antialiased bg-white text-[#696969] text-[15px] font-[family-name:var(--font-roboto)] font-light leading-[1.6]">
                 <CartProvider>
-                    <SiteNav />
-                    <CartDrawer />
-                    <main>{children}</main>
-                    <Footer />
-                    <CookieConsent />
+                    <NikiProvider>
+                        <SiteNav />
+                        <CartDrawer />
+                        <main>{children}</main>
+                        <Footer />
+                        <CookieConsent />
+                    </NikiProvider>
                 </CartProvider>
             </body>
         </html>

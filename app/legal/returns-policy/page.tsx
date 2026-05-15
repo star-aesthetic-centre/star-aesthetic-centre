@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { RotateCcw, ChevronRight, Mail, Phone, MapPin, CheckCircle, XCircle, Clock, AlertTriangle } from "lucide-react";
 
 /* ─── Metadata ───────────────────────────────────────────────────────── */
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Returns & Refunds Policy | Star Aesthetic Centre Durban",
   description:
     "Returns, refunds, and cancellation policy for Star Aesthetic Centre — covering skincare products, treatment bookings, packages, gift vouchers, and special circumstances. Governed by the South African Consumer Protection Act.",
-  alternates: { canonical: "https://staraesthetic.co.za/legal/returns-policy" },
-  robots: { index: true, follow: true },
-};
+  path: "/legal/returns-policy",
+});
 
 const lastUpdated = "19 September 2025";
 const effectiveDate = "19 September 2025";

@@ -12,11 +12,26 @@ export function generateVoucherCode(): string {
   return `SAC-${segment(4)}-${segment(4)}-${segment(4)}`;
 }
 
-/** Generate an order reference for EFT payment: SAC-GV-XXXXXX */
-export function generateOrderReference(): string {
+/** Shared EFT payment reference for a purchase (one per checkout). */
+export function generatePaymentReference(): string {
   const segment = (len: number) =>
     Array.from({ length: len }, () => CHARSET[Math.floor(Math.random() * CHARSET.length)]).join("");
   return `SAC-GV-${segment(6)}`;
+}
+
+/** Per-voucher line reference within a batch: SAC-GV-XXXXXX-02 */
+export function generateLineReference(paymentReference: string, index: number, total: number): string {
+  if (total <= 1) return paymentReference;
+  return `${paymentReference}-${String(index).padStart(2, "0")}`;
+}
+
+/** @deprecated Use generatePaymentReference — kept for backwards compatibility */
+export function generateOrderReference(): string {
+  return generatePaymentReference();
+}
+
+export function formatPurchaserName(firstName: string, surname?: string | null): string {
+  return [firstName.trim(), surname?.trim()].filter(Boolean).join(" ");
 }
 
 export const VOUCHER_DENOMINATIONS = [250, 500, 750, 1000] as const;
@@ -36,10 +51,15 @@ export type GiftVoucher = {
   id: string;
   code: string;
   order_reference: string;
+  payment_reference?: string | null;
+  batch_index?: number | null;
+  batch_quantity?: number | null;
   denomination_rands: number;
   balance_rands: number;
   status: "pending_payment" | "active" | "partially_redeemed" | "redeemed" | "expired" | "cancelled";
   purchaser_name: string;
+  purchaser_surname?: string | null;
+  purchaser_phone?: string | null;
   purchaser_email: string;
   recipient_name: string;
   recipient_email: string;
@@ -49,6 +69,8 @@ export type GiftVoucher = {
   activated_at: string | null;
   created_at: string;
 };
+
+export const MAX_VOUCHER_QUANTITY = 10;
 
 /** Build the HTML email sent to the recipient when voucher is activated */
 export function buildVoucherEmail(voucher: GiftVoucher): string {

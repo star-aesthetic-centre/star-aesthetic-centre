@@ -1,43 +1,66 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
-import { buildVoucherEmail } from "@/lib/utils/vouchers";
+import { buildVoucherEmail, type GiftVoucher } from "@/lib/utils/vouchers";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 /** POST /api/vouchers/activate
- *  Called by admin after confirming EFT payment.
- *  Sets status to "active", sets expiry (3 years), sends voucher email to recipient.
- *  Protected by admin session cookie.
+ *  Body: { order_reference } — single line, OR
+ *        { payment_reference } — activate all pending in batch
  */
 export async function POST(req: NextRequest) {
-  // Admin auth check
   const session = req.cookies.get("admin_session")?.value;
   if (session !== "authenticated") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { order_reference } = await req.json();
-  if (!order_reference) {
-    return NextResponse.json({ error: "order_reference required" }, { status: 400 });
+  const body = await req.json();
+  const { order_reference, payment_reference } = body;
+
+  if (!order_reference && !payment_reference) {
+    return NextResponse.json({ error: "order_reference or payment_reference required" }, { status: 400 });
   }
 
   const supabase = createSupabaseAdmin();
 
-  const { data: voucher, error } = await supabase
-    .from("gift_vouchers")
-    .select("*")
-    .eq("order_reference", order_reference)
-    .single();
+  let query = supabase.from("gift_vouchers").select("*").eq("status", "pending_payment");
 
-  if (error || !voucher) {
-    return NextResponse.json({ error: "Voucher not found" }, { status: 404 });
+  if (payment_reference) {
+    query = query.or(`payment_reference.eq.${payment_reference},order_reference.eq.${payment_reference}`);
+  } else {
+    query = query.eq("order_reference", order_reference);
   }
 
-  if (voucher.status !== "pending_payment") {
-    return NextResponse.json({ error: `Voucher is already ${voucher.status}` }, { status: 400 });
+  const { data: pending, error } = await query;
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  if (!pending?.length) {
+    return NextResponse.json({ error: "No pending voucher(s) found" }, { status: 404 });
+  }
+
+  const activated: { code: string; recipient_email: string }[] = [];
+
+  for (const voucher of pending) {
+    const result = await activateOne(supabase, voucher as GiftVoucher);
+    if (result) activated.push(result);
+  }
+
+  return NextResponse.json({
+    success: true,
+    count: activated.length,
+    vouchers: activated,
+    recipient_email: activated.length === 1 ? activated[0].recipient_email : undefined,
+  });
+}
+
+async function activateOne(
+  supabase: ReturnType<typeof createSupabaseAdmin>,
+  voucher: GiftVoucher
+) {
   const expiresAt = new Date();
   expiresAt.setFullYear(expiresAt.getFullYear() + 3);
 
@@ -51,13 +74,16 @@ export async function POST(req: NextRequest) {
     .eq("id", voucher.id);
 
   if (updateError) {
-    return NextResponse.json({ error: updateError.message }, { status: 500 });
+    console.error("Activate error:", updateError);
+    return null;
   }
 
-  // Fetch updated voucher with expiry for email
-  const activatedVoucher = { ...voucher, status: "active", expires_at: expiresAt.toISOString() };
+  const activatedVoucher: GiftVoucher = {
+    ...voucher,
+    status: "active",
+    expires_at: expiresAt.toISOString(),
+  };
 
-  // Send voucher to recipient
   await resend.emails.send({
     from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
     to: voucher.recipient_email,
@@ -65,7 +91,6 @@ export async function POST(req: NextRequest) {
     html: buildVoucherEmail(activatedVoucher),
   });
 
-  // Notify purchaser that it's been sent
   await resend.emails.send({
     from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
     to: voucher.purchaser_email,
@@ -77,5 +102,5 @@ export async function POST(req: NextRequest) {
 <p style="margin-top:24px;color:#6B6966;font-size:12px;">Star Aesthetic Centre · 22 Ennisdale Drive, Durban North, 4051</p>`,
   });
 
-  return NextResponse.json({ success: true, code: voucher.code, recipient_email: voucher.recipient_email });
+  return { code: voucher.code, recipient_email: voucher.recipient_email };
 }

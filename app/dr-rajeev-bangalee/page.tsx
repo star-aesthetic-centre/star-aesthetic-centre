@@ -15,12 +15,16 @@ import {
   Shield,
   Clock,
 } from "lucide-react";
+import { buildPageMetadata, SITE_URL } from "@/lib/seo";
 
 /* ─── Metadata ───────────────────────────────────────────────────────── */
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Dr. Rajeev Bangalee | Aesthetic Medicine Specialist | Star Aesthetic Centre Durban",
   description:
     "Dr. Rajeev Bangalee — General Practitioner and Aesthetic Medicine Specialist with 15+ years of clinical experience. Director of Star Aesthetic Centre, Durban North. Botox, dermal fillers, skin peels, microneedling and more.",
+  path: "/dr-rajeev-bangalee",
+  ogType: "profile",
+  ogImage: "/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
   keywords: [
     "Dr Rajeev Bangalee",
     "aesthetic doctor Durban North",
@@ -35,23 +39,7 @@ export const metadata: Metadata = {
     "anti ageing treatment KwaZulu-Natal",
     "lip filler specialist Durban",
   ],
-  openGraph: {
-    title: "Dr. Rajeev Bangalee | Aesthetic Medicine Specialist | Star Aesthetic Centre",
-    description:
-      "15+ years of clinical expertise in aesthetic medicine. Book a personal consultation at Star Aesthetic Centre, Durban North.",
-    url: "https://staraesthetic.co.za/dr-rajeev-bangalee",
-    type: "profile",
-    images: [
-      {
-        url: "/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
-        width: 800,
-        height: 1000,
-        alt: "Dr. Rajeev Bangalee — Director of Star Aesthetic Centre Durban",
-      },
-    ],
-  },
-  alternates: { canonical: "https://staraesthetic.co.za/dr-rajeev-bangalee" },
-};
+});
 
 /* ─── JSON-LD Schemas ────────────────────────────────────────────────── */
 const personSchema = {
@@ -64,7 +52,7 @@ const personSchema = {
     "Dr. Rajeev Bangalee is the Director of Star Aesthetic Centre in Durban North, KwaZulu-Natal. A qualified GP specialising in Aesthetic Medicine with over 15 years of clinical experience in South Africa and the United Kingdom.",
   image:
     "/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
-  url: "https://staraesthetic.co.za/dr-rajeev-bangalee",
+  url: `${SITE_URL}/dr-rajeev-bangalee`,
   worksFor: {
     "@type": "MedicalClinic",
     name: "Star Aesthetic Centre",
@@ -191,12 +179,12 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://staraesthetic.co.za" },
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
     {
       "@type": "ListItem",
       position: 2,
       name: "Dr. Rajeev Bangalee",
-      item: "https://staraesthetic.co.za/dr-rajeev-bangalee",
+      item: `${SITE_URL}/dr-rajeev-bangalee`,
     },
   ],
 };

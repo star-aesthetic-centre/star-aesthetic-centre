@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import ProductCard from "@/components/shop/ProductCard";
 import { brands, getBrandBySlug, type BrandSubcategory } from "@/lib/brands";
 import { getProductsByBrand, getPrimaryImage, type SupabaseProduct } from "@/lib/queries/supabase-products";
+import { buildPageMetadata } from "@/lib/seo";
 
 interface PageProps {
   params: Promise<{ brand: string }>;
@@ -14,10 +15,17 @@ export async function generateMetadata({ params }: { params: Promise<{ brand: st
   const { brand: brandSlug } = await params;
   const brand = getBrandBySlug(brandSlug);
   if (!brand) return { title: "Brand Not Found" };
-  return {
-    title: `Shop ${brand.name} | Star Aesthetic Centre`,
-    description: brand.tagline,
-  };
+  return buildPageMetadata({
+    title: `${brand.name} Skincare — Shop Online | Star Aesthetic Centre Durban North`,
+    description: `${brand.tagline} Curated by Dr. Rajeev Bangalee. Shop ${brand.name} at Star Aesthetic Centre, Durban North.`,
+    path: `/shop/brands/${brandSlug}`,
+    keywords: [
+      `${brand.name} Durban`,
+      `${brand.name} South Africa`,
+      "medical skincare Durban North",
+      "Star Aesthetic Centre shop",
+    ],
+  });
 }
 
 export function generateStaticParams() {

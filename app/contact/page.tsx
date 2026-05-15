@@ -3,11 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, MessageCircle, Clock, Star, Shield, Award, ChevronRight } from "lucide-react";
 import ContactForm from "./ContactForm";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
     title: "Contact Us | Star Aesthetic Centre – Durban North",
     description:
         "Get in touch with Dr. Rajeev Bangalee at Star Aesthetic Centre, Durban North. Book a consultation for aesthetic treatments, skincare advice, or product enquiries. We respond within 2 business hours.",
+    path: "/contact",
     keywords: [
         "contact star aesthetic centre",
         "book aesthetic consultation durban north",
@@ -15,12 +17,7 @@ export const metadata: Metadata = {
         "aesthetic clinic durban north",
         "cosmetic treatment enquiry durban",
     ],
-    openGraph: {
-        title: "Contact Star Aesthetic Centre | Durban North",
-        description: "Doctor-led aesthetic treatments in Durban North. Book your personalised consultation today.",
-        url: "https://www.staraesthetic.co.za/contact",
-    },
-};
+});
 
 const testimonials = [
     {
@@ -287,7 +284,7 @@ export default function ContactPage() {
 
                             {/* Book Now CTA */}
                             <a
-                                href="https://www.staraesthetic.co.za/booking"
+                                href="https://www.staraesthetic.co.za/book"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block w-full bg-[#C8A882] text-center py-4 text-sm font-bold uppercase tracking-widest text-white hover:bg-[#A08060] transition-colors"

@@ -101,6 +101,7 @@ export async function updateFullProduct(
     short_description?: string;
     description?: string;
     is_active?: boolean;
+    funnel_config?: unknown;
   }
 ): Promise<{ success: boolean; error?: string }> {
   try {
@@ -115,6 +116,7 @@ export async function updateFullProduct(
     revalidatePath("/admin/products");
     revalidatePath(`/admin/products/${productId}/edit`);
     revalidatePath("/shop");
+    revalidatePath("/buy", "layout");
     return { success: true };
   } catch (err) {
     return { success: false, error: String(err) };

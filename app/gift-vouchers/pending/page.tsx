@@ -8,14 +8,18 @@ import { BANK_DETAILS } from "@/lib/constants/banking";
 function PendingContent() {
   const params = useSearchParams();
   const ref = params.get("ref") ?? "";
-  const amount = params.get("amount") ?? "";
+  const amount = Number(params.get("amount") ?? 0);
+  const qty = Number(params.get("qty") ?? 1);
+  const denom = Number(params.get("denom") ?? amount);
   const recipient = params.get("recipient") ?? "your recipient";
+
+  const lineLabel =
+    qty > 1 ? `${qty} × R ${denom.toLocaleString("en-ZA")} gift vouchers` : `R ${amount.toLocaleString("en-ZA")} gift voucher`;
 
   return (
     <div className="min-h-screen bg-[#F8F8F7] py-16">
       <div className="mx-auto max-w-2xl px-4 sm:px-6">
 
-        {/* Success header */}
         <div className="text-center mb-10">
           <div className="w-16 h-16 bg-[#0F2647] flex items-center justify-center mx-auto mb-6">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C8A882" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -28,19 +32,17 @@ function PendingContent() {
             Almost there — complete your payment
           </h1>
           <p className="text-[#6B6966] leading-relaxed">
-            Your voucher for <strong className="text-[#1A1917]">{recipient}</strong> is reserved.
-            Once we confirm your EFT payment, it will be emailed directly to them.
+            Your order ({lineLabel}) for <strong className="text-[#1A1917]">{recipient}</strong> is reserved.
+            Once we confirm your EFT payment, {qty > 1 ? "each voucher will be emailed to its recipient" : "it will be emailed directly to them"}.
           </p>
         </div>
 
-        {/* Order reference highlight */}
         <div className="bg-[#0F2647] p-6 text-center mb-6">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#939EBA] mb-2">Your Order Reference</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-[#939EBA] mb-2">Your Payment Reference</p>
           <p className="font-heading text-3xl font-bold text-[#C8A882] tracking-widest">{ref}</p>
           <p className="text-xs text-white/60 mt-2">Use this as your EFT payment reference</p>
         </div>
 
-        {/* Banking details */}
         <div className="bg-white border border-[#E5E4E0] overflow-hidden mb-6">
           <div className="bg-[#F8F8F7] px-6 py-4 border-b border-[#E5E4E0]">
             <p className="text-xs font-bold uppercase tracking-widest text-[#6B6966]">EFT Banking Details</p>
@@ -52,7 +54,8 @@ function PendingContent() {
               ["Account No", BANK_DETAILS.accountNo],
               ["Branch Code", BANK_DETAILS.branchCode],
               ["Account Type", BANK_DETAILS.accountType],
-              ["Amount", `R ${Number(amount).toLocaleString("en-ZA")}`],
+              ...(qty > 1 ? [["Order", `${qty} × R ${denom.toLocaleString("en-ZA")}`] as const] : []),
+              ["Amount", `R ${amount.toLocaleString("en-ZA")}`],
               ["Reference", ref],
             ].map(([label, value]) => (
               <div key={label} className="flex items-center justify-between px-6 py-3">
@@ -65,19 +68,17 @@ function PendingContent() {
           </div>
         </div>
 
-        {/* Instructions */}
         <div className="bg-[#FFF8F0] border border-[#C8A882] border-l-4 px-6 py-4 mb-8">
           <p className="text-sm text-[#6B6966] leading-relaxed">
-            <strong className="text-[#1A1917]">Next steps:</strong> Make your EFT payment using the reference above,
+            <strong className="text-[#1A1917]">Next steps:</strong> Make one EFT payment for the total amount above using the reference shown,
             then email your proof of payment to{" "}
             <a href={`mailto:${BANK_DETAILS.email}`} className="text-[#C8A882] font-semibold hover:underline">
               {BANK_DETAILS.email}
             </a>
-            . We'll activate your voucher and send it to {recipient} within 2 business hours.
+            . We&apos;ll activate your voucher{qty > 1 ? "s" : ""} within 2 business hours.
           </p>
         </div>
 
-        {/* Payment instructions also emailed */}
         <p className="text-xs text-[#6B6966] text-center mb-8">
           These payment instructions have also been sent to your email address.
         </p>

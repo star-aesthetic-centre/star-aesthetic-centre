@@ -3,22 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import treatmentsJson from "@/lib/data/treatments.json";
-
-// Category mapping — mirrors the sitemap TREATMENT_SLUGS list
-const SLUG_TO_CATEGORY: Record<string, string> = {
-  "botox":                  "face",
-  "lip-filler":             "face",
-  "jaw-amp-chin-contouring":"face",
-  "dermapen-microneedling": "face",
-  "skin-peel":              "skin",
-  "pigmentation-treatment": "skin",
-  "acne":                   "skin",
-  "excessive-sweating":     "skin",
-  "body-contouring":        "body-wellness",
-  "medi-lean":              "body-wellness",
-  "varicose-veins":         "body-wellness",
-  "vitamin-drips":          "body-wellness",
-};
+import { TREATMENT_SLUG_TO_CATEGORY as SLUG_TO_CATEGORY } from "@/lib/treatment-routes";
 
 export async function seedTreatmentsFromJson(): Promise<{ success: boolean; count?: number; error?: string }> {
   try {

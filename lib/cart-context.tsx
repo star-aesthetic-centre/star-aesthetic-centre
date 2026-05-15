@@ -38,6 +38,7 @@ type CartContextType = {
     dispatch: React.Dispatch<CartAction>;
     cartCount: number;
     subtotal: number;
+    isHydrated: boolean;
 };
 
 /* ─── Reducer ────────────────────────────────────────────────────────── */
@@ -135,7 +136,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
 
     return (
-        <CartContext.Provider value={{ state, dispatch, cartCount, subtotal }}>
+        <CartContext.Provider value={{ state, dispatch, cartCount, subtotal, isHydrated: hydrated }}>
             {children}
         </CartContext.Provider>
     );

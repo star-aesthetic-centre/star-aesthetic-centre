@@ -6,10 +6,14 @@ type Voucher = {
   id: string;
   code: string;
   order_reference: string;
+  payment_reference?: string | null;
+  batch_index?: number | null;
+  batch_quantity?: number | null;
   denomination_rands: number;
   balance_rands: number;
   status: string;
   purchaser_name: string;
+  purchaser_phone?: string | null;
   purchaser_email: string;
   recipient_name: string;
   recipient_email: string;
@@ -51,18 +55,23 @@ export default function AdminVouchersPage() {
 
   useEffect(() => { load(); }, []);
 
-  async function activate(orderRef: string) {
-    setActivating(orderRef);
+  async function activate(payload: { order_reference?: string; payment_reference?: string }) {
+    const key = payload.payment_reference ?? payload.order_reference ?? "";
+    setActivating(key);
     setMsg("");
     try {
       const res = await fetch("/api/vouchers/activate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ order_reference: orderRef }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (data.success) {
-        setMsg(`✓ Voucher activated — sent to ${data.recipient_email}`);
+        const detail =
+          data.count > 1
+            ? `${data.count} vouchers activated`
+            : `sent to ${data.recipient_email ?? data.vouchers?.[0]?.recipient_email}`;
+        setMsg(`✓ ${detail}`);
         await load();
       } else {
         setMsg(`✗ ${data.error}`);
@@ -145,6 +154,12 @@ export default function AdminVouchersPage() {
                     <tr key={v.id} className={i % 2 === 0 ? "bg-white" : "bg-[#F8F8F7]"}>
                       <td className="px-4 py-3">
                         <p className="font-mono text-xs font-bold text-[#0F2647]">{v.order_reference}</p>
+                        {(v.payment_reference && v.payment_reference !== v.order_reference) && (
+                          <p className="font-mono text-[10px] text-[#6B6966] mt-0.5">EFT: {v.payment_reference}</p>
+                        )}
+                        {v.batch_quantity && v.batch_quantity > 1 && (
+                          <p className="text-[10px] text-[#939EBA] mt-0.5">{v.batch_index}/{v.batch_quantity} in batch</p>
+                        )}
                         <p className="font-mono text-[10px] text-[#939EBA] mt-0.5">{v.code}</p>
                       </td>
                       <td className="px-4 py-3">
@@ -155,6 +170,7 @@ export default function AdminVouchersPage() {
                       </td>
                       <td className="px-4 py-3">
                         <p className="font-semibold text-[#1A1917] text-xs">{v.purchaser_name}</p>
+                        {v.purchaser_phone && <p className="text-[#6B6966] text-[11px]">{v.purchaser_phone}</p>}
                         <p className="text-[#6B6966] text-[11px]">{v.purchaser_email}</p>
                       </td>
                       <td className="px-4 py-3">
@@ -169,14 +185,24 @@ export default function AdminVouchersPage() {
                       <td className="px-4 py-3 text-xs text-[#6B6966]">
                         {new Date(v.created_at).toLocaleDateString("en-ZA", { day: "numeric", month: "short", year: "numeric" })}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-4 py-3 space-y-1">
                         {v.status === "pending_payment" && (
-                          <button
-                            onClick={() => activate(v.order_reference)}
-                            disabled={activating === v.order_reference}
-                            className="bg-green-700 text-white text-xs font-bold px-3 py-1.5 hover:bg-green-800 transition-colors disabled:opacity-60 whitespace-nowrap">
-                            {activating === v.order_reference ? "Sending…" : "✓ Activate & Send"}
-                          </button>
+                          <>
+                            <button
+                              onClick={() => activate({ order_reference: v.order_reference })}
+                              disabled={activating === (v.payment_reference ?? v.order_reference)}
+                              className="block w-full bg-green-700 text-white text-xs font-bold px-3 py-1.5 hover:bg-green-800 transition-colors disabled:opacity-60 whitespace-nowrap">
+                              {activating === v.order_reference ? "Sending…" : "✓ Activate & Send"}
+                            </button>
+                            {v.batch_quantity && v.batch_quantity > 1 && v.batch_index === 1 && (
+                              <button
+                                onClick={() => activate({ payment_reference: v.payment_reference ?? v.order_reference })}
+                                disabled={!!activating}
+                                className="block w-full border border-green-700 text-green-800 text-xs font-bold px-3 py-1.5 hover:bg-green-50 transition-colors disabled:opacity-60 whitespace-nowrap">
+                                Activate all {v.batch_quantity} in batch
+                              </button>
+                            )}
+                          </>
                         )}
                         {v.status === "active" && (
                           <span className="text-xs text-green-700 font-semibold">Active</span>

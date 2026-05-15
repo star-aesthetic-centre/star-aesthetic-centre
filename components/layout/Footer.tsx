@@ -68,9 +68,12 @@ export default function Footer() {
 
                     {/* Treatments column */}
                     <div>
-                        <h3 className="font-heading text-xs font-semibold uppercase tracking-widest text-[#939EBA] mb-4">
+                        <Link
+                            href="/treatments"
+                            className="font-heading mb-4 inline-block text-xs font-semibold uppercase tracking-widest text-[#939EBA] transition-colors hover:text-[#1B3D6E]"
+                        >
                             Treatments
-                        </h3>
+                        </Link>
                         <ul className="space-y-2.5">
                             {treatmentLinks.map((link) => (
                                 <li key={link.href}>
@@ -83,13 +86,22 @@ export default function Footer() {
                                 </li>
                             ))}
                         </ul>
+                        <Link
+                            href="/treatments"
+                            className="mt-4 inline-block text-sm font-semibold text-[#1B3D6E] transition-colors hover:text-[#939EBA]"
+                        >
+                            View all treatments →
+                        </Link>
                     </div>
 
                     {/* Shop column */}
                     <div>
-                        <h3 className="font-heading text-xs font-semibold uppercase tracking-widest text-[#939EBA] mb-4">
-                            Shop by Brand
-                        </h3>
+                        <Link
+                            href="/shop"
+                            className="font-heading mb-4 inline-block text-xs font-semibold uppercase tracking-widest text-[#939EBA] transition-colors hover:text-[#1B3D6E]"
+                        >
+                            Shop
+                        </Link>
                         <ul className="space-y-2.5">
                             {shopLinks.map((link) => (
                                 <li key={link.href}>
@@ -102,6 +114,12 @@ export default function Footer() {
                                 </li>
                             ))}
                         </ul>
+                        <Link
+                            href="/shop"
+                            className="mt-4 inline-block text-sm font-semibold text-[#1B3D6E] transition-colors hover:text-[#939EBA]"
+                        >
+                            View all products →
+                        </Link>
                     </div>
 
                     {/* Contact column */}

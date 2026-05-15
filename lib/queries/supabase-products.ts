@@ -22,6 +22,7 @@ export interface SupabaseProduct {
   is_active: boolean;
   subcategory: string | null;
   subcategory_sort: number | null;
+  funnel_config?: unknown;
   images: SupabaseProductImage[];
   /** Derived: price_cents / 100 */
   price: number | null;
@@ -52,6 +53,52 @@ export function getPrimaryImage(images: SupabaseProductImage[]): string | null {
 }
 
 // ─── Queries ──────────────────────────────────────────────────────────────────
+
+/**
+ * Fetch all active products across every brand, with images.
+ */
+export async function getAllProducts(): Promise<SupabaseProduct[]> {
+  try {
+    const supabase = createSupabaseServer();
+
+    const { data: products, error } = await supabase
+      .from("products")
+      .select("id, brand_slug, name, slug, short_description, description, price_cents, regular_price_cents, sku, is_active, subcategory, subcategory_sort")
+      .eq("is_active", true)
+      .order("brand_slug")
+      .order("subcategory_sort", { ascending: true, nullsFirst: false })
+      .order("name");
+
+    if (error || !products?.length) {
+      if (error) console.error("Supabase all products error:", error);
+      return [];
+    }
+
+    const productIds = products.map((p) => p.id);
+    const { data: images, error: imgError } = await supabase
+      .from("product_images")
+      .select("id, product_id, url, alt_text, sort_order")
+      .in("product_id", productIds)
+      .order("sort_order");
+
+    if (imgError) console.error("Supabase images error:", imgError);
+
+    const imagesByProduct: Record<string, SupabaseProductImage[]> = {};
+    for (const img of images ?? []) {
+      if (!imagesByProduct[img.product_id]) imagesByProduct[img.product_id] = [];
+      imagesByProduct[img.product_id].push(img);
+    }
+
+    return products.map((p) => ({
+      ...p,
+      price: centsToRand(p.price_cents),
+      images: imagesByProduct[p.id] ?? [],
+    }));
+  } catch (err) {
+    console.error("getAllProducts error:", err);
+    return [];
+  }
+}
 
 /**
  * Fetch all products for a given brand slug, with their images.
@@ -110,15 +157,27 @@ export async function getProductsByBrand(brandSlug: string): Promise<SupabasePro
  * Fetch a single product by slug, with its images.
  * Returns null if not found or on error.
  */
+const PRODUCT_DETAIL_SELECT =
+  "id, brand_slug, name, slug, short_description, description, price_cents, regular_price_cents, sku, is_active, subcategory, subcategory_sort";
+
 export async function getProductBySlug(slug: string): Promise<SupabaseProduct | null> {
   try {
     const supabase = createSupabaseServer();
 
-    const { data: product, error } = await supabase
+    // funnel_config is optional until product-funnel-migration.sql is applied
+    let { data: product, error } = await supabase
       .from("products")
-      .select("id, brand_slug, name, slug, short_description, description, price_cents, regular_price_cents, sku, is_active, subcategory, subcategory_sort")
+      .select(`${PRODUCT_DETAIL_SELECT}, funnel_config`)
       .eq("slug", slug)
       .single();
+
+    if (error?.code === "42703" || error?.message?.includes("funnel_config")) {
+      ({ data: product, error } = await supabase
+        .from("products")
+        .select(PRODUCT_DETAIL_SELECT)
+        .eq("slug", slug)
+        .single());
+    }
 
     if (error || !product) {
       console.error("Supabase product detail error:", error);

@@ -4,6 +4,8 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { updateFullProduct } from "@/app/admin/products/actions";
+import FunnelEditor, { type FunnelProductOption } from "@/components/admin/FunnelEditor";
+import { parseFunnelConfig, type FunnelConfig } from "@/lib/funnel";
 
 interface Product {
   id: string;
@@ -17,13 +19,15 @@ interface Product {
   is_active: boolean;
   subcategory: string | null;
   stock_quantity: number | null;
+  funnel_config?: unknown;
 }
 
 interface Props {
   product: Product;
+  allProducts: FunnelProductOption[];
 }
 
-export default function EditProductClient({ product }: Props) {
+export default function EditProductClient({ product, allProducts }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
@@ -38,7 +42,10 @@ export default function EditProductClient({ product }: Props) {
   const [shortDesc, setShortDesc] = useState(product.short_description ?? "");
   const [description, setDescription] = useState(product.description ?? "");
   const [isActive, setIsActive] = useState(product.is_active);
-  const [activeTab, setActiveTab] = useState<"details" | "short" | "full">("details");
+  const [funnelConfig, setFunnelConfig] = useState<FunnelConfig>(() =>
+    parseFunnelConfig(product.funnel_config)
+  );
+  const [activeTab, setActiveTab] = useState<"details" | "short" | "full" | "funnel">("details");
 
   const showToast = (msg: string, ok: boolean) => {
     setToast({ msg, ok });
@@ -63,6 +70,7 @@ export default function EditProductClient({ product }: Props) {
       short_description: shortDesc,
       description: description,
       stock_quantity: stockNum,
+      funnel_config: funnelConfig,
     };
 
     if (price !== "") {
@@ -101,7 +109,7 @@ export default function EditProductClient({ product }: Props) {
 
       {/* Tab nav */}
       <div className="flex border-b border-[#E5E4E0] mb-6">
-        {(["details", "short", "full"] as const).map((tab) => (
+        {(["details", "short", "full", "funnel"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -114,6 +122,7 @@ export default function EditProductClient({ product }: Props) {
             {tab === "details" && "Details & Price"}
             {tab === "short" && "Short Description"}
             {tab === "full" && "Full Description"}
+            {tab === "funnel" && "Upsell Funnel"}
           </button>
         ))}
       </div>
@@ -235,6 +244,15 @@ export default function EditProductClient({ product }: Props) {
             <span className="text-[#939EBA]">Target: 150–300 chars</span>
           </div>
         </div>
+      )}
+
+      {activeTab === "funnel" && (
+        <FunnelEditor
+          config={funnelConfig}
+          onChange={setFunnelConfig}
+          allProducts={allProducts}
+          currentProductId={product.id}
+        />
       )}
 
       {/* ── TAB: Full Description ───────────────────────────────────────── */}

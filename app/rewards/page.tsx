@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { calculateReward, formatRewardRands, type LedgerEntry } from "@/lib/utils/rewards";
+import { RewardsSignup } from "@/components/rewards/RewardsSignup";
 
 const EARN_EXAMPLES = [
   { label: "20% Glycolic Peel", price: 665 },
@@ -45,7 +46,7 @@ function BalanceChecker() {
   }
 
   return (
-    <div className="bg-white border border-[#E5E4E0] p-8">
+    <div id="check-balance" className="scroll-mt-24 bg-white border border-[#E5E4E0] p-8">
       <h3 className="font-heading text-xl font-bold text-[#1A1917] mb-2">Check Your Balance</h3>
       <p className="text-sm text-[#6B6966] mb-6">Enter the email address registered with your account.</p>
       <form onSubmit={handleLookup} className="flex flex-col sm:flex-row gap-3">
@@ -72,8 +73,9 @@ function BalanceChecker() {
             <div className="bg-[#F8F8F7] border border-[#E5E4E0] p-6">
               <p className="text-sm text-[#6B6966]">No rewards account found for <strong>{email}</strong>.</p>
               <p className="text-sm text-[#6B6966] mt-2">
-                Your account is created automatically when you book a treatment or purchase a product.{" "}
-                <Link href="/book" className="text-[#C8A882] hover:underline font-semibold">Book a consultation →</Link>
+                <a href="#join-rewards" className="font-semibold text-[#C8A882] hover:underline">
+                  Sign up for the Rewards Programme →
+                </a>
               </p>
             </div>
           ) : result.account ? (
@@ -180,20 +182,27 @@ export default function RewardsPage() {
               automatically credited to your rewards balance and redeemable against your next visit.
             </p>
             <div className="flex flex-wrap gap-4">
+              <a
+                href="#join-rewards"
+                className="bg-[#C8A882] px-8 py-4 text-sm font-bold text-[#0F2647] transition-colors hover:bg-[#A08060]"
+              >
+                Sign up — join the Rewards Programme
+              </a>
               <Link
                 href="/book"
-                className="bg-[#C8A882] text-white px-8 py-4 text-sm font-semibold hover:bg-[#A08060] transition-colors"
+                className="border border-white/30 px-8 py-4 text-sm font-semibold text-white transition-colors hover:border-white/60"
               >
-                Book a Consultation
-              </Link>
-              <Link
-                href="/shop"
-                className="border border-white/30 text-white px-8 py-4 text-sm font-semibold hover:border-white/60 transition-colors"
-              >
-                Shop Products
+                Book a consultation
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Sign up ── */}
+      <section className="border-b border-[#E5E4E0] bg-[#F8F8F7] py-16">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <RewardsSignup />
         </div>
       </section>
 
@@ -208,8 +217,8 @@ export default function RewardsPage() {
             {[
               {
                 step: "01",
-                title: "Book or Buy",
-                body: "Visit us for any treatment or purchase any product from our shop. No separate sign-up required — your account is created automatically.",
+                title: "Join or Visit",
+                body: "Sign up free below, or visit us for a treatment or shop purchase — we create your account and start crediting rewards automatically.",
               },
               {
                 step: "02",
@@ -308,14 +317,17 @@ export default function RewardsPage() {
             Start Earning Today
           </h2>
           <p className="text-white/60 mb-8 max-w-xl mx-auto">
-            Your rewards account is created automatically with your first booking or purchase — nothing to sign up for.
+            Sign up in seconds, or earn automatically when you book or shop with us.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/book" className="bg-[#C8A882] text-white px-10 py-4 text-sm font-semibold hover:bg-[#A08060] transition-colors">
-              Book a Consultation
-            </Link>
-            <Link href="/shop" className="border border-white/30 text-white px-10 py-4 text-sm font-semibold hover:border-white/60 transition-colors">
-              Browse Products
+            <a
+              href="#join-rewards"
+              className="bg-[#C8A882] px-10 py-4 text-sm font-bold text-[#0F2647] transition-colors hover:bg-[#A08060]"
+            >
+              Sign up — join the Rewards Programme
+            </a>
+            <Link href="/book" className="border border-white/30 px-10 py-4 text-sm font-semibold text-white transition-colors hover:border-white/60">
+              Book a consultation
             </Link>
           </div>
         </div>

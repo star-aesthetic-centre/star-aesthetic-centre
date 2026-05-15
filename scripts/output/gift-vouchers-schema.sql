@@ -12,7 +12,12 @@ create table if not exists public.gift_vouchers (
                     check (status in ('pending_payment', 'active', 'partially_redeemed', 'redeemed', 'expired', 'cancelled')),
   -- Purchaser
   purchaser_name    text    not null,
+  purchaser_surname text,
+  purchaser_phone   text,
   purchaser_email   text    not null,
+  payment_reference text,                               -- shared EFT ref for batch orders
+  batch_index       integer default 1,
+  batch_quantity    integer default 1,
   -- Recipient
   recipient_name    text    not null,
   recipient_email   text    not null,

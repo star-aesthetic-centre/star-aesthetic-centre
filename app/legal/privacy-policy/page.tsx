@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Shield, ChevronRight, Mail, Phone, MapPin } from "lucide-react";
 
 /* ─── Metadata ───────────────────────────────────────────────────────── */
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy | Star Aesthetic Centre Durban",
   description:
     "Privacy Policy for Star Aesthetic Centre — how we collect, use, and protect your personal and medical information in accordance with POPIA and HPCSA guidelines.",
-  alternates: { canonical: "https://staraesthetic.co.za/legal/privacy-policy" },
-  robots: { index: true, follow: true },
-};
+  path: "/legal/privacy-policy",
+});
 
 /* ─── Data ───────────────────────────────────────────────────────────── */
 const lastUpdated = "19 September 2025";

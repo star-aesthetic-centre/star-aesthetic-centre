@@ -1,7 +1,7 @@
 import { MessageCircle, Phone } from "lucide-react";
 
 export default function BookingCTA() {
- const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "27000000000";
+ const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "27315731325";
  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hi%2C%20I'd%20like%20to%20book%20a%20consultation%20at%20Star%20Aesthetic%20Centre.`;
 
  return (
@@ -50,7 +50,7 @@ export default function BookingCTA() {
  WhatsApp Us
  </a>
  <a
- href="tel:+27000000000"
+ href="tel:+27315731325"
  className="inline-flex items-center justify-center gap-2.5 border border-[#939EBA] px-8 py-4 text-sm font-semibold text-[#939EBA] transition-all hover:-translate-y-0.5 hover:bg-[#EEF0F6] no-underline"
  >
  <Phone size={16} />

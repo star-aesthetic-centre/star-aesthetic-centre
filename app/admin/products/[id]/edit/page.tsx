@@ -16,13 +16,24 @@ async function getProduct(id: string) {
   const { data, error } = await supabase
     .from("products")
     .select(
-      "id, brand_slug, name, slug, sku, short_description, description, price_cents, is_active, subcategory, stock_quantity"
+      "id, brand_slug, name, slug, sku, short_description, description, price_cents, is_active, subcategory, stock_quantity, funnel_config"
     )
     .eq("id", id)
     .single();
 
   if (error || !data) return null;
   return data;
+}
+
+async function getProductsForFunnelPicker() {
+  const supabase = createSupabaseAdmin();
+  const { data } = await supabase
+    .from("products")
+    .select("id, name, brand_slug, price_cents")
+    .eq("is_active", true)
+    .order("brand_slug")
+    .order("name");
+  return data ?? [];
 }
 
 const BRAND_LABELS: Record<string, string> = {
@@ -36,7 +47,7 @@ const BRAND_LABELS: Record<string, string> = {
 
 export default async function EditProductPage({ params }: Props) {
   const { id } = await params;
-  const product = await getProduct(id);
+  const [product, allProducts] = await Promise.all([getProduct(id), getProductsForFunnelPicker()]);
 
   if (!product) notFound();
 
@@ -68,7 +79,7 @@ export default async function EditProductPage({ params }: Props) {
         <p className="text-xs text-[#939EBA] mt-1 font-mono">slug: {product.slug}</p>
       </div>
 
-      <EditProductClient product={product} />
+      <EditProductClient product={product} allProducts={allProducts} />
     </main>
   );
 }

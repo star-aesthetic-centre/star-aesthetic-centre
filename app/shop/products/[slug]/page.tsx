@@ -13,6 +13,10 @@ import NikiProductCard from "@/components/shop/NikiProductCard";
 import ProductTrustBadges from "@/components/shop/ProductTrustBadges";
 import { getProductBySlug, getRelatedProducts, getPrimaryImage, formatPrice, getTreatmentsForProduct } from "@/lib/queries/supabase-products";
 import { getBrandBySlug } from "@/lib/brands";
+import JsonLd from "@/components/seo/JsonLd";
+import { NikiPageContextBridge } from "@/components/niki/NikiPageContextBridge";
+import { buildPageMetadata, breadcrumbSchema, productSchema, stripHtml } from "@/lib/seo";
+import { parseFunnelConfig } from "@/lib/funnel";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -21,14 +25,29 @@ interface ProductPageProps {
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
-  return {
-    title: product ? `${product.name} | Star Aesthetic Centre` : "Product",
-    description: product?.short_description?.replace(/<[^>]+>/g, "").slice(0, 160) ?? undefined,
-  };
+  if (!product) return { title: "Product Not Found" };
+
+  const brand = getBrandBySlug(product.brand_slug);
+  const brandName = brand?.name ?? product.brand_slug;
+  const description =
+    stripHtml(product.short_description ?? product.description ?? "").slice(0, 155) ||
+    `Buy ${product.name} by ${brandName} online. Pharmaceutical-grade skincare curated by Dr. Rajeev Bangalee at Star Aesthetic Centre, Durban North.`;
+
+  return buildPageMetadata({
+    title: `${product.name} — ${brandName} | Buy Online | Star Aesthetic Centre`,
+    description: `${description} Shop medical skincare in Durban North.`,
+    path: `/shop/products/${slug}`,
+    keywords: [
+      product.name,
+      `${brandName} Durban`,
+      "medical skincare Durban North",
+      "buy cosmeceuticals online South Africa",
+      "Dr Rajeev Bangalee skincare",
+    ],
+  });
 }
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params;
@@ -62,8 +81,43 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   // Treatments that recommend this product
   const treatmentLinks = await getTreatmentsForProduct(product.id);
 
+  const funnelConfig = parseFunnelConfig(product.funnel_config);
+  const funnelSlug =
+    funnelConfig.enabled &&
+    funnelConfig.steps.some((s) => s.productIds.length > 0)
+      ? product.slug
+      : undefined;
+
+  const productJsonLd = productSchema({
+    name: product.name,
+    description: product.short_description ?? product.description ?? product.name,
+    brand: brandName,
+    image: primaryImage,
+    price: priceNumber > 0 ? priceNumber : null,
+    sku: product.sku,
+    slug: product.slug,
+  });
+
+  const breadcrumbJsonLd = breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Shop", path: "/shop" },
+    { name: brandName, path: `/shop/brands/${product.brand_slug}` },
+    { name: product.name, path: `/shop/products/${product.slug}` },
+  ]);
+
+  const productSummary = stripHtml(product.short_description ?? product.description ?? "").slice(0, 300);
+
   return (
     <>
+      <NikiPageContextBridge
+        type="product"
+        productName={product.name}
+        productBrand={brandName}
+        productPrice={priceFormatted ? `R ${priceFormatted} incl VAT` : undefined}
+        productSummary={productSummary || undefined}
+        productSlug={product.slug}
+      />
+      <JsonLd data={[productJsonLd, breadcrumbJsonLd]} />
       {/* Product header */}
       <section className="bg-white py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -133,6 +187,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   productName={product.name}
                   productImage={primaryImage ?? ""}
                   productPrice={priceNumber}
+                  funnelSlug={funnelSlug}
                 />
               </div>
 
@@ -229,6 +284,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   productImage={primaryImage ?? ""}
                   productPrice={priceNumber}
                   showQuantity={false}
+                  funnelSlug={funnelSlug}
                 />
                 <a
                   href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27315731325"}`}

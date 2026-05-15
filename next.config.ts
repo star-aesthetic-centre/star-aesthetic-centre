@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { legacyRedirects } from "./lib/legacy-redirects";
 
 // ─── Allow self-signed SSL cert for LocalWP in development ───────────────────
 // star-aesthetic-centre.local uses a LocalWP-managed self-signed certificate
@@ -8,6 +9,9 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return legacyRedirects;
+  },
   images: {
     remotePatterns: [
       // LocalWP dev
@@ -30,6 +34,16 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "www.staraesthetic.site",
+        pathname: "/wp-content/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "staraesthetic.online",
+        pathname: "/wp-content/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.staraesthetic.online",
         pathname: "/wp-content/uploads/**",
       },
       // Supabase Storage — product images for all brands
