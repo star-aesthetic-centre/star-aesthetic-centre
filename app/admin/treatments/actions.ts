@@ -2,6 +2,48 @@
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
+import treatmentsJson from "@/lib/data/treatments.json";
+
+// Category mapping — mirrors the sitemap TREATMENT_SLUGS list
+const SLUG_TO_CATEGORY: Record<string, string> = {
+  "botox":                  "face",
+  "lip-filler":             "face",
+  "jaw-amp-chin-contouring":"face",
+  "dermapen-microneedling": "face",
+  "skin-peel":              "skin",
+  "pigmentation-treatment": "skin",
+  "acne":                   "skin",
+  "excessive-sweating":     "skin",
+  "body-contouring":        "body-wellness",
+  "medi-lean":              "body-wellness",
+  "varicose-veins":         "body-wellness",
+  "vitamin-drips":          "body-wellness",
+};
+
+export async function seedTreatmentsFromJson(): Promise<{ success: boolean; count?: number; error?: string }> {
+  try {
+    const supabase = createSupabaseAdmin();
+    const rows = (treatmentsJson as { slug: string; title: string; tagline: string; priceFrom: string; duration: string; downtime: string }[]).map((t) => ({
+      slug:       t.slug,
+      title:      t.title,
+      tagline:    t.tagline ?? "",
+      category:   SLUG_TO_CATEGORY[t.slug] ?? "skin",
+      price_from: t.priceFrom ?? null,
+      duration:   t.duration ?? null,
+      downtime:   t.downtime ?? null,
+      is_active:  true,
+    }));
+
+    const { error } = await supabase.from("treatments").upsert(rows, { onConflict: "slug" });
+    if (error) return { success: false, error: error.message };
+
+    revalidatePath("/admin/treatments");
+    revalidatePath("/treatments");
+    return { success: true, count: rows.length };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
 
 export async function toggleTreatmentActive(
   slug: string,

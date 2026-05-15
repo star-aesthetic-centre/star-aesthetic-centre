@@ -1,6 +1,7 @@
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import treatmentsJson from "@/lib/data/treatments.json";
 import TreatmentsClient from "./TreatmentsClient";
+import SeedTreatmentsButton from "./SeedTreatmentsButton";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -78,6 +79,16 @@ export default async function AdminTreatmentsPage() {
           </div>
         ))}
       </div>
+
+      {treatments.length === 0 && (
+        <div className="bg-amber-50 border border-amber-200 px-5 py-4 mb-6 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold text-amber-800">No treatments found in database.</p>
+            <p className="text-xs text-amber-700 mt-0.5">Click &ldquo;Sync from JSON&rdquo; to populate the database from the built-in treatment data.</p>
+          </div>
+          <SeedTreatmentsButton />
+        </div>
+      )}
 
       <TreatmentsClient treatments={treatments} />
     </main>

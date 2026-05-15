@@ -7,6 +7,9 @@ export default async function FeaturedProducts() {
   const products = await getProductsByBrand("dermaceutic");
   const featured = products.slice(0, 8);
 
+  // Don't render the section at all if there are no products
+  if (featured.length === 0) return null;
+
   return (
     <section className="bg-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

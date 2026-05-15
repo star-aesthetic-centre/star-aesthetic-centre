@@ -306,7 +306,7 @@ export default function SiteNav() {
 
                     {/* Login / Admin */}
                     <Link
-                        href="/admin"
+                        href="/admin/login"
                         className="flex h-10 w-10 items-center justify-center text-[#636374] transition-colors hover:bg-[#EEF0F6] hover:text-[#1B3D6E]"
                         aria-label="Staff login"
                         title="Staff login"

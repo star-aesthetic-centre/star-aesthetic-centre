@@ -7,9 +7,13 @@ export async function loginAction(
   _prevState: { error: string } | null,
   formData: FormData
 ): Promise<{ error: string }> {
+  const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
-  if (password === process.env.ADMIN_PASSWORD) {
+  const validUsername = process.env.ADMIN_USERNAME ?? "nikita";
+  const validPassword = process.env.ADMIN_PASSWORD;
+
+  if (username === validUsername && password === validPassword) {
     const cookieStore = await cookies();
     cookieStore.set("admin_session", "authenticated", {
       httpOnly: true,
@@ -21,7 +25,7 @@ export async function loginAction(
     redirect("/admin/products");
   }
 
-  return { error: "Incorrect password. Please try again." };
+  return { error: "Incorrect username or password. Please try again." };
 }
 
 export async function logoutAction(): Promise<void> {
