@@ -25,9 +25,16 @@ type Props = {
   onChange: (config: FunnelConfig) => void;
   allProducts: FunnelProductOption[];
   currentProductId: string;
+  disabled?: boolean;
 };
 
-export default function FunnelEditor({ config, onChange, allProducts, currentProductId }: Props) {
+export default function FunnelEditor({
+  config,
+  onChange,
+  allProducts,
+  currentProductId,
+  disabled = false,
+}: Props) {
   const stepCount = config.steps.length;
 
   function setEnabled(enabled: boolean) {
@@ -64,7 +71,10 @@ export default function FunnelEditor({ config, onChange, allProducts, currentPro
   const pickerProducts = allProducts.filter((p) => p.id !== currentProductId);
 
   return (
-    <div className="space-y-6">
+    <fieldset
+      disabled={disabled}
+      className={`m-0 min-w-0 space-y-6 border-0 p-0 ${disabled ? "opacity-60" : ""}`}
+    >
       <div className="flex items-center justify-between border border-[#E5E4E0] bg-white p-4">
         <div>
           <p className="text-sm font-bold text-[#1A1917]">Post-add upsell funnel</p>
@@ -195,6 +205,6 @@ export default function FunnelEditor({ config, onChange, allProducts, currentPro
           ))}
         </>
       )}
-    </div>
+    </fieldset>
   );
 }

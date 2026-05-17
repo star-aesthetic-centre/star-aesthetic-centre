@@ -12,7 +12,7 @@ import {
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
 export type CartItem = {
-    id: string;       // WPGraphQL global ID e.g. "cHJvZHVjdDoxMjM="
+    id: string;       // Supabase product UUID
     slug: string;
     name: string;
     image: string;

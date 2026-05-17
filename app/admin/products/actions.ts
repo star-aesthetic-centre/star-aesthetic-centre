@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
+import { updateAdminProduct } from "@/lib/queries/admin-products";
 
 export async function toggleProductActive(
   productId: string,
@@ -105,13 +106,8 @@ export async function updateFullProduct(
   }
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const supabase = createSupabaseAdmin();
-    const { error } = await supabase
-      .from("products")
-      .update(data)
-      .eq("id", productId);
-
-    if (error) return { success: false, error: error.message };
+    const result = await updateAdminProduct(productId, data);
+    if (!result.success) return result;
 
     revalidatePath("/admin/products");
     revalidatePath(`/admin/products/${productId}/edit`);

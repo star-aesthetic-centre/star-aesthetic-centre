@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { updateFullProduct } from "@/app/admin/products/actions";
 import FunnelEditor, { type FunnelProductOption } from "@/components/admin/FunnelEditor";
+import RichHtmlEditor from "@/components/admin/RichHtmlEditor";
 import { parseFunnelConfig, type FunnelConfig } from "@/lib/funnel";
 
 interface Product {
@@ -25,9 +26,14 @@ interface Product {
 interface Props {
   product: Product;
   allProducts: FunnelProductOption[];
+  funnelConfigSupported?: boolean;
 }
 
-export default function EditProductClient({ product, allProducts }: Props) {
+export default function EditProductClient({
+  product,
+  allProducts,
+  funnelConfigSupported = false,
+}: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
@@ -70,8 +76,11 @@ export default function EditProductClient({ product, allProducts }: Props) {
       short_description: shortDesc,
       description: description,
       stock_quantity: stockNum,
-      funnel_config: funnelConfig,
     };
+
+    if (funnelConfigSupported) {
+      payload.funnel_config = funnelConfig;
+    }
 
     if (price !== "") {
       payload.price_cents = Math.round(parsedPrice * 100);
@@ -230,29 +239,39 @@ export default function EditProductClient({ product, allProducts }: Props) {
             Short Description
           </h2>
           <p className="text-xs text-[#6B6966] mb-4">
-            2–3 sentences. Opens with emotional pain — not ingredients. HTML supported.
+            2–3 sentences. Opens with emotional pain — not ingredients. Use Normal view to type; switch to HTML only if needed.
           </p>
-          <textarea
+          <RichHtmlEditor
             value={shortDesc}
-            onChange={(e) => setShortDesc(e.target.value)}
-            rows={6}
-            className="w-full border border-[#E5E4E0] px-3 py-2.5 text-sm font-mono text-[#1A1917] outline-none focus:border-[#0F2647] resize-y transition-colors"
+            onChange={setShortDesc}
+            variant="compact"
+            minHeight="160px"
             placeholder="You've been trying every cream on the shelf…"
           />
           <div className="mt-3 flex items-center justify-between text-xs text-[#6B6966]">
-            <span>{shortDesc.length} chars</span>
+            <span>{shortDesc.replace(/<[^>]*>/g, "").length} chars (text only)</span>
             <span className="text-[#939EBA]">Target: 150–300 chars</span>
           </div>
         </div>
       )}
 
       {activeTab === "funnel" && (
-        <FunnelEditor
-          config={funnelConfig}
-          onChange={setFunnelConfig}
-          allProducts={allProducts}
-          currentProductId={product.id}
-        />
+        <div className="space-y-4">
+          {!funnelConfigSupported && (
+            <div className="border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              Upsell funnel requires a database migration. Run{" "}
+              <code className="text-xs">scripts/output/product-funnel-migration.sql</code> in Supabase,
+              then refresh this page. You can still save price, stock, and descriptions on other tabs.
+            </div>
+          )}
+          <FunnelEditor
+            config={funnelConfig}
+            onChange={setFunnelConfig}
+            allProducts={allProducts}
+            currentProductId={product.id}
+            disabled={!funnelConfigSupported}
+          />
+        </div>
       )}
 
       {/* ── TAB: Full Description ───────────────────────────────────────── */}
@@ -262,14 +281,14 @@ export default function EditProductClient({ product, allProducts }: Props) {
             Full Description
           </h2>
           <p className="text-xs text-[#6B6966] mb-4">
-            8-section HTML template. Rendered on the product page below the hero.
+            Full product page content. Use headings and lists in Normal view; switch to HTML for fine-tuning.
           </p>
-          <textarea
+          <RichHtmlEditor
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows={28}
-            className="w-full border border-[#E5E4E0] px-3 py-2.5 text-sm font-mono text-[#1A1917] outline-none focus:border-[#0F2647] resize-y transition-colors leading-relaxed"
-            placeholder="<section>…</section>"
+            onChange={setDescription}
+            variant="full"
+            minHeight="420px"
+            placeholder="Start with a heading, then your sections…"
           />
           <div className="mt-3 text-xs text-[#6B6966]">
             {description.length.toLocaleString()} chars

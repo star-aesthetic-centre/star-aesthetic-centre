@@ -1,4 +1,5 @@
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
+import { getAdminProductById, isFunnelConfigEnabled } from "@/lib/queries/admin-products";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import EditProductClient from "./EditProductClient";
@@ -8,21 +9,6 @@ export const revalidate = 0;
 
 interface Props {
   params: Promise<{ id: string }>;
-}
-
-async function getProduct(id: string) {
-  const supabase = createSupabaseAdmin();
-
-  const { data, error } = await supabase
-    .from("products")
-    .select(
-      "id, brand_slug, name, slug, sku, short_description, description, price_cents, is_active, subcategory, stock_quantity, funnel_config"
-    )
-    .eq("id", id)
-    .single();
-
-  if (error || !data) return null;
-  return data;
 }
 
 async function getProductsForFunnelPicker() {
@@ -47,7 +33,11 @@ const BRAND_LABELS: Record<string, string> = {
 
 export default async function EditProductPage({ params }: Props) {
   const { id } = await params;
-  const [product, allProducts] = await Promise.all([getProduct(id), getProductsForFunnelPicker()]);
+  const [product, allProducts, funnelConfigSupported] = await Promise.all([
+    getAdminProductById(id),
+    getProductsForFunnelPicker(),
+    isFunnelConfigEnabled(),
+  ]);
 
   if (!product) notFound();
 
@@ -79,7 +69,11 @@ export default async function EditProductPage({ params }: Props) {
         <p className="text-xs text-[#939EBA] mt-1 font-mono">slug: {product.slug}</p>
       </div>
 
-      <EditProductClient product={product} allProducts={allProducts} />
+      <EditProductClient
+        product={product}
+        allProducts={allProducts}
+        funnelConfigSupported={funnelConfigSupported}
+      />
     </main>
   );
 }

@@ -38,7 +38,7 @@ export default function CartDrawer() {
                 role="dialog"
                 aria-label="Shopping cart"
                 aria-modal="true"
-                className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col bg-white border-l border-[#E2E2E6] shadow-2xl transition-transform duration-300 ease-in-out ${
+                className={`fixed top-0 right-0 bottom-24 z-50 flex w-full max-w-md flex-col bg-white border-l border-[#E2E2E6] shadow-2xl transition-transform duration-300 ease-in-out sm:bottom-28 ${
                     isDrawerOpen ? "translate-x-0" : "translate-x-full"
                 }`}
             >

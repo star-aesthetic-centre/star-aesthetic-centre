@@ -178,10 +178,7 @@ export default function CheckoutPage() {
             if (!res.ok) {
                 const errData = await res.json().catch(() => ({}));
                 // Surface full WC error details in dev for easy diagnosis
-                const detail = errData.wcError?.message ?? errData.wcError?.code ?? "";
-                throw new Error(
-                    `${errData.error ?? "Order submission failed"}${detail ? ` — ${detail}` : ""}${errData.wcStatus ? ` (WC ${errData.wcStatus})` : ""}`
-                );
+                throw new Error(errData.error ?? "Order submission failed");
             }
             const { orderId, orderKey } = await res.json();
             dispatch({ type: "CLEAR_CART" });

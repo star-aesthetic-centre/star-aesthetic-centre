@@ -12,12 +12,22 @@ export async function GET(
   const { slug } = await params;
   const supabase = createSupabaseAdmin();
 
-  const { data: sourceProduct, error: sourceError } = await supabase
+  let { data: sourceProduct, error: sourceError } = await supabase
     .from("products")
     .select("id, name, slug, funnel_config, is_active")
     .eq("slug", slug)
     .eq("is_active", true)
     .single();
+
+  if (sourceError?.code === "42703" && sourceError.message?.includes("funnel_config")) {
+    ({ data: sourceProduct, error: sourceError } = await supabase
+      .from("products")
+      .select("id, name, slug, is_active")
+      .eq("slug", slug)
+      .eq("is_active", true)
+      .single());
+    if (sourceProduct) sourceProduct = { ...sourceProduct, funnel_config: null };
+  }
 
   if (sourceError || !sourceProduct) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });

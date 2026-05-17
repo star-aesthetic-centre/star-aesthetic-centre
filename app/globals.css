@@ -252,3 +252,41 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Admin rich text editor (TipTap) */
+.ProseMirror {
+  outline: none;
+  min-height: inherit;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #939eba;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.ProseMirror h2 {
+  @apply mt-6 mb-3 text-xl font-bold text-[#1A1917];
+}
+
+.ProseMirror h3 {
+  @apply mt-4 mb-2 text-lg font-bold text-[#1A1917];
+}
+
+.ProseMirror ul {
+  @apply my-3 list-disc pl-6;
+}
+
+.ProseMirror ol {
+  @apply my-3 list-decimal pl-6;
+}
+
+.ProseMirror p {
+  @apply my-2 leading-relaxed;
+}
+
+.ProseMirror a {
+  @apply text-[#0F2647] underline;
+}
