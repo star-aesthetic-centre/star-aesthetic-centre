@@ -6,6 +6,7 @@ import {
   randToCents,
   shippingCentsForSubtotal,
 } from "@/lib/utils/orders";
+import { sendOrderEmails } from "@/lib/utils/send-order-emails";
 
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -220,6 +221,35 @@ export async function POST(req: NextRequest) {
           .eq("id", voucher.id);
       }
     }
+
+    const shippingAddress = [
+      billing.address1.trim(),
+      billing.address2?.trim(),
+      billing.city.trim(),
+      billing.province,
+      billing.postalCode.trim(),
+    ]
+      .filter(Boolean)
+      .join(", ");
+
+    await sendOrderEmails({
+      reference: order.reference,
+      customerName: `${billing.firstName.trim()} ${billing.lastName.trim()}`.trim(),
+      customerEmail: billing.email.toLowerCase().trim(),
+      customerPhone: billing.phone.trim(),
+      shippingAddress,
+      lineItems: lineItems.map((li) => ({
+        product_name: li.product_name,
+        quantity: li.quantity,
+        unit_price_cents: li.unit_price_cents,
+        line_total_cents: li.line_total_cents,
+      })),
+      subtotalCents,
+      shippingCents,
+      voucherDiscountCents,
+      totalCents,
+      voucherNote,
+    });
 
     return NextResponse.json({
       orderId: order.reference,

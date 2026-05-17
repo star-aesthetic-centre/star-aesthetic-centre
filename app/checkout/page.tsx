@@ -183,7 +183,7 @@ export default function CheckoutPage() {
             const { orderId, orderKey } = await res.json();
             dispatch({ type: "CLEAR_CART" });
             router.push(
-                `/order-confirmation?orderId=${orderId}&key=${orderKey}`
+                `/order-confirmation?orderId=${encodeURIComponent(orderId)}&key=${encodeURIComponent(orderKey)}&total=${orderTotal}`
             );
         } catch (err: unknown) {
             setSubmitError(
