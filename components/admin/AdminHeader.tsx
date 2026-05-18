@@ -5,11 +5,16 @@ import { usePathname } from "next/navigation";
 import { logoutAction } from "@/app/admin/login/actions";
 
 const NAV = [
+  { href: "/admin", label: "Dashboard", exact: true },
+  { href: "/admin/customers", label: "Customers" },
+  { href: "/admin/leads", label: "Leads" },
   { href: "/admin/products", label: "Products" },
+  { href: "/admin/pages", label: "Pages" },
   { href: "/admin/treatments", label: "Treatments" },
   { href: "/admin/rewards", label: "Rewards" },
   { href: "/admin/vouchers", label: "Gift Vouchers" },
   { href: "/admin/orders", label: "Orders" },
+  { href: "/admin/niki", label: "Niki Calls" },
 ];
 
 export default function AdminHeader() {
@@ -50,8 +55,10 @@ export default function AdminHeader() {
 
       {/* Sub-nav */}
       <div className="flex border-t border-white/10 px-3">
-        {NAV.map(({ href, label }) => {
-          const active = pathname === href || pathname.startsWith(href + "/");
+        {NAV.map(({ href, label, exact }) => {
+          const active = exact
+            ? pathname === href
+            : pathname === href || pathname.startsWith(href + "/");
           return (
             <Link
               key={href}

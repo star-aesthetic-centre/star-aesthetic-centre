@@ -106,20 +106,20 @@ function starlightsBlockHtml(p: OrderEmailPayload): string {
   if (p.starlightsEarned <= 0) return "";
 
   const memberLine = p.isNewMember
-    ? "We've created your <strong style=\"color:#1A1917;\">Starlight Rewards</strong> account using this email — no extra sign-up needed."
-    : "Your <strong style=\"color:#1A1917;\">Starlight Rewards</strong> account is linked to this email.";
+    ? "We've created your <strong style=\"color:#1A1917;\">Star Light Rewards</strong> account using this email — no extra sign-up needed."
+    : "Your <strong style=\"color:#1A1917;\">Star Light Rewards</strong> account is linked to this email.";
 
   return `
     <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border:1px solid #C8A882;background:#FFF8F0;">
       <tr><td style="padding:20px 24px;">
-        <p style="margin:0 0 4px;font-size:11px;letter-spacing:2px;color:#939EBA;text-transform:uppercase;">Starlight Rewards</p>
+        <p style="margin:0 0 4px;font-size:11px;letter-spacing:2px;color:#939EBA;text-transform:uppercase;">Star Light Rewards</p>
         <p style="margin:0 0 12px;font-size:22px;font-weight:bold;color:#C8A882;font-family:Georgia,serif;">
           ${formatStarlights(p.starlightsEarned)}
         </p>
         <p style="margin:0 0 8px;font-size:13px;color:#6B6966;line-height:1.6;">
           You'll earn <strong style="color:#1A1917;">${formatStarlights(p.starlightsEarned)}</strong>
           (worth R ${p.starlightsEarned.toLocaleString("en-ZA")}) once we confirm your EFT payment.
-          1 Starlight = R1 toward your next treatment or shop purchase.
+          1 Star Light = R1 toward your next treatment or shop purchase.
         </p>
         <p style="margin:0;font-size:13px;color:#6B6966;line-height:1.6;">
           ${memberLine}
@@ -239,7 +239,7 @@ export function buildAdminOrderEmail(p: OrderEmailPayload): string {
     ${
       p.starlightsEarned > 0
         ? `<p style="margin:0 0 16px;font-size:13px;color:#6B6966;line-height:1.6;">
-      <strong style="color:#1A1917;">Starlight Rewards:</strong> Credit
+      <strong style="color:#1A1917;">Star Light Rewards:</strong> Credit
       <strong style="color:#C8A882;">${formatStarlights(p.starlightsEarned)}</strong>
       (R ${p.starlightsEarned}) when payment is confirmed${p.isNewMember ? " — new member auto-enrolled" : ""}.
     </p>`

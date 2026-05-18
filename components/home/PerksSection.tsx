@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { Gift, Star, ArrowRight } from "lucide-react";
+import type { HomePageContent } from "@/lib/content/site-pages-types";
 
-export default function PerksSection() {
+type Props = {
+  perksRewards: HomePageContent["perksRewards"];
+};
+
+export default function PerksSection({ perksRewards }: Props) {
     return (
         <section className="bg-[#F8F8F7] py-16 sm:py-20">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -30,18 +35,18 @@ export default function PerksSection() {
                                     <Star size={18} strokeWidth={1.5} />
                                 </div>
                                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C8A882]">
-                                    Starlight Rewards
+                                    {perksRewards.label}
                                 </span>
                             </div>
 
                             <h3 className="font-heading text-3xl sm:text-4xl font-bold text-white leading-tight mb-4">
-                                Earn 10% Back<br />
-                                <span className="text-[#C8A882]">On Every Rand</span><br />
-                                You Spend
+                                {perksRewards.titleLine1}<br />
+                                <span className="text-[#C8A882]">{perksRewards.titleLine2}</span><br />
+                                {perksRewards.titleLine3}
                             </h3>
 
                             <p className="text-[#A8B4CC] text-sm leading-relaxed mb-8 max-w-sm">
-                                Every treatment and product purchase earns you rewards — automatically credited to your account and redeemable against your next visit.
+                                {perksRewards.body}
                             </p>
 
                             {/* Example earnings */}
@@ -63,7 +68,7 @@ export default function PerksSection() {
                             href="/rewards"
                             className="relative z-10 inline-flex items-center gap-2 bg-[#C8A882] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-[#A08060] transition-colors self-start"
                         >
-                            Join the Programme
+                            {perksRewards.ctaLabel}
                             <ArrowRight size={13} />
                         </Link>
                     </div>

@@ -37,8 +37,8 @@ export async function orderStarlightsAlreadyCredited(
 }
 
 /**
- * Credits Starlights for a paid shop order (idempotent).
- * 1 Starlight = R1; amount = 10% of order total.
+ * Credits Star Lights for a paid shop order (idempotent).
+ * 1 Star Light = R1; amount = 5% of order total.
  */
 export async function creditOrderStarlights(
   supabase: SupabaseClient,
@@ -75,7 +75,7 @@ export async function creditOrderStarlights(
       credited: false,
       alreadyCredited: false,
       isNewMember: false,
-      error: "Could not find or create a Starlight Rewards account for this customer.",
+      error: "Could not find or create a Star Light Rewards account for this customer.",
     };
   }
 

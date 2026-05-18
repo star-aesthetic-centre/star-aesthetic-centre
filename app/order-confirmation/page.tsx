@@ -113,7 +113,7 @@ function ConfirmationContent() {
           <p className="mb-2 text-xs font-bold uppercase tracking-[0.25em] text-[#C8A882]">
             Order confirmed
           </p>
-          <h1 className="font-heading mb-3 text-3xl font-bold sm:text-4xl">
+          <h1 className="font-heading mb-3 text-3xl font-bold text-white sm:text-4xl">
             Thank you — we&apos;re excited for you
           </h1>
           <p className="mx-auto max-w-md text-base text-white/75 leading-relaxed">
@@ -125,7 +125,7 @@ function ConfirmationContent() {
             </span>
             {totalFormatted && (
               <span className="bg-[#C8A882] px-4 py-2 text-sm font-bold text-[#0F2647]">
-                {totalFormatted} paid via EFT
+                {totalFormatted} · To pay via EFT
               </span>
             )}
           </div>
@@ -161,7 +161,7 @@ function ConfirmationContent() {
         {starlights > 0 && (
           <div className="mt-6 border border-[#C8A882]/40 bg-[#FFF8F0] px-6 py-5 text-center">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#939EBA]">
-              Starlight Rewards
+              Star Light Rewards
             </p>
             <p className="font-heading mt-2 text-2xl font-bold text-[#C8A882]">
               {formatStarlights(starlights)}

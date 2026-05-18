@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     : credit.credited
       ? `✓ Payment confirmed. ${formatStarlights(credit.starlights)} credited to ${order.customer_email}.`
       : credit.starlights === 0
-        ? "Payment confirmed (no Starlights for this order total)."
+        ? "Payment confirmed (no Star Lights for this order total)."
         : "Payment confirmed.";
 
   return NextResponse.json({

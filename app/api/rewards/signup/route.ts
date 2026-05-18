@@ -65,7 +65,7 @@ export async function POST(req: Request) {
     account_id: account.id,
     type: "adjustment",
     amount_rands: 0,
-    description: "Welcome — Star Aesthetic Rewards membership",
+    description: "Welcome — Star Light Rewards membership",
     reference_type: "manual",
     created_by: "signup",
   });

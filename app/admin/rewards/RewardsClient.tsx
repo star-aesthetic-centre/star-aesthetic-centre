@@ -163,7 +163,7 @@ function QuickCreditPanel({
                 className="w-full border border-[#E5E4E0] px-3 py-2 text-sm focus:outline-none focus:border-[#C8A882]" />
               {suggestedReward !== null && suggestedReward > 0 && (
                 <p className="mt-1.5 text-xs text-[#6B6966]">
-                  10% reward = <strong className="text-[#0F2647]">{formatRewardRands(suggestedReward)}</strong>
+                  5% reward = <strong className="text-[#0F2647]">{formatRewardRands(suggestedReward)}</strong>
                   <button onClick={() => onCredit(suggestedReward, `Treatment: ${treatmentName || "Treatment"}`, "treatment")}
                     className="ml-3 bg-[#0F2647] text-white px-3 py-1 text-xs font-bold hover:bg-[#1B3D6E] transition-colors">
                     Credit {formatRewardRands(suggestedReward)}

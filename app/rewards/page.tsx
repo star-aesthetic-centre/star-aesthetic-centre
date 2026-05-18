@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { calculateReward, formatRewardRands, type LedgerEntry } from "@/lib/utils/rewards";
+import {
+  calculateReward,
+  calculateStarlights,
+  formatRewardRands,
+  formatStarlights,
+  type LedgerEntry,
+} from "@/lib/utils/rewards";
 import { RewardsSignup } from "@/components/rewards/RewardsSignup";
 
 const EARN_EXAMPLES = [
@@ -74,7 +80,7 @@ function BalanceChecker() {
               <p className="text-sm text-[#6B6966]">No rewards account found for <strong>{email}</strong>.</p>
               <p className="text-sm text-[#6B6966] mt-2">
                 <a href="#join-rewards" className="font-semibold text-[#C8A882] hover:underline">
-                  Sign up for the Rewards Programme →
+                  Sign up for Star Light Rewards →
                 </a>
               </p>
             </div>
@@ -132,12 +138,14 @@ function BalanceChecker() {
 
 function EarningsCalculator() {
   const [price, setPrice] = useState("");
-  const reward = price && !isNaN(Number(price)) ? calculateReward(Number(price)) : null;
+  const priceNum = price && !isNaN(Number(price)) ? Number(price) : null;
+  const starLights = priceNum !== null ? calculateStarlights(priceNum) : null;
+  const reward = priceNum !== null ? calculateReward(priceNum) : null;
 
   return (
     <div className="bg-[#F8F8F7] border border-[#E5E4E0] p-8">
       <h3 className="font-heading text-xl font-bold text-[#1A1917] mb-2">Earnings Calculator</h3>
-      <p className="text-sm text-[#6B6966] mb-6">Enter any treatment or product price to see what you'd earn.</p>
+      <p className="text-sm text-[#6B6966] mb-6">Enter any treatment or product price to see your Star Lights (5% back).</p>
       <div className="flex items-center gap-3">
         <span className="text-[#6B6966] text-sm font-semibold">R</span>
         <input
@@ -149,14 +157,17 @@ function EarningsCalculator() {
           className="flex-1 border border-[#E5E4E0] bg-white px-4 py-3 text-sm text-[#1A1917] placeholder-[#939EBA] focus:outline-none focus:border-[#C8A882]"
         />
       </div>
-      {reward !== null && reward > 0 && (
-        <div className="mt-4 bg-[#0F2647] px-6 py-4 flex items-center justify-between">
+      {starLights !== null && starLights > 0 && reward !== null && (
+        <div className="mt-4 bg-[#0F2647] px-6 py-4 flex items-center justify-between gap-4">
           <p className="text-sm text-white/70">You would earn</p>
-          <p className="font-heading text-2xl font-bold text-[#C8A882]">{formatRewardRands(reward)}</p>
+          <div className="text-right">
+            <p className="font-heading text-2xl font-bold text-[#C8A882]">{formatStarlights(starLights)}</p>
+            <p className="text-xs text-white/50">({formatRewardRands(reward)} value)</p>
+          </div>
         </div>
       )}
-      {reward === 0 && price && (
-        <p className="mt-4 text-xs text-[#6B6966]">Minimum reward is R 10 (minimum spend R 100).</p>
+      {starLights === 0 && price && (
+        <p className="mt-4 text-xs text-[#6B6966]">Spend R 20 or more to earn at least 1 Star Light.</p>
       )}
     </div>
   );
@@ -171,14 +182,14 @@ export default function RewardsPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <p className="text-xs font-bold uppercase tracking-widest text-[#939EBA] mb-4">
-              Star Aesthetic Rewards
+              Star Light Rewards
             </p>
             <h1 className="font-heading text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Every Rand You Spend<br />
               <span className="text-[#C8A882]">Works Harder for You</span>
             </h1>
             <p className="text-lg text-white/70 leading-relaxed mb-8">
-              Earn <strong className="text-white">10%</strong> back on every treatment and product purchase —
+              Earn <strong className="text-white">5%</strong> back in Star Lights on every treatment and product purchase —
               automatically credited to your rewards balance and redeemable against your next visit.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -186,7 +197,7 @@ export default function RewardsPage() {
                 href="#join-rewards"
                 className="bg-[#C8A882] px-8 py-4 text-sm font-bold text-[#0F2647] transition-colors hover:bg-[#A08060]"
               >
-                Sign up — join the Rewards Programme
+                Sign up — join Star Light Rewards
               </a>
               <Link
                 href="/book"
@@ -222,8 +233,8 @@ export default function RewardsPage() {
               },
               {
                 step: "02",
-                title: "Earn 10% Back",
-                body: "10% of every Rand you spend is credited to your rewards balance, rounded to the nearest R 10. Treatments credited after payment. Products credited on purchase.",
+                title: "Earn 5% Back",
+                body: "5% of every Rand you spend is credited as Star Lights (1 Star Light = R1). Treatments credited after payment. Products credited once payment is confirmed.",
               },
               {
                 step: "03",
@@ -258,8 +269,8 @@ export default function RewardsPage() {
               {/* Rates summary */}
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
-                  { label: "Treatments", rate: "10%", note: "Credited after payment" },
-                  { label: "Products", rate: "10%", note: "Credited on purchase" },
+                  { label: "Treatments", rate: "5%", note: "Credited after payment" },
+                  { label: "Products", rate: "5%", note: "Credited after payment confirmed" },
                 ].map(({ label, rate, note }) => (
                   <div key={label} className="bg-white border border-[#E5E4E0] p-6">
                     <p className="text-xs font-bold uppercase tracking-widest text-[#939EBA] mb-2">{label}</p>
@@ -296,7 +307,7 @@ export default function RewardsPage() {
                   </tbody>
                 </table>
                 <p className="px-6 py-3 text-xs text-[#6B6966] border-t border-[#E5E4E0]">
-                  * Rewards rounded to nearest R 10. No expiry. No minimum redemption.
+                  * Star Lights = 5% of spend (1 Star Light = R1). No expiry. No minimum redemption.
                 </p>
               </div>
             </div>

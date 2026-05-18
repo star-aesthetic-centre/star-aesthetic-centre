@@ -1,25 +1,28 @@
 /**
- * Starlight Rewards — Star Aesthetic Centre
+ * Star Light Rewards — Star Aesthetic Centre
  *
- * 1 Starlight = R1 of rewards value
- * Earning rate: 10% of spend in Starlights
+ * 1 Star Light = R1 of rewards value
+ * Earning rate: 5% of spend in Star Lights (aligned with retail loyalty norms e.g. Clicks tiered cashback)
  *
  * Examples:
- *   R 665   →  66 Starlights
- *   R 1,240 → 124 Starlights
- *   R 1,900 → 190 Starlights
- *   R 5,440 → 544 Starlights
+ *   R 665   →  33 Star Lights
+ *   R 1,240 →  62 Star Lights
+ *   R 1,439 →  72 Star Lights
  */
 
-/** Calculate Starlights earned — 10% of price, rounded to nearest integer */
+export const STAR_LIGHT_REWARDS_NAME = "Star Light Rewards";
+export const STAR_LIGHTS_LABEL = "Star Lights";
+export const REWARDS_EARN_PERCENT = 5;
+
+/** Calculate Star Lights earned — 5% of price, rounded to nearest integer */
 export function calculateStarlights(priceRands: number): number {
   if (priceRands <= 0) return 0;
-  return Math.round(priceRands * 0.1);
+  return Math.round(priceRands * (REWARDS_EARN_PERCENT / 100));
 }
 
-/** Format as "124 Starlights" */
+/** Format as "72 Star Lights" */
 export function formatStarlights(amount: number): string {
-  return `${amount.toLocaleString("en-ZA")} Starlights`;
+  return `${amount.toLocaleString("en-ZA")} ${STAR_LIGHTS_LABEL}`;
 }
 
 /** Legacy — kept for backwards compatibility */

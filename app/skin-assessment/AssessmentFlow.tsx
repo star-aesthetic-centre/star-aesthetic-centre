@@ -142,7 +142,26 @@ export default function AssessmentFlow() {
     const handleEmailGate = async (e: React.FormEvent) => {
         e.preventDefault();
         setEmailSending(true);
-        await new Promise((r) => setTimeout(r, 1000));
+        try {
+            await fetch("/api/leads", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    type: "skin_assessment",
+                    name: answers.name,
+                    email: answers.email,
+                    phone: answers.phone,
+                    answers: {
+                        concerns: answers.concerns,
+                        age: answers.age,
+                        lifestyleScore,
+                        tier,
+                    },
+                }),
+            });
+        } catch {
+            /* still show results if save fails */
+        }
         setEmailSending(false);
         next();
     };

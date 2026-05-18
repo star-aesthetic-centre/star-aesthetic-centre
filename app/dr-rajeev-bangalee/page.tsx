@@ -16,30 +16,32 @@ import {
   Clock,
 } from "lucide-react";
 import { buildPageMetadata, SITE_URL } from "@/lib/seo";
+import { getSitePageContent } from "@/lib/queries/site-pages";
 
-/* ─── Metadata ───────────────────────────────────────────────────────── */
-export const metadata: Metadata = buildPageMetadata({
-  title: "Dr. Rajeev Bangalee | Aesthetic Medicine Specialist | Star Aesthetic Centre Durban",
-  description:
-    "Dr. Rajeev Bangalee — General Practitioner and Aesthetic Medicine Specialist with 15+ years of clinical experience. Director of Star Aesthetic Centre, Durban North. Botox, dermal fillers, skin peels, microneedling and more.",
-  path: "/dr-rajeev-bangalee",
-  ogType: "profile",
-  ogImage: "/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
-  keywords: [
-    "Dr Rajeev Bangalee",
-    "aesthetic doctor Durban North",
-    "aesthetic medicine specialist Durban",
-    "cosmetic doctor KwaZulu-Natal",
-    "Botox doctor Durban",
-    "dermal fillers Durban",
-    "skin treatment Durban North",
-    "Star Aesthetic Centre director",
-    "GP aesthetic medicine Durban",
-    "medical aesthetic clinic Durban North",
-    "anti ageing treatment KwaZulu-Natal",
-    "lip filler specialist Durban",
-  ],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getSitePageContent("dr-rajeev-bangalee");
+  return buildPageMetadata({
+    title: content.seo.title,
+    description: content.seo.description,
+    path: "/dr-rajeev-bangalee",
+    ogType: "profile",
+    ogImage: "/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
+    keywords: [
+      "Dr Rajeev Bangalee",
+      "aesthetic doctor Durban North",
+      "aesthetic medicine specialist Durban",
+      "cosmetic doctor KwaZulu-Natal",
+      "Botox doctor Durban",
+      "dermal fillers Durban",
+      "skin treatment Durban North",
+      "Star Aesthetic Centre director",
+      "GP aesthetic medicine Durban",
+      "medical aesthetic clinic Durban North",
+      "anti ageing treatment KwaZulu-Natal",
+      "lip filler specialist Durban",
+    ],
+  });
+}
 
 /* ─── JSON-LD Schemas ────────────────────────────────────────────────── */
 const personSchema = {
@@ -190,13 +192,6 @@ const breadcrumbSchema = {
 };
 
 /* ─── Data ───────────────────────────────────────────────────────────── */
-const stats = [
-  { value: "15+", label: "Years of Clinical Experience" },
-  { value: "2001", label: "Year of Graduation — Wits" },
-  { value: "2012", label: "Aesthetic Medicine Diploma" },
-  { value: "100%", label: "Personally Performed by Dr. Bangalee" },
-];
-
 const qualifications = [
   {
     year: "2001",
@@ -293,7 +288,9 @@ const faqs = [
 ];
 
 /* ─── Page ───────────────────────────────────────────────────────────── */
-export default function DrBangaleePage() {
+export default async function DrBangaleePage() {
+  const pageContent = await getSitePageContent("dr-rajeev-bangalee");
+  const { hero, stats, about } = pageContent;
   const WP = "/images";
 
   return (
@@ -340,26 +337,24 @@ export default function DrBangaleePage() {
                 <div className="mb-4 flex items-center gap-3">
                   <span className="h-px w-10 bg-[#939EBA]" />
                   <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#939EBA]">
-                    Meet the Director
+                    {hero.overline}
                   </span>
                 </div>
 
                 <h1 className="font-heading text-[clamp(2.2rem,4vw,3.8rem)] font-bold uppercase leading-[1.08] tracking-wide text-white">
-                  DR. RAJEEV <span className="text-[#939EBA]">BANGALEE</span>
+                  {hero.title}
                 </h1>
 
                 <p className="mt-4 text-base font-medium text-white/70">
-                  MB, BS · Aesthetic Medicine Specialist · Durban North
+                  {hero.subtitle}
                 </p>
 
                 <p className="mt-5 max-w-md text-base leading-relaxed text-white/60">
-                  A qualified GP with 15+ years of clinical experience in South Africa and the UK.
-                  Every treatment at Star Aesthetic Centre is personally performed by Dr. Bangalee.
+                  {hero.intro}
                 </p>
 
-                {/* Credential pills */}
                 <div className="mt-8 flex flex-wrap gap-2">
-                  {["GP · 15+ Years", "Wits Graduate 2001", "Aesthetic Med Diploma 2012", "Durban North"].map(
+                  {hero.credentialPills.map(
                     (pill) => (
                       <span
                         key={pill}
@@ -376,14 +371,14 @@ export default function DrBangaleePage() {
                     href="/book"
                     className="inline-flex items-center gap-2 bg-[#939EBA] px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/20 transition-all hover:bg-[#7A87A6] hover:-translate-y-0.5"
                   >
-                    Book a Consultation
+                    {hero.ctaPrimary}
                     <ChevronRight size={14} />
                   </Link>
                   <Link
                     href="/treatments"
                     className="inline-flex items-center gap-2 border border-white/40 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/70 hover:bg-white/10 hover:-translate-y-0.5"
                   >
-                    View All Treatments
+                    {hero.ctaSecondary}
                   </Link>
                 </div>
               </div>
@@ -402,8 +397,8 @@ export default function DrBangaleePage() {
                   />
                   {/* Experience badge */}
                   <div className="absolute bottom-6 left-6 border border-[#939EBA]/30 bg-[#0F2647]/90 px-5 py-4 backdrop-blur-sm">
-                    <p className="font-heading text-3xl font-bold text-[#939EBA]">15+</p>
-                    <p className="text-[11px] font-medium text-white/60">Years Experience</p>
+                    <p className="font-heading text-3xl font-bold text-[#939EBA]">{hero.badgeValue}</p>
+                    <p className="text-[11px] font-medium text-white/60">{hero.badgeLabel}</p>
                   </div>
                 </div>
               </div>
@@ -455,46 +450,22 @@ export default function DrBangaleePage() {
                 <div className="mb-6 flex items-center gap-3">
                   <span className="h-px w-8 bg-[#939EBA]" />
                   <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#939EBA]">
-                    Biography
+                    {about.overline}
                   </span>
                 </div>
 
                 <h2 className="font-heading text-3xl font-bold text-[#1A1917] sm:text-4xl">
-                  A Doctor Who Takes Aesthetics Seriously
+                  {about.heading}
                 </h2>
 
-                <div className="mt-8 space-y-5 text-[15px] leading-relaxed text-[#6B6966]">
-                  <p>
-                    Dr. Rajeev Bangalee is the founder and director of Star Aesthetic Medical Centre in Durban North,
-                    KwaZulu-Natal. He is a qualified General Practitioner who has dedicated his post-graduate career
-                    to the science — and the art — of aesthetic medicine.
-                  </p>
-                  <p>
-                    After completing his MB, BS at the University of the Witwatersrand in 2001, Dr. Bangalee pursued
-                    extensive clinical experience in the United Kingdom, working across specialised fields and gaining
-                    exposure to high standards of care and a broad patient base. This period abroad shaped his
-                    disciplined, evidence-first approach to medicine.
-                  </p>
-                  <p>
-                    Returning to South Africa, Dr. Bangalee formalised his aesthetic medicine training with a Diploma
-                    from the American Academy of Aesthetic Medicine in 2012 — one of the most respected internationally
-                    recognised qualifications in the field. He has since added certification in Clinical Management in
-                    Dermatology, continuously expanding his skill set through local and international workshops and
-                    conferences.
-                  </p>
-                  <p>
-                    What sets Dr. Bangalee apart is not only his credentials — it is his philosophy. He believes that
-                    every patient deserves a personalised plan, every product must be clinically vetted, and every result
-                    should look natural. No cookie-cutter solutions. No unnecessary procedures. Just honest, medical-grade
-                    care tailored to you.
-                  </p>
-                </div>
+                <div
+                  className="mt-8 space-y-5 text-[15px] leading-relaxed text-[#6B6966] [&_p]:mb-5"
+                  dangerouslySetInnerHTML={{ __html: about.bodyHtml }}
+                />
 
-                {/* Philosophy quote */}
                 <blockquote className="mt-10 border-l-4 border-[#939EBA] pl-6">
                   <p className="text-base italic leading-relaxed text-[#1A1917]">
-                    "My goal is simple — to help you look naturally radiant and feel beautifully you.
-                    Every treatment is customised, every product carefully chosen."
+                    &ldquo;{about.quote}&rdquo;
                   </p>
                   <footer className="mt-3 text-xs font-semibold uppercase tracking-widest text-[#939EBA]">
                     — Dr. Rajeev Bangalee

@@ -10,6 +10,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient }              from '@supabase/supabase-js';
+import { createLead } from '@/lib/crm/leads';
 
 // ── Supabase client (server-side) ─────────────────────────────────────────────
 const supabase = createClient(
@@ -119,6 +120,20 @@ export async function POST(req: NextRequest) {
       console.error('Supabase insert error:', error.message);
     } else {
       console.log('✅ Session saved to Supabase');
+    }
+
+    if (contact.email?.includes('@')) {
+      const parts = (contact.name ?? '').trim().split(/\s+/);
+      await createLead({
+        email: contact.email,
+        phone: contact.phone,
+        firstName: parts[0],
+        lastName: parts.slice(1).join(' '),
+        source: 'niki',
+        interestType: 'treatment',
+        interestValue: payload.treatmentPage ?? 'Niki voice chat',
+        metadata: { sessionId: payload.sessionId, transcriptLength: payload.transcript?.length },
+      });
     }
 
     // ── Phase 3 (TODO): Email to Nikita via Resend ────────────────────────

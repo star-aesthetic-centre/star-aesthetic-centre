@@ -16,8 +16,8 @@ export default async function AdminRewardsPage() {
         {/* Header */}
         <div className="flex items-start justify-between gap-6 flex-wrap">
           <div>
-            <h1 className="font-heading text-3xl font-bold text-[#1A1917]">Rewards Programme</h1>
-            <p className="text-sm text-[#6B6966] mt-1">{accounts.length} members · 10% earn rate on all treatments and products</p>
+            <h1 className="font-heading text-3xl font-bold text-[#1A1917]">Star Light Rewards</h1>
+            <p className="text-sm text-[#6B6966] mt-1">{accounts.length} members · 5% earn rate (Star Lights) on treatments and products</p>
           </div>
           <NewAccountForm />
         </div>

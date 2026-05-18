@@ -1,6 +1,11 @@
 import { MessageCircle, Phone } from "lucide-react";
+import type { HomePageContent } from "@/lib/content/site-pages-types";
 
-export default function BookingCTA() {
+type Props = {
+  content: HomePageContent["bookingCta"];
+};
+
+export default function BookingCTA({ content }: Props) {
  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "27315731325";
  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hi%2C%20I'd%20like%20to%20book%20a%20consultation%20at%20Star%20Aesthetic%20Centre.`;
 
@@ -22,20 +27,18 @@ export default function BookingCTA() {
  <div className="mb-6 flex items-center gap-3">
  <span className="h-px w-8 bg-[#939EBA]" />
  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#939EBA]">
- Ready to Begin?
+ {content.overline}
  </span>
  </div>
 
  <h2 className="font-heading text-4xl font-bold leading-tight sm:text-5xl">
- Book your
+ {content.titleLine1}
  <br />
- <em className="not-italic text-[#939EBA]">consultation</em> today.
+ <em className="not-italic text-[#939EBA]">{content.titleEmphasis}</em> today.
  </h2>
 
  <p className="mt-6 max-w-md text-[15px] leading-relaxed text-[#636374]">
- Every journey begins with a personalised one-on-one consultation
- with Dr. Bangalee. He'll assess your skin, understand your goals,
- and design a treatment plan made for you.
+ {content.body}
  </p>
 
  {/* Contact buttons */}

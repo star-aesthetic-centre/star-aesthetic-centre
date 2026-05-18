@@ -33,6 +33,7 @@ type Props = {
   allProducts: FunnelProductOption[];
   currentProductId: string;
   disabled?: boolean;
+  onSuggest?: () => Promise<{ rationale?: string; error?: string }>;
 };
 
 function stepCopyFromProduct(product: FunnelProductOption): Pick<FunnelStepConfig, "title" | "description"> {
@@ -50,10 +51,13 @@ export default function FunnelEditor({
   allProducts,
   currentProductId,
   disabled = false,
+  onSuggest,
 }: Props) {
   const [previewMobile, setPreviewMobile] = useState<Record<number, boolean>>({});
   const [productSearch, setProductSearch] = useState<Record<number, string>>({});
   const [editingStep, setEditingStep] = useState(0);
+  const [suggesting, setSuggesting] = useState(false);
+  const [suggestNote, setSuggestNote] = useState<string | null>(null);
 
   const stepCount = config.steps.length;
   const pickerProducts = allProducts.filter((p) => p.id !== currentProductId);
@@ -127,40 +131,71 @@ export default function FunnelEditor({
       disabled={disabled}
       className={`m-0 min-w-0 space-y-6 border-0 p-0 ${disabled ? "opacity-60" : ""}`}
     >
-      <div className="flex items-center justify-between border border-[#E5E4E0] bg-white p-4">
-        <div>
+      <div className="flex flex-wrap items-start justify-between gap-4 border border-[#E5E4E0] bg-white p-4">
+        <div className="min-w-0 flex-1">
           <p className="text-sm font-bold text-[#1A1917]">Post-add upsell funnel</p>
           <p className="text-xs text-[#6B6966] mt-1">
-            Configure Step 1 and Step 2 separately (up to {MAX_PRODUCTS_PER_FUNNEL_STEP} products each;
-            typically 1–2 for SA). Shoppers see offers after checkout details, before payment.
+            Suggest routine to pre-fill steps, adjust products, turn on, and save. Off = hidden from
+            shoppers.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => setEnabled(!config.enabled)}
-          className={`flex items-center gap-3 px-4 py-2 text-sm font-medium border transition-colors ${
-            config.enabled
-              ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-              : "border-[#E5E4E0] bg-[#F8F8F7] text-[#6B6966]"
-          }`}
-        >
-          <span
-            className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-              config.enabled ? "bg-emerald-500" : "bg-[#D0CFC9]"
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          {onSuggest && (
+            <button
+              type="button"
+              disabled={suggesting || disabled}
+              onClick={async () => {
+                setSuggestNote(null);
+                setSuggesting(true);
+                try {
+                  const res = await onSuggest();
+                  if (res.error) setSuggestNote(res.error);
+                  else if (res.rationale) setSuggestNote(res.rationale);
+                } finally {
+                  setSuggesting(false);
+                }
+              }}
+              className="px-4 py-2 text-xs font-bold uppercase tracking-widest border border-[#C8A882] text-[#0F2647] bg-[#FFF8F0] hover:bg-[#FFF0E0] disabled:opacity-50 transition-colors"
+            >
+              {suggesting ? "Suggesting…" : "Suggest routine"}
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => setEnabled(!config.enabled)}
+            className={`flex items-center gap-3 px-4 py-2 text-sm font-medium border transition-colors ${
+              config.enabled
+                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                : "border-[#E5E4E0] bg-[#F8F8F7] text-[#6B6966]"
             }`}
           >
             <span
-              className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${
-                config.enabled ? "translate-x-4" : "translate-x-0.5"
+              className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                config.enabled ? "bg-emerald-500" : "bg-[#D0CFC9]"
               }`}
-            />
-          </span>
-          {config.enabled ? "Enabled" : "Off"}
-        </button>
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${
+                  config.enabled ? "translate-x-4" : "translate-x-0.5"
+                }`}
+              />
+            </span>
+            {config.enabled ? "On" : "Off"}
+          </button>
+        </div>
       </div>
 
-      {config.enabled && (
-        <>
+      {suggestNote && (
+        <p className="text-sm px-4 py-3 border border-blue-200 bg-blue-50 text-blue-900">{suggestNote}</p>
+      )}
+
+      {!config.enabled && (
+        <p className="text-xs text-[#6B6966] border border-dashed border-[#E5E4E0] bg-[#F8F8F7] px-4 py-3">
+          Funnel is off on the live site — configure below, turn on, and save.
+        </p>
+      )}
+
+      <>
           <div>
             <label className={labelClass}>Number of steps</label>
             <div className="flex gap-2">
@@ -516,8 +551,7 @@ export default function FunnelEditor({
               </div>
             );
           })()}
-        </>
-      )}
+      </>
     </fieldset>
   );
 }

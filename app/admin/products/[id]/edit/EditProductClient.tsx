@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { updateFullProduct } from "@/app/admin/products/actions";
+import { suggestFunnelForProduct, updateFullProduct } from "@/app/admin/products/actions";
 import FunnelEditor, { type FunnelProductOption } from "@/components/admin/FunnelEditor";
 import RichHtmlEditor from "@/components/admin/RichHtmlEditor";
 import { parseFunnelConfig, type FunnelConfig } from "@/lib/funnel";
@@ -270,6 +270,15 @@ export default function EditProductClient({
             allProducts={allProducts}
             currentProductId={product.id}
             disabled={!funnelConfigSupported}
+            onSuggest={async () => {
+              const res = await suggestFunnelForProduct(product.id);
+              if (!res.success || !res.config) {
+                return { error: res.error ?? "Could not suggest funnel" };
+              }
+              setFunnelConfig(parseFunnelConfig(res.config));
+              setActiveTab("funnel");
+              return { rationale: res.rationale };
+            }}
           />
         </div>
       )}

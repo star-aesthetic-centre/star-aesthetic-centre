@@ -11,37 +11,42 @@ import Testimonials from "@/components/home/Testimonials";
 import BookingCTA from "@/components/home/BookingCTA";
 import MapSection from "@/components/home/MapSection";
 import { buildPageMetadata } from "@/lib/seo";
+import { getSitePageContent } from "@/lib/queries/site-pages";
 
-export const metadata: Metadata = buildPageMetadata({
-    title: "Star Aesthetic Centre — Doctor-Led Aesthetics in Durban North",
-    description:
-        "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling and more — by Dr. Rajeev Bangalee (MB, BS). Book your consultation today.",
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getSitePageContent("home");
+  return buildPageMetadata({
+    title: content.seo.title,
+    description: content.seo.description,
     path: "/",
     keywords: [
-        "aesthetic clinic Durban North",
-        "medical aesthetics Durban",
-        "botox Durban North",
-        "lip fillers Durban",
-        "skin peel Durban",
-        "Dr Rajeev Bangalee",
-        "cosmeceutical skincare Durban",
+      "aesthetic clinic Durban North",
+      "medical aesthetics Durban",
+      "botox Durban North",
+      "lip fillers Durban",
+      "skin peel Durban",
+      "Dr Rajeev Bangalee",
+      "cosmeceutical skincare Durban",
     ],
-});
+  });
+}
 
-export default function HomePage() {
-    return (
-        <>
-            <HeroSection />
-            <TrustStrip />
-            <TreatmentCategories />
-            <ProductBrands />
-            <FeaturedProducts />
-            <PerksSection />
-            <DoctorTrust />
-            <SkinAssessmentCTA />
-            <Testimonials />
-            <BookingCTA />
-            <MapSection />
-        </>
-    );
+export default async function HomePage() {
+  const content = await getSitePageContent("home");
+
+  return (
+    <>
+      <HeroSection content={content.hero} />
+      <TrustStrip />
+      <TreatmentCategories />
+      <ProductBrands />
+      <FeaturedProducts />
+      <PerksSection perksRewards={content.perksRewards} />
+      <DoctorTrust content={content.doctorTrust} />
+      <SkinAssessmentCTA />
+      <Testimonials />
+      <BookingCTA content={content.bookingCta} />
+      <MapSection />
+    </>
+  );
 }

@@ -20,6 +20,7 @@ import {
   formatSlotLabel,
 } from '@/lib/availability';
 import { getAppointmentType } from '@/lib/booking-config';
+import { createLead } from '@/lib/crm/leads';
 
 // ── Clients ────────────────────────────────────────────────────────────────────
 
@@ -135,6 +136,19 @@ export async function POST(req: NextRequest) {
       console.error('Supabase insert error:', insertError.message);
       return NextResponse.json({ error: 'Failed to save booking.' }, { status: 500 });
     }
+
+    const nameParts = patientName.trim().split(/\s+/);
+    await createLead({
+      email: patientEmail,
+      phone: patientPhone,
+      firstName: nameParts[0],
+      lastName: nameParts.slice(1).join(' '),
+      source: 'booking',
+      interestType: 'treatment',
+      interestValue: apt.title,
+      status: 'booked',
+      metadata: { reference, treatmentSlug, date, timeSlot },
+    });
 
     // ── Send emails ────────────────────────────────────────────────────────────
     const dateDisplay = formatDateDisplay(date);

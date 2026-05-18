@@ -55,10 +55,10 @@ export function RewardsSignup() {
     <div id="join-rewards" className="scroll-mt-24 border border-[#E5E4E0] bg-white p-8 lg:p-10">
       <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#939EBA]">Join free</p>
       <h2 className="mb-2 font-heading text-2xl font-bold text-[#1A1917] lg:text-3xl">
-        Sign up for Star Aesthetic Rewards
+        Sign up for Star Light Rewards
       </h2>
       <p className="mb-8 max-w-xl text-sm leading-relaxed text-[#6B6966]">
-        Sign up to become a member of our Rewards Programme and earn 10% back on treatments and products.
+        Sign up to become a member of Star Light Rewards and earn 5% back in Star Lights on treatments and products.
         Already visited us? You may already have an account —{" "}
         <a href="#check-balance" className="font-semibold text-[#C8A882] hover:underline">
           check your balance
@@ -70,7 +70,7 @@ export function RewardsSignup() {
         <div className="bg-[#0F2647] p-6 text-white">
           <p className="mb-2 font-heading text-xl font-bold text-[#C8A882]">You&apos;re in, {state.name}!</p>
           <p className="text-sm leading-relaxed text-white/80">
-            Your rewards membership is active. Earn 10% on your next treatment or shop purchase — we&apos;ll
+            Your Star Light Rewards membership is active. Earn 5% in Star Lights on your next treatment or shop purchase — we&apos;ll
             credit your balance automatically.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -166,7 +166,7 @@ export function RewardsSignup() {
             disabled={state.status === "loading"}
             className="w-full bg-[#C8A882] px-10 py-4 text-sm font-bold text-[#0F2647] transition-colors hover:bg-[#A08060] disabled:opacity-60 sm:w-auto"
           >
-            {state.status === "loading" ? "Joining…" : "Sign up — join the Rewards Programme"}
+            {state.status === "loading" ? "Joining…" : "Sign up — join Star Light Rewards"}
           </button>
         </form>
       )}

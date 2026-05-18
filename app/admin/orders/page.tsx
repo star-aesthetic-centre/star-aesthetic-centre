@@ -119,7 +119,7 @@ export default function AdminOrdersPage() {
         <div>
           <h1 className="font-heading text-3xl font-bold text-[#1A1917]">Shop Orders</h1>
           <p className="text-sm text-[#6B6966] mt-1">
-            Confirm EFT payment and credit Starlights in one step
+            Confirm EFT payment and credit Star Lights in one step
           </p>
         </div>
 
@@ -132,7 +132,7 @@ export default function AdminOrdersPage() {
               urgent: pendingCount > 0,
             },
             {
-              label: "Needs Starlights",
+              label: "Needs Star Lights",
               value: String(awaitingCredit),
               sub: "paid but not credited",
               urgent: awaitingCredit > 0,
@@ -215,7 +215,7 @@ export default function AdminOrdersPage() {
                       Total
                     </th>
                     <th className="text-left px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#6B6966]">
-                      Starlights
+                      Star Lights
                     </th>
                     <th className="text-left px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#6B6966]">
                       Status
@@ -297,7 +297,7 @@ export default function AdminOrdersPage() {
                         {o.status === "cancelled" || o.status === "refunded" ? (
                           <span className="text-xs text-[#6B6966]">—</span>
                         ) : o.starlights_credited ? (
-                          <span className="text-xs font-semibold text-green-700">✓ Starlights credited</span>
+                          <span className="text-xs font-semibold text-green-700">✓ Star Lights credited</span>
                         ) : (
                           <button
                             type="button"
@@ -309,7 +309,7 @@ export default function AdminOrdersPage() {
                               ? "Processing…"
                               : o.status === "pending"
                                 ? "✓ Confirm payment & credit"
-                                : "✓ Credit Starlights"}
+                                : "✓ Credit Star Lights"}
                           </button>
                         )}
                       </td>

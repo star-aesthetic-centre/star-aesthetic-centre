@@ -10,7 +10,7 @@ export async function loginAction(
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
-  const validUsername = process.env.ADMIN_USERNAME ?? "nikita";
+  const validUsername = process.env.ADMIN_USERNAME ?? "nakita";
   const validPassword = process.env.ADMIN_PASSWORD;
 
   if (username === validUsername && password === validPassword) {

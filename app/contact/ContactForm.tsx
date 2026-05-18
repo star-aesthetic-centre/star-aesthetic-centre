@@ -30,8 +30,22 @@ export default function ContactForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setStatus("sending");
-        // TODO: wire to a form endpoint (Formspree / WP REST / email action)
-        await new Promise((r) => setTimeout(r, 1400));
+        const res = await fetch("/api/leads", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                type: "contact",
+                name: form.name,
+                email: form.email,
+                phone: form.phone,
+                reason: form.reason,
+                message: form.message,
+            }),
+        });
+        if (!res.ok) {
+            setStatus("error");
+            return;
+        }
         setStatus("sent");
     };
 

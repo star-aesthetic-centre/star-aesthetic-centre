@@ -72,6 +72,7 @@ export default function CheckoutPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState("");
     const [funnelResumeNote, setFunnelResumeNote] = useState(false);
+    const [profileLoadedNote, setProfileLoadedNote] = useState(false);
 
     useEffect(() => {
         const saved = loadCheckoutBilling<BillingForm>();
@@ -80,6 +81,66 @@ export default function CheckoutPage() {
             setFunnelResumeNote(true);
         }
     }, []);
+
+    /* ── Restore cart from abandonment link (?recover=…) ─────── */
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        const token = new URLSearchParams(window.location.search).get("recover");
+        if (!token) return;
+
+        let cancelled = false;
+        (async () => {
+            try {
+                const res = await fetch(
+                    `/api/cart-abandonment/recover?token=${encodeURIComponent(token)}`
+                );
+                if (!res.ok || cancelled) return;
+                const data = await res.json();
+                dispatch({ type: "CLEAR_CART" });
+                for (const item of data.items ?? []) {
+                    dispatch({ type: "ADD_ITEM", payload: item });
+                }
+                if (data.billing) {
+                    setForm((prev) => ({ ...prev, ...data.billing }));
+                    saveCheckoutBilling(data.billing);
+                }
+                setFunnelResumeNote(true);
+                window.history.replaceState({}, "", "/checkout");
+            } catch {
+                /* ignore */
+            }
+        })();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [dispatch]);
+
+    /* ── Track abandoned checkout (email + phone entered) ─────── */
+    useEffect(() => {
+        if (items.length === 0) return;
+        const emailOk = form.email.includes("@");
+        const phoneOk = form.phone.replace(/\D/g, "").length >= 10;
+        if (!emailOk || !phoneOk) return;
+
+        const timer = window.setTimeout(() => {
+            fetch("/api/cart-abandonment/track", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    items,
+                    billing: {
+                        firstName: form.firstName,
+                        lastName: form.lastName,
+                        email: form.email,
+                        phone: form.phone,
+                    },
+                }),
+            }).catch(() => {});
+        }, 2000);
+
+        return () => window.clearTimeout(timer);
+    }, [items, form.email, form.phone, form.firstName, form.lastName]);
 
     // Gift voucher
     const [voucherInput, setVoucherInput] = useState("");
@@ -142,6 +203,38 @@ export default function CheckoutPage() {
         if (!form.postalCode.trim()) newErrors.postalCode = "Required";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
+    }
+
+    async function loadSavedProfile(email: string) {
+        const trimmed = email.trim().toLowerCase();
+        if (!trimmed.includes("@")) return;
+        try {
+            const res = await fetch(
+                `/api/customers/profile?email=${encodeURIComponent(trimmed)}`
+            );
+            if (!res.ok) return;
+            const data = await res.json();
+            if (!data.found || !data.billing) return;
+            const b = data.billing as BillingForm;
+            setForm((prev) => {
+                const next: BillingForm = {
+                    firstName: b.firstName || prev.firstName,
+                    lastName: b.lastName || prev.lastName,
+                    email: b.email || trimmed,
+                    phone: b.phone || prev.phone,
+                    address1: b.address1 || prev.address1,
+                    address2: b.address2 || prev.address2,
+                    city: b.city || prev.city,
+                    province: b.province || prev.province,
+                    postalCode: b.postalCode || prev.postalCode,
+                };
+                saveCheckoutBilling(next);
+                return next;
+            });
+            if (data.isTest) setProfileLoadedNote(true);
+        } catch {
+            /* ignore */
+        }
     }
 
     /* ── Field helper ──────────────────────────────────────────── */
@@ -253,6 +346,12 @@ export default function CheckoutPage() {
                     </p>
                 )}
 
+                {profileLoadedNote && (
+                    <p className="mb-6 border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-900">
+                        Saved profile loaded for this email — review and place your order.
+                    </p>
+                )}
+
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
 
                     {/* ── Left: Billing form (2/3) ──────────────── */}
@@ -302,6 +401,7 @@ export default function CheckoutPage() {
                                         type="email"
                                         placeholder="jane@example.com"
                                         {...field("email")}
+                                        onBlur={(e) => loadSavedProfile(e.target.value)}
                                     />
                                     {errors.email && (
                                         <p className="mt-1 text-xs text-red-500">

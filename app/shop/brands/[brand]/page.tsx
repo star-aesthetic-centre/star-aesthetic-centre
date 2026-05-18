@@ -123,8 +123,14 @@ export default async function BrandArchivePage({ params }: PageProps) {
             <div className="bg-white border border-[#E2E2E6] p-8 sticky top-24">
               <div className="mb-6 pb-4 border-b border-[#E2E2E6]">
                 <h2 className="text-lg font-bold font-heading text-[#1A1A1F] flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F7F7F8]">
-                    🌟
+                  <span className="relative h-8 w-8 shrink-0 overflow-hidden border border-[#E2E2E6] bg-[#F7F7F8]">
+                    <Image
+                      src="/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-250.webp"
+                      alt="Dr. Rajeev Bangalee"
+                      width={32}
+                      height={32}
+                      className="aspect-square h-full w-full object-cover object-top"
+                    />
                   </span>
                   Dr. Bangalee Recommends
                 </h2>

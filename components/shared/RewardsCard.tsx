@@ -2,7 +2,7 @@ import Link from "next/link";
 import { calculateStarlights } from "@/lib/utils/rewards";
 
 /**
- * Sidebar card — introduces Starlight Rewards.
+ * Sidebar card — introduces Star Light Rewards.
  * Used on treatment detail pages and product detail pages.
  */
 export function RewardsCard({ price }: { price?: number }) {
@@ -20,23 +20,23 @@ export function RewardsCard({ price }: { price?: number }) {
           </div>
           <div>
             <p className="text-[10px] font-bold uppercase tracking-widest text-[#939EBA]">Star Aesthetic</p>
-            <p className="text-sm font-bold text-white leading-tight">Starlight Rewards</p>
+            <p className="text-sm font-bold text-white leading-tight">Star Light Rewards</p>
           </div>
         </div>
         {starlights ? (
           <p className="text-xs text-white/60 mt-2">
-            Earn <span className="text-[#C8A882] font-bold">{starlights.toLocaleString("en-ZA")} Starlights</span> on this purchase
+            Earn <span className="text-[#C8A882] font-bold">{starlights.toLocaleString("en-ZA")} Star Lights</span> on this purchase
           </p>
         ) : (
-          <p className="text-xs text-white/60 mt-2">Earn <span className="text-[#C8A882] font-bold">Starlights</span> on every purchase — 10% back</p>
+          <p className="text-xs text-white/60 mt-2">Earn <span className="text-[#C8A882] font-bold">Star Lights</span> on every purchase — 5% back</p>
         )}
       </div>
 
       {/* Body */}
       <div className="px-6 py-5 space-y-3">
         {[
-          { text: "10% back in Starlights on all treatments & products" },
-          { text: "1 Starlight = R1 of rewards value" },
+          { text: "5% back in Star Lights on all treatments & products" },
+          { text: "1 Star Light = R1 of rewards value" },
           { text: "Redeemable against any future visit or purchase" },
           { text: "No sign-up needed — created on your first visit" },
         ].map(({ text }) => (

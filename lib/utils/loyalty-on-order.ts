@@ -15,8 +15,8 @@ export type OrderLoyaltyResult = {
 };
 
 /**
- * Ensures a Starlight Rewards account exists for the checkout email.
- * Does not credit Starlights yet — shop orders are EFT; credit when payment is confirmed.
+ * Ensures a Star Light Rewards account exists for the checkout email.
+ * Does not credit Star Lights yet — shop orders are EFT; credit when payment is confirmed.
  */
 export async function ensureLoyaltyAccountForOrder(
   supabase: SupabaseClient,
@@ -56,7 +56,7 @@ export async function ensureLoyaltyAccountForOrder(
     account_id: created.id,
     type: "adjustment",
     amount_rands: 0,
-    description: "Welcome — Starlight Rewards (online shop)",
+    description: "Welcome — Star Light Rewards (online shop)",
     reference_type: "manual",
     created_by: "order",
   });

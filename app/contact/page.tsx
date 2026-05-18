@@ -4,51 +4,23 @@ import Image from "next/image";
 import { MapPin, Phone, Mail, MessageCircle, Clock, Star, Shield, Award, ChevronRight } from "lucide-react";
 import ContactForm from "./ContactForm";
 import { buildPageMetadata } from "@/lib/seo";
+import { getSitePageContent } from "@/lib/queries/site-pages";
 
-export const metadata: Metadata = buildPageMetadata({
-    title: "Contact Us | Star Aesthetic Centre – Durban North",
-    description:
-        "Get in touch with Dr. Rajeev Bangalee at Star Aesthetic Centre, Durban North. Book a consultation for aesthetic treatments, skincare advice, or product enquiries. We respond within 2 business hours.",
-    path: "/contact",
-    keywords: [
-        "contact star aesthetic centre",
-        "book aesthetic consultation durban north",
-        "dr rajeev bangalee contact",
-        "aesthetic clinic durban north",
-        "cosmetic treatment enquiry durban",
-    ],
-});
-
-const testimonials = [
-    {
-        name: "Priya M.",
-        location: "Durban North",
-        rating: 5,
-        treatment: "Botox & Anti-Ageing",
-        text: "I was so nervous about injectables, but Dr. Bangalee explained everything so clearly. The results were completely natural — my husband didn't even realise I'd had anything done!",
-    },
-    {
-        name: "Samantha L.",
-        location: "La Lucia",
-        rating: 5,
-        treatment: "Skin Peel Treatment",
-        text: "Three sessions in and my pigmentation has faded dramatically. The team is warm, professional, and genuinely invested in your results. I wouldn't go anywhere else.",
-    },
-    {
-        name: "Kavitha R.",
-        location: "Umhlanga",
-        rating: 5,
-        treatment: "Lip Fillers",
-        text: "Subtle, beautiful lip enhancement. Dr. Bangalee has an incredible eye — I told him I wanted to look like myself, just better. That's exactly what I got.",
-    },
-    {
-        name: "Michelle T.",
-        location: "Durban North",
-        rating: 5,
-        treatment: "Vitamin Drip",
-        text: "The vitamin drip before a big event was a game changer. I felt amazing. The clinic is beautiful, clean, and the care you receive is absolutely top-tier.",
-    },
-];
+export async function generateMetadata(): Promise<Metadata> {
+    const content = await getSitePageContent("contact");
+    return buildPageMetadata({
+        title: content.seo.title,
+        description: content.seo.description,
+        path: "/contact",
+        keywords: [
+            "contact star aesthetic centre",
+            "book aesthetic consultation durban north",
+            "dr rajeev bangalee contact",
+            "aesthetic clinic durban north",
+            "cosmetic treatment enquiry durban",
+        ],
+    });
+}
 
 const trustBadges = [
     { icon: Award, label: "MB, BS Qualified GP" },
@@ -57,7 +29,12 @@ const trustBadges = [
     { icon: Clock, label: "15+ Years Experience" },
 ];
 
-export default function ContactPage() {
+export default async function ContactPage() {
+    const content = await getSitePageContent("contact");
+    const { hero, formIntro, doctorCard, contact, hours: hoursRows, testimonials } = content;
+    const phoneTel = contact.phone.replace(/\D/g, "");
+    const waUrl = `https://wa.me/27${phoneTel.replace(/^0/, "")}`;
+
     return (
         <>
             {/* ── Breadcrumb ── */}
@@ -73,13 +50,13 @@ export default function ContactPage() {
             <section className="bg-[#0F2647] py-14 sm:py-20">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
                     <p className="font-heading text-xs font-semibold uppercase tracking-[0.25em] text-[#939EBA] mb-4">
-                        — Durban North · Doctor-Led Aesthetics
+                        {hero.overline}
                     </p>
                     <h1 className="font-heading text-4xl sm:text-5xl font-bold uppercase text-white leading-tight mb-4">
-                        Let&apos;s Talk
+                        {hero.title}
                     </h1>
                     <p className="text-[#A8B4CC] text-base sm:text-lg max-w-xl mx-auto">
-                        Whether you&apos;re ready to book or simply curious about a treatment, we&apos;re here — no pressure, no obligation.
+                        {hero.subtitle}
                     </p>
 
                     {/* Trust badges row */}
@@ -116,10 +93,10 @@ export default function ContactPage() {
 
                             <div className="mb-8">
                                 <h2 className="font-heading text-2xl font-bold text-[#1A1917] mb-2">
-                                    Send Us a Message
+                                    {formIntro.title}
                                 </h2>
                                 <p className="text-sm text-[#6B6966]">
-                                    We typically respond within <strong>2 business hours</strong>. You&apos;re welcome to call or WhatsApp us directly if you prefer.
+                                    {formIntro.body}
                                 </p>
                             </div>
 
@@ -177,7 +154,7 @@ export default function ContactPage() {
                                     </div>
                                 </div>
                                 <p className="text-sm text-[#A8B4CC] leading-relaxed">
-                                    Every consultation and treatment is performed personally by Dr. Bangalee — not a therapist or nurse. You&apos;re in the hands of a qualified, experienced GP.
+                                    {doctorCard.body}
                                 </p>
                                 <Link
                                     href="/dr-rajeev-bangalee"
@@ -194,7 +171,7 @@ export default function ContactPage() {
                                 </h3>
 
                                 <a
-                                    href="https://wa.me/27315731325"
+                                    href={waUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-4 group"
@@ -205,13 +182,13 @@ export default function ContactPage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-[#6B6966]">WhatsApp</p>
                                         <p className="text-sm font-semibold text-[#1A1917] group-hover:text-[#0F2647] transition-colors">
-                                            +27 (0)31 573 1325
+                                            {contact.whatsappNote}
                                         </p>
                                     </div>
                                 </a>
 
                                 <a
-                                    href="tel:+27315731325"
+                                    href={`tel:+27${phoneTel.replace(/^0/, "")}`}
                                     className="flex items-center gap-4 group"
                                 >
                                     <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-[#E5E4E0] text-[#0F2647]">
@@ -220,13 +197,13 @@ export default function ContactPage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-[#6B6966]">Phone</p>
                                         <p className="text-sm font-semibold text-[#1A1917] group-hover:text-[#0F2647] transition-colors">
-                                            031 573 1325
+                                            {contact.phoneDisplay}
                                         </p>
                                     </div>
                                 </a>
 
                                 <a
-                                    href="mailto:info@staraesthetic.site"
+                                    href={`mailto:${contact.email}`}
                                     className="flex items-center gap-4 group"
                                 >
                                     <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-[#E5E4E0] text-[#0F2647]">
@@ -235,7 +212,7 @@ export default function ContactPage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-[#6B6966]">Email</p>
                                         <p className="text-sm font-semibold text-[#1A1917] group-hover:text-[#0F2647] transition-colors">
-                                            info@staraesthetic.site
+                                            {contact.email}
                                         </p>
                                     </div>
                                 </a>
@@ -252,7 +229,7 @@ export default function ContactPage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-[#6B6966]">Address</p>
                                         <p className="text-sm font-semibold text-[#1A1917] group-hover:text-[#0F2647] transition-colors leading-relaxed">
-                                            22 Ennisdale Drive<br />Durban North, 4051
+                                            {contact.addressLine1}<br />{contact.addressLine2}
                                         </p>
                                     </div>
                                 </a>
@@ -264,11 +241,7 @@ export default function ContactPage() {
                                     Consulting Hours
                                 </h3>
                                 <div className="space-y-2.5 text-sm">
-                                    {[
-                                        { day: "Monday – Friday", hours: "08:00 – 17:00" },
-                                        { day: "Saturday", hours: "08:00 – 13:00" },
-                                        { day: "Sunday & Public Holidays", hours: "Closed" },
-                                    ].map(({ day, hours }) => (
+                                    {hoursRows.map(({ day, hours }) => (
                                         <div key={day} className="flex justify-between items-center">
                                             <span className="text-[#6B6966]">{day}</span>
                                             <span className={`font-semibold ${hours === "Closed" ? "text-[#A9A8A4]" : "text-[#1A1917]"}`}>
