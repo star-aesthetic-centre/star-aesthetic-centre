@@ -1,6 +1,6 @@
 /** Post–add-to-cart upsell funnel (max 2 steps). */
 
-export type FunnelDiscountPercent = 10 | 15 | 20;
+export type FunnelDiscountPercent = 10 | 15 | 20 | 25;
 
 export interface FunnelStepConfig {
   title: string;
@@ -15,6 +15,8 @@ export interface FunnelConfig {
 }
 
 export const MAX_FUNNEL_STEPS = 2;
+/** Max offer products per funnel step (Lava uses 3; SA typically 1–2) */
+export const MAX_PRODUCTS_PER_FUNNEL_STEP = 3;
 
 export const DEFAULT_FUNNEL_STEPS: FunnelStepConfig[] = [
   {
@@ -56,9 +58,11 @@ export function parseFunnelConfig(raw: unknown): FunnelConfig {
         description:
           typeof step.description === "string" ? step.description.trim() : "",
         productIds: Array.isArray(step.productIds)
-          ? step.productIds.filter((id): id is string => typeof id === "string").slice(0, 6)
+          ? step.productIds.filter((id): id is string => typeof id === "string").slice(0, MAX_PRODUCTS_PER_FUNNEL_STEP)
           : [],
-        discountPercent: ([10, 15, 20] as const).includes(Number(step.discountPercent) as FunnelDiscountPercent)
+        discountPercent: ([10, 15, 20, 25] as const).includes(
+          Number(step.discountPercent) as FunnelDiscountPercent
+        )
           ? (Number(step.discountPercent) as FunnelDiscountPercent)
           : 10,
       }))
@@ -82,3 +86,17 @@ export function applyFunnelDiscount(price: number, discountPercent: FunnelDiscou
 }
 
 export const FUNNEL_OFFER_LABEL = "Funnel Offer";
+
+/** Strip HTML and trim to a funnel step description snippet */
+export function excerptPlainText(html: string, maxLen = 180): string {
+  const text = html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text) return "";
+  if (text.length <= maxLen) return text;
+  const cut = text.slice(0, maxLen);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${lastSpace > 60 ? cut.slice(0, lastSpace) : cut}…`;
+}

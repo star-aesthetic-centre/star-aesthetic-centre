@@ -13,13 +13,33 @@ interface Props {
 
 async function getProductsForFunnelPicker() {
   const supabase = createSupabaseAdmin();
-  const { data } = await supabase
+  const { data: products } = await supabase
     .from("products")
-    .select("id, name, brand_slug, price_cents")
+    .select("id, name, brand_slug, price_cents, short_description")
     .eq("is_active", true)
     .order("brand_slug")
     .order("name");
-  return data ?? [];
+
+  if (!products?.length) return [];
+
+  const ids = products.map((p) => p.id);
+  const { data: images } = await supabase
+    .from("product_images")
+    .select("product_id, url, sort_order")
+    .in("product_id", ids)
+    .order("sort_order");
+
+  const imageByProduct = new Map<string, string>();
+  for (const img of images ?? []) {
+    if (!imageByProduct.has(img.product_id)) {
+      imageByProduct.set(img.product_id, img.url);
+    }
+  }
+
+  return products.map((p) => ({
+    ...p,
+    image_url: imageByProduct.get(p.id) ?? null,
+  }));
 }
 
 const BRAND_LABELS: Record<string, string> = {

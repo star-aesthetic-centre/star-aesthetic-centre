@@ -6,7 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Check, ShoppingBag, ChevronRight, Tag, Shield, Truck } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
-import { applyFunnelDiscount, FUNNEL_OFFER_LABEL } from "@/lib/funnel";
+import { applyFunnelDiscount, FUNNEL_OFFER_LABEL, MAX_PRODUCTS_PER_FUNNEL_STEP } from "@/lib/funnel";
+import { markFunnelCompleted } from "@/lib/funnel-session";
 import type { CartItem } from "@/lib/cart-context";
 
 type FunnelApiProduct = {
@@ -22,7 +23,7 @@ type FunnelApiStep = {
   index: number;
   title: string;
   description: string;
-  discountPercent: 10 | 15 | 20;
+  discountPercent: 10 | 15 | 20 | 25;
   products: FunnelApiProduct[];
 };
 
@@ -143,7 +144,8 @@ export default function FunnelPage() {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    router.push("/cart");
+    markFunnelCompleted(slug);
+    router.push("/checkout");
   }
 
   function addSelectedAndContinue() {
@@ -249,10 +251,14 @@ export default function FunnelPage() {
                   onClick={() =>
                     setSelectedByStep((prev) => {
                       const existing = prev[currentStep] ?? [];
-                      const next = existing.includes(product.id)
-                        ? existing.filter((id) => id !== product.id)
-                        : [...existing, product.id];
-                      return { ...prev, [currentStep]: next };
+                      if (existing.includes(product.id)) {
+                        return {
+                          ...prev,
+                          [currentStep]: existing.filter((id) => id !== product.id),
+                        };
+                      }
+                      if (existing.length >= MAX_PRODUCTS_PER_FUNNEL_STEP) return prev;
+                      return { ...prev, [currentStep]: [...existing, product.id] };
                     })
                   }
                   className={`relative border-2 p-4 text-left transition-all ${

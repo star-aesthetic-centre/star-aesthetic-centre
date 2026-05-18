@@ -6,6 +6,7 @@ import {
   randToCents,
   shippingCentsForSubtotal,
 } from "@/lib/utils/orders";
+import { ensureLoyaltyAccountForOrder } from "@/lib/utils/loyalty-on-order";
 import { sendOrderEmails } from "@/lib/utils/send-order-emails";
 
 const UUID_RE =
@@ -232,6 +233,17 @@ export async function POST(req: NextRequest) {
       .filter(Boolean)
       .join(", ");
 
+    const loyalty = await ensureLoyaltyAccountForOrder(
+      supabase,
+      {
+        email: billing.email,
+        firstName: billing.firstName,
+        lastName: billing.lastName,
+        phone: billing.phone,
+      },
+      totalCents
+    );
+
     await sendOrderEmails({
       reference: order.reference,
       customerName: `${billing.firstName.trim()} ${billing.lastName.trim()}`.trim(),
@@ -249,6 +261,8 @@ export async function POST(req: NextRequest) {
       voucherDiscountCents,
       totalCents,
       voucherNote,
+      starlightsEarned: loyalty.starlightsEarned,
+      isNewMember: loyalty.isNewMember,
     });
 
     return NextResponse.json({

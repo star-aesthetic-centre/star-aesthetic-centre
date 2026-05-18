@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle, Copy, Check, Mail, Package } from "lucide-react";
 import { BANK_DETAILS } from "@/lib/constants/banking";
+import { calculateStarlights, formatStarlights } from "@/lib/utils/rewards";
 
 const POP_EMAIL = "info@staraesthetic.site";
 
@@ -98,6 +99,8 @@ function ConfirmationContent() {
   const params = useSearchParams();
   const orderId = params.get("orderId") ?? "—";
   const totalFormatted = formatTotal(params.get("total"));
+  const totalRands = params.get("total") ? parseFloat(params.get("total")!) : 0;
+  const starlights = totalRands > 0 ? calculateStarlights(totalRands) : 0;
 
   return (
     <div className="min-h-[70vh] bg-[#F7F7F8]">
@@ -155,16 +158,24 @@ function ConfirmationContent() {
           </ol>
         </div>
 
-        {/* Rewards nudge */}
-        <div className="mt-6 border border-[#C8A882]/30 bg-[#C8A882]/10 px-6 py-5 text-center">
-          <p className="text-sm text-[#1A1917] leading-relaxed">
-            <strong className="text-[#0F2647]">You earn 10% back</strong> on this purchase with Star Aesthetic
-            Rewards — we&apos;ll credit your balance once payment is confirmed.{" "}
-            <Link href="/rewards" className="font-semibold text-[#0F2647] underline underline-offset-2">
-              Learn about rewards
-            </Link>
-          </p>
-        </div>
+        {starlights > 0 && (
+          <div className="mt-6 border border-[#C8A882]/40 bg-[#FFF8F0] px-6 py-5 text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#939EBA]">
+              Starlight Rewards
+            </p>
+            <p className="font-heading mt-2 text-2xl font-bold text-[#C8A882]">
+              {formatStarlights(starlights)}
+            </p>
+            <p className="mt-3 text-sm text-[#636374] leading-relaxed">
+              You&apos;ll earn <strong className="text-[#0F2647]">{formatStarlights(starlights)}</strong>
+              {" "}(worth R {starlights.toLocaleString("en-ZA")}) once we confirm your EFT — credited to the
+              email you used at checkout.{" "}
+              <Link href="/rewards" className="font-semibold text-[#0F2647] underline underline-offset-2">
+                View your balance
+              </Link>
+            </p>
+          </div>
+        )}
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Link

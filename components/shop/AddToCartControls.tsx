@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
+import { markFunnelPending } from "@/lib/funnel-session";
 import { ShoppingCart } from "lucide-react";
 
 interface AddToCartControlsProps {
@@ -28,7 +28,6 @@ export default function AddToCartControls({
     const [quantity, setQuantity] = useState(1);
     const [added, setAdded] = useState(false);
     const { dispatch, isHydrated } = useCart();
-    const router = useRouter();
 
     const handleAddToCart = () => {
         dispatch({
@@ -44,8 +43,7 @@ export default function AddToCartControls({
         });
 
         if (funnelSlug) {
-            router.push(`/buy/${funnelSlug}`);
-            return;
+            markFunnelPending(funnelSlug);
         }
 
         dispatch({ type: "OPEN_DRAWER" });

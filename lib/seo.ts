@@ -5,6 +5,16 @@ export const SITE_URL = "https://www.staraesthetic.co.za";
 
 export const SITE_NAME = "Star Aesthetic Centre";
 export const SITE_LOCALE = "en_ZA";
+
+/** false until launch — set ALLOW_SEARCH_INDEXING=true in Vercel env when going live */
+export const ALLOW_SEARCH_INDEXING = process.env.ALLOW_SEARCH_INDEXING === "true";
+
+export const PRELAUNCH_ROBOTS: Metadata["robots"] = {
+  index: false,
+  follow: false,
+  nocache: true,
+  googleBot: { index: false, follow: false, noimageindex: true },
+};
 export const DEFAULT_OG_IMAGE = "/images/star-aesthetic-centre-durban-homepage-hero-005.webp";
 
 export const DEFAULT_KEYWORDS = [
@@ -69,7 +79,9 @@ export function buildPageMetadata(options: {
       description: options.description,
       images: [ogImage.startsWith("http") ? ogImage : absoluteUrl(ogImage)],
     },
-    ...(options.noIndex ? { robots: { index: false, follow: false } } : {}),
+    ...(!ALLOW_SEARCH_INDEXING || options.noIndex
+      ? { robots: PRELAUNCH_ROBOTS }
+      : {}),
   };
 }
 

@@ -1,12 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BANK_DETAILS } from "@/lib/constants/banking";
 import { useRouter } from "next/navigation";
 import { ShoppingCart, AlertCircle } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
+import { FUNNEL_OFFER_LABEL } from "@/lib/funnel";
+import {
+    getPendingFunnelSlug,
+    isFunnelCompleted,
+    loadCheckoutBilling,
+    saveCheckoutBilling,
+    clearFunnelSession,
+} from "@/lib/funnel-session";
 
 /* ─── SA Provinces ─────────────────────────────────────────────── */
 const PROVINCES = [
@@ -63,6 +71,15 @@ export default function CheckoutPage() {
     const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState("");
+    const [funnelResumeNote, setFunnelResumeNote] = useState(false);
+
+    useEffect(() => {
+        const saved = loadCheckoutBilling<BillingForm>();
+        if (saved) {
+            setForm(saved);
+            setFunnelResumeNote(true);
+        }
+    }, []);
 
     // Gift voucher
     const [voucherInput, setVoucherInput] = useState("");
@@ -73,6 +90,16 @@ export default function CheckoutPage() {
         balance_rands: number;
         recipient_name: string;
     } | null>(null);
+
+    const pendingFunnelSlug = getPendingFunnelSlug();
+    const needsFunnelOffers =
+        Boolean(pendingFunnelSlug) &&
+        !isFunnelCompleted(pendingFunnelSlug ?? "") &&
+        items.some(
+            (i) =>
+                i.slug === pendingFunnelSlug &&
+                !i.name.includes(FUNNEL_OFFER_LABEL)
+        );
 
     /* ── Empty cart guard ──────────────────────────────────────── */
     if (items.length === 0) {
@@ -167,6 +194,20 @@ export default function CheckoutPage() {
     /* ── Submit ────────────────────────────────────────────────── */
     async function handlePlaceOrder() {
         if (!validate()) return;
+
+        const pendingFunnel = getPendingFunnelSlug();
+        if (
+            pendingFunnel &&
+            !isFunnelCompleted(pendingFunnel) &&
+            items.some(
+                (i) => i.slug === pendingFunnel && !i.name.includes(FUNNEL_OFFER_LABEL)
+            )
+        ) {
+            saveCheckoutBilling(form);
+            router.push(`/buy/${pendingFunnel}`);
+            return;
+        }
+
         setIsSubmitting(true);
         setSubmitError("");
         try {
@@ -181,6 +222,7 @@ export default function CheckoutPage() {
                 throw new Error(errData.error ?? "Order submission failed");
             }
             const { orderId, orderKey } = await res.json();
+            if (pendingFunnelSlug) clearFunnelSession(pendingFunnelSlug);
             dispatch({ type: "CLEAR_CART" });
             router.push(
                 `/order-confirmation?orderId=${encodeURIComponent(orderId)}&key=${encodeURIComponent(orderKey)}&total=${orderTotal}`
@@ -203,6 +245,13 @@ export default function CheckoutPage() {
                 <h1 className="font-heading mb-8 text-3xl font-bold text-[#1A1A1F]">
                     Checkout
                 </h1>
+
+                {funnelResumeNote && (
+                    <p className="mb-6 border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+                        Your details are saved. Review your order total below, then place your order to
+                        receive EFT payment instructions.
+                    </p>
+                )}
 
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
 
@@ -584,7 +633,11 @@ export default function CheckoutPage() {
                             disabled={isSubmitting}
                             className="w-full bg-[#1B3D6E] py-4 text-sm font-semibold text-white transition-colors hover:bg-[#162f56] disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                            {isSubmitting ? "Placing Order…" : "Place Order"}
+                            {isSubmitting
+                                ? "Please wait…"
+                                : needsFunnelOffers
+                                  ? "Continue to special offers →"
+                                  : "Place order & get EFT details"}
                         </button>
 
                         <p className="text-center text-xs text-[#636374]">

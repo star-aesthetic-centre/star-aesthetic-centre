@@ -1,15 +1,23 @@
 import { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/seo";
+import { ALLOW_SEARCH_INDEXING, SITE_URL } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
+  if (!ALLOW_SEARCH_INDEXING) {
+    return {
+      rules: {
+        userAgent: "*",
+        disallow: "/",
+      },
+    };
+  }
+
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/preview-login", "/cart", "/checkout"],
+        disallow: ["/admin/", "/api/", "/cart", "/checkout"],
       },
-      // AI search crawlers — explicitly allowed for GEO visibility
       { userAgent: "GPTBot", allow: "/" },
       { userAgent: "ChatGPT-User", allow: "/" },
       { userAgent: "ClaudeBot", allow: "/" },

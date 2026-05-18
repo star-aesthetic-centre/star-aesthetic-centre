@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
-import { SITE_URL, DEFAULT_KEYWORDS, DEFAULT_OG_IMAGE, SITE_NAME, SITE_LOCALE } from "@/lib/seo";
+import {
+  SITE_URL,
+  DEFAULT_KEYWORDS,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  SITE_LOCALE,
+  ALLOW_SEARCH_INDEXING,
+  PRELAUNCH_ROBOTS,
+} from "@/lib/seo";
 import SiteNav from "@/components/layout/SiteNav";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/lib/cart-context";
@@ -54,6 +62,7 @@ export const metadata: Metadata = {
         description: "Doctor-led aesthetic treatments and curated medical skincare in Durban North.",
         images: [DEFAULT_OG_IMAGE],
     },
+    robots: ALLOW_SEARCH_INDEXING ? { index: true, follow: true } : PRELAUNCH_ROBOTS,
 };
 
 const localBusinessSchema = {

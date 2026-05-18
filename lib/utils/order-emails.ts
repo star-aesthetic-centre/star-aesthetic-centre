@@ -1,4 +1,5 @@
 import { BANK_DETAILS } from "@/lib/constants/banking";
+import { formatStarlights } from "@/lib/utils/rewards";
 
 export const ORDER_POP_EMAIL = "info@staraesthetic.site";
 /** Same verified sender as bookings & gift vouchers */
@@ -23,6 +24,8 @@ export type OrderEmailPayload = {
   voucherDiscountCents: number;
   totalCents: number;
   voucherNote?: string | null;
+  starlightsEarned: number;
+  isNewMember: boolean;
 };
 
 function formatZar(cents: number): string {
@@ -99,6 +102,33 @@ function bankingTableHtml(reference: string): string {
     </table>`;
 }
 
+function starlightsBlockHtml(p: OrderEmailPayload): string {
+  if (p.starlightsEarned <= 0) return "";
+
+  const memberLine = p.isNewMember
+    ? "We've created your <strong style=\"color:#1A1917;\">Starlight Rewards</strong> account using this email — no extra sign-up needed."
+    : "Your <strong style=\"color:#1A1917;\">Starlight Rewards</strong> account is linked to this email.";
+
+  return `
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border:1px solid #C8A882;background:#FFF8F0;">
+      <tr><td style="padding:20px 24px;">
+        <p style="margin:0 0 4px;font-size:11px;letter-spacing:2px;color:#939EBA;text-transform:uppercase;">Starlight Rewards</p>
+        <p style="margin:0 0 12px;font-size:22px;font-weight:bold;color:#C8A882;font-family:Georgia,serif;">
+          ${formatStarlights(p.starlightsEarned)}
+        </p>
+        <p style="margin:0 0 8px;font-size:13px;color:#6B6966;line-height:1.6;">
+          You'll earn <strong style="color:#1A1917;">${formatStarlights(p.starlightsEarned)}</strong>
+          (worth R ${p.starlightsEarned.toLocaleString("en-ZA")}) once we confirm your EFT payment.
+          1 Starlight = R1 toward your next treatment or shop purchase.
+        </p>
+        <p style="margin:0;font-size:13px;color:#6B6966;line-height:1.6;">
+          ${memberLine}
+          <a href="https://www.staraesthetic.co.za/rewards" style="color:#C8A882;">Check your balance</a>
+        </p>
+      </td></tr>
+    </table>`;
+}
+
 function emailShell(title: string, body: string, footerNote: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -165,10 +195,7 @@ export function buildCustomerOrderEmail(p: OrderEmailPayload): string {
       </ol>
     </div>
 
-    <p style="margin:0 0 16px;font-size:13px;color:#6B6966;line-height:1.6;">
-      <strong style="color:#1A1917;">Star Aesthetic Rewards:</strong> You earn 10% back on this purchase once payment is confirmed.
-      <a href="https://www.staraesthetic.co.za/rewards" style="color:#C8A882;">Learn more</a>
-    </p>
+    ${starlightsBlockHtml(p)}
 
     <p style="margin:0;font-size:13px;color:#6B6966;">
       Questions? Call <a href="tel:+27315731325" style="color:#C8A882;">+27 (0)31 573 1325</a> or reply to this email.
@@ -208,6 +235,16 @@ export function buildAdminOrderEmail(p: OrderEmailPayload): string {
     <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border:1px solid #E5E4E0;">
       ${totalsBlockHtml(p)}
     </table>
+
+    ${
+      p.starlightsEarned > 0
+        ? `<p style="margin:0 0 16px;font-size:13px;color:#6B6966;line-height:1.6;">
+      <strong style="color:#1A1917;">Starlight Rewards:</strong> Credit
+      <strong style="color:#C8A882;">${formatStarlights(p.starlightsEarned)}</strong>
+      (R ${p.starlightsEarned}) when payment is confirmed${p.isNewMember ? " — new member auto-enrolled" : ""}.
+    </p>`
+        : ""
+    }
 
     <p style="margin:0;font-size:13px;color:#6B6966;">
       Customer confirmation email sent to <strong>${p.customerEmail}</strong>.
