@@ -1,5 +1,5 @@
 export type NikiPageContext = {
-  type: "general" | "treatment" | "product";
+  type: "general" | "treatment" | "product" | "introduction";
   treatmentName?: string;
   treatmentPage?: string;
   productName?: string;
@@ -7,6 +7,8 @@ export type NikiPageContext = {
   productPrice?: string;
   productSummary?: string;
   productSlug?: string;
+  /** Active section index when running the /introduction voice tour */
+  introductionTourSectionIndex?: number;
 };
 
 export type NikiSessionStatus = "idle" | "connecting" | "active" | "ended" | "error";

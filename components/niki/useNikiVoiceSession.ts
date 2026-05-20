@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { GoogleGenAI, Modality } from "@google/genai";
 import type { Session } from "@google/genai";
 import type { NikiPageContext, NikiSessionStatus } from "@/lib/niki/types";
+import { INTRODUCTION_TOUR_SECTIONS } from "@/lib/content/introduction-tour";
 import { buildNikiSystemPrompt } from "@/lib/niki/system-prompt";
 import { resampleAudio, float32ToBase64Pcm16, base64Pcm16ToFloat32 } from "@/lib/niki/audio";
 
@@ -56,9 +57,11 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
           body: JSON.stringify({
             sessionId: crypto.randomUUID(),
             treatmentPage:
-              ctx.productSlug
-                ? `product:${ctx.productSlug}`
-                : ctx.treatmentPage ?? ctx.treatmentName ?? ctx.productName ?? "general",
+              ctx.type === "introduction"
+                ? "introduction-tour"
+                : ctx.productSlug
+                  ? `product:${ctx.productSlug}`
+                  : ctx.treatmentPage ?? ctx.treatmentName ?? ctx.productName ?? "general",
             transcript: transcriptSnapshot.join("\n"),
             contact: {},
             durationSeconds: startedAtRef.current
@@ -130,11 +133,27 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
     silence.connect(ctx.destination);
   }, []);
 
-  const startSession = useCallback(async () => {
+  const sendClientText = useCallback((text: string) => {
+    const live = sessionRef.current;
+    if (!live) return;
+    try {
+      live.sendClientContent({
+        turns: [{ role: "user", parts: [{ text }] }],
+        turnComplete: true,
+      });
+    } catch {
+      /* session closed */
+    }
+  }, []);
+
+  const startSession = useCallback(async (options?: { introductionTour?: boolean }) => {
     setStatus("connecting");
     setErrorMsg("");
     setTranscript([]);
     startedAtRef.current = new Date().toISOString();
+
+    const isIntroductionTour =
+      options?.introductionTour === true || contextRef.current.type === "introduction";
 
     try {
       const res = await fetch("/api/gemini-token");
@@ -150,7 +169,10 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
           responseModalities: [Modality.AUDIO],
           outputAudioTranscription: {},
           inputAudioTranscription: {},
-          systemInstruction: buildNikiSystemPrompt(ctx),
+          systemInstruction: buildNikiSystemPrompt(
+            ctx,
+            isIntroductionTour ? INTRODUCTION_TOUR_SECTIONS : undefined
+          ),
           speechConfig: {
             voiceConfig: {
               prebuiltVoiceConfig: { voiceName: "Aoede" },
@@ -199,14 +221,11 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
 
       setTimeout(() => {
         if (sessionRef.current) {
-          try {
-            sessionRef.current.sendClientContent({
-              turns: [{ role: "user", parts: [{ text: "hello" }] }],
-              turnComplete: true,
-            });
-          } catch {
-            /* ignore */
-          }
+          sendClientText(
+            isIntroductionTour
+              ? "Please begin the Star Aesthetic Centre platform introduction tour now. Start with section one. Remember to announce each section title clearly, pause, then give the intro and main content at an unhurried pace."
+              : "hello"
+          );
         }
       }, 600);
 
@@ -225,7 +244,17 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
       );
       setStatus("error");
     }
-  }, [playAudio, startMic]);
+  }, [playAudio, startMic, sendClientText]);
+
+  const startIntroductionTour = useCallback(async () => {
+    await startSession({ introductionTour: true });
+  }, [startSession]);
+
+  const continueIntroductionTour = useCallback(() => {
+    sendClientText(
+      "I have no more questions on this section. Please continue to the next section of the introduction tour."
+    );
+  }, [sendClientText]);
 
   const endSession = useCallback(async () => {
     const snap = [...transcript];
@@ -254,6 +283,8 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
     transcript,
     errorMsg,
     startSession,
+    startIntroductionTour,
+    continueIntroductionTour,
     endSession,
     resetSession,
     isConnecting: status === "connecting",

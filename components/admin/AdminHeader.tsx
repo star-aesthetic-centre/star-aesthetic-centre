@@ -36,6 +36,13 @@ export default function AdminHeader() {
 
         <div className="flex items-center gap-4">
           <a
+            href="/introduction"
+            target="_blank"
+            className="text-xs text-[#C8A882] hover:text-white transition-colors hidden sm:block"
+          >
+            Introduction ↗
+          </a>
+          <a
             href="/shop"
             target="_blank"
             className="text-xs text-white/60 hover:text-white transition-colors hidden sm:block"

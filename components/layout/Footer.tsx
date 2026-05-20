@@ -186,6 +186,12 @@ export default function Footer() {
                         <Link href="/contact" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
                             Contact Us
                         </Link>
+                        <Link
+                            href="/admin/login"
+                            className="text-xs text-[#939EBA] hover:text-[#636374] transition-colors"
+                        >
+                            Staff login
+                        </Link>
                     </div>
                 </div>
             </div>

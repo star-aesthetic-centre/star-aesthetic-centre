@@ -8,6 +8,7 @@ import {
     useState,
     type ReactNode,
 } from "react";
+import { isValidCartProductId } from "@/lib/cart-product-id";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -113,7 +114,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
             const stored = localStorage.getItem(STORAGE_KEY);
             if (stored) {
                 const parsed: CartItem[] = JSON.parse(stored);
-                parsed.forEach((item) =>
+                const valid = parsed.filter((item) => isValidCartProductId(item.id));
+                if (valid.length !== parsed.length) {
+                    localStorage.removeItem(STORAGE_KEY);
+                }
+                valid.forEach((item) =>
                     dispatch({ type: "ADD_ITEM", payload: item })
                 );
             }

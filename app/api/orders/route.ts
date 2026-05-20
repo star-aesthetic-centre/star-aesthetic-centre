@@ -9,9 +9,11 @@ import {
 import { ensureLoyaltyAccountForOrder } from "@/lib/utils/loyalty-on-order";
 import { sendOrderEmails } from "@/lib/utils/send-order-emails";
 import { markAbandonedCheckoutConverted } from "@/lib/queries/abandoned-checkouts";
-
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+import {
+  isFunnelCartLine,
+  isValidCartProductId,
+  resolveCartProductId,
+} from "@/lib/cart-product-id";
 
 type Billing = {
   firstName: string;
@@ -44,9 +46,9 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = createSupabaseAdmin();
-    const productIds = items.map((i) => i.id);
 
-    if (productIds.some((id) => !UUID_RE.test(id))) {
+    const invalidItems = items.filter((i) => !isValidCartProductId(i.id));
+    if (invalidItems.length > 0) {
       return NextResponse.json(
         {
           error:
@@ -55,6 +57,8 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    const productIds = [...new Set(items.map((i) => resolveCartProductId(i.id)))];
 
     const { data: products, error: productsError } = await supabase
       .from("products")
@@ -84,7 +88,8 @@ export async function POST(req: NextRequest) {
     }[] = [];
 
     for (const item of items) {
-      const product = productMap.get(item.id);
+      const productId = resolveCartProductId(item.id);
+      const product = productMap.get(productId);
       if (!product) {
         return NextResponse.json(
           { error: `Product no longer available: ${item.name}` },
@@ -98,8 +103,9 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      const unitPriceCents =
-        product.price_cents ?? randToCents(item.price);
+      const unitPriceCents = isFunnelCartLine(item.id, item.name)
+        ? randToCents(item.price)
+        : (product.price_cents ?? randToCents(item.price));
       const lineTotalCents = unitPriceCents * item.quantity;
 
       lineItems.push({

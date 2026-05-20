@@ -1,6 +1,11 @@
+import type { IntroductionTourSection } from "@/lib/content/introduction-tour";
+import { buildIntroductionTourSystemPrompt } from "./introduction-tour-prompt";
 import type { NikiPageContext } from "./types";
 
 function pageContextBlock(ctx: NikiPageContext): string {
+  if (ctx.type === "introduction") {
+    return "The visitor is on the Star Aesthetic Centre platform introduction page (/introduction) — a stakeholder document for leadership.";
+  }
   if (ctx.type === "product" && ctx.productName) {
     const lines = [
       `The visitor is on the product page for "${ctx.productName}"${ctx.productBrand ? ` by ${ctx.productBrand}` : ""}.`,
@@ -22,7 +27,14 @@ function pageContextBlock(ctx: NikiPageContext): string {
   return "The visitor is browsing the Star Aesthetic Centre website. Answer questions about treatments, products, and the clinic.";
 }
 
-export function buildNikiSystemPrompt(ctx: NikiPageContext): string {
+export function buildNikiSystemPrompt(
+  ctx: NikiPageContext,
+  introductionTourSections?: IntroductionTourSection[]
+): string {
+  if (ctx.type === "introduction" && introductionTourSections?.length) {
+    return buildIntroductionTourSystemPrompt(introductionTourSections);
+  }
+
   return `You are Niki — a warm, knowledgeable skin and treatment consultant at Star Aesthetic Centre, a medical aesthetic clinic in Durban, South Africa, led by Dr. Bangalee.
 
 IMPORTANT — DR BANGALEE: Dr. Bangalee is male. Always use he/him/his when referring to him. Never say "she" or "her".
@@ -76,6 +88,9 @@ export function nikiContextLabel(ctx: NikiPageContext): string {
 }
 
 export function nikiGreetingHint(ctx: NikiPageContext): string {
+  if (ctx.type === "introduction") {
+    return "Voice-guided platform introduction";
+  }
   if (ctx.type === "product" && ctx.productName) {
     return `Ask me anything about ${ctx.productName}`;
   }

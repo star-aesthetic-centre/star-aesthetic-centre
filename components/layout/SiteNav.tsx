@@ -310,12 +310,12 @@ export default function SiteNav() {
                         <Search size={19} strokeWidth={1.5} />
                     </button>
 
-                    {/* Login / Admin */}
+                    {/* Member account */}
                     <Link
-                        href="/admin/login"
+                        href="/member"
                         className="flex h-10 w-10 items-center justify-center text-[#636374] transition-colors hover:bg-[#EEF0F6] hover:text-[#1B3D6E]"
-                        aria-label="Staff login"
-                        title="Staff login"
+                        aria-label="Member account"
+                        title="Member account"
                     >
                         <UserCircle size={20} strokeWidth={1.5} />
                     </Link>
@@ -551,6 +551,13 @@ export default function SiteNav() {
                             onClick={() => setMobileOpen(false)}
                         >
                             Contact
+                        </Link>
+                        <Link
+                            href="/member"
+                            className="px-4 py-3 text-base font-medium text-[#1A1A1F] transition-colors hover:bg-[#F8F9FC]"
+                            onClick={() => setMobileOpen(false)}
+                        >
+                            Member account
                         </Link>
                         <Link
                             href="/book"

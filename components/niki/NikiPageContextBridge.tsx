@@ -23,6 +23,7 @@ export function NikiPageContextBridge(context: NikiPageContext) {
     context.productPrice,
     context.productSummary,
     context.productSlug,
+    context.introductionTourSectionIndex,
   ]);
 
   return null;

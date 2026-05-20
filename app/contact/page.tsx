@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, MessageCircle, Clock, Star, Shield, Award, ChevronRight } from "lucide-react";
 import ContactForm from "./ContactForm";
+import { StaffLoginFooter } from "@/components/layout/StaffLoginFooter";
 import { buildPageMetadata } from "@/lib/seo";
 import { getSitePageContent } from "@/lib/queries/site-pages";
 
@@ -233,6 +234,8 @@ export default async function ContactPage() {
                                         </p>
                                     </div>
                                 </a>
+
+                                <StaffLoginFooter className="!mt-0 !pt-5" />
                             </div>
 
                             {/* Hours */}

@@ -1,17 +1,29 @@
 "use client";
 
 import { useEffect } from "react";
-import { X, Phone, ChevronRight, Mic, MicOff, Loader2, MessageCircle } from "lucide-react";
+import { X, Phone, ChevronRight, Mic, MicOff, Loader2, MessageCircle, SkipForward } from "lucide-react";
+import { INTRODUCTION_TOUR_SECTIONS } from "@/lib/content/introduction-tour";
 import { useNiki } from "./NikiProvider";
 import { useNikiVoiceSession } from "./useNikiVoiceSession";
 import { nikiGreetingHint } from "@/lib/niki/system-prompt";
 
 export function NikiFloatingWidget() {
-  const { pageContext, isOpen, open, close } = useNiki();
+  const {
+    pageContext,
+    isOpen,
+    open,
+    close,
+    introductionTour,
+    clearIntroductionTourPendingStart,
+    setIntroductionTourSectionIndex,
+    endIntroductionTour,
+    activateIntroductionTour,
+  } = useNiki();
   const session = useNikiVoiceSession(pageContext);
 
   const hint = nikiGreetingHint(pageContext);
   const isProduct = pageContext.type === "product";
+  const isIntroductionTour = introductionTour.active || pageContext.type === "introduction";
 
   useEffect(() => {
     if (!isOpen && session.isActive) {
@@ -19,10 +31,31 @@ export function NikiFloatingWidget() {
     }
   }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (!isOpen || !introductionTour.pendingStart || session.isRunning) return;
+    clearIntroductionTourPendingStart();
+    void session.startIntroductionTour();
+  }, [
+    isOpen,
+    introductionTour.pendingStart,
+    session.isRunning,
+    clearIntroductionTourPendingStart,
+    session.startIntroductionTour,
+  ]);
+
   const handleClose = async () => {
     if (session.isRunning) await session.endSession();
     else await session.resetSession();
+    if (introductionTour.active) endIntroductionTour();
     close();
+  };
+
+  const handleContinueTourSection = () => {
+    const next = introductionTour.sectionIndex + 1;
+    if (next < INTRODUCTION_TOUR_SECTIONS.length) {
+      setIntroductionTourSectionIndex(next);
+    }
+    session.continueIntroductionTour();
   };
 
   const handleFabClick = () => {
@@ -59,8 +92,22 @@ export function NikiFloatingWidget() {
               </div>
             </div>
             <span className="whitespace-nowrap text-sm font-medium text-white">
-              {session.isMuted ? "Muted — Niki is listening" : "Niki is listening…"}
+              {session.isMuted
+                ? "Muted — Niki is listening"
+                : isIntroductionTour
+                  ? "Introduction tour — listening…"
+                  : "Niki is listening…"}
             </span>
+            {isIntroductionTour && (
+              <button
+                type="button"
+                onClick={handleContinueTourSection}
+                className="rounded-full bg-[#C8A882] px-3.5 py-1.5 text-xs font-semibold text-[#0F2647] transition-colors hover:bg-[#A08060] whitespace-nowrap flex items-center gap-1"
+              >
+                <SkipForward size={12} />
+                Next section
+              </button>
+            )}
             <button
               type="button"
               onClick={() => session.setIsMuted((m) => !m)}
@@ -76,6 +123,7 @@ export function NikiFloatingWidget() {
               type="button"
               onClick={async () => {
                 await session.endSession();
+                if (introductionTour.active) endIntroductionTour();
                 close();
               }}
               className="rounded-full bg-red-500/20 px-3.5 py-1.5 text-xs font-semibold text-red-300 transition-colors hover:bg-red-500/40 whitespace-nowrap"
@@ -114,6 +162,15 @@ export function NikiFloatingWidget() {
               <p className="mt-1 font-heading text-xl font-bold text-white">Chat with Niki</p>
               <p className="mt-1 text-sm text-[#939EBA] leading-snug">{hint}</p>
 
+              {isIntroductionTour && (
+                <p className="mt-3 text-xs text-white/80 leading-relaxed">
+                  Niki announces each section by name, then explains it in plain language. Say
+                  &ldquo;no&rdquo; when you have no questions, or tap{" "}
+                  <strong className="text-[#C8A882]">Next section</strong> to continue. Allow
+                  microphone access when prompted.
+                </p>
+              )}
+
               {isProduct && pageContext.productName && (
                 <p className="mt-3 line-clamp-2 text-xs text-white/80">
                   Viewing: <span className="font-semibold text-[#C8A882]">{pageContext.productName}</span>
@@ -151,17 +208,42 @@ export function NikiFloatingWidget() {
                   ? session.errorMsg
                   : session.status === "ended"
                     ? "Thanks for chatting! Tap below to start again."
-                    : "Voice chat — Niki knows what page you're on and can answer about this product or treatment."}
+                    : isIntroductionTour
+                      ? "Voice-guided introduction — Niki follows the script on this page section by section."
+                      : "Voice chat — Niki knows what page you're on and can answer about this product or treatment."}
               </p>
+
+              {isIntroductionTour && introductionTour.active && (
+                <div className="mb-4 rounded border border-[#C8A882]/40 bg-[#FFF8F0] px-3 py-2 text-xs text-[#636374]">
+                  <p className="font-semibold text-[#0F2647]">
+                    Section {introductionTour.sectionIndex + 1} of{" "}
+                    {INTRODUCTION_TOUR_SECTIONS.length}:{" "}
+                    {INTRODUCTION_TOUR_SECTIONS[introductionTour.sectionIndex]?.title}
+                  </p>
+                </div>
+              )}
 
               {!session.isRunning ? (
                 <button
                   type="button"
-                  onClick={() => void session.startSession()}
+                  onClick={() => {
+                    if (pageContext.type === "introduction" && !introductionTour.active) {
+                      activateIntroductionTour();
+                    }
+                    void (isIntroductionTour
+                      ? session.startIntroductionTour()
+                      : session.startSession());
+                  }}
                   className="mb-3 flex w-full items-center justify-center gap-2 bg-[#C8A882] py-3.5 text-sm font-bold text-[#0F2647] transition-colors hover:bg-[#A08060]"
                 >
                   <Mic size={16} />
-                  {session.status === "error" ? "Try again" : session.status === "ended" ? "Chat again" : "Start voice chat"}
+                  {session.status === "error"
+                    ? "Try again"
+                    : session.status === "ended"
+                      ? "Chat again"
+                      : isIntroductionTour
+                        ? "Start introduction tour"
+                        : "Start voice chat"}
                 </button>
               ) : (
                 <div className="mb-3 flex items-center justify-center gap-2 py-3.5 text-sm text-[#6B6966]">

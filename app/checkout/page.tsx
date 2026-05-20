@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BANK_DETAILS } from "@/lib/constants/banking";
 import { useRouter } from "next/navigation";
+import CheckoutReassurance from "@/components/checkout/CheckoutReassurance";
 import { ShoppingCart, AlertCircle } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 import { FUNNEL_OFFER_LABEL } from "@/lib/funnel";
@@ -153,14 +153,6 @@ export default function CheckoutPage() {
     } | null>(null);
 
     const pendingFunnelSlug = getPendingFunnelSlug();
-    const needsFunnelOffers =
-        Boolean(pendingFunnelSlug) &&
-        !isFunnelCompleted(pendingFunnelSlug ?? "") &&
-        items.some(
-            (i) =>
-                i.slug === pendingFunnelSlug &&
-                !i.name.includes(FUNNEL_OFFER_LABEL)
-        );
 
     /* ── Empty cart guard ──────────────────────────────────────── */
     if (items.length === 0) {
@@ -341,8 +333,7 @@ export default function CheckoutPage() {
 
                 {funnelResumeNote && (
                     <p className="mb-6 border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-                        Your details are saved. Review your order total below, then place your order to
-                        receive EFT payment instructions.
+                        Your details are saved. Review your order below, then place your order.
                     </p>
                 )}
 
@@ -663,58 +654,7 @@ export default function CheckoutPage() {
                             </div>
                         </div>
 
-                        {/* Payment: Direct Bank Transfer */}
-                        <div className="border border-[#E2E2E6] bg-[#F7F7F8] p-5">
-                            <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-[#939EBA]">
-                                Payment Method
-                            </p>
-                            <p className="mb-4 text-sm font-semibold text-[#1A1A1F]">
-                                Direct Bank Transfer (EFT)
-                            </p>
-                            <dl className="space-y-2 text-sm">
-                                <div className="flex gap-2">
-                                    <dt className="w-28 shrink-0 text-[#636374]">
-                                        Bank
-                                    </dt>
-                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.bank}</dd>
-                                </div>
-                                <div className="flex gap-2">
-                                    <dt className="w-28 shrink-0 text-[#636374]">Account Name</dt>
-                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.accountName}</dd>
-                                </div>
-                                <div className="flex gap-2">
-                                    <dt className="w-28 shrink-0 text-[#636374]">Account No</dt>
-                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.accountNo}</dd>
-                                </div>
-                                <div className="flex gap-2">
-                                    <dt className="w-28 shrink-0 text-[#636374]">Branch Code</dt>
-                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.branchCode}</dd>
-                                </div>
-                                <div className="flex gap-2">
-                                    <dt className="w-28 shrink-0 text-[#636374]">Account Type</dt>
-                                    <dd className="font-semibold text-[#1A1A1F]">{BANK_DETAILS.accountType}</dd>
-                                </div>
-                                <div className="flex gap-2">
-                                    <dt className="w-28 shrink-0 text-[#636374]">
-                                        Reference
-                                    </dt>
-                                    <dd className="text-[#636374]">
-                                        Your order number (emailed to you)
-                                    </dd>
-                                </div>
-                            </dl>
-                            <p className="mt-4 text-xs leading-relaxed text-[#636374]">
-                                Your order will be processed once payment is
-                                confirmed. Please email proof of payment to{" "}
-                                <a
-                                    href="mailto:info@staraesthetic.site"
-                                    className="text-[#939EBA] hover:underline"
-                                >
-                                    info@staraesthetic.site
-                                </a>
-                                .
-                            </p>
-                        </div>
+                        <CheckoutReassurance items={items} />
 
                         {/* Submit error */}
                         {submitError && (
@@ -733,11 +673,7 @@ export default function CheckoutPage() {
                             disabled={isSubmitting}
                             className="w-full bg-[#1B3D6E] py-4 text-sm font-semibold text-white transition-colors hover:bg-[#162f56] disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                            {isSubmitting
-                                ? "Please wait…"
-                                : needsFunnelOffers
-                                  ? "Continue to special offers →"
-                                  : "Place order & get EFT details"}
+                            {isSubmitting ? "Placing order…" : "Place order"}
                         </button>
 
                         <p className="text-center text-xs text-[#636374]">
