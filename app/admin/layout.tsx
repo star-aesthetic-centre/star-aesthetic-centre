@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AdminHeader from "@/components/admin/AdminHeader";
+import { AdminLayoutShell } from "@/components/admin/AdminLayoutShell";
 
 export const metadata: Metadata = {
   title: "Admin · Star Aesthetic Centre",
@@ -7,10 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen bg-[#F2F1EF]">
-      <AdminHeader />
-      {children}
-    </div>
-  );
+  return <AdminLayoutShell>{children}</AdminLayoutShell>;
 }

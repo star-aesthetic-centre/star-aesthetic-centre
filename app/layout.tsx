@@ -10,11 +10,8 @@ import {
   ALLOW_SEARCH_INDEXING,
   PRELAUNCH_ROBOTS,
 } from "@/lib/seo";
-import SiteNav from "@/components/layout/SiteNav";
-import Footer from "@/components/layout/Footer";
+import { PublicSiteChrome } from "@/components/layout/PublicSiteChrome";
 import { CartProvider } from "@/lib/cart-context";
-import CartDrawer from "@/components/shop/CartDrawer";
-import CookieConsent from "@/components/layout/CookieConsent";
 import { NikiProvider } from "@/components/niki/NikiProvider";
 
 const roboto = Roboto({
@@ -138,11 +135,7 @@ export default function RootLayout({
             <body suppressHydrationWarning className="antialiased bg-white text-[#696969] text-[15px] font-[family-name:var(--font-roboto)] font-light leading-[1.6]">
                 <CartProvider>
                     <NikiProvider>
-                        <SiteNav />
-                        <CartDrawer />
-                        <main>{children}</main>
-                        <Footer />
-                        <CookieConsent />
+                        <PublicSiteChrome>{children}</PublicSiteChrome>
                     </NikiProvider>
                 </CartProvider>
             </body>
