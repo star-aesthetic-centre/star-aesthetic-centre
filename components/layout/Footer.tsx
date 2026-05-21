@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Facebook, Lock } from "lucide-react";
 
 const treatmentLinks = [
     { label: "Botox & Anti-Ageing", href: "/treatments/face/botox" },
@@ -161,6 +161,13 @@ export default function Footer() {
                                 <br />
                                 Sat: 8:00 – 13:00
                             </p>
+                            <Link
+                                href="/admin/login"
+                                className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-[#939EBA] hover:text-[#1B3D6E] transition-colors"
+                            >
+                                <Lock className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                                Staff login
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -185,12 +192,6 @@ export default function Footer() {
                         </Link>
                         <Link href="/contact" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
                             Contact Us
-                        </Link>
-                        <Link
-                            href="/admin/login"
-                            className="text-xs text-[#939EBA] hover:text-[#636374] transition-colors"
-                        >
-                            Staff login
                         </Link>
                     </div>
                 </div>
