@@ -59,7 +59,7 @@ export const INTRODUCTION_TOUR_SECTIONS: IntroductionTourSection[] = [
       "Everything below on this page is already live on the new website. I'll explain eleven features one at a time, in plain language.",
     anchorId: "tour-features",
     script:
-      "The features are: treatments, the online shop, funnels, the skin assessment survey, appointment booking, Star Light Rewards, gift vouchers, me — Niki, the admin dashboard and CRM, cart recovery, and editable pages. Each one has a specific job for the clinic and for growth. We'll take them slowly, one by one.",
+      "The features are: treatments, the online shop, funnels, the skin assessment — a Niki voice assessment and a written form, appointment booking, Star Light Rewards, gift vouchers, me — Niki, the admin dashboard and CRM, cart recovery, and editable pages. Each one has a specific job for the clinic and for growth. We'll take them slowly, one by one.",
     checkpoint:
       "Before we start the first feature — any questions about the list, or are you ready to continue?",
     suggestedQuestions: [
@@ -197,13 +197,14 @@ function buildFeatureTourSections(): IntroductionTourSection[] {
     },
     "skin-assessment": {
       intro:
-        "The skincare survey — skin assessment. This turns curiosity into qualified leads for Nakita and context for Dr Bangalee before a consultation.",
+        "Skin assessment — two ways for patients to discover the right skincare: a voice conversation with Niki, and a written 13-question form. Both turn curiosity into qualified leads for Nakita.",
       script:
-        "An interactive questionnaire on concerns and habits, ending with contact details and a personalised summary. It captures people not ready to book yet but serious about their skin. Name, email, and answers save to Leads in admin — not lost in a generic inbox.",
-      checkpoint: "Questions about the skin assessment or leads?",
+        "The voice assessment sits at the top of the shop page. A patient clicks Start My Skin Assessment, Niki opens, and conducts a natural seven-stage conversation — concerns, age, skin type, skin tone, lifestyle, and safety questions. At the end she recommends the right brand and a personalised morning and evening regime. She handles edge cases: Roaccutane patients, pregnancy, cystic acne referrals to Dr Bangalee. She can arrange for Nakita to follow up on WhatsApp with the product list in writing. Separately, the written assessment at slash skin-assessment is a thirteen-question form with a Skin Health Score at the end. Both capture name, email, and phone into Leads in admin — not lost in a generic inbox.",
+      checkpoint: "Questions about how Niki routes recommendations, the written form, or where leads appear in admin?",
       suggestedQuestions: [
-        "Where do assessment results appear?",
-        "Can we change the questions?",
+        "Where do assessment results appear in admin?",
+        "What does Niki do when someone has cystic acne?",
+        "Can patients do the voice assessment without a microphone?",
       ],
     },
     booking: {

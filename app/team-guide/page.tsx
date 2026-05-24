@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
   HOW_IT_WORKS,
   TOUR_INTRO,
@@ -8,7 +7,7 @@ import {
 import TeamGuideClient from "./TeamGuideClient";
 
 export const metadata: Metadata = {
-  title: "Team guide — website walkthrough",
+  title: "Team website walkthrough — Star Aesthetic Centre",
   description:
     "Step-by-step walkthrough of the Star Aesthetic Centre website for Nakita, Dr Bangalee, and the team.",
   robots: { index: false, follow: false },
@@ -17,40 +16,48 @@ export const metadata: Metadata = {
 export default function TeamGuidePage() {
   return (
     <div className="min-h-screen bg-[#F7F7F8]">
-      <header className="border-b border-[#E2E2E6] bg-gradient-to-br from-[#0F2647] via-[#162E54] to-[#1B3D6E] px-4 py-12 text-white">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#C8A882]">
-            Internal · not for public menu
-          </p>
-          <h1 className="font-heading mt-2 text-3xl font-bold text-white sm:text-4xl">
-            {TOUR_INTRO.title}
-          </h1>
-          <p className="mt-3 text-base text-white/80 leading-relaxed">{TOUR_INTRO.subtitle}</p>
-          <p className="mt-6 text-sm text-white/70">
-            Bookmark this page:{" "}
-            <code className="bg-white/10 px-2 py-0.5 text-[#C8A882]">/team-guide</code>
-          </p>
+      {/* Header */}
+      <header className="border-b border-white/10 bg-gradient-to-br from-[#0F2647] via-[#162E54] to-[#1B3D6E] px-6 py-10">
+        <div className="mx-auto max-w-5xl">
+          <div className="flex flex-wrap items-start justify-between gap-6">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#C8A882]">
+                Internal · not linked from public menu
+              </p>
+              <h1 className="font-heading mt-2 text-3xl font-bold text-white sm:text-4xl">
+                {TOUR_INTRO.title}
+              </h1>
+              <p className="mt-3 max-w-xl text-base text-white/75 leading-relaxed">
+                {TOUR_INTRO.subtitle}
+              </p>
+            </div>
+            <div className="shrink-0 rounded border border-white/10 bg-white/5 px-5 py-4 text-sm text-white/70">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#C8A882] mb-1">
+                Bookmark this page
+              </p>
+              <code className="font-mono text-white">/team-guide</code>
+              <p className="mt-2 text-xs text-white/50">
+                {TOUR_STEPS.length} steps · ~30 minutes
+              </p>
+            </div>
+          </div>
+
+          {/* Step quick-links */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {TOUR_STEPS.map((s, i) => (
+              <span
+                key={s.id}
+                className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
+              >
+                <span className="font-bold text-[#C8A882]">{i + 1}</span>
+                {s.title}
+              </span>
+            ))}
+          </div>
         </div>
       </header>
 
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-        <TeamGuideClient howItWorks={HOW_IT_WORKS} steps={TOUR_STEPS} />
-
-        <section className="mt-12 border border-[#E5E4E0] bg-white p-6">
-          <h2 className="font-heading text-lg font-bold text-[#0F2647]">Full written guide</h2>
-          <p className="mt-2 text-sm text-[#636374] leading-relaxed">
-            A longer PDF-style document (vision, FAQs, five-year plan) lives in the project at{" "}
-            <code className="text-xs bg-[#F8F8F7] px-1">docs/platform-guide-for-team.md</code> for
-            developers. This page is the <strong>practical click-through</strong> version.
-          </p>
-          <Link
-            href="/admin"
-            className="mt-4 inline-block text-sm font-semibold text-[#0F2647] hover:underline"
-          >
-            Go to admin →
-          </Link>
-        </section>
-      </div>
+      <TeamGuideClient howItWorks={HOW_IT_WORKS} steps={TOUR_STEPS} />
     </div>
   );
 }
