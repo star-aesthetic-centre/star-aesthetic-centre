@@ -148,7 +148,7 @@ function RatingCell({ rating, accent }: { rating: Rating; accent: string }) {
             />
           </svg>
         </div>
-        <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: accent }}>
+        <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: accent }}>
           Core
         </span>
       </div>
@@ -160,7 +160,7 @@ function RatingCell({ rating, accent }: { rating: Rating; accent: string }) {
         <div className="flex h-7 w-7 items-center justify-center bg-[#F7F7F8]">
           <div className="h-2 w-2 rounded-full bg-[#C0C9DD]" />
         </div>
-        <span className="text-[9px] uppercase tracking-wider text-[#939EBA]">Good</span>
+        <span className="text-[11px] uppercase tracking-wider text-[#939EBA]">Good</span>
       </div>
     );
   }
@@ -169,7 +169,7 @@ function RatingCell({ rating, accent }: { rating: Rating; accent: string }) {
       <div className="flex h-7 w-7 items-center justify-center">
         <div className="h-px w-4 bg-[#E2E2E6]" />
       </div>
-      <span className="text-[9px] uppercase tracking-wider text-[#C0C9DD]">—</span>
+      <span className="text-[11px] uppercase tracking-wider text-[#C0C9DD]">—</span>
     </div>
   );
 }
@@ -221,7 +221,7 @@ export default function BrandComparisonTable() {
                           className="h-0.5 w-10 mb-1 transition-all duration-200 group-hover:w-full"
                           style={{ backgroundColor: brand.accent }}
                         />
-                        <div className="relative h-10 w-24">
+                        <div className="relative h-16 w-36">
                           <Image
                             src={brand.logo}
                             alt={brand.name}
@@ -232,7 +232,7 @@ export default function BrandComparisonTable() {
                           />
                         </div>
                         <span
-                          className="text-[9px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="text-[11px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity"
                           style={{ color: brand.accent }}
                         >
                           Shop →
@@ -251,8 +251,8 @@ export default function BrandComparisonTable() {
                   >
                     {/* Row label */}
                     <td className="py-4 pr-4 align-middle">
-                      <p className="text-sm font-semibold text-[#1A1A1F]">{row.category}</p>
-                      <p className="text-[11px] text-[#939EBA] mt-0.5 leading-snug">
+                      <p className="text-base font-semibold text-[#1A1A1F]">{row.category}</p>
+                      <p className="text-xs text-[#939EBA] mt-0.5 leading-snug">
                         {row.description}
                       </p>
                     </td>
@@ -272,13 +272,13 @@ export default function BrandComparisonTable() {
                 {/* Price tier row */}
                 <tr className="border-t-2 border-[#E2E2E6]">
                   <td className="py-4 pr-4 align-middle">
-                    <p className="text-sm font-semibold text-[#1A1A1F]">Price Tier</p>
-                    <p className="text-[11px] text-[#939EBA] mt-0.5">Approximate positioning</p>
+                    <p className="text-base font-semibold text-[#1A1A1F]">Price Tier</p>
+                    <p className="text-xs text-[#939EBA] mt-0.5">Approximate positioning</p>
                   </td>
                   {brands.map((brand) => (
                     <td key={brand.slug} className="py-4 px-2 text-center align-middle">
                       <span
-                        className="inline-block border px-2 py-1 text-[9px] font-bold uppercase tracking-wider"
+                        className="inline-block border px-2 py-1 text-[11px] font-bold uppercase tracking-wider"
                         style={{
                           borderColor: `${brand.accent}50`,
                           color: brand.accent,
