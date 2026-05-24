@@ -73,6 +73,7 @@ export const CONCEPT_TERMS: GlossaryTerm[] = [
     category: "concept",
     shortDescription:
       "The Fitzpatrick scale classifies skin into six types based on its response to UV radiation — from Type I (very fair, always burns) to Type VI (very dark, never burns). It is the most widely used clinical tool for predicting how skin responds to treatments, ingredients, and sun exposure.",
+    matchTerms: ["Fitzpatrick scale", "Fitzpatrick type", "Fitzpatrick"],
     title: "What is the Fitzpatrick Scale? Understanding Your Skin Type | Star Aesthetic Centre",
     metaDescription:
       "Expert guide to the Fitzpatrick scale: the six skin type classifications, what each means for treatment safety and ingredient selection, and why it matters for South African skin. Star Aesthetic Centre, Durban.",

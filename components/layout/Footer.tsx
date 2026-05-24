@@ -120,6 +120,13 @@ export default function Footer() {
                         >
                             View all products →
                         </Link>
+
+                        <Link
+                            href="/glossary"
+                            className="mt-3 inline-block text-sm text-[#636374] transition-colors hover:text-[#939EBA]"
+                        >
+                            Skincare &amp; treatments glossary →
+                        </Link>
                     </div>
 
                     {/* Contact column */}
@@ -178,6 +185,9 @@ export default function Footer() {
                         © {new Date().getFullYear()} Star Aesthetic Centre · Dr. Rajeev Bangalee · All rights reserved.
                     </p>
                     <div className="flex flex-wrap gap-5">
+                        <Link href="/glossary" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
+                            Glossary
+                        </Link>
                         <Link href="/legal/privacy-policy" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
                             Privacy Policy
                         </Link>

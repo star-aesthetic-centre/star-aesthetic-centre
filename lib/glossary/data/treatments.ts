@@ -7,6 +7,7 @@ export const TREATMENT_TERMS: GlossaryTerm[] = [
     category: "treatment",
     shortDescription:
       "Botulinum toxin (commonly called Botox) is a purified protein that temporarily relaxes specific facial muscles to smooth expression lines. Injected by a trained practitioner, it produces natural-looking results within days and lasts 3–4 months.",
+    matchTerms: ["botulinum toxin", "Botox"],
     title: "What is Botulinum Toxin (Botox)? How It Works, Results & Duration | Star Aesthetic Centre",
     metaDescription:
       "Complete guide to botulinum toxin (Botox): how it relaxes muscles to smooth frown lines, crow's feet, and forehead lines. Treatments by Dr Rajeev Bangalee at Star Aesthetic Centre Durban North.",
@@ -205,6 +206,7 @@ export const TREATMENT_TERMS: GlossaryTerm[] = [
     category: "treatment",
     shortDescription:
       "Microneedling uses a device with fine needles to create controlled micro-injuries in the skin, triggering the body's natural repair process and stimulating new collagen and elastin production. It treats acne scarring, skin texture, pores, and early laxity.",
+    matchTerms: ["microneedling", "Dermapen", "collagen induction therapy"],
     title: "What is Microneedling? Dermapen, Results & What to Expect | Star Aesthetic Centre Durban",
     metaDescription:
       "Expert guide to microneedling (Dermapen): how collagen induction therapy works, what it treats, and what results to expect. Microneedling treatments by Dr Bangalee at Star Aesthetic Centre, Durban North.",

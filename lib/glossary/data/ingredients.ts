@@ -143,6 +143,7 @@ export const INGREDIENT_TERMS: GlossaryTerm[] = [
     category: "ingredient",
     shortDescription:
       "Vitamin C (L-ascorbic acid) is a powerful antioxidant that brightens skin, fades dark spots, and stimulates collagen production. It is the best-studied ingredient for preventing and reversing UV-related pigmentation — essential in South Africa's high-UV environment.",
+    matchTerms: ["vitamin C", "L-ascorbic acid", "ascorbic acid"],
     title: "What is Vitamin C Serum? Benefits for Pigmentation & Ageing | Star Aesthetic Centre",
     metaDescription:
       "Complete guide to vitamin C (L-ascorbic acid) for skin: how it fades pigmentation, boosts collagen, and protects against UV damage. Includes SkinCeuticals C E Ferulic and Phloretin CF guidance.",
@@ -210,6 +211,7 @@ export const INGREDIENT_TERMS: GlossaryTerm[] = [
     category: "ingredient",
     shortDescription:
       "Glycolic acid is an alpha hydroxy acid (AHA) derived from sugarcane that exfoliates by dissolving the bonds holding dead skin cells together. It is the gold standard AHA for resurfacing dull, uneven, or congested skin.",
+    matchTerms: ["glycolic acid", "alpha hydroxy acid", "AHA", "AHAs"],
     title: "What is Glycolic Acid? Benefits, Strengths & How to Use It | Star Aesthetic Centre",
     metaDescription:
       "Expert guide to glycolic acid: how this AHA resurfaces skin, improves texture, and brightens complexion. Includes NeoStrata glycolic acid products and clinical peel guidance from Star Aesthetic Centre.",
@@ -272,6 +274,7 @@ export const INGREDIENT_TERMS: GlossaryTerm[] = [
     category: "ingredient",
     shortDescription:
       "Niacinamide (vitamin B3) is a multitasking skincare ingredient that reduces pore appearance, controls excess oil, fades pigmentation, and strengthens the skin barrier — all with exceptional tolerability across skin types.",
+    matchTerms: ["niacinamide", "vitamin B3"],
     title: "What is Niacinamide? Benefits for Pores, Pigmentation & Oily Skin | Star Aesthetic Centre",
     metaDescription:
       "Complete guide to niacinamide (vitamin B3): how it reduces pores, controls oil, fades dark spots, and repairs the skin barrier. Suitable for all skin types including sensitive and acne-prone.",

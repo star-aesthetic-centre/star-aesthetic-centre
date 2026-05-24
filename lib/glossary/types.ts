@@ -11,6 +11,13 @@ export type GlossaryTerm = {
   category: GlossaryCategory;
   /** 1–2 sentences shown in the hover tooltip */
   shortDescription: string;
+  /**
+   * Optional list of phrases that should trigger this term's tooltip when found
+   * in product / treatment / page HTML. Each phrase is matched case-insensitively
+   * with word boundaries. If not provided, defaults to `[term]` (the display name).
+   * Include common variations and synonyms — but avoid ambiguous short tokens.
+   */
+  matchTerms?: string[];
 
   // ── SEO ──────────────────────────────────────────────────────────────────
   title: string;

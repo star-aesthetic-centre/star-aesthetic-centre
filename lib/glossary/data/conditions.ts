@@ -142,6 +142,7 @@ export const CONDITION_TERMS: GlossaryTerm[] = [
     category: "condition",
     shortDescription:
       "Post-inflammatory hyperpigmentation (PIH) is the dark mark left on skin after any injury or inflammation — most commonly from acne, cuts, or burns. It is significantly more pronounced and long-lasting in medium to dark skin tones and requires a carefully managed approach to treat.",
+    matchTerms: ["post-inflammatory hyperpigmentation", "post inflammatory hyperpigmentation", "PIH"],
     title: "Post-Inflammatory Hyperpigmentation (PIH): Causes & Treatment | Star Aesthetic Centre",
     metaDescription:
       "Expert guide to post-inflammatory hyperpigmentation (PIH): why dark marks appear after acne, how to fade them safely, and the best treatments for South African skin. Star Aesthetic Centre, Durban North.",

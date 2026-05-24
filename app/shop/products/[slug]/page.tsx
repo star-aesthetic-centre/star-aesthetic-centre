@@ -17,6 +17,8 @@ import JsonLd from "@/components/seo/JsonLd";
 import { NikiPageContextBridge } from "@/components/niki/NikiPageContextBridge";
 import { buildPageMetadata, breadcrumbSchema, productSchema, stripHtml } from "@/lib/seo";
 import { parseFunnelConfig } from "@/lib/funnel";
+import { injectGlossaryLinks } from "@/lib/glossary/inject";
+import { GlossaryContent } from "@/components/glossary/GlossaryContent";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -107,6 +109,14 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   const productSummary = stripHtml(product.short_description ?? product.description ?? "").slice(0, 300);
 
+  // Auto-inject glossary tooltips into product description HTML.
+  // A shared `usedSlugs` set means each term is linked at most once on this page
+  // — first occurrence wins, whether it's in the short or full description.
+  const glossaryUsed = new Set<string>();
+  const shortDesc = injectGlossaryLinks(product.short_description, { usedSlugs: glossaryUsed });
+  const longDesc = injectGlossaryLinks(product.description, { usedSlugs: glossaryUsed });
+  const glossaryTerms = { ...shortDesc.terms, ...longDesc.terms };
+
   return (
     <>
       <NikiPageContextBridge
@@ -154,9 +164,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               <ProductStarRating productId={product.id} productName={product.name} />
 
               {product.short_description && (
-                <div
+                <GlossaryContent
+                  html={shortDesc.html}
+                  terms={shortDesc.terms}
                   className="mb-6 text-base leading-relaxed text-[#636374] [&_strong]:![font-weight:450] [&_strong]:!text-[#636374] [&_ul]:mt-2 [&_ul]:space-y-1 [&_ul]:list-disc [&_ul]:pl-5 [&_p]:mb-2 last:[&_p]:mb-0"
-                  dangerouslySetInnerHTML={{ __html: product.short_description }}
                 />
               )}
 
@@ -235,9 +246,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         <section className="bg-[#F7F7F8] py-12 border-t border-[#E2E2E6]">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <h2 className="font-heading text-2xl font-bold text-[#1A1A1F] mb-6">About This Product</h2>
-            <div
+            <GlossaryContent
+              html={longDesc.html}
+              terms={glossaryTerms}
               className="prose prose-sm max-w-none text-[#636374] leading-relaxed [&_strong]:![font-weight:450] [&_strong]:!text-[#636374] [&_b]:![font-weight:450] [&_b]:!text-[#636374]"
-              dangerouslySetInnerHTML={{ __html: product.description }}
             />
           </div>
         </section>
