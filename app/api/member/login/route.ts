@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import { verifyTurnstileToken } from "@/lib/security/turnstile";
 import { isHoneypotTripped } from "@/lib/security/signup-guard";
+import { setSessionCookie } from "@/lib/member/session";
 
 /** Email lookup until password / magic-link auth is added */
 export async function POST(req: NextRequest) {
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return NextResponse.json({
+  const res = NextResponse.json({
     found: true,
     member: {
       firstName: account.first_name,
@@ -63,8 +64,8 @@ export async function POST(req: NextRequest) {
       email: account.email,
       memberSince: account.created_at,
     },
-    dashboardReady: false,
-    message:
-      "Your member dashboard — order history and Star Light Rewards — is coming soon. Use the links below in the meantime.",
+    redirectTo: "/member/dashboard",
   });
+
+  return setSessionCookie(res, email);
 }

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { TurnstileWidget } from "@/components/security/TurnstileWidget";
 
 export function MemberLoginForm() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
   const [website, setWebsite] = useState("");
@@ -14,6 +16,7 @@ export function MemberLoginForm() {
   const [result, setResult] = useState<null | {
     found: boolean;
     member?: { firstName: string; lastName: string; email: string };
+    redirectTo?: string;
     message?: string;
   }>(null);
 
@@ -38,6 +41,10 @@ export function MemberLoginForm() {
       const data = await res.json();
       if (!res.ok) {
         setError(data.error ?? "Could not sign in. Please try again.");
+        return;
+      }
+      if (data.redirectTo) {
+        router.push(data.redirectTo);
         return;
       }
       setResult(data);
