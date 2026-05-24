@@ -20,6 +20,7 @@ import {
   Trophy,
   Info,
   ChevronDown,
+  BookOpen,
 } from "lucide-react";
 import type { TourStep } from "@/lib/team-guide/tour-steps";
 
@@ -33,6 +34,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Home,
   Stethoscope,
   ShoppingBag,
+  BookOpen,
   Sparkles,
   ClipboardList,
   CreditCard,

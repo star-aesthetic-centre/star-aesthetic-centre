@@ -88,6 +88,22 @@ export const TOUR_STEPS: TourStep[] = [
     checkpoint: "Questions about brands, pricing, the comparison table, or rewards?",
   },
   {
+    id: "glossary",
+    title: "Glossary — knowledge base",
+    icon: "BookOpen",
+    summary: "Auto-explained ingredients on every page",
+    whoClicks:
+      "Open the Glossary page from the footer link. Browse the A-Z index. Click into any term — Retinol, Melasma, or Hyaluronic Acid are good demos. Then go back to any product page and notice the dashed-underline words in the description.",
+    openUrl: "/glossary",
+    openLabel: "Open Glossary",
+    nikiAction:
+      'On a glossary article, click Niki → "Start voice chat" and ask: "Which of our products contain this ingredient?" or "Is this safe for my skin tone?" — Niki knows the article she is reading.',
+    script:
+      "This is our knowledge base — seventeen full articles covering ingredients, treatments, skin conditions, and concepts. Each one is a proper SEO-optimised page with its own title, meta description, schema markup, and FAQ — designed to rank on Google, Bing, and AI search engines like ChatGPT and Perplexity. But the real power is on product pages: any time an ingredient like retinol, glycolic acid, or hyaluronic acid is mentioned in a product description, it lights up with a dashed underline automatically. Hover for a quick definition, click for the full article. The customer learns without ever leaving the product they are considering. We can add new terms in minutes, and they instantly light up everywhere they are mentioned across the site.",
+    checkpoint:
+      "Questions about how the glossary works, how new terms get added, or the SEO benefit?",
+  },
+  {
     id: "skin-assessment-niki",
     title: "Skin Assessment with Niki",
     icon: "Sparkles",
