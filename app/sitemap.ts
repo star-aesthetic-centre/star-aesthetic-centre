@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import { SITE_URL } from "@/lib/seo";
 import { ALL_TREATMENT_SLUGS, TREATMENT_SLUG_TO_CATEGORY } from "@/lib/treatment-routes";
+import { ALL_GLOSSARY_TERMS } from "@/lib/glossary/index";
 
 const BRAND_SLUGS = [
   "dermaceutic",
@@ -64,5 +65,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Non-fatal
   }
 
-  return [...staticPages, ...treatmentPages, ...brandPages, ...productPages];
+  const glossaryPages: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/glossary`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    ...ALL_GLOSSARY_TERMS.map((t) => ({
+      url: `${SITE_URL}/glossary/${t.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+    })),
+  ];
+
+  return [...staticPages, ...treatmentPages, ...brandPages, ...productPages, ...glossaryPages];
 }
