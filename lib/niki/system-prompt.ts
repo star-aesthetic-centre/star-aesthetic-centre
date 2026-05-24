@@ -1,5 +1,6 @@
 import type { IntroductionTourSection } from "@/lib/content/introduction-tour";
 import { buildIntroductionTourSystemPrompt } from "./introduction-tour-prompt";
+import { buildSkinAssessmentSystemPrompt } from "./skin-assessment-prompt";
 import type { NikiPageContext } from "./types";
 
 function pageContextBlock(ctx: NikiPageContext): string {
@@ -31,6 +32,10 @@ export function buildNikiSystemPrompt(
   ctx: NikiPageContext,
   introductionTourSections?: IntroductionTourSection[]
 ): string {
+  if (ctx.type === "skin-assessment") {
+    return buildSkinAssessmentSystemPrompt();
+  }
+
   if (ctx.type === "introduction" && introductionTourSections?.length) {
     return buildIntroductionTourSystemPrompt(introductionTourSections);
   }
@@ -88,6 +93,9 @@ export function nikiContextLabel(ctx: NikiPageContext): string {
 }
 
 export function nikiGreetingHint(ctx: NikiPageContext): string {
+  if (ctx.type === "skin-assessment") {
+    return "Your personalised skin assessment — 3 minutes";
+  }
   if (ctx.type === "introduction") {
     return "Voice-guided platform introduction";
   }

@@ -24,6 +24,7 @@ export function NikiFloatingWidget() {
   const hint = nikiGreetingHint(pageContext);
   const isProduct = pageContext.type === "product";
   const isIntroductionTour = introductionTour.active || pageContext.type === "introduction";
+  const isSkinAssessment = pageContext.type === "skin-assessment";
 
   useEffect(() => {
     if (!isOpen && session.isActive) {
@@ -94,9 +95,11 @@ export function NikiFloatingWidget() {
             <span className="whitespace-nowrap text-sm font-medium text-white">
               {session.isMuted
                 ? "Muted — Niki is listening"
-                : isIntroductionTour
-                  ? "Introduction tour — listening…"
-                  : "Niki is listening…"}
+                : isSkinAssessment
+                  ? "Skin assessment — listening…"
+                  : isIntroductionTour
+                    ? "Introduction tour — listening…"
+                    : "Niki is listening…"}
             </span>
             {isIntroductionTour && (
               <button
@@ -159,8 +162,18 @@ export function NikiFloatingWidget() {
               </button>
 
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C8A882]">Star Aesthetic Centre</p>
-              <p className="mt-1 font-heading text-xl font-bold text-white">Chat with Niki</p>
+              <p className="mt-1 font-heading text-xl font-bold text-white">
+                {isSkinAssessment ? "Skin Assessment" : "Chat with Niki"}
+              </p>
               <p className="mt-1 text-sm text-[#939EBA] leading-snug">{hint}</p>
+
+              {isSkinAssessment && (
+                <p className="mt-3 text-xs text-white/80 leading-relaxed">
+                  Niki will ask you about your skin concerns, age, skin type, and lifestyle —
+                  then recommend the right brand and a personalised regime. Allow microphone
+                  access when prompted.
+                </p>
+              )}
 
               {isIntroductionTour && (
                 <p className="mt-3 text-xs text-white/80 leading-relaxed">
@@ -208,9 +221,11 @@ export function NikiFloatingWidget() {
                   ? session.errorMsg
                   : session.status === "ended"
                     ? "Thanks for chatting! Tap below to start again."
-                    : isIntroductionTour
-                      ? "Voice-guided introduction — Niki follows the script on this page section by section."
-                      : "Voice chat — Niki knows what page you're on and can answer about this product or treatment."}
+                    : isSkinAssessment
+                      ? "Niki will ask about your skin concerns, lifestyle, and health — then recommend the right brand and products for you specifically."
+                      : isIntroductionTour
+                        ? "Voice-guided introduction — Niki follows the script on this page section by section."
+                        : "Voice chat — Niki knows what page you're on and can answer about this product or treatment."}
               </p>
 
               {isIntroductionTour && introductionTour.active && (
@@ -230,9 +245,11 @@ export function NikiFloatingWidget() {
                     if (pageContext.type === "introduction" && !introductionTour.active) {
                       activateIntroductionTour();
                     }
-                    void (isIntroductionTour
-                      ? session.startIntroductionTour()
-                      : session.startSession());
+                    void (isSkinAssessment
+                      ? session.startSkinAssessment()
+                      : isIntroductionTour
+                        ? session.startIntroductionTour()
+                        : session.startSession());
                   }}
                   className="mb-3 flex w-full items-center justify-center gap-2 bg-[#C8A882] py-3.5 text-sm font-bold text-[#0F2647] transition-colors hover:bg-[#A08060]"
                 >
@@ -240,10 +257,12 @@ export function NikiFloatingWidget() {
                   {session.status === "error"
                     ? "Try again"
                     : session.status === "ended"
-                      ? "Chat again"
-                      : isIntroductionTour
-                        ? "Start introduction tour"
-                        : "Start voice chat"}
+                      ? "Start again"
+                      : isSkinAssessment
+                        ? "Start skin assessment"
+                        : isIntroductionTour
+                          ? "Start introduction tour"
+                          : "Start voice chat"}
                 </button>
               ) : (
                 <div className="mb-3 flex items-center justify-center gap-2 py-3.5 text-sm text-[#6B6966]">

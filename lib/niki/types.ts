@@ -1,5 +1,5 @@
 export type NikiPageContext = {
-  type: "general" | "treatment" | "product" | "introduction";
+  type: "general" | "treatment" | "product" | "introduction" | "skin-assessment";
   treatmentName?: string;
   treatmentPage?: string;
   productName?: string;

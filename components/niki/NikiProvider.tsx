@@ -33,6 +33,7 @@ type NikiContextValue = {
   setIntroductionTourSectionIndex: (index: number) => void;
   endIntroductionTour: () => void;
   clearIntroductionTourPendingStart: () => void;
+  requestSkinAssessment: () => void;
 };
 
 const NikiContext = createContext<NikiContextValue | null>(null);
@@ -89,6 +90,11 @@ export function NikiProvider({ children }: { children: ReactNode }) {
     setIntroductionTour((prev) => ({ ...prev, pendingStart: false }));
   }, []);
 
+  const requestSkinAssessment = useCallback(() => {
+    setPageContext({ type: "skin-assessment" });
+    setIsOpen(true);
+  }, []);
+
   const value = useMemo(
     () => ({
       pageContext,
@@ -102,6 +108,7 @@ export function NikiProvider({ children }: { children: ReactNode }) {
       setIntroductionTourSectionIndex,
       endIntroductionTour,
       clearIntroductionTourPendingStart,
+      requestSkinAssessment,
     }),
     [
       pageContext,
@@ -114,6 +121,7 @@ export function NikiProvider({ children }: { children: ReactNode }) {
       setIntroductionTourSectionIndex,
       endIntroductionTour,
       clearIntroductionTourPendingStart,
+      requestSkinAssessment,
     ]
   );
 

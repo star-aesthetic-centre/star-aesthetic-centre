@@ -57,11 +57,13 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
           body: JSON.stringify({
             sessionId: crypto.randomUUID(),
             treatmentPage:
-              ctx.type === "introduction"
-                ? "introduction-tour"
-                : ctx.productSlug
-                  ? `product:${ctx.productSlug}`
-                  : ctx.treatmentPage ?? ctx.treatmentName ?? ctx.productName ?? "general",
+              ctx.type === "skin-assessment"
+                ? "skin-assessment"
+                : ctx.type === "introduction"
+                  ? "introduction-tour"
+                  : ctx.productSlug
+                    ? `product:${ctx.productSlug}`
+                    : ctx.treatmentPage ?? ctx.treatmentName ?? ctx.productName ?? "general",
             transcript: transcriptSnapshot.join("\n"),
             contact: {},
             durationSeconds: startedAtRef.current
@@ -146,7 +148,7 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
     }
   }, []);
 
-  const startSession = useCallback(async (options?: { introductionTour?: boolean }) => {
+  const startSession = useCallback(async (options?: { introductionTour?: boolean; skinAssessment?: boolean }) => {
     setStatus("connecting");
     setErrorMsg("");
     setTranscript([]);
@@ -154,6 +156,8 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
 
     const isIntroductionTour =
       options?.introductionTour === true || contextRef.current.type === "introduction";
+    const isSkinAssessment =
+      options?.skinAssessment === true || contextRef.current.type === "skin-assessment";
 
     try {
       const res = await fetch("/api/gemini-token");
@@ -221,11 +225,17 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
 
       setTimeout(() => {
         if (sessionRef.current) {
-          sendClientText(
-            isIntroductionTour
-              ? "Please begin the Star Aesthetic Centre platform introduction tour now. Start with section one. Remember to announce each section title clearly, pause, then give the intro and main content at an unhurried pace."
-              : "hello"
-          );
+          let trigger: string;
+          if (isIntroductionTour) {
+            trigger =
+              "Please begin the Star Aesthetic Centre platform introduction tour now. Start with section one. Remember to announce each section title clearly, pause, then give the intro and main content at an unhurried pace.";
+          } else if (isSkinAssessment) {
+            trigger =
+              "Please begin the skin assessment now. Open warmly and naturally as described in your instructions. Do not rush.";
+          } else {
+            trigger = "hello";
+          }
+          sendClientText(trigger);
         }
       }, 600);
 
@@ -248,6 +258,10 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
 
   const startIntroductionTour = useCallback(async () => {
     await startSession({ introductionTour: true });
+  }, [startSession]);
+
+  const startSkinAssessment = useCallback(async () => {
+    await startSession({ skinAssessment: true });
   }, [startSession]);
 
   const continueIntroductionTour = useCallback(() => {
@@ -284,6 +298,7 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
     errorMsg,
     startSession,
     startIntroductionTour,
+    startSkinAssessment,
     continueIntroductionTour,
     endSession,
     resetSession,
