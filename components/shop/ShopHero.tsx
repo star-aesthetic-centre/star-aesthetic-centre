@@ -112,7 +112,7 @@ export default function ShopHero() {
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-white">{step.title}</p>
-                        <p className="mt-1 text-xs leading-relaxed text-[#636E85]">{step.body}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-[#9AADC8]">{step.body}</p>
                         {i < steps.length - 1 && (
                           <div className="mt-4 ml-1 h-4 w-px bg-[#939EBA]/20" />
                         )}

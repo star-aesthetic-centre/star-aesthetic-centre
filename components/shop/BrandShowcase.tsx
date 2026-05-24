@@ -81,7 +81,7 @@ export default function BrandShowcase() {
 
                 {/* Logo area */}
                 <div className="flex items-center justify-center border-b border-[#E2E2E6] px-8 py-8 bg-white">
-                  <div className="relative h-16 w-48">
+                  <div className="relative h-28 w-64">
                     <Image
                       src={brand.logo}
                       alt={`${brand.name} skincare`}
