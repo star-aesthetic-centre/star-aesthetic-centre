@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-/** Canonical production host — www is primary; apex redirects at Vercel DNS. */
-export const SITE_URL = "https://www.staraesthetic.co.za";
+/** Canonical production host — apex is primary; www redirects here via Vercel. */
+export const SITE_URL = "https://staraesthetic.co.za";
 
 export const SITE_NAME = "Star Aesthetic Centre";
 export const SITE_LOCALE = "en_ZA";
