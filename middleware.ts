@@ -23,28 +23,20 @@ export function middleware(request: NextRequest) {
   }
 
   // ── Site password gate (pre-launch) ──────────────────────────────────────
-  if (SITE_PASSWORD && !pathname.startsWith("/admin") && !pathname.startsWith("/api")) {
-    const auth = request.headers.get("authorization") ?? "";
-    const [scheme, encoded] = auth.split(" ");
-    if (scheme === "Basic" && encoded) {
-      const decoded = Buffer.from(encoded, "base64").toString("utf-8");
-      const password = decoded.split(":").slice(1).join(":"); // everything after first colon
-      if (password === SITE_PASSWORD) {
-        // Correct password — let through
-        const response = NextResponse.next();
-        if (!allowSearchIndexing && !pathname.startsWith("/admin")) {
-          response.headers.set("X-Robots-Tag", "noindex, nofollow");
-        }
-        return response;
-      }
+  const isGated =
+    SITE_PASSWORD &&
+    !pathname.startsWith("/admin") &&
+    !pathname.startsWith("/api") &&
+    !pathname.startsWith("/preview-login") &&
+    !pathname.startsWith("/_next") &&
+    !pathname.startsWith("/images") &&
+    !pathname.match(/\.(ico|png|jpg|jpeg|webp|svg|css|js|woff2?)$/);
+
+  if (isGated) {
+    const cookie = request.cookies.get("preview_access");
+    if (cookie?.value !== "true") {
+      return NextResponse.redirect(new URL("/preview-login", request.url));
     }
-    // No auth or wrong password — challenge
-    return new NextResponse("Password required", {
-      status: 401,
-      headers: {
-        "WWW-Authenticate": 'Basic realm="Star Aesthetic Centre — Coming Soon"',
-      },
-    });
   }
 
   const response = NextResponse.next();
