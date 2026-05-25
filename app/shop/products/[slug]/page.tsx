@@ -11,7 +11,8 @@ import LifestyleGallery from "@/components/shop/LifestyleGallery";
 import ProductStarRating from "@/components/shop/ProductStarRating";
 import NikiProductCard from "@/components/shop/NikiProductCard";
 import ProductTrustBadges from "@/components/shop/ProductTrustBadges";
-import { getProductBySlug, getRelatedProducts, getPrimaryImage, formatPrice, getTreatmentsForProduct } from "@/lib/queries/supabase-products";
+import { redirect } from "next/navigation";
+import { getProductBySlug, getProductByFormerSlug, getRelatedProducts, getPrimaryImage, formatPrice, getTreatmentsForProduct } from "@/lib/queries/supabase-products";
 import { getBrandBySlug } from "@/lib/brands";
 import JsonLd from "@/components/seo/JsonLd";
 import { NikiPageContextBridge } from "@/components/niki/NikiPageContextBridge";
@@ -56,6 +57,12 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   const product = await getProductBySlug(slug);
 
   if (!product) {
+    // Check if the slug was renamed — if so, 301 redirect to the new URL
+    const former = await getProductByFormerSlug(slug);
+    if (former) {
+      redirect(`/shop/products/${former.newSlug}`);
+    }
+
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center text-center px-4">
         <h1 className="font-heading text-2xl font-bold text-[#1A1A1F] mb-2">Product not found</h1>

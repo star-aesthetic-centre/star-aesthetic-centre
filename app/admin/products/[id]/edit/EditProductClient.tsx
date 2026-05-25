@@ -3,10 +3,12 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { suggestFunnelForProduct, updateFullProduct } from "@/app/admin/products/actions";
+import { suggestFunnelForProduct, updateFullProduct, renameProduct } from "@/app/admin/products/actions";
+import { toSlug } from "@/lib/utils";
 import FunnelEditor, { type FunnelProductOption } from "@/components/admin/FunnelEditor";
 import RichHtmlEditor from "@/components/admin/RichHtmlEditor";
 import { parseFunnelConfig, type FunnelConfig } from "@/lib/funnel";
+import ProductImageGallery, { type ProductImage } from "@/components/admin/ProductImageGallery";
 
 interface Product {
   id: string;
@@ -27,18 +29,22 @@ interface Props {
   product: Product;
   allProducts: FunnelProductOption[];
   funnelConfigSupported?: boolean;
+  initialImages?: ProductImage[];
 }
 
 export default function EditProductClient({
   product,
   allProducts,
   funnelConfigSupported = false,
+  initialImages = [],
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
 
   // Form state
+  const [name, setName] = useState(product.name);
+  const [currentSlug, setCurrentSlug] = useState(product.slug);
   const [price, setPrice] = useState(
     product.price_cents != null ? (product.price_cents / 100).toFixed(2) : ""
   );
@@ -51,7 +57,11 @@ export default function EditProductClient({
   const [funnelConfig, setFunnelConfig] = useState<FunnelConfig>(() =>
     parseFunnelConfig(product.funnel_config)
   );
-  const [activeTab, setActiveTab] = useState<"details" | "short" | "full" | "funnel">("details");
+  const [isRenamePending, startRenameTransition] = useTransition();
+  const [activeTab, setActiveTab] = useState<"details" | "images" | "short" | "full" | "funnel">("details");
+
+  const previewSlug = toSlug(name);
+  const slugWillChange = previewSlug !== currentSlug && name.trim() !== "";
 
   const showToast = (msg: string, ok: boolean) => {
     setToast({ msg, ok });
@@ -96,6 +106,26 @@ export default function EditProductClient({
     });
   };
 
+  const handleRename = () => {
+    if (!name.trim() || name.trim() === product.name) {
+      showToast("No name change to save", false);
+      return;
+    }
+    startRenameTransition(async () => {
+      const res = await renameProduct(product.id, name, currentSlug);
+      if (res.success) {
+        if (res.newSlug && res.newSlug !== currentSlug) {
+          setCurrentSlug(res.newSlug);
+          showToast(`Renamed ✓ — new URL: /shop/products/${res.newSlug}`, true);
+        } else {
+          showToast("Name updated ✓", true);
+        }
+      } else {
+        showToast(res.error ?? "Rename failed", false);
+      }
+    });
+  };
+
   const inputClass =
     "w-full border border-[#E5E4E0] bg-white px-3 py-2.5 text-sm text-[#1A1917] outline-none focus:border-[#0F2647] transition-colors";
   const labelClass =
@@ -117,8 +147,8 @@ export default function EditProductClient({
       )}
 
       {/* Tab nav */}
-      <div className="flex border-b border-[#E5E4E0] mb-6">
-        {(["details", "short", "full", "funnel"] as const).map((tab) => (
+      <div className="flex flex-wrap border-b border-[#E5E4E0] mb-6">
+        {(["details", "images", "short", "full", "funnel"] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -129,6 +159,16 @@ export default function EditProductClient({
             }`}
           >
             {tab === "details" && "Details & Price"}
+            {tab === "images" && (
+              <span className="flex items-center gap-1.5">
+                Images
+                {initialImages.length > 0 && (
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#0F2647] text-[9px] font-bold text-white">
+                    {initialImages.length}
+                  </span>
+                )}
+              </span>
+            )}
             {tab === "short" && "Short Description"}
             {tab === "full" && "Full Description"}
             {tab === "funnel" && "Upsell Funnel"}
@@ -139,16 +179,64 @@ export default function EditProductClient({
       {/* ── TAB: Details & Price ─────────────────────────────────────────── */}
       {activeTab === "details" && (
         <div className="space-y-6">
-          {/* Read-only info */}
+          {/* Product name — editable */}
           <div className="bg-white border border-[#E5E4E0] p-6">
             <h2 className="text-sm font-bold text-[#1A1917] uppercase tracking-widest mb-4">
-              Product Info (read-only)
+              Product Name &amp; URL
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className={labelClass}>Slug</label>
-                <div className={readonlyClass}>{product.slug}</div>
-              </div>
+
+            <div className="mb-4">
+              <label htmlFor="product-name" className={labelClass}>
+                Product Name
+              </label>
+              <input
+                id="product-name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className={inputClass}
+                placeholder="e.g. NeoStrata Bionic Face Cream"
+              />
+            </div>
+
+            {/* Slug preview */}
+            <div className="mb-4">
+              <label className={labelClass}>URL slug</label>
+              {slugWillChange ? (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-[#939EBA] line-through font-mono">{currentSlug}</span>
+                    <span className="text-xs text-[#939EBA]">→</span>
+                    <span className="text-xs font-mono font-semibold text-[#0F2647]">{previewSlug}</span>
+                  </div>
+                  <div className="rounded border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs text-amber-800 leading-relaxed">
+                    <span className="font-bold">URL will change.</span> The old URL{" "}
+                    <code className="font-mono">/shop/products/{currentSlug}</code> will automatically
+                    301-redirect to <code className="font-mono">/shop/products/{previewSlug}</code>.
+                    Google and bookmarks will follow the redirect.
+                  </div>
+                </div>
+              ) : (
+                <div className={readonlyClass}>{currentSlug}</div>
+              )}
+            </div>
+
+            {/* Save name button */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleRename}
+                disabled={isRenamePending || !name.trim() || name.trim() === product.name}
+                className="bg-[#0F2647] text-white text-xs font-semibold uppercase tracking-widest px-4 py-2 hover:bg-[#1B3D6E] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {isRenamePending ? "Saving…" : slugWillChange ? "Rename product" : "Save name"}
+              </button>
+              {name.trim() !== product.name && !slugWillChange && (
+                <span className="text-xs text-[#939EBA]">Only the display name changes — URL stays the same</span>
+              )}
+            </div>
+
+            {/* Read-only meta */}
+            <div className="mt-5 pt-5 border-t border-[#E5E4E0] grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className={labelClass}>SKU</label>
                 <div className={readonlyClass}>{product.sku ?? "—"}</div>
@@ -229,6 +317,22 @@ export default function EditProductClient({
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* ── TAB: Images ─────────────────────────────────────────────────── */}
+      {activeTab === "images" && (
+        <div className="bg-white border border-[#E5E4E0] p-6">
+          <h2 className="text-sm font-bold text-[#1A1917] uppercase tracking-widest mb-1">
+            Product Images
+          </h2>
+          <p className="text-xs text-[#6B6966] mb-6">
+            Upload, delete, or reorder product photos. The first image is the primary card thumbnail.
+          </p>
+          <ProductImageGallery
+            productId={product.id}
+            initialImages={initialImages}
+          />
         </div>
       )}
 

@@ -201,6 +201,31 @@ export async function getProductBySlug(slug: string): Promise<SupabaseProduct | 
   }
 }
 
+/**
+ * Look up a product whose former_slugs array contains the given slug.
+ * Used to 301-redirect renamed product URLs.
+ * Returns { newSlug } if found, or null if not found / column not present.
+ */
+export async function getProductByFormerSlug(
+  slug: string
+): Promise<{ newSlug: string } | null> {
+  try {
+    const supabase = createSupabaseServer();
+    const { data, error } = await supabase
+      .from("products")
+      .select("slug")
+      .contains("former_slugs", [slug])
+      .eq("is_active", true)
+      .limit(1)
+      .single();
+
+    if (error || !data) return null;
+    return { newSlug: data.slug };
+  } catch {
+    return null;
+  }
+}
+
 // ─── Treatment Recommendations ────────────────────────────────────────────────
 
 export interface TreatmentRecommendedProduct {

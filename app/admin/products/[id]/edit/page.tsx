@@ -51,12 +51,23 @@ const BRAND_LABELS: Record<string, string> = {
   skinceuticals: "SkinCeuticals",
 };
 
+async function getProductImages(productId: string) {
+  const supabase = createSupabaseAdmin();
+  const { data } = await supabase
+    .from("product_images")
+    .select("id, url, alt_text, sort_order")
+    .eq("product_id", productId)
+    .order("sort_order");
+  return data ?? [];
+}
+
 export default async function EditProductPage({ params }: Props) {
   const { id } = await params;
-  const [product, allProducts, funnelConfigSupported] = await Promise.all([
+  const [product, allProducts, funnelConfigSupported, productImages] = await Promise.all([
     getAdminProductById(id),
     getProductsForFunnelPicker(),
     isFunnelConfigEnabled(),
+    getProductImages(id),
   ]);
 
   if (!product) notFound();
@@ -93,6 +104,7 @@ export default async function EditProductPage({ params }: Props) {
         product={product}
         allProducts={allProducts}
         funnelConfigSupported={funnelConfigSupported}
+        initialImages={productImages}
       />
     </main>
   );

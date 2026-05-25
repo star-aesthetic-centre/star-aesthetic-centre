@@ -192,19 +192,71 @@ export default async function BrandArchivePage({ params }: PageProps) {
                 </p>
               </div>
             ) : hasSubcategories ? (
-              /* ── Grouped by range (NeoStrata etc.) ── */
-              <div className="space-y-12">
+              /* ── Grouped by collection ── */
+              <div className="space-y-14">
                 {subcategoryGroups.map((group) => (
                   <div key={group.key}>
-                    {/* Range header */}
-                    {group.meta && (
-                      <div className="mb-6 pb-3 border-b-2 border-[#E5E4E0]">
-                        <h3 className="font-heading text-xl font-bold text-[#1A1917] uppercase tracking-wider">
-                          {group.meta.label}
-                        </h3>
-                        <p className="mt-1 text-sm text-[#6B6966]">{group.meta.subtitle}</p>
-                      </div>
-                    )}
+                    {group.meta ? (
+                      group.meta.image ? (
+                        /* ── Full collection hero with image ── */
+                        <div className="mb-8 overflow-hidden border border-[#E2E2E6]">
+                          <div className="grid grid-cols-1 md:grid-cols-2 items-stretch">
+                            <div className="relative min-h-[220px] md:min-h-[280px] bg-[#F0F0F0]">
+                              <Image
+                                src={group.meta.image}
+                                alt={group.meta.label}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                unoptimized
+                              />
+                            </div>
+                            <div
+                              className="flex flex-col justify-center px-8 py-8"
+                              style={{ backgroundColor: group.meta.accentColor ?? "#F7F7F8" }}
+                            >
+                              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#939EBA] mb-2">
+                                {brand.name}
+                              </p>
+                              <h3 className="font-heading text-2xl font-bold text-[#1A1917] mb-2 leading-tight">
+                                {group.meta.label}
+                              </h3>
+                              <p className="text-sm font-semibold text-[#0F2647] mb-3">
+                                {group.meta.subtitle}
+                              </p>
+                              {group.meta.description && (
+                                <p className="text-sm text-[#636374] leading-relaxed">
+                                  {group.meta.description}
+                                </p>
+                              )}
+                              <p className="mt-4 text-xs text-[#939EBA]">
+                                {group.items.length} product{group.items.length !== 1 ? "s" : ""} in this collection
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        /* ── Text-only collection header (no image yet) ── */
+                        <div
+                          className="mb-6 border border-[#E2E2E6] px-6 py-5"
+                          style={{ backgroundColor: group.meta.accentColor ?? "#F7F7F8" }}
+                        >
+                          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#939EBA] mb-1">
+                            {brand.name}
+                          </p>
+                          <h3 className="font-heading text-xl font-bold text-[#1A1917] mb-1">
+                            {group.meta.label}
+                          </h3>
+                          <p className="text-sm text-[#636374]">{group.meta.subtitle}</p>
+                          {group.meta.description && (
+                            <p className="mt-2 text-sm text-[#6B6966] leading-relaxed max-w-2xl">
+                              {group.meta.description}
+                            </p>
+                          )}
+                        </div>
+                      )
+                    ) : null}
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                       {group.items.map((product) => (
                         <ProductCard

@@ -45,7 +45,7 @@ const FOLDER_TO_SLUG = {
   "NeoStrata Enlighten Skin Brightener SPF35": "neostrata-enlighten-skin-brightener-spf35",
   "NeoStrata Enlighten Trio Pack": "neostrata-enlighten-trio-pack",
   "NeoStrata Enlighten Ultra Brightening Cleanser": "neostrata-enlighten-ultra-brightening-cleanser",
-  "NeoStrata Eye Cream": "neostrata-eye-cream",
+  "NeoStrata Hydra Filling PHA Eye Cream": "neostrata-hydra-filling-pha-eye-cream",
   "NeoStrata Facial Cleanser": "neostrata-facial-cleanser",
   "NeoStrata Glycolic Renewal Smoothing Cream": "neostrata-glycolic-renewal-smoothing-cream",
   "NeoStrata Glycolic Renewal Smoothing Lotion": "neostrata-glycolic-renewal-smoothing-lotion",
@@ -64,35 +64,35 @@ const FOLDER_TO_SLUG = {
   "NeoStrata Ultra Moisturising Face Cream": "neostrata-ultra-moisturising-face-cream",
 };
 
-// ── 2026 prices (Rand) from NEOSTRATA-NEW-PRODUCTS-IMAGE-TITLES-2026.md ────
+// ── 2026 prices (Rand) — March 2025 RRSP Inc VAT (column F, NeoStrata.xlsx) ──
 const PRICES_2026 = {
-  "neostrata-glycolic-renewal-smoothing-cream": 372,
-  "neostrata-glycolic-renewal-smoothing-lotion": 429,
-  "neostrata-high-potency-cream": 572,
-  "neostrata-facial-cleanser": 362,
-  "neostrata-bionic-face-cream": 533,
-  "neostrata-ultra-moisturising-face-cream": 439,
-  "neostrata-eye-cream": 396,
-  "neostrata-pha-daily-moisturizer": 468,
-  "neostrata-mandelic-clarifying-cleanser": 410,
-  "neostrata-oily-skin-solution": 394,
-  "neostrata-targeted-clarifying-gel": 307,
-  "neostrata-sheer-hydration-spf40": 487,
-  "neostrata-enlighten-ultra-brightening-cleanser": 445,
-  "neostrata-enlighten-pigment-controller": 720,
-  "neostrata-enlighten-illuminating-serum": 840,
-  "neostrata-enlighten-skin-brightener-spf35": 639,
-  "neostrata-enlighten-dark-spot-corrector": 384,
-  "neostrata-enlighten-brightening-eye-cream": 562,
-  "neostrata-15-vitamin-c-pha-serum": 581,
-  "neostrata-skin-active-exfoliating-wash": 476,
-  "neostrata-skin-active-matrix-support-spf30": 733,
-  "neostrata-skin-active-intensive-eye-therapy": 837,
-  "neostrata-skin-active-potent-retinol-complex": 865,
-  "neostrata-skin-active-hyaluronic-luminous-lift": 1031,
-  "neostrata-skin-active-rebound-sculpting-cream": 935,
-  "neostrata-enlighten-brightening-pack": 1370,
-  "neostrata-enlighten-trio-pack": 1693,
+  "neostrata-glycolic-renewal-smoothing-cream": 641.01,
+  "neostrata-glycolic-renewal-smoothing-lotion": 740.85,
+  "neostrata-high-potency-cream": 986.47,
+  "neostrata-facial-cleanser": 624.94,
+  "neostrata-bionic-face-cream": 918.58,
+  "neostrata-ultra-moisturising-face-cream": 756.83,
+  "neostrata-hydra-filling-pha-eye-cream": 682.94,
+  "neostrata-pha-daily-moisturizer": 806.74,
+  "neostrata-mandelic-clarifying-cleanser": 707.59,
+  "neostrata-oily-skin-solution": 679.37,
+  "neostrata-targeted-clarifying-gel": 530.19,
+  "neostrata-sheer-hydration-spf40": 840.64,
+  "neostrata-enlighten-ultra-brightening-cleanser": 767.17,
+  "neostrata-enlighten-pigment-controller": 1241.31,
+  "neostrata-enlighten-illuminating-serum": 1448.88,
+  "neostrata-enlighten-skin-brightener-spf35": 1102.94,
+  "neostrata-enlighten-dark-spot-corrector": 662.97,
+  "neostrata-enlighten-brightening-eye-cream": 968.72,
+  "neostrata-15-vitamin-c-pha-serum": 1002.26,
+  "neostrata-skin-active-exfoliating-wash": 821.70,
+  "neostrata-skin-active-matrix-support-spf30": 1264.78,
+  "neostrata-skin-active-intensive-eye-therapy": 1444.53,
+  "neostrata-skin-active-potent-retinol-complex": 1492.92,
+  "neostrata-skin-active-hyaluronic-luminous-lift": 1778.19,
+  "neostrata-skin-active-rebound-sculpting-cream": 1612.01,
+  "neostrata-enlighten-brightening-pack": 2363.55,
+  "neostrata-enlighten-trio-pack": 2920.14,
 };
 
 // ── CLI args ──────────────────────────────────────────────────────────────
@@ -145,6 +145,10 @@ function shouldInclude(filename) {
   if (lower.startsWith("plp_") || lower.startsWith("plp-")) return false;
   // Skip logos
   if (lower.includes("logo")) return false;
+  // Skip NeoStrata website page screenshots (neostrata-products-*.png)
+  if (lower.startsWith("neostrata-products-")) return false;
+  // Skip any file with "screen-page" in the name
+  if (lower.includes("screen-page")) return false;
   return true;
 }
 

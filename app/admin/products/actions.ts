@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import { suggestFunnelConfig } from "@/lib/funnel-suggestions";
 import { updateAdminProduct } from "@/lib/queries/admin-products";
+import { toSlug } from "@/lib/utils";
 
 export async function toggleProductActive(
   productId: string,
@@ -167,6 +168,79 @@ export async function suggestFunnelForProduct(productId: string): Promise<{
         .filter(Boolean)
         .join(" · "),
     };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
+
+/**
+ * Rename a product: updates name and (if it changed) the slug.
+ * The old slug is pushed into former_slugs[] so existing URLs 301-redirect.
+ * Requires: ALTER TABLE products ADD COLUMN IF NOT EXISTS former_slugs text[] DEFAULT '{}';
+ */
+export async function renameProduct(
+  productId: string,
+  newName: string,
+  currentSlug: string
+): Promise<{ success: boolean; newSlug?: string; error?: string }> {
+  const trimmedName = newName.trim();
+  if (!trimmedName) return { success: false, error: "Name cannot be empty" };
+
+  const newSlug = toSlug(trimmedName);
+  if (!newSlug) return { success: false, error: "Could not generate a valid slug from that name" };
+
+  try {
+    const supabase = createSupabaseAdmin();
+    const slugChanged = newSlug !== currentSlug;
+
+    // Check slug uniqueness if it changed
+    if (slugChanged) {
+      const { data: existing } = await supabase
+        .from("products")
+        .select("id")
+        .eq("slug", newSlug)
+        .neq("id", productId)
+        .limit(1)
+        .single();
+      if (existing) {
+        return { success: false, error: `Slug "${newSlug}" is already used by another product` };
+      }
+    }
+
+    const updatePayload: Record<string, unknown> = { name: trimmedName };
+
+    if (slugChanged) {
+      updatePayload.slug = newSlug;
+      // Append old slug to former_slugs (Postgres array append via RPC or raw update)
+      // We use a raw Supabase query with array_append
+      const { error: appendErr } = await supabase.rpc("append_former_slug", {
+        product_id: productId,
+        old_slug: currentSlug,
+      });
+
+      // If the RPC doesn't exist yet (migration not run), fall back silently —
+      // the rename still works, just without the redirect alias.
+      if (appendErr && !appendErr.message.includes("does not exist")) {
+        console.error("append_former_slug RPC error:", appendErr.message);
+      }
+    }
+
+    const { error } = await supabase
+      .from("products")
+      .update(updatePayload)
+      .eq("id", productId);
+
+    if (error) return { success: false, error: error.message };
+
+    revalidatePath("/admin/products");
+    revalidatePath(`/admin/products/${productId}/edit`);
+    revalidatePath("/shop");
+    if (slugChanged) {
+      revalidatePath(`/shop/products/${currentSlug}`);
+      revalidatePath(`/shop/products/${newSlug}`);
+    }
+
+    return { success: true, newSlug: slugChanged ? newSlug : currentSlug };
   } catch (err) {
     return { success: false, error: String(err) };
   }

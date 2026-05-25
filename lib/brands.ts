@@ -4,8 +4,11 @@
 const WC_BASE = "/images";
 
 export interface BrandSubcategory {
-    label: string;   // display name, e.g. "RESURFACE Range"
-    subtitle: string; // e.g. "Alpha Hydroxy Acids (AHAs)"
+    label: string;        // display name shown as section heading
+    subtitle: string;     // one-line tagline shown under heading
+    description?: string; // 1–2 sentence description for collection hero
+    image?: string;       // hero image URL (Supabase Storage public URL)
+    accentColor?: string; // optional background tint for the hero banner
 }
 
 export interface Brand {
@@ -116,12 +119,47 @@ export const brands: Brand[] = [
         whyWeStock:
             "NeoStrata owns the foundational AHA science. When I prescribe an exfoliating home care programme, NeoStrata formulas deliver the most consistent, clinically verifiable results for pigmentation, surface texture, and skin renewal. This is not a trend brand — it is a 35-year scientific institution.",
         subcategoryDescriptions: {
-            "RESURFACE":    { label: "RESURFACE Range",    subtitle: "Alpha Hydroxy Acids (AHAs) — resurface, smooth and renew" },
-            "RESTORE":      { label: "RESTORE Range",      subtitle: "Polyhydroxy Acids (PHAs) — gentle exfoliation with deep hydration" },
-            "CLARIFY":      { label: "CLARIFY Range",      subtitle: "For oily, acne-prone and congested skin" },
-            "ENLIGHTEN":    { label: "ENLIGHTEN Range",    subtitle: "Brightening and pigmentation correction" },
-            "SKIN ACTIVE":  { label: "SKIN ACTIVE Range",  subtitle: "Advanced anti-ageing and collagen support" },
-            "VALUE PACKS":  { label: "Value Packs",        subtitle: "Bundled sets for focused results" },
+            "RESURFACE": {
+                label: "The RESURFACE Collection",
+                subtitle: "Glycolic Acid — smooth, renew and refine skin texture",
+                description: "For skin texture and clarity. Smooth and improve your skin with clinically proven skin-renewing Glycolic Acid — an AHA that exfoliates to reveal fresh surface layers — and Aminofil for volume, plumping and firming. For smoother, brighter, healthier-looking skin.",
+                accentColor: "#E8F0F5",
+                image: "https://kprfezokgsmbizisvcrb.supabase.co/storage/v1/object/public/product-images/collection-images/neostrata/neostrata-resurface-collection.webp",
+            },
+            "RESTORE": {
+                label: "The RESTORE Collection",
+                subtitle: "Polyhydroxy Acids (PHAs) — gentle exfoliation with deep hydration",
+                description: "For sensitive and dry skin. PHAs deliver the same clinically proven exfoliation as AHAs — without the sensitivity. Rebuild your skin barrier, lock in moisture and restore a healthy, comfortable complexion.",
+                accentColor: "#F0F5F0",
+                image: "https://kprfezokgsmbizisvcrb.supabase.co/storage/v1/object/public/product-images/collection-images/neostrata/neostrata-restore-collection.webp",
+            },
+            "CLARIFY": {
+                label: "The CLARIFY Collection",
+                subtitle: "Mandelic Acid & Glycolic Acid — for oily, blemish-prone skin",
+                description: "For blemish-prone skin. Target oily and acne-prone skin types — plus the post-acne marks left behind — with Mandelic Acid, Salicylic Acid, Glycolic Acid, NeoGlucosamine and Tranexamic Acid (TXA). For clarified, smoother, healthier-looking skin.",
+                accentColor: "#EFF5F8",
+                image: "https://kprfezokgsmbizisvcrb.supabase.co/storage/v1/object/public/product-images/collection-images/neostrata/neostrata-clarify-collection.webp",
+            },
+            "ENLIGHTEN": {
+                label: "The ENLIGHTEN Collection",
+                subtitle: "Vitamin C, Niacinamide & Retinol — for uneven tone and dark spots",
+                description: "For uneven tone and dark spots. Get glowing with clinically proven Vitamin C, Niacinamide, Retinol and NeoGlucosamine. For brighter, more even-toned skin that radiates health.",
+                accentColor: "#FDF5E8",
+                image: "https://kprfezokgsmbizisvcrb.supabase.co/storage/v1/object/public/product-images/collection-images/neostrata/neostrata-enlighten-collection.webp",
+            },
+            "SKIN ACTIVE": {
+                label: "The SKIN ACTIVE Collection",
+                subtitle: "Hyaluronic Acid, Peptides & Retinol — comprehensive anti-ageing",
+                description: "For comprehensive anti-ageing. Target fine lines, wrinkles, uneven skin tone and age spots to visibly plump and firm skin with clinically proven Hyaluronic Acid, MicroDiPeptide229®, NeoGlucosamine and Aminofil. For smoother, firmer and healthier-looking skin.",
+                accentColor: "#EBF0F7",
+                image: "https://kprfezokgsmbizisvcrb.supabase.co/storage/v1/object/public/product-images/collection-images/neostrata/neostrata-skin-active-collection.webp",
+            },
+            "VALUE PACKS": {
+                label: "Value Packs",
+                subtitle: "Bundled sets for focused results",
+                description: "Save on NeoStrata's most popular product pairings — pre-matched by concern for maximum clinical results.",
+                accentColor: "#F5F0EB",
+            },
         },
     },
     {
