@@ -30,6 +30,8 @@ export function middleware(request: NextRequest) {
     !pathname.startsWith("/preview-login") &&
     !pathname.startsWith("/_next") &&
     !pathname.startsWith("/images") &&
+    pathname !== "/robots.txt" &&
+    pathname !== "/sitemap.xml" &&
     !pathname.match(/\.(ico|png|jpg|jpeg|webp|svg|css|js|woff2?)$/);
 
   if (isGated) {
