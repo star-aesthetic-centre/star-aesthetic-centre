@@ -138,9 +138,12 @@ export default function Footer() {
 
                     {/* Contact column */}
                     <div>
-                        <h3 className="font-heading text-xs font-semibold uppercase tracking-widest text-[#939EBA] mb-4">
+                        <Link
+                            href="/contact"
+                            className="font-heading mb-4 inline-block text-xs font-semibold uppercase tracking-widest text-[#939EBA] transition-colors hover:text-[#1B3D6E]"
+                        >
                             Contact
-                        </h3>
+                        </Link>
                         <ul className="space-y-3">
                             <li className="flex items-start gap-3 text-sm text-[#636374]">
                                 <MapPin size={15} className="mt-0.5 shrink-0 text-[#939EBA]" />
@@ -187,11 +190,8 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="mt-12 pt-8 border-t border-[#E2E2E6] flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-xs text-[#636374]">
-                        © {new Date().getFullYear()} Star Aesthetic Centre · Dr. Rajeev Bangalee · All rights reserved.
-                    </p>
-                    <div className="flex flex-wrap gap-5">
+                <div className="mt-12 border-t-2 border-[#C8A882]/30 pt-8 text-center">
+                    <div className="flex flex-wrap justify-center gap-x-7 gap-y-2 mb-4">
                         <Link href="/glossary" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
                             Glossary
                         </Link>
@@ -207,10 +207,10 @@ export default function Footer() {
                         <Link href="/legal/returns-policy" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
                             Returns Policy
                         </Link>
-                        <Link href="/contact" className="text-xs text-[#636374] hover:text-[#939EBA] transition-colors">
-                            Contact Us
-                        </Link>
                     </div>
+                    <p className="text-xs text-[#939EBA]">
+                        © {new Date().getFullYear()} Star Aesthetic Centre · Dr. Rajeev Bangalee · All rights reserved.
+                    </p>
                 </div>
             </div>
         </footer>
