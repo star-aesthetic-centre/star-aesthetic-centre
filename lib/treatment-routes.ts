@@ -19,7 +19,7 @@ export function treatmentPath(slug: string): string {
   return `/treatments/${category}/${slug}`;
 }
 
-export function treatmentUrl(slug: string, siteUrl = "https://www.staraesthetic.co.za"): string {
+export function treatmentUrl(slug: string, siteUrl = "https://staraesthetic.co.za"): string {
   return `${siteUrl}${treatmentPath(slug)}`;
 }
 
