@@ -129,7 +129,7 @@ export default function Footer() {
                         </Link>
 
                         <Link
-                            href="/site-info"
+                            href="/team-guide"
                             className="mt-2 inline-block text-sm text-[#939EBA] transition-colors hover:text-[#1B3D6E]"
                         >
                             Website information →
