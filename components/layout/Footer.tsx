@@ -25,7 +25,7 @@ const shopLinks = [
 export default function Footer() {
     return (
         <footer className="bg-[#F7F7F8] border-t border-[#E2E2E6]">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-28">
                 <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
 
                     {/* Brand column */}
@@ -126,6 +126,13 @@ export default function Footer() {
                             className="mt-3 inline-block text-sm text-[#636374] transition-colors hover:text-[#939EBA]"
                         >
                             Skincare &amp; treatments glossary →
+                        </Link>
+
+                        <Link
+                            href="/site-info"
+                            className="mt-2 inline-block text-sm text-[#939EBA] transition-colors hover:text-[#1B3D6E]"
+                        >
+                            Website information →
                         </Link>
                     </div>
 
