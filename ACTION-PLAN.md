@@ -1,4 +1,4 @@
-# Star Aesthetic Centre — SEO Action Plan
+﻿# Star Aesthetic Centre — SEO Action Plan
 **Generated:** 15 May 2026  
 **Overall Score:** 52/100  
 **Target Score:** 78/100 (achievable in 60 days with below fixes)
@@ -100,9 +100,9 @@ const productSchema = {
 
 ### H8. Add Vercel environment variables for production
 **What:** Add to Vercel Dashboard → Environment Variables:
-- `ADMIN_USERNAME` = `nikita`
+- `ADMIN_USERNAME` = `Nakita`
 - `CRON_SECRET` = `star-cron-k33p4l1ve-2026`  
-**Why:** These were set in `.env.local` (local only). Without them in Vercel, the admin login for Nikita won't work in production.  
+**Why:** These were set in `.env.local` (local only). Without them in Vercel, the admin login for Nakita won't work in production.  
 **Time:** 5 minutes
 
 ---

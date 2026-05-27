@@ -1,4 +1,4 @@
-/**
+﻿/**
  * POST /api/bookings
  *
  * Creates a new booking:
@@ -158,7 +158,7 @@ export async function POST(req: NextRequest) {
 
     // Patient confirmation
     await resend.emails.send({
-      from:    'Star Aesthetic Centre <bookings@staraesthetic.site>',
+      from:    'Star Aesthetic Centre <bookings@staraesthetic.co.za>',
       to:      patientEmail,
       subject: `Booking Confirmed — ${apt.title} | Ref: ${reference}`,
       html:    buildPatientEmail({
@@ -169,8 +169,8 @@ export async function POST(req: NextRequest) {
 
     // Nakita alert
     await resend.emails.send({
-      from:    'Star Aesthetic Bookings <bookings@staraesthetic.site>',
-      to:      'info@staraesthetic.site',
+      from:    'Star Aesthetic Bookings <bookings@staraesthetic.co.za>',
+      to:      'info@staraesthetic.co.za',
       subject: `New Booking: ${apt.title} — ${dateDisplay} at ${timeDisplay}`,
       html:    buildNakitaEmail({
         reference, patientName, patientEmail, patientPhone,
@@ -262,7 +262,7 @@ function buildPatientEmail(p: PatientEmailProps): string {
             <p style="margin:0 0 0;color:#6B6966;font-size:14px;line-height:1.7;">
               Please contact us at least 24 hours in advance:<br>
               <a href="tel:+27315731325" style="color:#C8A882;">+27 (0)31 573 1325</a> &nbsp;|&nbsp;
-              <a href="mailto:info@staraesthetic.site" style="color:#C8A882;">info@staraesthetic.site</a>
+              <a href="mailto:info@staraesthetic.co.za" style="color:#C8A882;">info@staraesthetic.co.za</a>
             </p>
           </td>
         </tr>

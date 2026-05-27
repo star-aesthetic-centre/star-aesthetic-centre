@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 import Link from "next/link";
@@ -72,7 +72,7 @@ const CONCERN_RECS: Record<string, { treatment: string; href: string; product: s
         { treatment: "Skin Peel Treatment", href: "/treatments/skin/skin-peel", product: "Dermaceutic Foamer 15" },
     ],
     ageing: [
-        { treatment: "Botox & Anti-Ageing", href: "/treatments/face/botox", product: "SkinCeuticals C E Ferulic" },
+        { treatment: "Anti-Wrinkle Treatment", href: "/treatments/face/botox", product: "SkinCeuticals C E Ferulic" },
         { treatment: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring", product: "NeoStrata Skin Active" },
     ],
     acne: [
@@ -206,7 +206,7 @@ export default function AssessmentFlow() {
                 </button>
 
                 <p className="text-xs text-[#3D4E63]">
-                    Created by Dr. Rajeev Bangalee · MB, BS · 15+ years clinical experience
+                    Created by Dr. Rajeev Bangalee · MB, BS · 20+ years clinical experience
                 </p>
             </div>
         );

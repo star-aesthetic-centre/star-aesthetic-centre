@@ -1,9 +1,9 @@
-import { BANK_DETAILS } from "@/lib/constants/banking";
+﻿import { BANK_DETAILS } from "@/lib/constants/banking";
 import { formatStarlights } from "@/lib/utils/rewards";
 
-export const ORDER_POP_EMAIL = "info@staraesthetic.site";
+export const ORDER_POP_EMAIL = "info@staraesthetic.co.za";
 /** Same verified sender as bookings & gift vouchers */
-export const ORDER_FROM = "Star Aesthetic Centre <bookings@staraesthetic.site>";
+export const ORDER_FROM = "Star Aesthetic Centre <bookings@staraesthetic.co.za>";
 
 export type OrderLineItem = {
   product_name: string;

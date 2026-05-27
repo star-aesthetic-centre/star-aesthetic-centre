@@ -1,9 +1,9 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, Instagram, Facebook, Lock } from "lucide-react";
 
 const treatmentLinks = [
-    { label: "Botox & Anti-Ageing", href: "/treatments/face/botox" },
+    { label: "Anti-Wrinkle Treatment", href: "/treatments/face/botox" },
     { label: "Lip Fillers", href: "/treatments/face/lip-filler" },
     { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring" },
     { label: "Skin Peels", href: "/treatments/skin/skin-peel" },
@@ -132,6 +132,13 @@ export default function Footer() {
                             href="/team-guide"
                             className="mt-2 inline-block text-sm text-[#939EBA] transition-colors hover:text-[#1B3D6E]"
                         >
+                            Team walkthrough →
+                        </Link>
+
+                        <Link
+                            href="/site-info"
+                            className="mt-1 inline-block text-sm text-[#939EBA] transition-colors hover:text-[#1B3D6E]"
+                        >
                             Website information →
                         </Link>
                     </div>
@@ -160,11 +167,11 @@ export default function Footer() {
                             </li>
                             <li>
                                 <a
-                                    href="mailto:info@staraesthetic.site"
+                                    href="mailto:info@staraesthetic.co.za"
                                     className="flex items-center gap-3 text-sm text-[#636374] transition-colors hover:text-[#939EBA]"
                                 >
                                     <Mail size={15} className="shrink-0 text-[#939EBA]" />
-                                    info@staraesthetic.site
+                                    info@staraesthetic.co.za
                                 </a>
                             </li>
                         </ul>

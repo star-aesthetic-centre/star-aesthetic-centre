@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import {
   generateVoucherCode,
@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
     const uniqueRecipients = [...new Set(recipientList.map((r) => r.name))];
 
     await resend.emails.send({
-      from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
+      from: "Star Aesthetic Centre <bookings@staraesthetic.co.za>",
       to: purchaserEmail,
       subject: `Your Gift Voucher Order — ${paymentReference}`,
       html: buildPurchaserEmail({

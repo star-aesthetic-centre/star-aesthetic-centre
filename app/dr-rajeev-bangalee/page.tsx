@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -51,7 +51,7 @@ const personSchema = {
   honorificPrefix: "Dr.",
   jobTitle: "General Practitioner & Aesthetic Medicine Specialist",
   description:
-    "Dr. Rajeev Bangalee is the Director of Star Aesthetic Centre in Durban North, KwaZulu-Natal. A qualified GP specialising in Aesthetic Medicine with over 15 years of clinical experience in South Africa and the United Kingdom.",
+    "Dr. Rajeev Bangalee is the Director of Star Aesthetic Centre in Durban North, KwaZulu-Natal. A qualified GP specialising in Aesthetic Medicine with over 20 years of clinical experience in South Africa and the United Kingdom.",
   image:
     "/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
   url: `${SITE_URL}/dr-rajeev-bangalee`,
@@ -74,10 +74,10 @@ const personSchema = {
     },
   ],
   memberOf: [
-    { "@type": "Organization", name: "Durban Independent Practitioners Association" },
-    { "@type": "Organization", name: "KZN Doctors Healthcare Coalition" },
-    { "@type": "Organization", name: "South African Medical Association (SAMA)" },
-    { "@type": "Organization", name: "Aesthetic and Cosmetic Association of South Africa (ACASA)" },
+    { "@type": "Organization", name: "Health Professions Council of South Africa (HPCSA)" },
+    { "@type": "Organization", name: "Durban Independent Practitioners Association (DIPA)" },
+    { "@type": "Organization", name: "KZN Doctors Healthcare Coalition (KZNDHC)" },
+    { "@type": "Organization", name: "Aesthetic and Anti-Aging Medicine Society of South Africa (AAMSSA)" },
   ],
   hasCredential: [
     {
@@ -115,7 +115,7 @@ const faqSchema = {
       name: "What qualifications does Dr. Bangalee hold?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Dr. Bangalee holds an MB, BS from the University of the Witwatersrand (2001), a Diploma in Aesthetic Medicine from the American Academy of Aesthetic Medicine (2012), and a Clinical Management in Dermatology certificate (2015). He is a member of SAMA, ACASA, the Durban Independent Practitioners Association, and the KZN Doctors Healthcare Coalition.",
+        text: "Dr. Bangalee holds an MB, BS from the University of the Witwatersrand (2001), a Diploma in Aesthetic Medicine from the American Academy of Aesthetic Medicine (2012), and a Clinical Management in Dermatology certificate (2015). He is registered with the HPCSA, serves as Chairman of the Durban Independent Practitioners Association (DIPA), and is a member of the KZN Doctors Healthcare Coalition (KZNDHC) and the Aesthetic and Anti-Aging Medicine Society of South Africa (AAMSSA).",
       },
     },
     {
@@ -131,7 +131,7 @@ const faqSchema = {
       name: "How long has Dr. Bangalee been practising aesthetic medicine?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Dr. Bangalee has over 15 years of clinical experience. After qualifying from Wits in 2001, he gained additional experience in the United Kingdom before returning to South Africa and establishing Star Aesthetic Centre in Durban North.",
+        text: "Dr. Bangalee has over 20 years of clinical experience. After qualifying from Wits in 2001, he gained additional experience in the United Kingdom before returning to South Africa and establishing Star Aesthetic Centre in Durban North.",
       },
     },
     {
@@ -224,14 +224,14 @@ const qualifications = [
 ];
 
 const affiliations = [
-  "South African Medical Association (SAMA)",
-  "Aesthetic & Cosmetic Association of South Africa (ACASA)",
-  "Durban Independent Practitioners Association",
-  "KZN Doctors Healthcare Coalition",
+  "Registered — Health Professions Council of South Africa (HPCSA)",
+  "Chairman — Durban Independent Practitioners Association (DIPA)",
+  "Member — KZN Doctors Healthcare Coalition (KZNDHC)",
+  "Member — Aesthetic and Anti-Aging Medicine Society of South Africa (AAMSSA)",
 ];
 
 const treatments = [
-  { label: "Botox & Anti-Ageing", href: "/treatments/face/botox", category: "Face" },
+  { label: "Anti-Wrinkle Treatment", href: "/treatments/face/botox", category: "Face" },
   { label: "Lip Fillers", href: "/treatments/face/lip-filler", category: "Face" },
   { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring", category: "Face" },
   { label: "Dermapen Microneedling", href: "/treatments/face/dermapen-microneedling", category: "Skin" },
@@ -255,7 +255,7 @@ const brands = [
 const faqs = [
   {
     q: "What qualifications does Dr. Bangalee hold?",
-    a: "Dr. Bangalee holds an MB, BS from the University of the Witwatersrand (2001), a Diploma in Aesthetic Medicine from the American Academy of Aesthetic Medicine (2012), and a Clinical Management in Dermatology certificate (2015). He is a member of SAMA, ACASA, the Durban Independent Practitioners Association, and the KZN Doctors Healthcare Coalition.",
+    a: "Dr. Bangalee holds an MB, BS from the University of the Witwatersrand (2001), a Diploma in Aesthetic Medicine from the American Academy of Aesthetic Medicine (2012), and a Clinical Management in Dermatology certificate (2015). He is registered with the HPCSA, serves as Chairman of the Durban Independent Practitioners Association (DIPA), and is a member of the KZN Doctors Healthcare Coalition (KZNDHC) and the Aesthetic and Anti-Aging Medicine Society of South Africa (AAMSSA).",
   },
   {
     q: "Is Dr. Bangalee a qualified medical doctor?",
@@ -263,7 +263,7 @@ const faqs = [
   },
   {
     q: "How long has Dr. Bangalee been practising aesthetic medicine?",
-    a: "Dr. Bangalee has over 15 years of clinical experience. After graduating from Wits in 2001, he gained broad clinical experience in the United Kingdom before returning to South Africa and establishing Star Aesthetic Centre in Durban North.",
+    a: "Dr. Bangalee has over 20 years of clinical experience. After graduating from Wits in 2001, he gained broad clinical experience in the United Kingdom before returning to South Africa and establishing Star Aesthetic Centre in Durban North.",
   },
   {
     q: "What aesthetic treatments does Dr. Bangalee personally perform?",
@@ -733,8 +733,7 @@ export default async function DrBangaleePage() {
                 Treatments Offered by Dr. Bangalee
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-sm text-[#6B6966]">
-                Every procedure below is personally performed by Dr. Bangalee — no delegation to assistants or
-                non-medical staff.
+                Medical and injectable procedures are personally performed by Dr. Bangalee. Skin treatments such as peels and microneedling are performed by Nakita.
               </p>
             </div>
 
@@ -902,7 +901,7 @@ export default async function DrBangaleePage() {
                 <MapPin size={12} /> Durban North, KwaZulu-Natal
               </span>
               <span className="flex items-center gap-2">
-                <Clock size={12} /> 15+ Years Clinical Experience
+                <Clock size={12} /> 20+ Years Clinical Experience
               </span>
               <span className="flex items-center gap-2">
                 <Shield size={12} /> Medically Qualified GP

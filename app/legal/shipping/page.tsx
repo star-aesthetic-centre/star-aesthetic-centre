@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -141,7 +141,7 @@ export default function ShippingPage() {
             <p className="text-sm text-[#6B6966] mb-4">Questions about your delivery?</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href="mailto:info@staraesthetic.site"
+                href="mailto:info@staraesthetic.co.za"
                 className="inline-block bg-[#0F2647] text-white text-sm font-semibold px-8 py-3 hover:bg-[#1B3D6E] transition-colors"
               >
                 Email Us

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { FileText, ChevronRight, Mail, Phone, MapPin, AlertTriangle } from "lucide-react";
@@ -406,9 +406,9 @@ export default function TermsPage() {
                   Star Aesthetic Medical Centre
                 </p>
                 <div className="space-y-3">
-                  <a href="mailto:info@staraesthetic.site" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
+                  <a href="mailto:info@staraesthetic.co.za" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
                     <Mail size={14} className="shrink-0 text-[#939EBA]" />
-                    info@staraesthetic.site
+                    info@staraesthetic.co.za
                   </a>
                   <a href="tel:+27315731325" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
                     <Phone size={14} className="shrink-0 text-[#939EBA]" />

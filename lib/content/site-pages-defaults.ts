@@ -1,4 +1,4 @@
-import type { ContactPageContent, DrPageContent, HomePageContent, SitePageSlug } from "./site-pages-types";
+﻿import type { ContactPageContent, DrPageContent, HomePageContent, SitePageSlug } from "./site-pages-types";
 
 export const DEFAULT_HOME: HomePageContent = {
   hero: {
@@ -10,7 +10,7 @@ export const DEFAULT_HOME: HomePageContent = {
     ctaPrimary: "Explore Treatments",
     ctaSecondary: "Shop Skincare",
     stats: [
-      { value: "15+", label: "Years Experience" },
+      { value: "20+", label: "Years Experience" },
       { value: "6", label: "Premium Brands" },
       { value: "5★", label: "Patient Rating" },
     ],
@@ -24,14 +24,14 @@ export const DEFAULT_HOME: HomePageContent = {
       "My goal is simple — to help you look naturally radiant and feel beautifully you. Every treatment is customised, every product carefully chosen.",
     body:
       "A qualified GP with specialisation in Aesthetic Medicine, Dr. Bangalee brings clinical precision and an artistic eye to every consultation. Based in Durban North, he personally recommends every treatment and product at Star Aesthetic Centre.",
-    badgeValue: "15+",
+    badgeValue: "20+",
     badgeLabel: "Years Experience",
     ctaLabel: "About Dr. Bangalee",
     credentials: [
       "MBChB · University of Natal",
       "Aesthetic Medicine Specialist",
       "Member: SAMA · ACASA",
-      "15+ Years Clinical Experience",
+      "20+ Years Clinical Experience",
     ],
   },
   perksRewards: {
@@ -74,7 +74,7 @@ export const DEFAULT_CONTACT: ContactPageContent = {
   contact: {
     phone: "0315731325",
     phoneDisplay: "031 573 1325",
-    email: "info@staraesthetic.site",
+    email: "info@staraesthetic.co.za",
     addressLine1: "22 Ennisdale Drive",
     addressLine2: "Durban North, 4051",
     whatsappNote: "+27 (0)31 573 1325",
@@ -89,7 +89,7 @@ export const DEFAULT_CONTACT: ContactPageContent = {
       name: "Priya M.",
       location: "Durban North",
       rating: 5,
-      treatment: "Botox & Anti-Ageing",
+      treatment: "Anti-Wrinkle Treatment",
       text: "I was so nervous about injectables, but Dr. Bangalee explained everything so clearly. The results were completely natural — my husband didn't even realise I'd had anything done!",
     },
     {
@@ -132,15 +132,15 @@ export const DEFAULT_DR: DrPageContent = {
     title: "DR. RAJEEV BANGALEE",
     subtitle: "MB, BS · Aesthetic Medicine Specialist · Durban North",
     intro:
-      "A qualified GP with 15+ years of clinical experience in South Africa and the UK. Every treatment at Star Aesthetic Centre is personally performed by Dr. Bangalee.",
-    credentialPills: ["GP · 15+ Years", "Wits Graduate 2001", "Aesthetic Med Diploma 2012", "Durban North"],
+      "A qualified GP with 20+ years of clinical experience in South Africa and the UK. Injectable treatments are personally performed by Dr. Bangalee; skin treatments by Nakita.",
+    credentialPills: ["GP · 20+ Years", "Wits Graduate 2001", "Aesthetic Med Diploma 2012", "Durban North"],
     ctaPrimary: "Book a Consultation",
     ctaSecondary: "View All Treatments",
-    badgeValue: "15+",
+    badgeValue: "20+",
     badgeLabel: "Years Experience",
   },
   stats: [
-    { value: "15+", label: "Years of Clinical Experience" },
+    { value: "20+", label: "Years of Clinical Experience" },
     { value: "2001", label: "Year of Graduation — Wits" },
     { value: "2012", label: "Aesthetic Medicine Diploma" },
     { value: "100%", label: "Personally Performed by Dr. Bangalee" },
@@ -156,7 +156,7 @@ export const DEFAULT_DR: DrPageContent = {
   seo: {
     title: "Dr. Rajeev Bangalee | Aesthetic Medicine Specialist | Star Aesthetic Centre Durban",
     description:
-      "Dr. Rajeev Bangalee — General Practitioner and Aesthetic Medicine Specialist with 15+ years of clinical experience. Director of Star Aesthetic Centre, Durban North. Botox, dermal fillers, skin peels, microneedling and more.",
+      "Dr. Rajeev Bangalee — General Practitioner and Aesthetic Medicine Specialist with 20+ years of clinical experience. Director of Star Aesthetic Centre, Durban North. Botox, dermal fillers, skin peels, microneedling and more.",
   },
 };
 

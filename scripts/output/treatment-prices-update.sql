@@ -1,5 +1,5 @@
--- treatment-prices-update.sql
--- Update treatment price_from fields with correct 2026 prices from Nikita's pricelist
+﻿-- treatment-prices-update.sql
+-- Update treatment price_from fields with correct 2026 prices from Nakita's pricelist
 -- Source: Treatment 2026 Price List.pdf (received 2026-04-07)
 -- Run in Supabase SQL editor
 

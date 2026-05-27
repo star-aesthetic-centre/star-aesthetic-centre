@@ -1,4 +1,4 @@
-/**
+﻿/**
  * /api/niki-session
  *
  * Receives the completed session transcript + contact data from the browser
@@ -6,7 +6,7 @@
  *
  * Phase 1: logs to console
  * Phase 2: ✅ saves to Supabase + extracts contact details from transcript
- * Phase 3 (TODO): email to Nikita via Resend
+ * Phase 3 (TODO): email to Nakita via Resend
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient }              from '@supabase/supabase-js';
@@ -136,8 +136,8 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // ── Phase 3 (TODO): Email to Nikita via Resend ────────────────────────
-    // await sendNikitaEmail({ payload, contact });
+    // ── Phase 3 (TODO): Email to Nakita via Resend ────────────────────────
+    // await sendNakitaEmail({ payload, contact });
 
     return NextResponse.json({ ok: true });
   } catch (err) {

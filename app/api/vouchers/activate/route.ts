@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import { buildVoucherEmail, type GiftVoucher } from "@/lib/utils/vouchers";
 import { Resend } from "resend";
@@ -85,14 +85,14 @@ async function activateOne(
   };
 
   await resend.emails.send({
-    from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
+    from: "Star Aesthetic Centre <bookings@staraesthetic.co.za>",
     to: voucher.recipient_email,
     subject: `You've received a Star Aesthetic Gift Voucher from ${voucher.purchaser_name} 🎁`,
     html: buildVoucherEmail(activatedVoucher),
   });
 
   await resend.emails.send({
-    from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
+    from: "Star Aesthetic Centre <bookings@staraesthetic.co.za>",
     to: voucher.purchaser_email,
     subject: `Your Gift Voucher has been sent to ${voucher.recipient_name}`,
     html: `<p>Hi ${voucher.purchaser_name},</p>

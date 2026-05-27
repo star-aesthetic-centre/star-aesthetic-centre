@@ -1,4 +1,4 @@
-import { Resend } from "resend";
+﻿import { Resend } from "resend";
 import { SITE_URL } from "@/lib/seo";
 function formatZarFromCents(cents: number): string {
   return `R ${(cents / 100).toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -35,7 +35,7 @@ export async function sendCartAbandonmentEmail(opts: {
   `;
 
   const { error } = await resend.emails.send({
-    from: process.env.RESEND_FROM ?? "Star Aesthetic Centre <bookings@staraesthetic.site>",
+    from: process.env.RESEND_FROM ?? "Star Aesthetic Centre <bookings@staraesthetic.co.za>",
     to: opts.to,
     subject: "Your Star Aesthetic Centre cart is saved",
     html,

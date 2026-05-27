@@ -20,7 +20,7 @@ const treatmentsColumns = [
     {
         heading: "Face",
         items: [
-            { label: "Botox", href: "/treatments/face/botox" },
+            { label: "Anti-Wrinkle Treatment", href: "/treatments/face/botox" },
             { label: "Lip Fillers", href: "/treatments/face/lip-filler" },
             { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring" },
             { label: "Dermapen Microneedling", href: "/treatments/face/dermapen-microneedling" },

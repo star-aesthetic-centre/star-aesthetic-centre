@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "title": "Acne Treatment",
     "tagline": "Clear Skin Changes Everything — Medical Acne Treatment in Durban",
@@ -144,8 +144,8 @@
     "slug": "body-contouring"
   },
   {
-    "title": "Botox® Wrinkle Treatment",
-    "tagline": "Natural-Looking Wrinkle Relaxation by Durban's Trusted Aesthetic Doctor",
+    "title": "Anti-Wrinkle Treatment",
+    "tagline": "",
     "quickSummary": "**Botox** (Botulinum Toxin Type A) is the world's most popular non-surgical cosmetic treatment — a purified protein that temporarily relaxes the facial muscles responsible for **expression lines**, delivering a smoother, younger-looking complexion with zero downtime.",
     "priceFrom": "From R 90 per unit · Optimal dosing (64 units) R 5,440",
     "pricingBreakdown": {
@@ -417,7 +417,7 @@
       },
       {
         "question": "How quickly can I book for excessive sweating treatment?",
-        "answer": "Contact us at **+27 (0)31 573 1325** or info@staraesthetic.site. We will book a consultation and **typically treat in the same appointment** if you are medically suitable. Allow 2 weeks for full effect before any important event."
+        "answer": "Contact us at **+27 (0)31 573 1325** or info@staraesthetic.co.za. We will book a consultation and **typically treat in the same appointment** if you are medically suitable. Allow 2 weeks for full effect before any important event."
       },
       {
         "question": "Is this the same Botox used for wrinkles?",

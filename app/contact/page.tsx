@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, MessageCircle, Clock, Star, Shield, Award, ChevronRight } from "lucide-react";
@@ -27,7 +27,7 @@ const trustBadges = [
     { icon: Award, label: "MB, BS Qualified GP" },
     { icon: Star, label: "5★ Google Rated" },
     { icon: Shield, label: "HPCSA Registered" },
-    { icon: Clock, label: "15+ Years Experience" },
+    { icon: Clock, label: "20+ Years Experience" },
 ];
 
 export default async function ContactPage() {

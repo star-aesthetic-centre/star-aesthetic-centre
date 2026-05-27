@@ -203,9 +203,11 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                             <h1 className="font-heading text-4xl lg:text-6xl font-bold text-[#1A1A1F] mb-6">
                                 {treatment.title}
                             </h1>
+                            {treatment.tagline && (
                             <p className="text-xl font-semibold text-[#1A1A1F] mb-6">
                                 {treatment.tagline}
                             </p>
+                            )}
 
                             {/* Hero paragraph — supports **bold** markers */}
                             {(treatment.heroText || treatment.quickSummary) && (

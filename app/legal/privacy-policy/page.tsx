@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Shield, ChevronRight, Mail, Phone, MapPin } from "lucide-react";
@@ -128,7 +128,7 @@ const sections = [
       {
         type: "text",
         value:
-          "You may withdraw consent for secondary uses at any time by contacting us at info@staraesthetic.site. Withdrawal of consent will not affect the lawfulness of any processing carried out before the withdrawal.",
+          "You may withdraw consent for secondary uses at any time by contacting us at info@staraesthetic.co.za. Withdrawal of consent will not affect the lawfulness of any processing carried out before the withdrawal.",
       },
     ],
   },
@@ -485,11 +485,11 @@ export default function PrivacyPolicyPage() {
                   </p>
                   <div className="space-y-3">
                     <a
-                      href="mailto:info@staraesthetic.site"
+                      href="mailto:info@staraesthetic.co.za"
                       className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]"
                     >
                       <Mail size={14} className="shrink-0 text-[#939EBA]" />
-                      info@staraesthetic.site
+                      info@staraesthetic.co.za
                     </a>
                     <a
                       href="tel:+27315731325"

@@ -264,7 +264,7 @@ export default function SiteInfoPage() {
             {[
               { label: "Homepage", href: "/" },
               { label: "All Treatments", href: "/treatments" },
-              { label: "Botox", href: "/treatments/face/botox" },
+              { label: "Anti-Wrinkle Treatment", href: "/treatments/face/botox" },
               { label: "Lip Filler", href: "/treatments/face/lip-filler" },
               { label: "Skin Peel", href: "/treatments/skin/skin-peel" },
               { label: "Dr. Rajeev Bangalee", href: "/dr-rajeev-bangalee" },

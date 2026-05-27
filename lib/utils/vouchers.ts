@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Gift voucher utilities — Star Aesthetic Centre
  */
 
@@ -145,7 +145,7 @@ export function buildVoucherEmail(voucher: GiftVoucher): string {
               <strong style="color:#1A1917;">Valid until:</strong> ${expiry}
             </p>
             <p style="margin:0 0 24px;font-size:13px;color:#6B6966;font-family:Arial,sans-serif;">
-              <strong style="color:#1A1917;">Questions?</strong> Call us on <a href="tel:+27315731325" style="color:#C8A882;">+27 (0)31 573 1325</a> or email <a href="mailto:info@staraesthetic.site" style="color:#C8A882;">info@staraesthetic.site</a>
+              <strong style="color:#1A1917;">Questions?</strong> Call us on <a href="tel:+27315731325" style="color:#C8A882;">+27 (0)31 573 1325</a> or email <a href="mailto:info@staraesthetic.co.za" style="color:#C8A882;">info@staraesthetic.co.za</a>
             </p>
           </td>
         </tr>

@@ -1,5 +1,5 @@
-const stats = [
- { value: "15+", label: "Years Experience" },
+﻿const stats = [
+ { value: "20+", label: "Years Experience" },
  { value: "12", label: "Expert Treatments" },
  { value: "6", label: "Skincare Brands" },
  { value: "5★", label: "Patient Rating" },

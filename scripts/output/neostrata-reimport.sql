@@ -1,6 +1,6 @@
--- ══════════════════════════════════════════════════════════════════════
+﻿-- ══════════════════════════════════════════════════════════════════════
 -- NeoStrata — Complete Re-import from Official Jan 2026 Pricelist
--- Source: NeoStrata.xlsx Column F (RRSP Inc VAT) supplied by Nikita
+-- Source: NeoStrata.xlsx Column F (RRSP Inc VAT) supplied by Nakita
 -- Replaces 41 AI-generated products with 27 correct products
 -- ══════════════════════════════════════════════════════════════════════
 

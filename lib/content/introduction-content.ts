@@ -1,4 +1,4 @@
-export const INTRODUCTION_META = {
+﻿export const INTRODUCTION_META = {
   title: "Introduction",
   subtitle: "The new Star Aesthetic Centre platform — vision, opportunity, and every feature explained.",
   audience: "For Dr Rajeev Bangalee, Nakita, and our leadership team",
@@ -40,7 +40,7 @@ export const VISION_SECTIONS = [
       "Patients compare you to three types of competitor — and the platform is built to win in each.",
       "**Other aesthetic clinics** offer treatments but often weak or absent e-commerce. Star Aesthetic sells the **same brands you use in treatment rooms**, with doctor-led credibility they cannot copy.",
       "**Online pharmacies and general retailers** sell skincare without consultation context. You sell **protocol, pairing, and follow-up** — plus Star Light Rewards that bring people back to you, not to a faceless cart.",
-      "**Discount and marketplace sellers** compete on price alone. You compete on **trust, authenticity of stock, and relationship** — Dr Bangalee’s name, Nikita’s care, Niki’s guidance, and a CRM that remembers every email.",
+      "**Discount and marketplace sellers** compete on price alone. You compete on **trust, authenticity of stock, and relationship** — Dr Bangalee’s name, Nakita’s care, Niki’s guidance, and a CRM that remembers every email.",
       "The opportunity is not to be the cheapest. It is to be the **most trusted** place to buy what you already recommend — and to turn that trust into measurable revenue.",
     ],
   },
@@ -177,7 +177,7 @@ export const FEATURES: FeatureBlock[] = [
     whatItIs:
       "A smart voice assistant on the website — the gold chat button, bottom-right. She knows which product or treatment page the visitor is viewing and answers in warm, short, natural speech.",
     whyItMatters:
-      "Extends Dr Bangalee’s expertise when reception is closed. Captures interest, explains protocols, and can lead to contact capture — with **full transcripts** in admin for Nikita to review.",
+      "Extends Dr Bangalee’s expertise when reception is closed. Captures interest, explains protocols, and can lead to contact capture — with **full transcripts** in admin for Nakita to review.",
     howItWorks: [
       "Visitor starts voice chat; Niki greets first and answers questions.",
       "She does not diagnose or prescribe; she educates and offers clinic follow-up.",

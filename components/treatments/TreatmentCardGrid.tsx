@@ -32,7 +32,7 @@ export default function TreatmentCardGrid({
             </HeadingTag>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-[#636374] sm:text-right">
-            Every treatment personally performed by Dr. Rajeev Bangalee for safe, clinical, natural-looking results.
+            All treatments delivered by Dr. Rajeev Bangalee and Nakita for safe, clinical, natural-looking results.
           </p>
         </div>
       )}

@@ -123,15 +123,15 @@ export const TOUR_STEPS: TourStep[] = [
     id: "skin-assessment-form",
     title: "Skin Assessment — written form",
     icon: "ClipboardList",
-    summary: "13-question form lead capture with skin score",
+    summary: "12-question form lead capture with skin score",
     whoClicks:
-      "Open the standalone written skin assessment page. This is a separate 13-question form — different from the Niki voice assessment. It ends with a personalised skin health score and captures the patient's contact details as a lead.",
+      "Open the standalone written skin assessment page. This is a separate 12-question form — different from the Niki voice assessment. It ends with a personalised skin health score and captures the patient's contact details as a lead.",
     openUrl: "/skin-assessment",
     openLabel: "Open written skin assessment",
     nikiAction:
       "Niki is not part of this form — it is self-completed. You can open Niki for Q&A about the assessment process if needed.",
     script:
-      "For patients who prefer to read and click rather than speak, the written assessment covers concerns, lifestyle habits, SPF use, sleep, and diet — thirteen steps in total. At the end it calculates a Skin Health Score and shows personalised recommendations. Crucially, it captures name, email, and phone, which flow automatically into Leads in admin for Nakita to follow up.",
+      "For patients who prefer to read and click rather than speak, the written assessment covers concerns, lifestyle habits, SPF use, sleep, and diet — twelve questions in total. At the end it calculates a Skin Health Score and shows personalised recommendations. Crucially, it captures name, email, and phone, which flow automatically into Leads in admin for Nakita to follow up.",
     checkpoint:
       "Questions about where leads from the assessment appear, or how Nakita follows up with them?",
   },

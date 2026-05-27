@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { RotateCcw, ChevronRight, Mail, Phone, MapPin, CheckCircle, XCircle, Clock, AlertTriangle } from "lucide-react";
@@ -228,7 +228,7 @@ export default function ReturnsPolicyPage() {
                     {
                       step: "01",
                       title: "Contact us within 14 days",
-                      desc: "Email info@staraesthetic.site or call 031 573 1325 within 14 days of receiving your order. Include your order number, the product name, and the reason for the return.",
+                      desc: "Email info@staraesthetic.co.za or call 031 573 1325 within 14 days of receiving your order. Include your order number, the product name, and the reason for the return.",
                     },
                     {
                       step: "02",
@@ -278,7 +278,7 @@ export default function ReturnsPolicyPage() {
                 <ul className="space-y-2 pl-1">
                   {[
                     "Take clear photographs of the damaged packaging and product before discarding anything",
-                    "Email the photographs along with your order number to info@staraesthetic.site",
+                    "Email the photographs along with your order number to info@staraesthetic.co.za",
                     "Do not dispose of the damaged item until we have assessed your claim",
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
@@ -356,7 +356,7 @@ export default function ReturnsPolicyPage() {
 
                 <p>
                   To cancel or reschedule, please contact us by phone on <a href="tel:+27315731325" className="text-[#1B3D6E] underline underline-offset-2">031 573 1325</a> or
-                  by email at <a href="mailto:info@staraesthetic.site" className="text-[#1B3D6E] underline underline-offset-2">info@staraesthetic.site</a> as early as possible.
+                  by email at <a href="mailto:info@staraesthetic.co.za" className="text-[#1B3D6E] underline underline-offset-2">info@staraesthetic.co.za</a> as early as possible.
                 </p>
               </div>
             </section>
@@ -582,9 +582,9 @@ export default function ReturnsPolicyPage() {
                   Star Aesthetic Medical Centre
                 </p>
                 <div className="space-y-3">
-                  <a href="mailto:info@staraesthetic.site" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
+                  <a href="mailto:info@staraesthetic.co.za" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
                     <Mail size={14} className="shrink-0 text-[#939EBA]" />
-                    info@staraesthetic.site
+                    info@staraesthetic.co.za
                   </a>
                   <a href="tel:+27315731325" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
                     <Phone size={14} className="shrink-0 text-[#939EBA]" />

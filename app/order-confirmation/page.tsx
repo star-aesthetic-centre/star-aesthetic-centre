@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -7,7 +7,7 @@ import { CheckCircle, Copy, Check, Mail, Package } from "lucide-react";
 import { BANK_DETAILS } from "@/lib/constants/banking";
 import { calculateStarlights, formatStarlights } from "@/lib/utils/rewards";
 
-const POP_EMAIL = "info@staraesthetic.site";
+const POP_EMAIL = "info@staraesthetic.co.za";
 
 function formatTotal(totalParam: string | null): string | null {
   if (!totalParam) return null;

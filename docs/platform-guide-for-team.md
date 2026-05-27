@@ -1,4 +1,4 @@
-# Star Aesthetic Centre — Platform Guide  
+﻿# Star Aesthetic Centre — Platform Guide  
 ## For Nakita, Dr Bangalee & the leadership team
 
 *A living document — May 2026*  
@@ -38,7 +38,7 @@ With admiration,
 ### What “household brand” means in practice
 
 - A patient finishes Botox and leaves with **the exact cleanser and SPF** Dr Bangalee recommends — bought online, delivered, with **5% back** in Star Lights.
-- Someone at home at 9 p.m. asks Niki about pigmentation; by morning Nikita has a **lead** with name, phone, and interest.
+- Someone at home at 9 p.m. asks Niki about pigmentation; by morning Nakita has a **lead** with name, phone, and interest.
 - A cart abandoned at checkout gets a **WhatsApp nudge** — not spam, a helpful reminder with a link to finish.
 - Nakita opens **one admin dashboard** and sees orders, leads, and Niki conversations — not five spreadsheets.
 
@@ -73,7 +73,7 @@ That is not science fiction. It is how modern voice agents are evolving. You alr
 |---------------|--------------|
 | **Niki voice (Gemini Live)** | Real-time conversation; knows which product/treatment page you are on |
 | **Product & treatment context** | Loaded from your database — not generic ChatGPT guesses |
-| **Session transcripts** | Saved to admin — Nikita can read what visitors asked |
+| **Session transcripts** | Saved to admin — Nakita can read what visitors asked |
 | **Leads & CRM** | Contact, skin assessment, bookings, Niki email capture → **Customers & Leads** in admin |
 | **Full shop + EFT checkout** | Orders, confirmation emails, Star Light Rewards |
 | **Post-purchase funnels** | Optional 2-step upsell after add-to-cart |
@@ -196,7 +196,7 @@ Your API key stays on the server; sessions are logged for quality and training i
 
 > “This is me in patient-facing mode. I use **Google’s latest Gemini voice** technology — real conversation, not robotic scripts. On a product page I already know the product name, price, and summary from your database.
 >
-> I greet first, answer in short warm sentences, and when the moment is right I can ask for name, phone, and email — which flows into your **Leads** and **Customers** views. Every conversation can be saved as a transcript for Nikita to review.
+> I greet first, answer in short warm sentences, and when the moment is right I can ask for name, phone, and email — which flows into your **Leads** and **Customers** views. Every conversation can be saved as a transcript for Nakita to review.
 >
 > The **guided tour** you’re experiencing now is the next evolution: same voice, same trust — but structured chapters, pauses for questions, and soon the ability to navigate and add to cart while we talk.”
 
