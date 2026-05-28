@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowLeft, Clock, Activity, CreditCard, ChevronDown } from "lucide-react";
 import treatmentsData from "@/lib/data/treatments.json";
+import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import { RichText } from "@/lib/utils/richText";
 import { NikiAgentCard } from "@/components/treatments/NikiAgentCard";
 import { getTreatmentRecommendations, formatPrice, type TreatmentRecommendation } from "@/lib/queries/supabase-products";
@@ -32,21 +33,35 @@ export async function generateMetadata({ params }: TreatmentPageProps): Promise<
     const treatment = treatmentsData.find((t: { slug: string }) => t.slug === slug);
     if (!treatment) return { title: "Treatment Not Found" };
 
+    // Fetch DB overrides for title and meta fields
+    const supabase = createSupabaseAdmin();
+    const { data: db } = await supabase
+        .from("treatments")
+        .select("title, meta_title, meta_description, meta_keywords, og_image")
+        .eq("slug", slug)
+        .single();
+
+    const displayTitle = db?.title || treatment.title;
     const path = treatmentPath(slug);
-    const title = `${treatment.title} in Durban North | Star Aesthetic Centre`;
-    const description = `Dr. Rajeev Bangalee offers ${treatment.title.toLowerCase()} at our Durban North clinic. ${stripHtml(treatment.quickSummary ?? treatment.tagline).slice(0, 120)} Book a consultation today.`;
+    const title = db?.meta_title || `${displayTitle} in Durban North | Star Aesthetic Centre`;
+    const description =
+        db?.meta_description ||
+        `${displayTitle} at Star Aesthetic Centre, Durban North. ${stripHtml(treatment.quickSummary ?? treatment.tagline).slice(0, 120)} Book a consultation today.`;
 
     return buildPageMetadata({
         title,
         description,
         path,
-        keywords: [
-            `${treatment.title} Durban`,
-            `${treatment.title} Durban North`,
-            `aesthetic ${treatment.title.toLowerCase()} KZN`,
-            "Dr Rajeev Bangalee",
-            "Star Aesthetic Centre",
-        ],
+        keywords: db?.meta_keywords
+            ? db.meta_keywords.split(",").map((k: string) => k.trim())
+            : [
+                  `${displayTitle} Durban`,
+                  `${displayTitle} Durban North`,
+                  `aesthetic ${displayTitle.toLowerCase()} KZN`,
+                  "Dr Rajeev Bangalee",
+                  "Star Aesthetic Centre",
+              ],
+        ...(db?.og_image ? { ogImage: db.og_image } : {}),
     });
 }
 
@@ -143,23 +158,50 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
         notFound();
     }
 
+    // Fetch DB overrides (title, content, pricing) — prefer DB when set
+    const supabase = createSupabaseAdmin();
+    const { data: db } = await supabase
+        .from("treatments")
+        .select("title, tagline, price_from, duration, downtime, hero_text, what_is, expected_results, how_works, suitable_for, faqs")
+        .eq("slug", slug)
+        .single();
+
+    // Merge: DB values take priority over JSON when non-null
+    type DbFaq = { question: string; answer: string };
+    const displayTitle    = db?.title || treatment.title;
+    const displayTagline  = db?.tagline ?? treatment.tagline;
+    const displayPrice    = db?.price_from || treatment.priceFrom;
+    const displayDuration = db?.duration || treatment.duration;
+    const displayDowntime = db?.downtime || treatment.downtime;
+    const displayFaqs: DbFaq[] =
+        (Array.isArray(db?.faqs) && (db.faqs as DbFaq[]).length > 0)
+            ? (db.faqs as DbFaq[])
+            : ((treatment as { faqs?: DbFaq[] }).faqs ?? []);
+    const displayHowWorks: string[] =
+        Array.isArray(db?.how_works) && (db.how_works as string[]).length > 0
+            ? (db.how_works as string[])
+            : ((treatment as { howWorks?: string[] }).howWorks ?? []);
+    const displaySuitableFor: string[] =
+        Array.isArray(db?.suitable_for) && (db.suitable_for as string[]).length > 0
+            ? (db.suitable_for as string[])
+            : ((treatment as { suitableFor?: string[] }).suitableFor ?? []);
+
     const pagePath = treatmentPath(slug);
     const pageUrl = canonicalUrl(pagePath);
-    const faqs = (treatment as { faqs?: { question: string; answer: string }[] }).faqs ?? [];
 
     const structuredData = [
         breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Treatments", path: "/treatments" },
-            { name: treatment.title, path: pagePath },
+            { name: displayTitle, path: pagePath },
         ]),
         medicalProcedureSchema({
-            name: treatment.title,
+            name: displayTitle,
             description: treatment.quickSummary ?? treatment.tagline,
             url: pageUrl,
-            priceFrom: treatment.priceFrom,
+            priceFrom: displayPrice,
         }),
-        faqPageSchema(faqs),
+        faqPageSchema(displayFaqs),
     ].filter(Boolean);
 
     const recommendations = await getTreatmentRecommendations(slug);
@@ -175,7 +217,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
         <article className="min-h-screen bg-[#F7F7F8]">
             <NikiPageContextBridge
                 type="treatment"
-                treatmentName={treatment.title}
+                treatmentName={displayTitle}
                 treatmentPage={pagePath}
             />
             <JsonLd data={structuredData} />
@@ -190,7 +232,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         <span className="mx-2">›</span>
                         <Link href="/treatments" className="hover:text-[#939EBA] transition-colors">Treatments</Link>
                         <span className="mx-2">›</span>
-                        <span className="text-[#1A1A1F]">{treatment.title}</span>
+                        <span className="text-[#1A1A1F]">{displayTitle}</span>
                     </nav>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
@@ -201,16 +243,21 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 {category.replace(/-/g, ' ').toUpperCase()}
                             </p>
                             <h1 className="font-heading text-4xl lg:text-6xl font-bold text-[#1A1A1F] mb-6">
-                                {treatment.title}
+                                {displayTitle}
                             </h1>
-                            {treatment.tagline && (
+                            {displayTagline && (
                             <p className="text-xl font-semibold text-[#1A1A1F] mb-6">
-                                {treatment.tagline}
+                                {displayTagline}
                             </p>
                             )}
 
-                            {/* Hero paragraph — supports **bold** markers */}
-                            {(treatment.heroText || treatment.quickSummary) && (
+                            {/* Hero paragraph — DB HTML takes priority, else markdown from JSON */}
+                            {db?.hero_text ? (
+                                <div
+                                    className="text-lg text-[#636374] leading-relaxed mb-8 prose prose-sm max-w-none"
+                                    dangerouslySetInnerHTML={{ __html: db.hero_text }}
+                                />
+                            ) : (treatment.heroText || treatment.quickSummary) && (
                                 <RichText
                                     text={treatment.heroText || treatment.quickSummary}
                                     as="p"
@@ -240,30 +287,30 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         <div className="p-8 bg-white border border-[#E2E2E6]">
                             <h3 className="font-heading text-2xl font-bold text-[#1A1A1F] mb-6">At a Glance</h3>
                             <ul className="space-y-6">
-                                {treatment.priceFrom && (
+                                {displayPrice && (
                                     <li className="flex items-start gap-4">
                                         <div className="mt-1 shrink-0 text-[#939EBA]"><CreditCard size={20} /></div>
                                         <div>
                                             <span className="block text-sm font-semibold text-[#1A1A1F]">Investment</span>
-                                            <span className="text-sm text-[#636374]">{treatment.priceFrom}</span>
+                                            <span className="text-sm text-[#636374]">{displayPrice}</span>
                                         </div>
                                     </li>
                                 )}
-                                {treatment.duration && (
+                                {displayDuration && (
                                     <li className="flex items-start gap-4">
                                         <div className="mt-1 shrink-0 text-[#939EBA]"><Clock size={20} /></div>
                                         <div>
                                             <span className="block text-sm font-semibold text-[#1A1A1F]">Duration</span>
-                                            <span className="text-sm text-[#636374]">{treatment.duration}</span>
+                                            <span className="text-sm text-[#636374]">{displayDuration}</span>
                                         </div>
                                     </li>
                                 )}
-                                {treatment.downtime && (
+                                {displayDowntime && (
                                     <li className="flex items-start gap-4">
                                         <div className="mt-1 shrink-0 text-[#939EBA]"><Activity size={20} /></div>
                                         <div>
                                             <span className="block text-sm font-semibold text-[#1A1A1F]">Downtime</span>
-                                            <span className="text-sm text-[#636374]">{treatment.downtime}</span>
+                                            <span className="text-sm text-[#636374]">{displayDowntime}</span>
                                         </div>
                                     </li>
                                 )}
@@ -281,23 +328,30 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                     <div className="lg:col-span-2 space-y-16">
 
                         {/* What is it? */}
-                        {(treatment.whatIs || treatment.quickSummary) && (
+                        {(db?.what_is || treatment.whatIs || treatment.quickSummary) && (
                             <div>
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
-                                    What is {treatment.title}?
+                                    What is {displayTitle}?
                                 </h2>
-                                <RichBody text={treatment.whatIs || treatment.quickSummary} />
+                                {db?.what_is ? (
+                                    <div
+                                        className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
+                                        dangerouslySetInnerHTML={{ __html: db.what_is }}
+                                    />
+                                ) : (
+                                    <RichBody text={treatment.whatIs || treatment.quickSummary} />
+                                )}
                             </div>
                         )}
 
                         {/* How it Works */}
-                        {treatment.howWorks && treatment.howWorks.length > 0 && (
+                        {displayHowWorks.length > 0 && (
                             <div>
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
                                     How it Works
                                 </h2>
                                 <div className="space-y-6">
-                                    {treatment.howWorks.map((step: string, index: number) => {
+                                    {displayHowWorks.map((step: string, index: number) => {
                                         // Steps are formatted as "Title — Description"
                                         const dashIdx = step.indexOf(' — ');
                                         if (dashIdx !== -1) {
@@ -373,13 +427,20 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         )}
 
                         {/* Expected Results */}
-                        {treatment.expectedResults && (
+                        {(db?.expected_results || treatment.expectedResults) && (
                             <div>
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
                                     Expected Results &amp; Timeline
                                 </h2>
                                 <div className="bg-white p-8 border border-[#E2E2E6]">
-                                    <ResultsTimeline text={treatment.expectedResults} />
+                                    {db?.expected_results ? (
+                                        <div
+                                            className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
+                                            dangerouslySetInnerHTML={{ __html: db.expected_results }}
+                                        />
+                                    ) : (
+                                        <ResultsTimeline text={treatment.expectedResults} />
+                                    )}
                                     {treatment.downtimeDetail && (
                                         <>
                                             <h4 className="font-bold text-[#1A1A1F] mt-8 mb-3">Downtime &amp; Aftercare:</h4>
@@ -391,13 +452,13 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         )}
 
                         {/* FAQs */}
-                        {treatment.faqs && treatment.faqs.length > 0 && (
+                        {displayFaqs.length > 0 && (
                             <div>
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
                                     Frequently Asked Questions
                                 </h2>
                                 <div className="space-y-4">
-                                    {treatment.faqs.map((faq: any, index: number) => (
+                                    {displayFaqs.map((faq, index) => (
                                         <details
                                             key={index}
                                             open
@@ -427,11 +488,11 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                     <div className="lg:col-span-1 space-y-8">
 
                         {/* Who is this for? */}
-                        {treatment.suitableFor && treatment.suitableFor.length > 0 && (
+                        {displaySuitableFor.length > 0 && (
                             <div className="bg-[#EEF0F6] p-8">
                                 <h3 className="font-heading text-xl font-bold text-[#1A1A1F] mb-6">Who Is This For?</h3>
                                 <ul className="space-y-4 text-[#636374]">
-                                    {treatment.suitableFor.map((item: string, index: number) => (
+                                    {displaySuitableFor.map((item: string, index: number) => (
                                         <li key={index} className="flex gap-3 items-start">
                                             <span className="text-[#939EBA] mt-0.5 shrink-0">✓</span>
                                             <RichText text={item} as="span" className="text-sm leading-relaxed" />
@@ -442,7 +503,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         )}
 
                         {/* Niki Agent Card */}
-                        <NikiAgentCard treatmentName={treatment.title} />
+                        <NikiAgentCard treatmentName={displayTitle} />
 
                         {/* CTA Box */}
                         <div className="bg-[#0F2647] p-8 text-white">

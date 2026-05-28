@@ -14,7 +14,11 @@ async function getTreatment(slug: string) {
   const supabase = createSupabaseAdmin();
   const { data, error } = await supabase
     .from("treatments")
-    .select("slug, title, category, is_active, tagline, price_from, duration, downtime")
+    .select(`
+      slug, title, category, is_active, tagline, price_from, duration, downtime,
+      meta_title, meta_description, meta_keywords, og_image,
+      hero_text, what_is, expected_results, how_works, suitable_for, faqs
+    `)
     .eq("slug", slug)
     .single();
 
@@ -59,7 +63,9 @@ export default async function EditTreatmentPage({ params }: Props) {
           </span>
         </div>
         <h1 className="text-2xl font-bold text-[#1A1917]">{treatment.title}</h1>
-        <p className="text-xs text-[#939EBA] mt-1 font-mono">slug: {treatment.slug}</p>
+        <p className="text-xs text-[#939EBA] mt-1 font-mono">
+          /treatments/{treatment.category}/{treatment.slug}
+        </p>
       </div>
 
       <EditTreatmentClient treatment={treatment} />

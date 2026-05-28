@@ -51,15 +51,30 @@ export async function toggleTreatmentActive(
   }
 }
 
+type TreatmentUpdateData = {
+  title?: string;
+  tagline?: string | null;
+  price_from?: string | null;
+  duration?: string | null;
+  downtime?: string | null;
+  is_active?: boolean;
+  // SEO
+  meta_title?: string | null;
+  meta_description?: string | null;
+  meta_keywords?: string | null;
+  og_image?: string | null;
+  // Content
+  hero_text?: string | null;
+  what_is?: string | null;
+  expected_results?: string | null;
+  how_works?: string[] | null;
+  suitable_for?: string[] | null;
+  faqs?: { question: string; answer: string }[] | null;
+};
+
 export async function updateTreatmentMeta(
   slug: string,
-  data: {
-    tagline?: string;
-    price_from?: string;
-    duration?: string;
-    downtime?: string;
-    is_active?: boolean;
-  }
+  data: TreatmentUpdateData
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const supabase = createSupabaseAdmin();
@@ -73,6 +88,9 @@ export async function updateTreatmentMeta(
     revalidatePath("/admin/treatments");
     revalidatePath(`/admin/treatments/${slug}/edit`);
     revalidatePath("/treatments");
+    revalidatePath(`/treatments/face/${slug}`);
+    revalidatePath(`/treatments/skin/${slug}`);
+    revalidatePath(`/treatments/body-wellness/${slug}`);
     return { success: true };
   } catch (err) {
     return { success: false, error: String(err) };
