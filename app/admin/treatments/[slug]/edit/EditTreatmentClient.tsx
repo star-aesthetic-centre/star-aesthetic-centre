@@ -12,6 +12,29 @@ interface Faq {
   answer: string;
 }
 
+// Converts plain text with **bold** markers and \n\n paragraphs into HTML for Tiptap
+function mdToHtml(text: string | null | undefined): string {
+  if (!text) return "";
+  return text
+    .split(/\n\n+/)
+    .map((para) =>
+      `<p>${para
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\n/g, "<br>")}</p>`
+    )
+    .join("");
+}
+
+interface JsonTreatment {
+  heroText?: string;
+  quickSummary?: string;
+  whatIs?: string;
+  expectedResults?: string;
+  howWorks?: string[];
+  suitableFor?: string[];
+  faqs?: Faq[];
+}
+
 interface Treatment {
   slug: string;
   title: string;
@@ -44,7 +67,13 @@ const sectionClass = "bg-white border border-[#E5E4E0] p-6";
 const sectionTitle = "text-sm font-bold text-[#1A1917] uppercase tracking-widest mb-4";
 const hintClass = "text-xs text-[#6B6966] mt-1";
 
-export default function EditTreatmentClient({ treatment }: { treatment: Treatment }) {
+export default function EditTreatmentClient({
+  treatment,
+  jsonFallback,
+}: {
+  treatment: Treatment;
+  jsonFallback?: JsonTreatment | null;
+}) {
   const [isPending, startTransition] = useTransition();
   const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
 
@@ -57,17 +86,38 @@ export default function EditTreatmentClient({ treatment }: { treatment: Treatmen
   const [downtime, setDowntime] = useState(treatment.downtime ?? "");
 
   // ── Content ─────────────────────────────────────────────────────────────
-  const [heroText, setHeroText] = useState(treatment.hero_text ?? "");
-  const [whatIs, setWhatIs] = useState(treatment.what_is ?? "");
-  const [expectedResults, setExpectedResults] = useState(treatment.expected_results ?? "");
+  const [heroText, setHeroText] = useState(
+    treatment.hero_text ??
+    mdToHtml(jsonFallback?.heroText ?? jsonFallback?.quickSummary)
+  );
+  const [whatIs, setWhatIs] = useState(
+    treatment.what_is ??
+    mdToHtml(jsonFallback?.whatIs ?? jsonFallback?.quickSummary)
+  );
+  const [expectedResults, setExpectedResults] = useState(
+    treatment.expected_results ??
+    mdToHtml(jsonFallback?.expectedResults)
+  );
   const [howWorks, setHowWorks] = useState(
-    Array.isArray(treatment.how_works) ? (treatment.how_works as string[]).join("\n") : ""
+    Array.isArray(treatment.how_works)
+      ? (treatment.how_works as string[]).join("\n")
+      : Array.isArray(jsonFallback?.howWorks)
+        ? (jsonFallback.howWorks as string[]).join("\n")
+        : ""
   );
   const [suitableFor, setSuitableFor] = useState(
-    Array.isArray(treatment.suitable_for) ? (treatment.suitable_for as string[]).join("\n") : ""
+    Array.isArray(treatment.suitable_for)
+      ? (treatment.suitable_for as string[]).join("\n")
+      : Array.isArray(jsonFallback?.suitableFor)
+        ? (jsonFallback.suitableFor as string[]).join("\n")
+        : ""
   );
   const [faqs, setFaqs] = useState<Faq[]>(
-    Array.isArray(treatment.faqs) ? (treatment.faqs as Faq[]) : []
+    Array.isArray(treatment.faqs)
+      ? (treatment.faqs as Faq[])
+      : Array.isArray(jsonFallback?.faqs)
+        ? (jsonFallback.faqs as Faq[])
+        : []
   );
 
   // ── SEO / Meta ──────────────────────────────────────────────────────────

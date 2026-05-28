@@ -1,6 +1,7 @@
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import treatmentsData from "@/lib/data/treatments.json";
 import EditTreatmentClient from "./EditTreatmentClient";
 
 export const dynamic = "force-dynamic";
@@ -35,8 +36,10 @@ const CATEGORY_LABELS: Record<string, string> = {
 export default async function EditTreatmentPage({ params }: Props) {
   const { slug } = await params;
   const treatment = await getTreatment(slug);
-
   if (!treatment) notFound();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const jsonFallback = (treatmentsData as any[]).find((t) => t.slug === slug) ?? null;
 
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
@@ -68,7 +71,7 @@ export default async function EditTreatmentPage({ params }: Props) {
         </p>
       </div>
 
-      <EditTreatmentClient treatment={treatment} />
+      <EditTreatmentClient treatment={treatment} jsonFallback={jsonFallback} />
     </main>
   );
 }
