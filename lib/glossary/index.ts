@@ -2,6 +2,7 @@ import { INGREDIENT_TERMS } from "./data/ingredients";
 import { TREATMENT_TERMS } from "./data/treatments";
 import { CONDITION_TERMS } from "./data/conditions";
 import { CONCEPT_TERMS } from "./data/concepts";
+import { BRAND_TERMS } from "./data/brands";
 import type { GlossaryTerm, GlossaryCategory } from "./types";
 
 export type { GlossaryTerm, GlossaryCategory };
@@ -12,6 +13,7 @@ export const ALL_GLOSSARY_TERMS: GlossaryTerm[] = [
   ...TREATMENT_TERMS,
   ...CONDITION_TERMS,
   ...CONCEPT_TERMS,
+  ...BRAND_TERMS,
 ].sort((a, b) => a.term.localeCompare(b.term));
 
 /** Lookup by slug — O(1) via Map */
@@ -30,6 +32,7 @@ export const CATEGORY_LABELS: Record<GlossaryCategory, string> = {
   treatment: "Treatment",
   condition: "Skin Condition",
   concept: "Concept",
+  brand: "Brand",
 };
 
 export const CATEGORY_COLORS: Record<GlossaryCategory, string> = {
@@ -37,4 +40,5 @@ export const CATEGORY_COLORS: Record<GlossaryCategory, string> = {
   treatment: "bg-blue-100 text-blue-800",
   condition: "bg-amber-100 text-amber-800",
   concept: "bg-purple-100 text-purple-800",
+  brand: "bg-rose-100 text-rose-800",
 };

@@ -30,6 +30,7 @@ const CATEGORIES: { value: GlossaryCategory | "all"; label: string }[] = [
   { value: "treatment", label: "Treatments" },
   { value: "condition", label: "Skin Conditions" },
   { value: "concept", label: "Concepts" },
+  { value: "brand", label: "Brands & Products" },
 ];
 
 // Group terms A-Z

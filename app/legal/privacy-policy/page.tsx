@@ -23,7 +23,7 @@ const sections = [
       {
         type: "text",
         value:
-          "Star Aesthetic Medical Centre (\"Star Aesthetic Centre\", \"we\", \"us\", or \"our\") is a medical aesthetic practice located at 22 Ennisdale Drive, Durban North, 4051, KwaZulu-Natal, South Africa.",
+          "Star Aesthetic Centre (\"Star Aesthetic Centre\", \"we\", \"us\", or \"our\") is a medical aesthetic practice located at 22 Ennisdale Drive, Durban North, 4051, KwaZulu-Natal, South Africa.",
       },
       {
         type: "text",
@@ -331,7 +331,7 @@ export default function PrivacyPolicyPage() {
                 <span>Last updated: <strong className="text-[#1A1917]">{lastUpdated}</strong></span>
               </div>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#6B6966]">
-                This policy explains how Star Aesthetic Medical Centre collects, uses, and protects your personal
+                This policy explains how Star Aesthetic Centre collects, uses, and protects your personal
                 and medical information in accordance with the Protection of Personal Information Act (POPIA) and
                 HPCSA guidelines.
               </p>
@@ -481,7 +481,7 @@ export default function PrivacyPolicyPage() {
                 {/* Practice contact */}
                 <div className="border border-[#E5E4E0] bg-[#F8F8F7] p-6">
                   <p className="mb-4 text-xs font-bold uppercase tracking-widest text-[#1B3D6E]">
-                    Star Aesthetic Medical Centre
+                    Star Aesthetic Centre
                   </p>
                   <div className="space-y-3">
                     <a
@@ -534,7 +534,7 @@ export default function PrivacyPolicyPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <p className="text-xs text-[#6B6966]">
-              © {new Date().getFullYear()} Star Aesthetic Medical Centre · All rights reserved
+              © {new Date().getFullYear()} Star Aesthetic Centre · All rights reserved
             </p>
             <div className="flex flex-wrap gap-6">
               <Link

@@ -121,7 +121,7 @@ export const DEFAULT_CONTACT: ContactPageContent = {
   },
 };
 
-const DR_BIO_HTML = `<p>Dr. Rajeev Bangalee is the founder and director of Star Aesthetic Medical Centre in Durban North, KwaZulu-Natal. He is a qualified General Practitioner who has dedicated his post-graduate career to the science — and the art — of aesthetic medicine.</p>
+const DR_BIO_HTML = `<p>Dr. Rajeev Bangalee is the founder and director of Star Aesthetic Centre in Durban North, KwaZulu-Natal. He is a qualified General Practitioner who has dedicated his post-graduate career to the science — and the art — of aesthetic medicine.</p>
 <p>After completing his MB, BS at the University of the Witwatersrand in 2001, Dr. Bangalee pursued extensive clinical experience in the United Kingdom, working across specialised fields and gaining exposure to high standards of care and a broad patient base. This period abroad shaped his disciplined, evidence-first approach to medicine.</p>
 <p>Returning to South Africa, Dr. Bangalee formalised his aesthetic medicine training with a Diploma from the American Academy of Aesthetic Medicine in 2012 — one of the most respected internationally recognised qualifications in the field. He has since added certification in Clinical Management in Dermatology, continuously expanding his skill set through local and international workshops and conferences.</p>
 <p>What sets Dr. Bangalee apart is not only his credentials — it is his philosophy. He believes that every patient deserves a personalised plan, every product must be clinically vetted, and every result should look natural. No cookie-cutter solutions. No unnecessary procedures. Just honest, medical-grade care tailored to you.</p>`;

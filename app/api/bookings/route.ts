@@ -210,7 +210,7 @@ function buildPatientEmail(p: PatientEmailProps): string {
         <!-- Header -->
         <tr>
           <td style="background:#0F2647;padding:40px 48px;text-align:center;">
-            <p style="margin:0;font-family:Georgia,serif;color:#C8A882;font-size:12px;letter-spacing:3px;text-transform:uppercase;">Star Aesthetic Medical Centre</p>
+            <p style="margin:0;font-family:Georgia,serif;color:#C8A882;font-size:12px;letter-spacing:3px;text-transform:uppercase;">Star Aesthetic Centre</p>
             <h1 style="margin:12px 0 0;color:#FFFFFF;font-size:24px;font-weight:400;letter-spacing:1px;">Booking Confirmed</h1>
           </td>
         </tr>
@@ -220,7 +220,7 @@ function buildPatientEmail(p: PatientEmailProps): string {
           <td style="background:#FFFFFF;padding:48px;">
             <p style="margin:0 0 24px;color:#1A1917;font-size:16px;line-height:1.6;">Dear ${p.patientName},</p>
             <p style="margin:0 0 32px;color:#6B6966;font-size:15px;line-height:1.7;">
-              Your appointment has been confirmed. We look forward to welcoming you to Star Aesthetic Medical Centre.
+              Your appointment has been confirmed. We look forward to welcoming you to Star Aesthetic Centre.
             </p>
 
             <!-- Appointment box -->
@@ -270,7 +270,7 @@ function buildPatientEmail(p: PatientEmailProps): string {
         <!-- Footer -->
         <tr>
           <td style="background:#1A1917;padding:32px 48px;text-align:center;">
-            <p style="margin:0 0 4px;color:#C8A882;font-size:12px;letter-spacing:2px;text-transform:uppercase;">Star Aesthetic Medical Centre</p>
+            <p style="margin:0 0 4px;color:#C8A882;font-size:12px;letter-spacing:2px;text-transform:uppercase;">Star Aesthetic Centre</p>
             <p style="margin:0;color:#6B6966;font-size:12px;">22 Ennisdale Drive · Durban North · KZN · 4051</p>
           </td>
         </tr>

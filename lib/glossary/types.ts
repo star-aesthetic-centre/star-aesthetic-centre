@@ -2,7 +2,8 @@ export type GlossaryCategory =
   | "ingredient"
   | "treatment"
   | "condition"
-  | "concept";
+  | "concept"
+  | "brand";
 
 export type GlossaryTerm = {
   slug: string;

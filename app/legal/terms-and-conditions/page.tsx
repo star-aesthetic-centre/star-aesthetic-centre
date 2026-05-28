@@ -117,7 +117,7 @@ export default function TermsPage() {
               <div className="space-y-4 text-sm leading-relaxed text-[#6B6966]">
                 <p>By accessing or using the Star Aesthetic Centre website (staraesthetic.co.za), booking a consultation or treatment, or purchasing a product from our online shop, you confirm that you have read, understood, and agree to be bound by these Terms & Conditions and our <Link href="/legal/privacy-policy" className="text-[#1B3D6E] underline underline-offset-2 hover:no-underline">Privacy Policy</Link>.</p>
                 <p>If you do not agree with any part of these terms, you must discontinue use of the website and refrain from booking our services.</p>
-                <p>These terms apply to all visitors, patients, and online shop customers of Star Aesthetic Medical Centre, a medical aesthetic practice registered in South Africa and directed by Dr. Rajeev Bangalee, MB, BS.</p>
+                <p>These terms apply to all visitors, patients, and online shop customers of Star Aesthetic Centre, a medical aesthetic practice registered in South Africa and directed by Dr. Rajeev Bangalee, MB, BS.</p>
               </div>
             </section>
 
@@ -299,7 +299,7 @@ export default function TermsPage() {
             <section id="intellectual-property" className="scroll-mt-24">
               <h2 className="mb-5 border-b border-[#E5E4E0] pb-3 text-xl font-bold text-[#1A1917]">11. Intellectual Property</h2>
               <div className="space-y-4 text-sm leading-relaxed text-[#6B6966]">
-                <p>All content on this website — including text, graphics, logos, photographs, icons, treatment descriptions, and software — is the exclusive property of Star Aesthetic Medical Centre or its licensed content providers and is protected by South African and international copyright and trademark laws.</p>
+                <p>All content on this website — including text, graphics, logos, photographs, icons, treatment descriptions, and software — is the exclusive property of Star Aesthetic Centre or its licensed content providers and is protected by South African and international copyright and trademark laws.</p>
                 <p>The Star Aesthetic Centre name, logo, and brand identity may not be used without our prior written permission. Unauthorised use of any trademarks, trade dress, or brand assets belonging to Star Aesthetic Centre is strictly prohibited.</p>
               </div>
             </section>
@@ -403,7 +403,7 @@ export default function TermsPage() {
               </p>
               <div className="border border-[#E5E4E0] bg-[#F8F8F7] p-6">
                 <p className="mb-4 text-xs font-bold uppercase tracking-widest text-[#1B3D6E]">
-                  Star Aesthetic Medical Centre
+                  Star Aesthetic Centre
                 </p>
                 <div className="space-y-3">
                   <a href="mailto:info@staraesthetic.co.za" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
@@ -431,7 +431,7 @@ export default function TermsPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <p className="text-xs text-[#6B6966]">
-              © {new Date().getFullYear()} Star Aesthetic Medical Centre · All rights reserved
+              © {new Date().getFullYear()} Star Aesthetic Centre · All rights reserved
             </p>
             <div className="flex flex-wrap gap-6">
               <Link href="/legal/privacy-policy" className="text-xs text-[#6B6966] hover:text-[#1B3D6E] transition-colors">

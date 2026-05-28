@@ -579,7 +579,7 @@ export default function ReturnsPolicyPage() {
               </p>
               <div className="border border-[#E5E4E0] bg-[#F8F8F7] p-6">
                 <p className="mb-4 text-xs font-bold uppercase tracking-widest text-[#1B3D6E]">
-                  Star Aesthetic Medical Centre
+                  Star Aesthetic Centre
                 </p>
                 <div className="space-y-3">
                   <a href="mailto:info@staraesthetic.co.za" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
@@ -607,7 +607,7 @@ export default function ReturnsPolicyPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <p className="text-xs text-[#6B6966]">
-              © {new Date().getFullYear()} Star Aesthetic Medical Centre · All rights reserved
+              © {new Date().getFullYear()} Star Aesthetic Centre · All rights reserved
             </p>
             <div className="flex flex-wrap gap-6">
               <Link href="/legal/privacy-policy" className="text-xs text-[#6B6966] hover:text-[#1B3D6E] transition-colors">

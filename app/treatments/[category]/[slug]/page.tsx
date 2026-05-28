@@ -625,7 +625,11 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <p className="text-xs text-[#636374] leading-relaxed max-w-3xl">
                         <strong className="text-[#1A1A1F]">Medical disclaimer:</strong> Treatment results vary between individuals.
-                        All procedures are performed by Dr. Rajeev Bangalee (MB, BS), a registered medical practitioner.
+                        All procedures are performed by{" "}
+                        <Link href="/dr-rajeev-bangalee" className="font-semibold text-[#636374] hover:text-[#939EBA] transition-colors">
+                            Dr. Rajeev Bangalee (MB, BS)
+                        </Link>
+                        , a registered medical practitioner.
                         Information on this page is for educational purposes and does not replace a personal consultation.
                     </p>
                 </div>

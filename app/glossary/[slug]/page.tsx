@@ -224,8 +224,11 @@ export default async function GlossaryTermPage({
                 Ready for a clinical assessment?
               </p>
               <p className="mt-2 text-sm text-[#636374] leading-relaxed">
-                Book a consultation with Dr Bangalee for a medical-grade skin evaluation
-                and personalised treatment plan.
+                Book a consultation with{" "}
+                <Link href="/dr-rajeev-bangalee" className="font-semibold text-[#0F2647] hover:text-[#C8A882] transition-colors">
+                  Dr. Rajeev Bangalee (MB, BS)
+                </Link>{" "}
+                for a medical-grade skin evaluation and personalised treatment plan.
               </p>
               <Link
                 href="/book"
