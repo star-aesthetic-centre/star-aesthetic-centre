@@ -141,20 +141,29 @@ function suitableForToHtml(items: string[] | null | undefined): string {
     .join("")}</ul>`;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapRows(rows: any[]): PricingRow[] {
+  return rows.map((r) => ({ label: String(r.label ?? ""), price: String(r.price ?? "") }));
+}
+
 function initPricingSections(treatment: Treatment, jsonFallback?: JsonTreatment | null): PricingSection[] {
-  const db = treatment.pricing_breakdown as { sections?: PricingSection[] } | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const db = treatment.pricing_breakdown as { sections?: any[] } | null;
   if (Array.isArray(db?.sections) && db!.sections.length > 0) {
     return db!.sections.map((s) => ({
-      heading: s.heading ?? "",
-      description: s.description ?? "",
-      rows: Array.isArray(s.rows) ? s.rows : [],
+      heading: String(s.heading ?? ""),
+      description: String(s.description ?? ""),
+      rows: Array.isArray(s.rows) ? mapRows(s.rows) : [],
     }));
   }
-  if (Array.isArray(jsonFallback?.pricingBreakdown?.sections)) {
-    return jsonFallback!.pricingBreakdown!.sections.map((s) => ({
-      heading: s.heading ?? "",
-      description: s.description ?? "",
-      rows: Array.isArray(s.rows) ? s.rows : [],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const jsonSections = (jsonFallback as any)?.pricingBreakdown?.sections;
+  if (Array.isArray(jsonSections)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return jsonSections.map((s: any) => ({
+      heading: String(s.heading ?? ""),
+      description: String(s.description ?? ""),
+      rows: Array.isArray(s.rows) ? mapRows(s.rows) : [],
     }));
   }
   return [];
