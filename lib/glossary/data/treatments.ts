@@ -7,7 +7,7 @@ export const TREATMENT_TERMS: GlossaryTerm[] = [
     category: "treatment",
     shortDescription:
       "Botulinum toxin (commonly called Botox) is a purified protein that temporarily relaxes specific facial muscles to smooth expression lines. Injected by a trained practitioner, it produces natural-looking results within days and lasts 3–4 months.",
-    matchTerms: ["botulinum toxin", "Botox"],
+    matchTerms: ["botulinum toxin", "Botox", "neurotoxin protein", "frown lines", "crow's feet", "forehead lines", "forehead creases"],
     title: "What is Botulinum Toxin (Botox)? How It Works, Results & Duration | Star Aesthetic Centre",
     metaDescription:
       "Complete guide to botulinum toxin (Botox): how it relaxes muscles to smooth frown lines, crow's feet, and forehead lines. Treatments by Dr Rajeev Bangalee at Star Aesthetic Centre Durban North.",
@@ -72,6 +72,7 @@ export const TREATMENT_TERMS: GlossaryTerm[] = [
     slug: "dermal-fillers",
     term: "Dermal Fillers",
     category: "treatment",
+    matchTerms: ["dermal fillers", "dermal filler", "Dermal Fillers", "HA fillers", "hyaluronic acid filler"],
     shortDescription:
       "Dermal fillers are injectable gels — most commonly made from hyaluronic acid — that restore lost facial volume, smooth deep lines, and enhance contours. Results are immediate, natural-looking, and reversible.",
     title: "What are Dermal Fillers? How They Work, Results & What to Expect | Star Aesthetic Centre",

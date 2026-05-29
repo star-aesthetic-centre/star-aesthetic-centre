@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect, useCallback } from "react";
@@ -20,7 +20,7 @@ const treatmentsColumns = [
     {
         heading: "Face",
         items: [
-            { label: "Anti-Wrinkle Treatment", href: "/treatments/face/botox" },
+            { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment" },
             { label: "Lip Fillers", href: "/treatments/face/lip-filler" },
             { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring" },
             { label: "Dermapen Microneedling", href: "/treatments/face/dermapen-microneedling" },

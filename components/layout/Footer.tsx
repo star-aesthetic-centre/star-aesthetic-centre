@@ -3,7 +3,7 @@ import Image from "next/image";
 import { MapPin, Phone, Mail, Instagram, Facebook, Lock } from "lucide-react";
 
 const treatmentLinks = [
-    { label: "Anti-Wrinkle Treatment", href: "/treatments/face/botox" },
+    { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment" },
     { label: "Lip Fillers", href: "/treatments/face/lip-filler" },
     { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring" },
     { label: "Skin Peels", href: "/treatments/skin/skin-peel" },

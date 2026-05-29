@@ -191,4 +191,104 @@ export const CONCEPT_TERMS: GlossaryTerm[] = [
     ],
     relatedTerms: ["retinol", "vitamin-c", "microneedling", "dermal-fillers", "spf"],
   },
+
+  {
+    slug: "dynamic-wrinkles",
+    term: "Dynamic Wrinkles",
+    category: "concept",
+    shortDescription:
+      "Dynamic wrinkles are lines caused by repeated facial muscle movement — forehead lines, frown lines, and crow's feet are the most common. They are the primary target of Anti-Wrinkle Treatment using botulinum toxin.",
+    matchTerms: ["dynamic wrinkles", "dynamic lines", "expression lines", "expression wrinkles"],
+    title: "What Are Dynamic Wrinkles? Causes & Treatment | Star Aesthetic Centre Durban",
+    metaDescription:
+      "Dynamic wrinkles form from repeated facial muscle movement — forehead lines, frown lines, crow's feet. Learn how Anti-Wrinkle Treatment addresses them at Star Aesthetic Centre, Durban North.",
+    keywords: [
+      "dynamic wrinkles durban",
+      "expression lines treatment south africa",
+      "frown lines treatment durban",
+      "forehead lines botox KZN",
+      "crow's feet treatment durban north",
+    ],
+    heroLine:
+      "Dynamic wrinkles are the lines that form — and deepen over time — from repeated facial muscle contractions: every smile, frown, squint, and raised eyebrow etches the overlying skin a little more deeply with each passing year.",
+    sections: [
+      {
+        heading: "What causes dynamic wrinkles?",
+        paragraphs: [
+          "Every facial expression requires muscles to contract. When a muscle contracts repeatedly over years, the overlying skin folds along the same line each time. Young skin is elastic enough to spring back after each contraction. As we age, collagen and elastin fibres weaken — the skin gradually loses its ability to fully recover, and the repeated fold becomes a visible crease that deepens with time.",
+          "The most common dynamic wrinkles are: forehead lines (frontalis muscle), frown lines between the brows (glabella / corrugator muscles), and crow's feet at the corners of the eyes (orbicularis oculi). Other areas include bunny lines on the nose, lip lines, and neck bands.",
+        ],
+      },
+      {
+        heading: "Dynamic wrinkles vs static wrinkles",
+        paragraphs: [
+          "Dynamic wrinkles appear or deepen during facial expression and are caused by muscle movement. Static wrinkles are present at rest — they have become permanently etched into the skin and remain visible even when the face is relaxed. Early dynamic wrinkles disappear completely at rest; established ones remain visible at rest too.",
+          "This distinction matters for treatment: dynamic wrinkles respond well to botulinum toxin (Anti-Wrinkle Treatment), which temporarily relaxes the muscle creating the fold. Static wrinkles — volume loss, deep folds, and skin laxity — are better addressed with dermal fillers, chemical peels, or skin-resurfacing treatments. Many patients require a combination.",
+        ],
+      },
+    ],
+    clinicRelevance:
+      "Anti-Wrinkle Treatment using botulinum toxin (Botox®) is the primary treatment for dynamic wrinkles at Star Aesthetic Centre — smoothing forehead lines, frown lines, and crow's feet by temporarily relaxing the muscles that create them. Dr. Rajeev Bangalee tailors the treatment to each patient's facial anatomy, using precise dosing and placement to deliver natural-looking results. A 2-week review is included with every treatment.",
+    faq: [
+      {
+        q: "Can dynamic wrinkles be prevented?",
+        a: "To a degree — starting Anti-Wrinkle Treatment before lines become deeply etched (preventive treatment in the late 20s to early 30s) can slow the progression of dynamic to static wrinkles. Daily SPF 50+ use also significantly reduces UV-related collagen breakdown that accelerates wrinkling.",
+      },
+      {
+        q: "Will Anti-Wrinkle Treatment remove my dynamic wrinkles completely?",
+        a: "For early dynamic wrinkles — those that appear during expression and disappear at rest — botulinum toxin treatment can provide near-complete smoothing. For established dynamic wrinkles that are visible at rest, treatment softens them significantly but may not erase them entirely. A combination of botulinum toxin and filler may give the best result for deep, established lines.",
+      },
+    ],
+    relatedTerms: ["botulinum-toxin", "static-wrinkles", "dermal-fillers", "collagen"],
+  },
+
+  {
+    slug: "static-wrinkles",
+    term: "Static Wrinkles",
+    category: "concept",
+    shortDescription:
+      "Static wrinkles are lines present at rest — visible even when the face is completely relaxed. They result from volume loss, collagen breakdown, and established skin laxity, and are best treated with dermal fillers, peels, or resurfacing rather than botulinum toxin.",
+    matchTerms: ["static wrinkles", "static lines"],
+    title: "What Are Static Wrinkles? Causes & Treatment Options | Star Aesthetic Centre Durban",
+    metaDescription:
+      "Static wrinkles are present at rest and caused by volume loss and collagen breakdown. Learn treatment options at Star Aesthetic Centre, Durban North — dermal fillers, peels, and resurfacing.",
+    keywords: [
+      "static wrinkles treatment durban",
+      "deep lines treatment south africa",
+      "volume loss face durban north",
+      "nasolabial folds treatment KZN",
+      "anti-ageing treatment durban",
+    ],
+    heroLine:
+      "Static wrinkles are lines visible at rest — they have become permanently etched into the skin from years of volume loss, collagen breakdown, and sun damage, and require different treatment to dynamic (movement-caused) wrinkles.",
+    sections: [
+      {
+        heading: "What causes static wrinkles?",
+        paragraphs: [
+          "Static wrinkles develop from three main processes: loss of subcutaneous fat and hyaluronic acid (which deflates the skin from beneath), breakdown of collagen and elastin fibres (which weakens the skin's structural support), and repeated muscle movement that eventually carves permanent creases into skin that has lost its elasticity. Sun damage accelerates all three processes significantly.",
+          "Common static wrinkles include nasolabial folds (smile lines from nose to mouth corners), marionette lines (from corners of the mouth downward), tear troughs (hollows under the eyes), and deep forehead or frown lines that remain visible even at rest.",
+        ],
+      },
+      {
+        heading: "Treatment options for static wrinkles",
+        paragraphs: [
+          "Static wrinkles respond to treatments that address the underlying cause — volume replacement and structural support — rather than muscle relaxation. Dermal fillers are the primary treatment: hyaluronic acid fillers restore lost volume, fill in folds, and rehydrate the skin from within. Results are immediate and last 9–18 months.",
+          "For skin texture and collagen rebuilding, chemical peels and microneedling stimulate new collagen production over time — smoothing fine static lines from within. These are often combined with fillers for comprehensive treatment of both volume loss and skin quality. Botulinum toxin is sometimes added for any dynamic component that remains.",
+        ],
+      },
+    ],
+    clinicRelevance:
+      "At Star Aesthetic Centre, Dr. Rajeev Bangalee assesses whether wrinkles are dynamic, static, or a combination before recommending treatment. Static wrinkles are most commonly addressed with dermal fillers — replacing the volume that has been lost and filling deep folds. This is often combined with skin-quality treatments (peels, microneedling) and Anti-Wrinkle Treatment for any muscle-driven component. A complete facial aesthetic assessment at consultation ensures the right combination for your specific anatomy.",
+    faq: [
+      {
+        q: "Will Botox® treat my static wrinkles?",
+        a: "Botulinum toxin (Botox®) targets dynamic wrinkles — lines caused by muscle movement. It has little effect on static wrinkles that are present at rest and caused by volume loss or structural changes. Dermal fillers are the appropriate treatment for static wrinkles. However, many patients have both dynamic and static components, and a combination of both treatments may be recommended.",
+      },
+      {
+        q: "At what age do static wrinkles typically appear?",
+        a: "Static wrinkles typically begin appearing in the late 30s to 40s as cumulative collagen loss and volume depletion become apparent. However, significant sun exposure, smoking, or weight loss can accelerate their appearance by 10–15 years. Preventive skincare (daily SPF 50+, retinol, vitamin C) significantly slows their development.",
+      },
+    ],
+    relatedTerms: ["dynamic-wrinkles", "dermal-fillers", "collagen", "chemical-peel", "microneedling"],
+  },
 ];

@@ -231,7 +231,7 @@ const affiliations = [
 ];
 
 const treatments = [
-  { label: "Anti-Wrinkle Treatment", href: "/treatments/face/botox", category: "Face" },
+  { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment", category: "Face" },
   { label: "Lip Fillers", href: "/treatments/face/lip-filler", category: "Face" },
   { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring", category: "Face" },
   { label: "Dermapen Microneedling", href: "/treatments/face/dermapen-microneedling", category: "Skin" },

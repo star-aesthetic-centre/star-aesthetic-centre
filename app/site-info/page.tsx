@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -264,7 +264,7 @@ export default function SiteInfoPage() {
             {[
               { label: "Homepage", href: "/" },
               { label: "All Treatments", href: "/treatments" },
-              { label: "Anti-Wrinkle Treatment", href: "/treatments/face/botox" },
+              { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment" },
               { label: "Lip Filler", href: "/treatments/face/lip-filler" },
               { label: "Skin Peel", href: "/treatments/skin/skin-peel" },
               { label: "Dr. Rajeev Bangalee", href: "/dr-rajeev-bangalee" },

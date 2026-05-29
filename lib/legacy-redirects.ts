@@ -69,7 +69,7 @@ export const legacyRedirects: Redirect[] = [
   r("/global-colors-green.html", "/"),
 
   // ─── Treatments (old .html slugs → /treatments/{category}/{slug}) ─────────
-  r("/treatments/botox-treatment.html", "/treatments/face/botox"),
+  r("/treatments/botox-treatment.html", "/treatments/face/anti-wrinkle-treatment"),
   r("/treatments/lip-filler-treatment.html", "/treatments/face/lip-filler"),
   r("/treatments/jaw-and-chin-contouring.html", "/treatments/face/jaw-amp-chin-contouring"),
   r("/treatments/dermapen-microneedling-treatment.html", "/treatments/face/dermapen-microneedling"),
@@ -95,7 +95,9 @@ export const legacyRedirects: Redirect[] = [
   ),
 
   // ─── Without .html (WordPress may have served both) ───────────────────────
-  r("/treatments/botox-treatment", "/treatments/face/botox"),
+  r("/treatments/botox-treatment", "/treatments/face/anti-wrinkle-treatment"),
+  // ─── Slug rename: /botox → /anti-wrinkle-treatment ────────────────────────
+  r("/treatments/face/botox", "/treatments/face/anti-wrinkle-treatment"),
   r("/treatments/lip-filler-treatment", "/treatments/face/lip-filler"),
   r("/treatments/jaw-and-chin-contouring", "/treatments/face/jaw-amp-chin-contouring"),
   r("/treatments/dermapen-microneedling-treatment", "/treatments/face/dermapen-microneedling"),

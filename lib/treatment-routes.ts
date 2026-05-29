@@ -1,6 +1,6 @@
 /** Canonical category slug per treatment — single source of truth for URLs and sitemap. */
 export const TREATMENT_SLUG_TO_CATEGORY: Record<string, string> = {
-  botox: "face",
+  "anti-wrinkle-treatment": "face",
   "lip-filler": "face",
   "jaw-amp-chin-contouring": "face",
   "dermapen-microneedling": "face",
@@ -30,7 +30,7 @@ export const TREATMENT_LISTING_CATEGORIES = [
     slug: "face",
     name: "Injectables & Facial Aesthetics",
     treatments: [
-      { slug: "botox", image: "/images/botox-anti-aging-injections-durban.webp", imageAlt: "Botox anti-ageing injections Durban North" },
+      { slug: "anti-wrinkle-treatment", image: "/images/botox-anti-aging-injections-durban.webp", imageAlt: "Anti-Wrinkle Treatment Durban North" },
       { slug: "lip-filler", image: "/images/lip-filler-augmentation-durban-north.webp", imageAlt: "Lip filler augmentation Durban North" },
       { slug: "jaw-amp-chin-contouring", image: "/images/jaw-chin-contouring-filler-durban.webp", imageAlt: "Jaw and chin contouring filler Durban" },
       { slug: "dermapen-microneedling", image: "/images/dermapen-microneedling-skin-renewal.webp", imageAlt: "Dermapen microneedling skin renewal Durban" },

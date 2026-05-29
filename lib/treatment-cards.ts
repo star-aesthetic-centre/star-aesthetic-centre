@@ -11,7 +11,7 @@ export interface TreatmentCardItem {
 const WP = "/images";
 
 export const TREATMENT_CARDS: TreatmentCardItem[] = [
-  { name: "Anti-Wrinkle Treatment", category: "face", slug: "botox", priceFrom: 1900, image: `${WP}/botox-anti-aging-injections-durban.webp`, imageAlt: "Botox Anti-Aging Injections Durban" },
+  { name: "Anti-Wrinkle Treatment", category: "face", slug: "anti-wrinkle-treatment", priceFrom: 1900, image: `${WP}/botox-anti-aging-injections-durban.webp`, imageAlt: "Anti-Wrinkle Treatment Durban North" },
   { name: "Lip Augmentation", category: "face", slug: "lip-filler", priceFrom: 2500, image: `${WP}/lip-filler-augmentation-durban-north.webp`, imageAlt: "Lip Filler Augmentation Durban North" },
   { name: "Jaw & Chin Contouring", category: "face", slug: "jaw-amp-chin-contouring", priceFrom: 2500, image: `${WP}/jaw-chin-contouring-filler-durban.webp`, imageAlt: "Jaw and Chin Contouring Filler Durban" },
   { name: "Dermapen Microneedling", category: "face", slug: "dermapen-microneedling", priceFrom: 1900, image: `${WP}/dermapen-microneedling-skin-renewal.webp`, imageAlt: "Dermapen Microneedling Skin Renewal" },

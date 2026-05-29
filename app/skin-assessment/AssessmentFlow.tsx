@@ -72,7 +72,7 @@ const CONCERN_RECS: Record<string, { treatment: string; href: string; product: s
         { treatment: "Skin Peel Treatment", href: "/treatments/skin/skin-peel", product: "Dermaceutic Foamer 15" },
     ],
     ageing: [
-        { treatment: "Anti-Wrinkle Treatment", href: "/treatments/face/botox", product: "SkinCeuticals C E Ferulic" },
+        { treatment: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment", product: "SkinCeuticals C E Ferulic" },
         { treatment: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring", product: "NeoStrata Skin Active" },
     ],
     acne: [

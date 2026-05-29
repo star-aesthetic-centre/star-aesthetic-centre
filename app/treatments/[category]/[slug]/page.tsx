@@ -21,6 +21,42 @@ import {
   stripHtml,
 } from "@/lib/seo";
 import { TREATMENT_SLUG_TO_CATEGORY, treatmentPath } from "@/lib/treatment-routes";
+import { injectGlossaryLinks } from "@/lib/glossary/inject";
+
+/** Convert markdown text to HTML, link Dr. Bangalee, then inject glossary links. */
+function renderWithLinks(
+    text: string | null | undefined,
+    usedSlugs: Set<string>
+): string | null {
+    if (!text) return null;
+    // Markdown → HTML
+    const html = text
+        .split(/\n\n+/)
+        .map(para =>
+            `<p>${para
+                .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+                .replace(/\n/g, "<br>")
+            }</p>`
+        )
+        .join("");
+    return injectWithDrBangalee(html, usedSlugs);
+}
+
+/** Inject glossary links + Dr. Bangalee link into already-HTML content. */
+function injectWithDrBangalee(html: string, usedSlugs: Set<string>): string {
+    // Link Dr. Bangalee before glossary injection so it's not double-processed
+    const linked = html
+        .replace(
+            /Dr\. Rajeev Bangalee/g,
+            '<a href="/dr-rajeev-bangalee" class="font-semibold text-[#939EBA] hover:underline">Dr. Rajeev Bangalee</a>'
+        )
+        .replace(
+            /Dr\. Bangalee/g,
+            '<a href="/dr-rajeev-bangalee" class="font-semibold text-[#939EBA] hover:underline">Dr. Bangalee</a>'
+        );
+    const { html: injected } = injectGlossaryLinks(linked, { usedSlugs });
+    return injected;
+}
 
 interface TreatmentPageProps {
     params: Promise<{ category: string; slug: string }>;
@@ -206,6 +242,9 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
 
     const recommendations = await getTreatmentRecommendations(slug);
 
+    // Shared set so each glossary term is linked only once across the whole page
+    const usedSlugs = new Set<string>();
+
     // Group by phase, preserving display order
     const byPhase = PHASE_ORDER.reduce<Record<string, TreatmentRecommendation[]>>((acc, phase) => {
         const items = recommendations.filter((r) => r.phase === phase);
@@ -252,18 +291,17 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                             )}
 
                             {/* Hero paragraph — DB HTML takes priority, else markdown from JSON */}
-                            {db?.hero_text ? (
-                                <div
-                                    className="text-lg text-[#636374] leading-relaxed mb-8 prose prose-sm max-w-none"
-                                    dangerouslySetInnerHTML={{ __html: db.hero_text }}
-                                />
-                            ) : (treatment.heroText || treatment.quickSummary) && (
-                                <RichText
-                                    text={treatment.heroText || treatment.quickSummary}
-                                    as="p"
-                                    className="text-lg text-[#636374] leading-relaxed mb-8"
-                                />
-                            )}
+                            {(() => {
+                                const html = db?.hero_text
+                                    ? injectWithDrBangalee(db.hero_text, usedSlugs)
+                                    : renderWithLinks(treatment.heroText || treatment.quickSummary, usedSlugs);
+                                return html ? (
+                                    <div
+                                        className="text-lg text-[#636374] leading-relaxed mb-8 prose prose-sm max-w-none"
+                                        dangerouslySetInnerHTML={{ __html: html }}
+                                    />
+                                ) : null;
+                            })()}
 
                             <div className="flex flex-wrap gap-4">
                                 <a
@@ -333,14 +371,17 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
                                     What is {displayTitle}?
                                 </h2>
-                                {db?.what_is ? (
-                                    <div
-                                        className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
-                                        dangerouslySetInnerHTML={{ __html: db.what_is }}
-                                    />
-                                ) : (
-                                    <RichBody text={treatment.whatIs || treatment.quickSummary} />
-                                )}
+                                {(() => {
+                                    const html = db?.what_is
+                                        ? injectWithDrBangalee(db.what_is, usedSlugs)
+                                        : renderWithLinks(treatment.whatIs || treatment.quickSummary, usedSlugs);
+                                    return html ? (
+                                        <div
+                                            className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
+                                            dangerouslySetInnerHTML={{ __html: html }}
+                                        />
+                                    ) : null;
+                                })()}
                             </div>
                         )}
 
@@ -433,14 +474,17 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                     Expected Results &amp; Timeline
                                 </h2>
                                 <div className="bg-white p-8 border border-[#E2E2E6]">
-                                    {db?.expected_results ? (
-                                        <div
-                                            className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
-                                            dangerouslySetInnerHTML={{ __html: db.expected_results }}
-                                        />
-                                    ) : (
-                                        <ResultsTimeline text={treatment.expectedResults} />
-                                    )}
+                                    {(() => {
+                                        const html = db?.expected_results
+                                            ? injectWithDrBangalee(db.expected_results, usedSlugs)
+                                            : renderWithLinks(treatment.expectedResults, usedSlugs);
+                                        return html ? (
+                                            <div
+                                                className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
+                                                dangerouslySetInnerHTML={{ __html: html }}
+                                            />
+                                        ) : null;
+                                    })()}
                                     {treatment.downtimeDetail && (
                                         <>
                                             <h4 className="font-bold text-[#1A1A1F] mt-8 mb-3">Downtime &amp; Aftercare:</h4>
@@ -470,13 +514,12 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                                     <ChevronDown size={20} />
                                                 </span>
                                             </summary>
-                                            <div className="px-6 pb-6">
-                                                <RichText
-                                                    text={faq.answer}
-                                                    as="p"
-                                                    className="text-[#636374] leading-relaxed"
-                                                />
-                                            </div>
+                                            <div
+                                                className="px-6 pb-6 text-[#636374] leading-relaxed prose prose-sm max-w-none"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: renderWithLinks(faq.answer, usedSlugs) ?? faq.answer
+                                                }}
+                                            />
                                         </details>
                                     ))}
                                 </div>

@@ -31,8 +31,8 @@ export const APPOINTMENT_TYPES: AppointmentType[] = [
 
   // ── Face ────────────────────────────────────────────────────────────────────
   {
-    slug:        'botox',
-    title:       'Botox® Wrinkle Treatment',
+    slug:        'anti-wrinkle-treatment',
+    title:       'Anti-Wrinkle Treatment',
     category:    'Face',
     duration:    '20–45 minutes',
     slotsNeeded: 1,
