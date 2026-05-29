@@ -22,6 +22,7 @@ import {
 } from "@/lib/seo";
 import { TREATMENT_SLUG_TO_CATEGORY, treatmentPath } from "@/lib/treatment-routes";
 import { injectGlossaryLinks } from "@/lib/glossary/inject";
+import { mergePricingBreakdown, type PricingBreakdown } from "@/lib/treatment-pricing";
 
 /** Convert markdown text (or pass-through HTML) to injected HTML. */
 function renderWithLinks(
@@ -225,11 +226,10 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
         Array.isArray(db?.suitable_for) && (db.suitable_for as string[]).length > 0
             ? (db.suitable_for as string[])
             : ((treatment as { suitableFor?: string[] }).suitableFor ?? []);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const displayPricing: any =
-        (db?.pricing_breakdown as any)?.sections?.length > 0
-            ? db!.pricing_breakdown
-            : (treatment as any).pricingBreakdown ?? null;
+    const displayPricing: PricingBreakdown | null = mergePricingBreakdown(
+        db?.pricing_breakdown,
+        (treatment as { pricingBreakdown?: PricingBreakdown }).pricingBreakdown ?? null
+    );
 
     const pagePath = treatmentPath(slug);
     const pageUrl = canonicalUrl(pagePath);

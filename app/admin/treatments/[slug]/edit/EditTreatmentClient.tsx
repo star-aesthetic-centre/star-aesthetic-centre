@@ -4,6 +4,12 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { updateTreatmentMeta } from "@/app/admin/treatments/actions";
+import {
+  mergePricingBreakdown,
+  type PricingBreakdown,
+  type PricingRow,
+  type PricingSection,
+} from "@/lib/treatment-pricing";
 
 const RichHtmlEditor = dynamic(() => import("@/components/admin/RichHtmlEditor"), { ssr: false });
 
@@ -13,17 +19,6 @@ interface Faq {
   _id: string;
   question: string;
   answer: string; // HTML from Tiptap
-}
-
-interface PricingRow {
-  label: string;
-  price: string;
-}
-
-interface PricingSection {
-  heading: string;
-  description: string;
-  rows: PricingRow[];
 }
 
 interface Treatment {
@@ -141,39 +136,26 @@ function suitableForToHtml(items: string[] | null | undefined): string {
     .join("")}</ul>`;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mapRows(rows: any[]): PricingRow[] {
-  return rows.map((r) => ({ label: String(r.label ?? ""), price: String(r.price ?? "") }));
+function jsonPricingBreakdown(jsonFallback?: JsonTreatment | null): PricingBreakdown | null {
+  const raw = jsonFallback?.pricingBreakdown;
+  if (!raw?.sections?.length) return null;
+  return {
+    sections: raw.sections.map((s) => ({
+      heading: s.heading ?? "",
+      description: s.description ?? "",
+      rows: (s.rows ?? []).map((r) => ({ label: r.label ?? "", price: r.price ?? "" })),
+    })),
+    notes: raw.notes ?? [],
+  };
 }
 
 function initPricingSections(treatment: Treatment, jsonFallback?: JsonTreatment | null): PricingSection[] {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const db = treatment.pricing_breakdown as { sections?: any[] } | null;
-  if (Array.isArray(db?.sections) && db!.sections.length > 0) {
-    return db!.sections.map((s) => ({
-      heading: String(s.heading ?? ""),
-      description: String(s.description ?? ""),
-      rows: Array.isArray(s.rows) ? mapRows(s.rows) : [],
-    }));
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const jsonSections = (jsonFallback as any)?.pricingBreakdown?.sections;
-  if (Array.isArray(jsonSections)) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return jsonSections.map((s: any) => ({
-      heading: String(s.heading ?? ""),
-      description: String(s.description ?? ""),
-      rows: Array.isArray(s.rows) ? mapRows(s.rows) : [],
-    }));
-  }
-  return [];
+  return mergePricingBreakdown(treatment.pricing_breakdown, jsonPricingBreakdown(jsonFallback))?.sections ?? [];
 }
 
 function initPricingNotes(treatment: Treatment, jsonFallback?: JsonTreatment | null): string {
-  const db = treatment.pricing_breakdown as { notes?: string[] } | null;
-  if (Array.isArray(db?.notes) && db!.notes.length > 0) return db!.notes.join("\n");
-  if (Array.isArray(jsonFallback?.pricingBreakdown?.notes)) return jsonFallback!.pricingBreakdown!.notes!.join("\n");
-  return "";
+  const merged = mergePricingBreakdown(treatment.pricing_breakdown, jsonPricingBreakdown(jsonFallback));
+  return merged?.notes?.length ? merged.notes.join("\n") : "";
 }
 
 // ── Styles ────────────────────────────────────────────────────────────────────
@@ -439,14 +421,24 @@ export default function EditTreatmentClient({
 
                       {/* Rows */}
                       <div className="space-y-2">
+                        <div className="flex gap-2 px-0.5">
+                          <span className={`${labelClass} flex-1 mb-0 normal-case tracking-normal`}>
+                            Service / item
+                          </span>
+                          <span className={`${labelClass} w-36 mb-0 normal-case tracking-normal shrink-0`}>
+                            Price
+                          </span>
+                          <span className="w-7 shrink-0" aria-hidden />
+                        </div>
                         {section.rows.map((row, ri) => (
                           <div key={ri} className="flex gap-2 items-center">
                             <input type="text" value={row.label}
                               onChange={(e) => updateRow(si, ri, "label", e.target.value)}
-                              className={`${inputClass} flex-1`} placeholder="Item label" />
+                              className={`${inputClass} flex-1`}
+                              placeholder="e.g. 1ml Juvéderm Volift" />
                             <input type="text" value={row.price}
                               onChange={(e) => updateRow(si, ri, "price", e.target.value)}
-                              className={`${inputClass} w-36`} placeholder="Price" />
+                              className={`${inputClass} w-36 shrink-0`} placeholder="e.g. R 4,600" />
                             <button type="button" onClick={() => removeRow(si, ri)}
                               className="text-xs text-red-400 hover:text-red-700 px-2 py-1 shrink-0 transition-colors">
                               ✕
