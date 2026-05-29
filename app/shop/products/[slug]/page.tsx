@@ -256,7 +256,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <GlossaryContent
               html={longDesc.html}
               terms={glossaryTerms}
-              className="prose prose-sm max-w-none text-[#636374] leading-relaxed [&_strong]:![font-weight:450] [&_strong]:!text-[#636374] [&_b]:![font-weight:450] [&_b]:!text-[#636374]"
+              className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
             />
           </div>
         </section>

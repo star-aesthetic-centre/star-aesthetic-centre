@@ -162,7 +162,7 @@ function ResultsTimeline({ text }: { text: string }) {
                     <div className="mt-1 w-4 h-4 rounded-full bg-[#939EBA] shrink-0 relative z-10 border-2 border-white ring-2 ring-[#939EBA]" />
                     {/* Content */}
                     <div className="pb-5 flex-1">
-                        <span className="block text-sm font-bold text-[#1A1A1F] mb-1">
+                        <span className="block text-sm font-medium text-[#525866] mb-1">
                             {item.period}
                         </span>
                         <RichText
@@ -419,7 +419,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                                             {index + 1}
                                                         </div>
                                                         <div>
-                                                            <span className="font-bold text-[#1A1A1F] block mb-1">{title}</span>
+                                                            <span className="font-medium text-[#525866] block mb-1">{title}</span>
                                                             <RichText text={body} as="span" className="text-[#636374]" />
                                                         </div>
                                                     </div>
@@ -691,7 +691,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
             <section className="border-t border-[#E2E2E6] bg-white py-8">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <p className="text-xs text-[#636374] leading-relaxed max-w-3xl">
-                        <strong className="text-[#1A1A1F]">Medical disclaimer:</strong> Treatment results vary between individuals.
+                        <strong className="font-medium text-[#525866]">Medical disclaimer:</strong> Treatment results vary between individuals.
                         All procedures are performed by{" "}
                         <Link href="/dr-rajeev-bangalee" className="font-semibold text-[#636374] hover:text-[#939EBA] transition-colors">
                             Dr. Rajeev Bangalee (MB, BS)

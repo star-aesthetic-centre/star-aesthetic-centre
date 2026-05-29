@@ -53,8 +53,10 @@
     @apply mb-2;
   }
 
-  .prose strong {
-    @apply text-[#1A1A1F] font-semibold;
+  /* Body emphasis — slightly darker than paragraph text, not heading weight */
+  .prose :where(strong, b):not(:where([class~='not-prose'] *)) {
+    font-weight: 500;
+    color: #525866;
   }
 }
 

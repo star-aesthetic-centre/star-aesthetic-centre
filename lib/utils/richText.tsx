@@ -25,7 +25,7 @@ export function RichText({
     <Tag className={className}>
       {parts.map((part, i) =>
         i % 2 === 1 ? (
-          <strong key={i} className="font-[500] not-italic">
+          <strong key={i} className="font-medium text-[#525866] not-italic">
             {part}
           </strong>
         ) : (
