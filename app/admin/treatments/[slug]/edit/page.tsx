@@ -18,7 +18,8 @@ async function getTreatment(slug: string) {
     .select(`
       slug, title, category, is_active, tagline, price_from, duration, downtime,
       meta_title, meta_description, meta_keywords, og_image,
-      hero_text, what_is, expected_results, how_works, suitable_for, faqs
+      hero_text, what_is, expected_results, how_works, suitable_for, faqs,
+      pricing_breakdown
     `)
     .eq("slug", slug)
     .single();
@@ -40,6 +41,23 @@ export default async function EditTreatmentPage({ params }: Props) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const jsonFallback = (treatmentsData as any[]).find((t) => t.slug === slug) ?? null;
+
+  // Computed SEO defaults — shown as placeholder values the editor can override
+  const displayTitle = treatment.title ?? jsonFallback?.title ?? slug;
+  const seoDefaults = {
+    metaTitle: `${displayTitle} in Durban North | Star Aesthetic Centre`,
+    metaDescription: `${displayTitle} at Star Aesthetic Centre, Durban North. ${
+      ((jsonFallback?.quickSummary ?? jsonFallback?.tagline ?? "") as string)
+        .replace(/\*\*/g, "").slice(0, 130)
+    } Book a consultation today.`,
+    metaKeywords: [
+      `${displayTitle} Durban`,
+      `${displayTitle} Durban North`,
+      `${displayTitle.toLowerCase()} KZN`,
+      "Dr Rajeev Bangalee",
+      "Star Aesthetic Centre Durban",
+    ].join(", "),
+  };
 
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
@@ -71,7 +89,7 @@ export default async function EditTreatmentPage({ params }: Props) {
         </p>
       </div>
 
-      <EditTreatmentClient treatment={treatment} jsonFallback={jsonFallback} />
+      <EditTreatmentClient treatment={treatment} jsonFallback={jsonFallback} seoDefaults={seoDefaults} />
     </main>
   );
 }

@@ -70,6 +70,10 @@ type TreatmentUpdateData = {
   how_works?: string[] | null;
   suitable_for?: string[] | null;
   faqs?: { question: string; answer: string }[] | null;
+  pricing_breakdown?: {
+    sections: { heading: string; description: string; rows: { label: string; price: string }[] }[];
+    notes: string[];
+  } | null;
 };
 
 export async function updateTreatmentMeta(

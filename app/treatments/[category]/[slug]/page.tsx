@@ -198,7 +198,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     const supabase = createSupabaseAdmin();
     const { data: db } = await supabase
         .from("treatments")
-        .select("title, tagline, price_from, duration, downtime, hero_text, what_is, expected_results, how_works, suitable_for, faqs")
+        .select("title, tagline, price_from, duration, downtime, hero_text, what_is, expected_results, how_works, suitable_for, faqs, pricing_breakdown")
         .eq("slug", slug)
         .single();
 
@@ -221,6 +221,13 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
         Array.isArray(db?.suitable_for) && (db.suitable_for as string[]).length > 0
             ? (db.suitable_for as string[])
             : ((treatment as { suitableFor?: string[] }).suitableFor ?? []);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const displayPricing: any =
+        (db?.pricing_breakdown as any)?.sections?.length > 0
+            ? db!.pricing_breakdown
+            : (treatment as any).pricingBreakdown ?? null;
+    // FAQ answers from DB are HTML (saved via Tiptap); from JSON are plain text
+    const faqsFromDb = Array.isArray(db?.faqs) && (db.faqs as DbFaq[]).length > 0;
 
     const pagePath = treatmentPath(slug);
     const pageUrl = canonicalUrl(pagePath);
@@ -425,13 +432,13 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         )}
 
                         {/* Pricing Breakdown */}
-                        {(treatment as any).pricingBreakdown && (
+                        {displayPricing && (
                             <div>
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
                                     Pricing
                                 </h2>
                                 <div className="space-y-6">
-                                    {(treatment as any).pricingBreakdown.sections.map((section: any, si: number) => (
+                                    {displayPricing.sections.map((section: any, si: number) => (
                                         <div key={si} className="bg-white border border-[#E2E2E6] overflow-hidden">
                                             {section.heading && (
                                                 <div className="px-6 py-4 bg-[#0F2647]">
@@ -453,9 +460,9 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                             </table>
                                         </div>
                                     ))}
-                                    {(treatment as any).pricingBreakdown.notes?.length > 0 && (
+                                    {displayPricing.notes?.length > 0 && (
                                         <ul className="space-y-1">
-                                            {(treatment as any).pricingBreakdown.notes.map((note: string, ni: number) => (
+                                            {displayPricing.notes.map((note: string, ni: number) => (
                                                 <li key={ni} className="text-xs text-[#636374] flex gap-2">
                                                     <span className="text-[#939EBA] shrink-0">*</span>
                                                     {note}
@@ -517,7 +524,10 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                             <div
                                                 className="px-6 pb-6 text-[#636374] leading-relaxed prose prose-sm max-w-none"
                                                 dangerouslySetInnerHTML={{
-                                                    __html: renderWithLinks(faq.answer, usedSlugs) ?? faq.answer
+                                                    // DB answers are already HTML; JSON answers are plain markdown
+                                                    __html: faqsFromDb
+                                                        ? injectWithDrBangalee(faq.answer, usedSlugs)
+                                                        : (renderWithLinks(faq.answer, usedSlugs) ?? faq.answer)
                                                 }}
                                             />
                                         </details>
