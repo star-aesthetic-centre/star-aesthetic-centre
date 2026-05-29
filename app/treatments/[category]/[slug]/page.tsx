@@ -23,12 +23,16 @@ import {
 import { TREATMENT_SLUG_TO_CATEGORY, treatmentPath } from "@/lib/treatment-routes";
 import { injectGlossaryLinks } from "@/lib/glossary/inject";
 
-/** Convert markdown text to HTML, link Dr. Bangalee, then inject glossary links. */
+/** Convert markdown text (or pass-through HTML) to injected HTML. */
 function renderWithLinks(
     text: string | null | undefined,
     usedSlugs: Set<string>
 ): string | null {
     if (!text) return null;
+    // If already HTML (saved via Tiptap), skip markdown conversion
+    if (text.trimStart().startsWith("<")) {
+        return injectWithDrBangalee(text, usedSlugs);
+    }
     // Markdown → HTML
     const html = text
         .split(/\n\n+/)
@@ -226,8 +230,6 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
         (db?.pricing_breakdown as any)?.sections?.length > 0
             ? db!.pricing_breakdown
             : (treatment as any).pricingBreakdown ?? null;
-    // FAQ answers from DB are HTML (saved via Tiptap); from JSON are plain text
-    const faqsFromDb = Array.isArray(db?.faqs) && (db.faqs as DbFaq[]).length > 0;
 
     const pagePath = treatmentPath(slug);
     const pageUrl = canonicalUrl(pagePath);
@@ -524,10 +526,8 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                             <div
                                                 className="px-6 pb-6 text-[#636374] leading-relaxed prose prose-sm max-w-none"
                                                 dangerouslySetInnerHTML={{
-                                                    // DB answers are already HTML; JSON answers are plain markdown
-                                                    __html: faqsFromDb
-                                                        ? injectWithDrBangalee(faq.answer, usedSlugs)
-                                                        : (renderWithLinks(faq.answer, usedSlugs) ?? faq.answer)
+                                                    // renderWithLinks handles both HTML (Tiptap) and markdown (**bold**)
+                                                    __html: renderWithLinks(faq.answer, usedSlugs) ?? faq.answer
                                                 }}
                                             />
                                         </details>

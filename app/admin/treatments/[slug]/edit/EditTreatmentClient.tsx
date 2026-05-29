@@ -93,18 +93,22 @@ function mdToHtml(text: string | null | undefined): string {
 }
 
 function initFaqs(treatment: Treatment, jsonFallback?: JsonTreatment | null): Faq[] {
+  const toHtml = (answer: string) =>
+    // Always convert: if answer is already HTML (starts with <) leave it, else convert markdown
+    answer.trimStart().startsWith("<") ? answer : mdToHtml(answer);
+
   if (Array.isArray(treatment.faqs) && treatment.faqs.length > 0) {
     return (treatment.faqs as { question: string; answer: string }[]).map((f) => ({
       _id: uid(),
       question: f.question,
-      answer: f.answer,
+      answer: toHtml(f.answer),
     }));
   }
   if (Array.isArray(jsonFallback?.faqs)) {
     return (jsonFallback!.faqs as { question: string; answer: string }[]).map((f) => ({
       _id: uid(),
       question: f.question,
-      answer: mdToHtml(f.answer), // convert markdown → HTML for Tiptap
+      answer: mdToHtml(f.answer),
     }));
   }
   return [];
