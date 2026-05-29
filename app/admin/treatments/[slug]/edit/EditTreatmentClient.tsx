@@ -114,6 +114,33 @@ function initFaqs(treatment: Treatment, jsonFallback?: JsonTreatment | null): Fa
   return [];
 }
 
+/** Convert a steps array (with **bold** markers) to an HTML ordered list for Tiptap */
+function howWorksToHtml(steps: string[] | null | undefined): string {
+  if (!steps?.length) return "";
+  // Already HTML (saved from editor)
+  if (steps.length === 1 && steps[0].trimStart().startsWith("<")) return steps[0];
+  const items = steps.map((step) => {
+    const dash = step.indexOf(" — ");
+    if (dash !== -1) {
+      const title = step.slice(0, dash).replace(/\*\*/g, "");
+      const body = step.slice(dash + 3).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      return `<li><strong>${title}</strong> — ${body}</li>`;
+    }
+    return `<li>${step.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")}</li>`;
+  });
+  return `<ol>${items.join("")}</ol>`;
+}
+
+/** Convert a bullet-point array (with **bold** markers) to an HTML unordered list for Tiptap */
+function suitableForToHtml(items: string[] | null | undefined): string {
+  if (!items?.length) return "";
+  // Already HTML (saved from editor)
+  if (items.length === 1 && items[0].trimStart().startsWith("<")) return items[0];
+  return `<ul>${items
+    .map((item) => `<li>${item.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")}</li>`)
+    .join("")}</ul>`;
+}
+
 function initPricingSections(treatment: Treatment, jsonFallback?: JsonTreatment | null): PricingSection[] {
   const db = treatment.pricing_breakdown as { sections?: PricingSection[] } | null;
   if (Array.isArray(db?.sections) && db!.sections.length > 0) {
@@ -184,19 +211,15 @@ export default function EditTreatmentClient({
   const [expectedResults, setExpectedResults] = useState(
     treatment.expected_results ?? mdToHtml(jsonFallback?.expectedResults)
   );
-  const [howWorks, setHowWorks] = useState(
-    Array.isArray(treatment.how_works)
-      ? (treatment.how_works as string[]).join("\n")
-      : Array.isArray(jsonFallback?.howWorks)
-        ? (jsonFallback!.howWorks as string[]).join("\n")
-        : ""
+  const [howWorks, setHowWorks] = useState(() =>
+    howWorksToHtml(
+      Array.isArray(treatment.how_works) ? (treatment.how_works as string[]) : null
+    ) || howWorksToHtml(jsonFallback?.howWorks)
   );
-  const [suitableFor, setSuitableFor] = useState(
-    Array.isArray(treatment.suitable_for)
-      ? (treatment.suitable_for as string[]).join("\n")
-      : Array.isArray(jsonFallback?.suitableFor)
-        ? (jsonFallback!.suitableFor as string[]).join("\n")
-        : ""
+  const [suitableFor, setSuitableFor] = useState(() =>
+    suitableForToHtml(
+      Array.isArray(treatment.suitable_for) ? (treatment.suitable_for as string[]) : null
+    ) || suitableForToHtml(jsonFallback?.suitableFor)
   );
 
   // ── FAQs (with stable IDs for Tiptap key stability) ─────────────────────
@@ -273,12 +296,8 @@ export default function EditTreatmentClient({
         hero_text: heroText || null,
         what_is: whatIs || null,
         expected_results: expectedResults || null,
-        how_works: howWorks
-          ? howWorks.split("\n").map((s) => s.trim()).filter(Boolean)
-          : null,
-        suitable_for: suitableFor
-          ? suitableFor.split("\n").map((s) => s.trim()).filter(Boolean)
-          : null,
+        how_works: howWorks ? [howWorks] : null,
+        suitable_for: suitableFor ? [suitableFor] : null,
         faqs: cleanFaqs.length > 0 ? cleanFaqs : null,
         pricing_breakdown:
           cleanSections.length > 0
@@ -476,25 +495,22 @@ export default function EditTreatmentClient({
             <div>
               <label className={labelClass}>How It Works — Steps</label>
               <p className={`${hintClass} mb-2`}>
-                One step per line. Each line becomes a numbered step. Use{" "}
-                <code className="font-mono bg-[#F8F8F7] px-1 border border-[#E5E4E0]">**word**</code>{" "}
-                to make text <strong>bold</strong>.
+                Use the numbered list button to create steps. Each list item becomes a numbered step.
+                Bold the step title for best results.
               </p>
-              <textarea value={howWorks} onChange={(e) => setHowWorks(e.target.value)}
-                rows={8} className={`${inputClass} resize-y font-mono text-xs leading-relaxed`}
-                placeholder={"Consultation — Dr. Bangalee discusses your concerns.\nPreparation — The area is cleansed.\nTreatment — Performed with precision and care."} />
+              <RichHtmlEditor value={howWorks} onChange={setHowWorks}
+                placeholder="1. Consultation — Dr. Bangalee discusses your concerns and goals…"
+                variant="full" minHeight="200px" />
             </div>
 
             <div>
               <label className={labelClass}>Suitable For</label>
               <p className={`${hintClass} mb-2`}>
-                One bullet point per line. Use{" "}
-                <code className="font-mono bg-[#F8F8F7] px-1 border border-[#E5E4E0]">**word**</code>{" "}
-                for bold text.
+                Use the bullet list button to add each type of suitable patient.
               </p>
-              <textarea value={suitableFor} onChange={(e) => setSuitableFor(e.target.value)}
-                rows={5} className={`${inputClass} resize-y font-mono text-xs leading-relaxed`}
-                placeholder={"Women and men **25+** wanting to soften expression lines.\nThose wanting a **preventive** approach."} />
+              <RichHtmlEditor value={suitableFor} onChange={setSuitableFor}
+                placeholder="• Women and men wanting to soften expression lines…"
+                variant="full" minHeight="160px" />
             </div>
 
             <div>

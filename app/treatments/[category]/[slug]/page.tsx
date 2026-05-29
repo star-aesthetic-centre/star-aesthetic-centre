@@ -400,36 +400,42 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
                                     How it Works
                                 </h2>
-                                <div className="space-y-6">
-                                    {displayHowWorks.map((step: string, index: number) => {
-                                        // Steps are formatted as "Title — Description"
-                                        const dashIdx = step.indexOf(' — ');
-                                        if (dashIdx !== -1) {
-                                            const title = step.slice(0, dashIdx).replace(/\*\*/g, ''); // strip bold markers from title
-                                            const body  = step.slice(dashIdx + 3);
+                                {/* HTML format (saved from editor) vs legacy array format */}
+                                {displayHowWorks.length === 1 && displayHowWorks[0].trimStart().startsWith('<') ? (
+                                    <div
+                                        className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
+                                        dangerouslySetInnerHTML={{ __html: injectWithDrBangalee(displayHowWorks[0], usedSlugs) }}
+                                    />
+                                ) : (
+                                    <div className="space-y-6">
+                                        {displayHowWorks.map((step: string, index: number) => {
+                                            const dashIdx = step.indexOf(' — ');
+                                            if (dashIdx !== -1) {
+                                                const title = step.slice(0, dashIdx).replace(/\*\*/g, '');
+                                                const body  = step.slice(dashIdx + 3);
+                                                return (
+                                                    <div key={index} className="flex gap-4">
+                                                        <div className="w-8 h-8 bg-[#EEF0F6] text-[#939EBA] flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
+                                                            {index + 1}
+                                                        </div>
+                                                        <div>
+                                                            <span className="font-bold text-[#1A1A1F] block mb-1">{title}</span>
+                                                            <RichText text={body} as="span" className="text-[#636374]" />
+                                                        </div>
+                                                    </div>
+                                                );
+                                            }
                                             return (
                                                 <div key={index} className="flex gap-4">
                                                     <div className="w-8 h-8 bg-[#EEF0F6] text-[#939EBA] flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
                                                         {index + 1}
                                                     </div>
-                                                    <div>
-                                                        <span className="font-bold text-[#1A1A1F] block mb-1">{title}</span>
-                                                        <RichText text={body} as="span" className="text-[#636374]" />
-                                                    </div>
+                                                    <RichText text={step} as="span" className="text-[#636374] mt-1" />
                                                 </div>
                                             );
-                                        }
-                                        // Fallback: no dash separator
-                                        return (
-                                            <div key={index} className="flex gap-4">
-                                                <div className="w-8 h-8 bg-[#EEF0F6] text-[#939EBA] flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
-                                                    {index + 1}
-                                                </div>
-                                                <RichText text={step} as="span" className="text-[#636374] mt-1" />
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                                        })}
+                                    </div>
+                                )}
                             </div>
                         )}
 
@@ -544,14 +550,22 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         {displaySuitableFor.length > 0 && (
                             <div className="bg-[#EEF0F6] p-8">
                                 <h3 className="font-heading text-xl font-bold text-[#1A1A1F] mb-6">Who Is This For?</h3>
-                                <ul className="space-y-4 text-[#636374]">
-                                    {displaySuitableFor.map((item: string, index: number) => (
-                                        <li key={index} className="flex gap-3 items-start">
-                                            <span className="text-[#939EBA] mt-0.5 shrink-0">✓</span>
-                                            <RichText text={item} as="span" className="text-sm leading-relaxed" />
-                                        </li>
-                                    ))}
-                                </ul>
+                                {/* HTML format (saved from editor) vs legacy array format */}
+                                {displaySuitableFor.length === 1 && displaySuitableFor[0].trimStart().startsWith('<') ? (
+                                    <div
+                                        className="prose prose-sm max-w-none text-[#636374] leading-relaxed [&_ul]:space-y-2 [&_li]:list-none [&_li]:flex [&_li]:gap-2 [&_li]:before:content-['✓'] [&_li]:before:text-[#939EBA] [&_li]:before:shrink-0"
+                                        dangerouslySetInnerHTML={{ __html: injectWithDrBangalee(displaySuitableFor[0], usedSlugs) }}
+                                    />
+                                ) : (
+                                    <ul className="space-y-4 text-[#636374]">
+                                        {displaySuitableFor.map((item: string, index: number) => (
+                                            <li key={index} className="flex gap-3 items-start">
+                                                <span className="text-[#939EBA] mt-0.5 shrink-0">✓</span>
+                                                <RichText text={item} as="span" className="text-sm leading-relaxed" />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
                         )}
 
