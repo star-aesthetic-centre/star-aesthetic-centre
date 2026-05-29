@@ -22,7 +22,7 @@ import {
 } from "@/lib/seo";
 import { TREATMENT_SLUG_TO_CATEGORY, treatmentPath } from "@/lib/treatment-routes";
 import { injectGlossaryLinks } from "@/lib/glossary/inject";
-import { mergePricingBreakdown, type PricingBreakdown } from "@/lib/treatment-pricing";
+import { mergePricingBreakdown, pricingBreakdownFromJson, type PricingBreakdown } from "@/lib/treatment-pricing";
 
 /** Convert markdown text (or pass-through HTML) to injected HTML. */
 function renderWithLinks(
@@ -228,7 +228,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
             : ((treatment as { suitableFor?: string[] }).suitableFor ?? []);
     const displayPricing: PricingBreakdown | null = mergePricingBreakdown(
         db?.pricing_breakdown,
-        (treatment as { pricingBreakdown?: PricingBreakdown }).pricingBreakdown ?? null
+        pricingBreakdownFromJson(treatment as { pricingBreakdown?: PricingBreakdown })
     );
 
     const pagePath = treatmentPath(slug);

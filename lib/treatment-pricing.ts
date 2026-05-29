@@ -17,12 +17,35 @@ function isPriceLike(value: string): boolean {
   return /^(R\s|From R|Price|POA)/i.test(value.trim());
 }
 
+function pickLabel(r: Record<string, unknown>): string {
+  const raw = r.label ?? r.name ?? r.item ?? r.title ?? r.service ?? r.text ?? r.description;
+  const text = String(raw ?? "").trim();
+  // Legacy saves sometimes put the price in the label field
+  if (text && isPriceLike(text)) return "";
+  return text;
+}
+
+function pickPrice(r: Record<string, unknown>): string {
+  return String(r.price ?? r.amount ?? r.value ?? r.cost ?? "").trim();
+}
+
+function findFallbackRow(
+  jsonRows: PricingRow[],
+  index: number,
+  priceHint: string
+): PricingRow | undefined {
+  if (jsonRows[index]) return jsonRows[index];
+  const hint = priceHint.trim().toLowerCase();
+  if (!hint) return undefined;
+  return jsonRows.find((r) => r.price.trim().toLowerCase() === hint);
+}
+
 /** Normalise one pricing row from DB/legacy shapes; optional JSON row fills missing fields */
 export function normalizePricingRow(row: unknown, fallback?: PricingRow): PricingRow {
   if (row && typeof row === "object" && !Array.isArray(row)) {
     const r = row as Record<string, unknown>;
-    const label = String(r.label ?? r.name ?? r.item ?? r.title ?? "").trim();
-    const price = String(r.price ?? r.amount ?? r.value ?? "").trim();
+    const label = pickLabel(r);
+    const price = pickPrice(r);
     return {
       label: label || fallback?.label || "",
       price: price || fallback?.price || "",
@@ -74,7 +97,24 @@ export function mergePricingBreakdown(
     const rowsRaw = Array.isArray(s.rows) ? s.rows : [];
     const jsonRows = jsonSection?.rows ?? [];
 
-    const rows = rowsRaw.map((row, ri) => normalizePricingRow(row, jsonRows[ri]));
+    const rows = rowsRaw.map((row, ri) => {
+      const priceHint =
+        row && typeof row === "object" && !Array.isArray(row)
+          ? pickPrice(row as Record<string, unknown>)
+          : typeof row === "string"
+            ? row
+            : "";
+      const fallback = findFallbackRow(jsonRows, ri, priceHint) ?? jsonRows[ri];
+      const normalized = normalizePricingRow(row, fallback);
+      // Last resort: fill label from JSON when DB only stored price
+      if (!normalized.label && fallback?.label) {
+        normalized.label = fallback.label;
+      }
+      if (!normalized.price && fallback?.price) {
+        normalized.price = fallback.price;
+      }
+      return normalized;
+    });
 
     if (jsonRows.length > rows.length) {
       for (let ri = rows.length; ri < jsonRows.length; ri++) {
@@ -95,4 +135,23 @@ export function mergePricingBreakdown(
       : (jsonRaw?.notes ?? []);
 
   return { sections, notes };
+}
+
+/** Build pricing breakdown from treatments.json entry */
+export function pricingBreakdownFromJson(json: {
+  pricingBreakdown?: {
+    sections?: { heading?: string; description?: string; rows?: { label?: string; price?: string }[] }[];
+    notes?: string[];
+  };
+} | null | undefined): PricingBreakdown | null {
+  const raw = json?.pricingBreakdown;
+  if (!raw?.sections?.length) return null;
+  return {
+    sections: raw.sections.map((s) => ({
+      heading: s.heading ?? "",
+      description: s.description ?? "",
+      rows: (s.rows ?? []).map((r) => ({ label: r.label ?? "", price: r.price ?? "" })),
+    })),
+    notes: raw.notes ?? [],
+  };
 }

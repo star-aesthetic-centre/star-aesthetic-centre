@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import treatmentsData from "@/lib/data/treatments.json";
 import EditTreatmentClient from "./EditTreatmentClient";
+import {
+  mergePricingBreakdown,
+  pricingBreakdownFromJson,
+} from "@/lib/treatment-pricing";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -41,6 +45,8 @@ export default async function EditTreatmentPage({ params }: Props) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const jsonFallback = (treatmentsData as any[]).find((t) => t.slug === slug) ?? null;
+  const jsonPricing = pricingBreakdownFromJson(jsonFallback);
+  const mergedPricing = mergePricingBreakdown(treatment.pricing_breakdown, jsonPricing);
 
   // Computed SEO defaults — shown as placeholder values the editor can override
   const displayTitle = treatment.title ?? jsonFallback?.title ?? slug;
@@ -89,7 +95,13 @@ export default async function EditTreatmentPage({ params }: Props) {
         </p>
       </div>
 
-      <EditTreatmentClient treatment={treatment} jsonFallback={jsonFallback} seoDefaults={seoDefaults} />
+      <EditTreatmentClient
+        treatment={treatment}
+        jsonFallback={jsonFallback}
+        seoDefaults={seoDefaults}
+        initialPricingSections={mergedPricing?.sections ?? []}
+        initialPricingNotes={mergedPricing?.notes?.join("\n") ?? ""}
+      />
     </main>
   );
 }

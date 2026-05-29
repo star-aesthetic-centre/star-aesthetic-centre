@@ -4,12 +4,7 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { updateTreatmentMeta } from "@/app/admin/treatments/actions";
-import {
-  mergePricingBreakdown,
-  type PricingBreakdown,
-  type PricingRow,
-  type PricingSection,
-} from "@/lib/treatment-pricing";
+import type { PricingRow, PricingSection } from "@/lib/treatment-pricing";
 
 const RichHtmlEditor = dynamic(() => import("@/components/admin/RichHtmlEditor"), { ssr: false });
 
@@ -136,32 +131,13 @@ function suitableForToHtml(items: string[] | null | undefined): string {
     .join("")}</ul>`;
 }
 
-function jsonPricingBreakdown(jsonFallback?: JsonTreatment | null): PricingBreakdown | null {
-  const raw = jsonFallback?.pricingBreakdown;
-  if (!raw?.sections?.length) return null;
-  return {
-    sections: raw.sections.map((s) => ({
-      heading: s.heading ?? "",
-      description: s.description ?? "",
-      rows: (s.rows ?? []).map((r) => ({ label: r.label ?? "", price: r.price ?? "" })),
-    })),
-    notes: raw.notes ?? [],
-  };
-}
-
-function initPricingSections(treatment: Treatment, jsonFallback?: JsonTreatment | null): PricingSection[] {
-  return mergePricingBreakdown(treatment.pricing_breakdown, jsonPricingBreakdown(jsonFallback))?.sections ?? [];
-}
-
-function initPricingNotes(treatment: Treatment, jsonFallback?: JsonTreatment | null): string {
-  const merged = mergePricingBreakdown(treatment.pricing_breakdown, jsonPricingBreakdown(jsonFallback));
-  return merged?.notes?.length ? merged.notes.join("\n") : "";
-}
-
 // ── Styles ────────────────────────────────────────────────────────────────────
 
 const inputClass =
   "w-full border border-[#E5E4E0] bg-white px-3 py-2.5 text-sm text-[#1A1917] outline-none focus:border-[#0F2647] transition-colors";
+/** Row inputs — no w-full (prevents flex/grid blowout) */
+const inputRowClass =
+  "min-w-0 w-full border border-[#E5E4E0] bg-white px-3 py-2.5 text-sm text-[#1A1917] outline-none focus:border-[#0F2647] transition-colors";
 const labelClass =
   "block text-xs font-semibold uppercase tracking-widest text-[#1A1917] mb-2";
 const sectionClass = "bg-white border border-[#E5E4E0] p-6";
@@ -176,10 +152,14 @@ export default function EditTreatmentClient({
   treatment,
   jsonFallback,
   seoDefaults,
+  initialPricingSections,
+  initialPricingNotes,
 }: {
   treatment: Treatment;
   jsonFallback?: JsonTreatment | null;
   seoDefaults?: SeoDefaults;
+  initialPricingSections: PricingSection[];
+  initialPricingNotes: string;
 }) {
   const [isPending, startTransition] = useTransition();
   const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
@@ -224,12 +204,8 @@ export default function EditTreatmentClient({
     setFaqs((p) => p.map((f) => f._id === id ? { ...f, answer: value } : f));
 
   // ── Pricing ──────────────────────────────────────────────────────────────
-  const [pricingSections, setPricingSections] = useState<PricingSection[]>(() =>
-    initPricingSections(treatment, jsonFallback)
-  );
-  const [pricingNotes, setPricingNotes] = useState(() =>
-    initPricingNotes(treatment, jsonFallback)
-  );
+  const [pricingSections, setPricingSections] = useState<PricingSection[]>(initialPricingSections);
+  const [pricingNotes, setPricingNotes] = useState(initialPricingNotes);
 
   const addSection = () =>
     setPricingSections((p) => [...p, { heading: "", description: "", rows: [{ label: "", price: "" }] }]);
@@ -420,27 +396,29 @@ export default function EditTreatmentClient({
                         className={inputClass} placeholder="Optional description (e.g. Per-unit pricing)" />
 
                       {/* Rows */}
-                      <div className="space-y-2">
-                        <div className="flex gap-2 px-0.5">
-                          <span className={`${labelClass} flex-1 mb-0 normal-case tracking-normal`}>
+                      <div className="space-y-2 overflow-hidden">
+                        <div className="grid grid-cols-[minmax(0,1fr)_9rem_1.5rem] gap-2 items-center px-0.5">
+                          <span className="text-xs font-semibold text-[#1A1917] truncate">
                             Service / item
                           </span>
-                          <span className={`${labelClass} w-36 mb-0 normal-case tracking-normal shrink-0`}>
+                          <span className="text-xs font-semibold text-[#1A1917]">
                             Price
                           </span>
-                          <span className="w-7 shrink-0" aria-hidden />
+                          <span aria-hidden />
                         </div>
                         {section.rows.map((row, ri) => (
-                          <div key={ri} className="flex gap-2 items-center">
+                          <div key={ri} className="grid grid-cols-[minmax(0,1fr)_9rem_1.5rem] gap-2 items-center">
                             <input type="text" value={row.label}
                               onChange={(e) => updateRow(si, ri, "label", e.target.value)}
-                              className={`${inputClass} flex-1`}
+                              className={inputRowClass}
                               placeholder="e.g. 1ml Juvéderm Volift" />
                             <input type="text" value={row.price}
                               onChange={(e) => updateRow(si, ri, "price", e.target.value)}
-                              className={`${inputClass} w-36 shrink-0`} placeholder="e.g. R 4,600" />
+                              className={inputRowClass}
+                              placeholder="e.g. R 4,600" />
                             <button type="button" onClick={() => removeRow(si, ri)}
-                              className="text-xs text-red-400 hover:text-red-700 px-2 py-1 shrink-0 transition-colors">
+                              className="text-xs text-red-400 hover:text-red-700 px-1 py-1 transition-colors justify-self-center"
+                              aria-label="Remove row">
                               ✕
                             </button>
                           </div>
