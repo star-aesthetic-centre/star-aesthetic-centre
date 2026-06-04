@@ -1,4 +1,4 @@
--- ══════════════════════════════════════════════════════════════════════════════
+﻿-- ══════════════════════════════════════════════════════════════════════════════
 -- Star Aesthetic Centre — Product Catalogue & Orders Schema
 -- Phase 3: WordPress/WooCommerce → Supabase Migration
 -- Run this in: Supabase Dashboard → SQL Editor → Run
@@ -102,7 +102,7 @@ create policy "Public read product images"
 -- ─────────────────────────────────────────────────────────────────────────────
 -- 4. PRODUCT STOCK
 --    One row per product. quantity = NULL means unlimited/untracked.
---    Nikita manages this via /admin/products.
+--    Nakita manages this via /admin/products.
 -- ─────────────────────────────────────────────────────────────────────────────
 
 create table public.product_stock (

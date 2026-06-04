@@ -11,8 +11,8 @@ export interface TreatmentCardItem {
 const WP = "/images";
 
 export const TREATMENT_CARDS: TreatmentCardItem[] = [
-  { name: "Anti-Wrinkle Treatment", category: "face", slug: "anti-wrinkle-treatment", priceFrom: 1900, image: `${WP}/botox-anti-aging-injections-durban.webp`, imageAlt: "Anti-Wrinkle Treatment Durban North" },
-  { name: "Lip Augmentation", category: "face", slug: "lip-filler", priceFrom: 2500, image: `${WP}/lip-filler-augmentation-durban-north.webp`, imageAlt: "Lip Filler Augmentation Durban North" },
+  { name: "Anti-Wrinkle Treatment", category: "face", slug: "anti-wrinkle-treatment", priceFrom: 1900, image: `${WP}/anti-wrinkle-treatment-star-durban-north.webp`, imageAlt: "Anti-Wrinkle Treatment — natural refreshed results, Durban North" },
+  { name: "Lip Filler Treatment", category: "face", slug: "lip-filler", priceFrom: 2500, image: `${WP}/lip-filler-treatment-durban-north.webp`, imageAlt: "Lip Filler Treatment — natural lip enhancement, Durban North" },
   { name: "Jaw & Chin Contouring", category: "face", slug: "jaw-amp-chin-contouring", priceFrom: 2500, image: `${WP}/jaw-chin-contouring-filler-durban.webp`, imageAlt: "Jaw and Chin Contouring Filler Durban" },
   { name: "Dermapen Microneedling", category: "face", slug: "dermapen-microneedling", priceFrom: 1900, image: `${WP}/dermapen-microneedling-skin-renewal.webp`, imageAlt: "Dermapen Microneedling Skin Renewal" },
   { name: "Chemical Skin Peel", category: "skin", slug: "skin-peel", priceFrom: 665, image: `${WP}/chemical-skin-peel-rejuvenation.webp`, imageAlt: "Chemical Skin Peel Rejuvenation" },

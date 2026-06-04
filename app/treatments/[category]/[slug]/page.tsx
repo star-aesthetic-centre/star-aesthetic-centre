@@ -186,6 +186,21 @@ const PHASE_ORDER = [
     "complementary",
 ];
 
+/** Fallback section titles when several products share a phase but different phase_label values. */
+const PHASE_SECTION_LABELS: Record<string, string> = {
+    "pre-treatment": "Before your treatment",
+    "post-treatment": "Immediately after treatment",
+    "during-protocol": "During your treatment programme",
+    maintenance: "Home care between appointments — daily use",
+    complementary: "Optional add-ons",
+};
+
+function getPhaseSectionLabel(phase: string, items: TreatmentRecommendation[]): string {
+    const uniqueLabels = new Set(items.map((i) => i.phase_label));
+    if (uniqueLabels.size === 1) return items[0].phase_label;
+    return PHASE_SECTION_LABELS[phase] ?? items[0].phase_label;
+}
+
 export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     const { category, slug } = await params;
     const treatment = treatmentsData.find((t: { slug: string }) => t.slug === slug);
@@ -616,7 +631,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                     {/* Phase label */}
                                     <div className="flex items-center gap-4 mb-6">
                                         <span className="text-xs font-bold uppercase tracking-widest text-[#939EBA] bg-[#EEF0F6] px-3 py-1.5">
-                                            {items[0].phase_label}
+                                            {getPhaseSectionLabel(phase, items)}
                                         </span>
                                         <div className="flex-1 h-px bg-[#E2E2E6]" />
                                     </div>

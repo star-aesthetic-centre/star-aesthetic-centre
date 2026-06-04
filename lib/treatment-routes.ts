@@ -30,8 +30,8 @@ export const TREATMENT_LISTING_CATEGORIES = [
     slug: "face",
     name: "Injectables & Facial Aesthetics",
     treatments: [
-      { slug: "anti-wrinkle-treatment", image: "/images/botox-anti-aging-injections-durban.webp", imageAlt: "Anti-Wrinkle Treatment Durban North" },
-      { slug: "lip-filler", image: "/images/lip-filler-augmentation-durban-north.webp", imageAlt: "Lip filler augmentation Durban North" },
+      { slug: "anti-wrinkle-treatment", image: "/images/anti-wrinkle-treatment-star-durban-north.webp", imageAlt: "Anti-Wrinkle Treatment — natural refreshed results, Durban North" },
+      { slug: "lip-filler", image: "/images/lip-filler-treatment-durban-north.webp", imageAlt: "Lip Filler Treatment — natural lip enhancement, Durban North" },
       { slug: "jaw-amp-chin-contouring", image: "/images/jaw-chin-contouring-filler-durban.webp", imageAlt: "Jaw and chin contouring filler Durban" },
       { slug: "dermapen-microneedling", image: "/images/dermapen-microneedling-skin-renewal.webp", imageAlt: "Dermapen microneedling skin renewal Durban" },
     ],

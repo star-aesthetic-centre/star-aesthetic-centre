@@ -1,4 +1,4 @@
-# Star Aesthetic Centre — Project State Log
+﻿# Star Aesthetic Centre — Project State Log
 _Last updated: 2026-04-04 (session 5 — major admin panel session)_
 
 ---
@@ -274,7 +274,7 @@ _Last updated: 2026-04-04 (session 5 — major admin panel session)_
 | Staff | Nakita (admin) |
 | Address | 22 Ennisdale Drive, Durban North, 4051 |
 | Phone | +27 (0)31 573 1325 |
-| Email | info@staraesthetic.site |
+| Email | info@staraesthetic.co.za |
 | Hours | Mon–Fri 08:00–17:00 · Sat 08:00–13:00 |
 | Supabase | kprfezokgsmbizisvcrb.supabase.co |
 

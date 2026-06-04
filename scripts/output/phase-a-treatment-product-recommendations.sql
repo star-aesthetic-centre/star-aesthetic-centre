@@ -541,13 +541,6 @@ values
    'The cooling, hydrating mist provides comfort if the injection sites feel tender immediately after the treatment session. Optional — most patients require nothing more after Botox.',
    5),
 
-  ('botox',
-   (select id from public.products where slug = 'dermaceutic-activ-retinol-10'),
-   'maintenance', 'Evening retinol to maximise anti-ageing results',
-   false,
-   'Retinol drives the cellular renewal that complements the muscle-relaxing effect of Botox. Used in the evening, it stimulates collagen production and accelerates skin cell turnover — extending the skin quality improvements between Botox appointments.',
-   6),
-
 
 -- ══════════════════════════════════════════════════════════
 -- LIP FILLER
