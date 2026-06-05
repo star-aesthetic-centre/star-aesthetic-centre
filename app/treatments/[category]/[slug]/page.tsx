@@ -218,7 +218,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     const supabase = createSupabaseAdmin();
     const { data: db } = await supabase
         .from("treatments")
-        .select("title, tagline, price_from, duration, downtime, hero_text, what_is, expected_results, how_works, suitable_for, faqs, pricing_breakdown")
+        .select("title, tagline, price_from, duration, downtime, hero_text, what_is, expected_results, downtime_detail, how_works, suitable_for, faqs, pricing_breakdown")
         .eq("slug", slug)
         .single();
 
@@ -229,6 +229,10 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     const displayPrice    = db?.price_from || treatment.priceFrom;
     const displayDuration = db?.duration || treatment.duration;
     const displayDowntime = db?.downtime || treatment.downtime;
+    const displayDowntimeDetail =
+        db?.downtime_detail ??
+        (treatment as { downtimeDetail?: string }).downtimeDetail ??
+        null;
     const displayFaqs: DbFaq[] =
         (Array.isArray(db?.faqs) && (db.faqs as DbFaq[]).length > 0)
             ? (db.faqs as DbFaq[])
@@ -498,7 +502,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         )}
 
                         {/* Expected Results */}
-                        {(db?.expected_results || treatment.expectedResults) && (
+                        {(db?.expected_results || treatment.expectedResults || displayDowntimeDetail) && (
                             <div>
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
                                     Expected Results &amp; Timeline
@@ -515,10 +519,19 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                             />
                                         ) : null;
                                     })()}
-                                    {treatment.downtimeDetail && (
+                                    {displayDowntimeDetail && (
                                         <>
                                             <h4 className="font-bold text-[#1A1A1F] mt-8 mb-3">Downtime &amp; Aftercare:</h4>
-                                            <RichText text={treatment.downtimeDetail} as="p" className="text-[#636374] leading-relaxed" />
+                                            {displayDowntimeDetail.trimStart().startsWith("<") ? (
+                                                <div
+                                                    className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: injectWithDrBangalee(displayDowntimeDetail, usedSlugs),
+                                                    }}
+                                                />
+                                            ) : (
+                                                <RichText text={displayDowntimeDetail} as="p" className="text-[#636374] leading-relaxed" />
+                                            )}
                                         </>
                                     )}
                                 </div>

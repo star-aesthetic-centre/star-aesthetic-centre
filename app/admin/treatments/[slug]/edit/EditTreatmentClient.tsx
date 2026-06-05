@@ -32,6 +32,7 @@ interface Treatment {
   hero_text: string | null;
   what_is: string | null;
   expected_results: string | null;
+  downtime_detail: string | null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   how_works: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -47,6 +48,7 @@ interface JsonTreatment {
   quickSummary?: string;
   whatIs?: string;
   expectedResults?: string;
+  downtimeDetail?: string;
   howWorks?: string[];
   suitableFor?: string[];
   faqs?: { question: string; answer: string }[];
@@ -182,6 +184,9 @@ export default function EditTreatmentClient({
   const [expectedResults, setExpectedResults] = useState(
     treatment.expected_results ?? mdToHtml(jsonFallback?.expectedResults)
   );
+  const [downtimeDetail, setDowntimeDetail] = useState(
+    treatment.downtime_detail ?? mdToHtml(jsonFallback?.downtimeDetail)
+  );
   const [howWorks, setHowWorks] = useState(() =>
     howWorksToHtml(
       Array.isArray(treatment.how_works) ? (treatment.how_works as string[]) : null
@@ -263,6 +268,7 @@ export default function EditTreatmentClient({
         hero_text: heroText || null,
         what_is: whatIs || null,
         expected_results: expectedResults || null,
+        downtime_detail: downtimeDetail || null,
         how_works: howWorks ? [howWorks] : null,
         suitable_for: suitableFor ? [suitableFor] : null,
         faqs: cleanFaqs.length > 0 ? cleanFaqs : null,
@@ -488,6 +494,22 @@ export default function EditTreatmentClient({
               <RichHtmlEditor value={expectedResults} onChange={setExpectedResults}
                 placeholder="Day 3–5: Initial softening begins. Day 10–14: Full result visible…"
                 variant="compact" minHeight="120px" />
+            </div>
+
+            <div>
+              <label className={labelClass}>Downtime &amp; Aftercare</label>
+              <p className={`${hintClass} mb-2`}>
+                Shown as the second block under <strong className="text-[#1A1917]">Expected Results &amp; Timeline</strong> on
+                the live page (heading: &quot;Downtime &amp; Aftercare:&quot;). Different from the short
+                &quot;Downtime&quot; line in Pricing &amp; Logistics above.
+              </p>
+              <RichHtmlEditor
+                value={downtimeDetail}
+                onChange={setDowntimeDetail}
+                placeholder="24–48 hours mild swelling is normal. Bruising is possible — make-up can be applied to cover bruising…"
+                variant="compact"
+                minHeight="120px"
+              />
             </div>
           </div>
         </div>

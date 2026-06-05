@@ -22,7 +22,7 @@ async function getTreatment(slug: string) {
     .select(`
       slug, title, category, is_active, tagline, price_from, duration, downtime,
       meta_title, meta_description, meta_keywords, og_image,
-      hero_text, what_is, expected_results, how_works, suitable_for, faqs,
+      hero_text, what_is, expected_results, downtime_detail, how_works, suitable_for, faqs,
       pricing_breakdown
     `)
     .eq("slug", slug)

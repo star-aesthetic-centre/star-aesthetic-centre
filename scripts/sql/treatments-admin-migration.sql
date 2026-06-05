@@ -15,7 +15,8 @@ ALTER TABLE public.treatments
 ALTER TABLE public.treatments
   ADD COLUMN IF NOT EXISTS hero_text         text,
   ADD COLUMN IF NOT EXISTS what_is           text,
-  ADD COLUMN IF NOT EXISTS expected_results  text;
+  ADD COLUMN IF NOT EXISTS expected_results  text,
+  ADD COLUMN IF NOT EXISTS downtime_detail   text;
 
 -- ── Structured content (JSONB arrays) ─────────────────────────────────────
 ALTER TABLE public.treatments

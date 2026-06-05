@@ -67,6 +67,7 @@ type TreatmentUpdateData = {
   hero_text?: string | null;
   what_is?: string | null;
   expected_results?: string | null;
+  downtime_detail?: string | null;
   how_works?: string[] | null;
   suitable_for?: string[] | null;
   faqs?: { question: string; answer: string }[] | null;
