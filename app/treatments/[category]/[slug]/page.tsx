@@ -47,6 +47,23 @@ function renderWithLinks(
     return injectWithDrBangalee(html, usedSlugs);
 }
 
+/** Tiptap bullet lists save as <li><p>…</p></li> — unwrap for sidebar checkmark layout. */
+function normalizeEditorListHtml(html: string): string {
+    return html
+        .replace(/<li>\s*<p>/gi, "<li>")
+        .replace(/<\/p>\s*<\/li>/gi, "</li>")
+        .replace(/<\/ul>\s*<p>\s*<\/p>/gi, "</ul>")
+        .replace(/<p>\s*<\/p>/gi, "")
+        .trim();
+}
+
+const WHO_IS_THIS_FOR_LIST_CLASS =
+    "text-sm text-[#636374] leading-relaxed " +
+    "[&_ul]:list-none [&_ul]:m-0 [&_ul]:p-0 [&_ul]:space-y-4 " +
+    "[&_li]:flex [&_li]:items-start [&_li]:gap-3 " +
+    "[&_li]:before:content-['✓'] [&_li]:before:text-[#939EBA] [&_li]:before:shrink-0 [&_li]:before:mt-0.5 " +
+    "[&_strong]:font-semibold [&_strong]:text-[#525866]";
+
 /** Inject glossary links + Dr. Bangalee link into already-HTML content. */
 function injectWithDrBangalee(html: string, usedSlugs: Set<string>): string {
     // Link Dr. Bangalee before glossary injection so it's not double-processed
@@ -581,8 +598,13 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 {/* HTML format (saved from editor) vs legacy array format */}
                                 {displaySuitableFor.length === 1 && displaySuitableFor[0].trimStart().startsWith('<') ? (
                                     <div
-                                        className="prose prose-sm max-w-none text-[#636374] leading-relaxed [&_ul]:space-y-2 [&_li]:list-none [&_li]:flex [&_li]:gap-2 [&_li]:before:content-['✓'] [&_li]:before:text-[#939EBA] [&_li]:before:shrink-0"
-                                        dangerouslySetInnerHTML={{ __html: injectWithDrBangalee(displaySuitableFor[0], usedSlugs) }}
+                                        className={WHO_IS_THIS_FOR_LIST_CLASS}
+                                        dangerouslySetInnerHTML={{
+                                            __html: injectWithDrBangalee(
+                                                normalizeEditorListHtml(displaySuitableFor[0]),
+                                                usedSlugs
+                                            ),
+                                        }}
                                     />
                                 ) : (
                                     <ul className="space-y-4 text-[#636374]">
