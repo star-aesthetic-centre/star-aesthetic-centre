@@ -483,16 +483,6 @@ export default function EditTreatmentClient({
             </div>
 
             <div>
-              <label className={labelClass}>Suitable For</label>
-              <p className={`${hintClass} mb-2`}>
-                Use the bullet list button to add each type of suitable patient.
-              </p>
-              <RichHtmlEditor value={suitableFor} onChange={setSuitableFor}
-                placeholder="• Women and men wanting to soften expression lines…"
-                variant="full" minHeight="160px" />
-            </div>
-
-            <div>
               <label className={labelClass}>Expected Results &amp; Timeline</label>
               <p className={`${hintClass} mb-2`}>What patients can expect and when.</p>
               <RichHtmlEditor value={expectedResults} onChange={setExpectedResults}
@@ -502,7 +492,24 @@ export default function EditTreatmentClient({
           </div>
         </div>
 
-        {/* ── 5. FAQs ───────────────────────────────────────────────────── */}
+        {/* ── 5. WHO IS THIS FOR (sidebar) ──────────────────────────────── */}
+        <div className={sectionClass}>
+          <h2 className={sectionTitle}>Who Is This For?</h2>
+          <p className="text-xs text-[#6B6966] mb-6">
+            This is the <strong className="text-[#1A1917]">sidebar card</strong> on the treatment page
+            (grey box with checkmarks, right column on desktop). Use the bullet list button for each
+            bullet point. Bold key phrases where helpful.
+          </p>
+          <RichHtmlEditor
+            value={suitableFor}
+            onChange={setSuitableFor}
+            placeholder="• Women wanting natural lip enhancement — more volume, better definition…"
+            variant="full"
+            minHeight="200px"
+          />
+        </div>
+
+        {/* ── 6. FAQs ───────────────────────────────────────────────────── */}
         <div className={sectionClass}>
           <div className="flex items-center justify-between mb-4">
             <h2 className={sectionTitle.replace("mb-4", "mb-0")}>FAQs</h2>
@@ -555,7 +562,7 @@ export default function EditTreatmentClient({
           )}
         </div>
 
-        {/* ── 6. SEO & META ─────────────────────────────────────────────── */}
+        {/* ── 7. SEO & META ─────────────────────────────────────────────── */}
         <div className={sectionClass}>
           <h2 className={sectionTitle}>SEO &amp; Meta</h2>
           <p className="text-xs text-[#6B6966] mb-6">
