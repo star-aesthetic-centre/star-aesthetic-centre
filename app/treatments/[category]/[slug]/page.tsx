@@ -47,14 +47,25 @@ function renderWithLinks(
     return injectWithDrBangalee(html, usedSlugs);
 }
 
-/** Tiptap bullet lists save as <li><p>…</p></li> — unwrap for sidebar checkmark layout. */
+/**
+ * Tiptap bullet lists save as <li><p>…</p></li> with <strong> inline.
+ * Unwrap <p> and wrap each <li> body in a single <span> so flex layout
+ * does not treat text nodes and <strong> as separate flex items (which
+ * spreads words across the row).
+ */
 function normalizeEditorListHtml(html: string): string {
-    return html
+    const unwrapped = html
         .replace(/<li>\s*<p>/gi, "<li>")
         .replace(/<\/p>\s*<\/li>/gi, "</li>")
         .replace(/<\/ul>\s*<p>\s*<\/p>/gi, "</ul>")
-        .replace(/<p>\s*<\/p>/gi, "")
-        .trim();
+        .replace(/<p>\s*<\/p>/gi, "");
+
+    return unwrapped.replace(/<li>([\s\S]*?)<\/li>/gi, (_match, inner: string) => {
+        const body = inner.trim();
+        if (!body) return "<li></li>";
+        if (/^<span[\s>]/i.test(body)) return `<li>${body}</li>`;
+        return `<li><span>${body}</span></li>`;
+    }).trim();
 }
 
 const WHO_IS_THIS_FOR_LIST_CLASS =
@@ -62,6 +73,7 @@ const WHO_IS_THIS_FOR_LIST_CLASS =
     "[&_ul]:list-none [&_ul]:m-0 [&_ul]:p-0 [&_ul]:space-y-4 " +
     "[&_li]:flex [&_li]:items-start [&_li]:gap-3 " +
     "[&_li]:before:content-['✓'] [&_li]:before:text-[#939EBA] [&_li]:before:shrink-0 [&_li]:before:mt-0.5 " +
+    "[&_li>span]:min-w-0 [&_li>span]:flex-1 [&_li>span]:leading-relaxed " +
     "[&_strong]:font-semibold [&_strong]:text-[#525866]";
 
 /** Inject glossary links + Dr. Bangalee link into already-HTML content. */
