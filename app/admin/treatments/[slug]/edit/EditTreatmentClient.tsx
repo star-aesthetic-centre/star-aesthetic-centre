@@ -5,6 +5,8 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { updateTreatmentMeta } from "@/app/admin/treatments/actions";
 import type { PricingRow, PricingSection } from "@/lib/treatment-pricing";
+import type { TreatmentCardItem } from "@/lib/treatment-cards";
+import TreatmentCardImageField from "@/components/admin/TreatmentCardImageField";
 
 const RichHtmlEditor = dynamic(() => import("@/components/admin/RichHtmlEditor"), { ssr: false });
 
@@ -29,6 +31,8 @@ interface Treatment {
   meta_description: string | null;
   meta_keywords: string | null;
   og_image: string | null;
+  card_image: string | null;
+  card_image_alt: string | null;
   hero_text: string | null;
   what_is: string | null;
   expected_results: string | null;
@@ -154,12 +158,14 @@ export default function EditTreatmentClient({
   treatment,
   jsonFallback,
   seoDefaults,
+  cardDefaults,
   initialPricingSections,
   initialPricingNotes,
 }: {
   treatment: Treatment;
   jsonFallback?: JsonTreatment | null;
   seoDefaults?: SeoDefaults;
+  cardDefaults?: TreatmentCardItem | null;
   initialPricingSections: PricingSection[];
   initialPricingNotes: string;
 }) {
@@ -236,6 +242,10 @@ export default function EditTreatmentClient({
   const [metaKeywords, setMetaKeywords] = useState(treatment.meta_keywords ?? "");
   const [ogImage, setOgImage] = useState(treatment.og_image ?? "");
 
+  // ── Grid card (homepage + /treatments) ───────────────────────────────────
+  const [cardImage, setCardImage] = useState(treatment.card_image ?? "");
+  const [cardImageAlt, setCardImageAlt] = useState(treatment.card_image_alt ?? "");
+
   // ── Save ─────────────────────────────────────────────────────────────────
 
   const showToast = (msg: string, ok: boolean) => {
@@ -265,6 +275,8 @@ export default function EditTreatmentClient({
         meta_description: metaDescription || null,
         meta_keywords: metaKeywords || null,
         og_image: ogImage || null,
+        card_image: cardImage || null,
+        card_image_alt: cardImageAlt || null,
         hero_text: heroText || null,
         what_is: whatIs || null,
         expected_results: expectedResults || null,
@@ -583,6 +595,26 @@ export default function EditTreatmentClient({
             </div>
           )}
         </div>
+
+        {/* ── Grid card image (homepage & /treatments) ───────────────────── */}
+        {cardDefaults && (
+          <div className={sectionClass}>
+            <h2 className={sectionTitle}>Treatment Grid Card</h2>
+            <p className="text-xs text-[#6B6966] mb-4">
+              The photo on the treatment card shown on the homepage and the main treatments page — not the
+              treatment detail page hero.
+            </p>
+            <TreatmentCardImageField
+              slug={treatment.slug}
+              imageUrl={cardImage}
+              imageAlt={cardImageAlt}
+              defaultImage={cardDefaults.image}
+              defaultAlt={cardDefaults.imageAlt}
+              onImageUrlChange={setCardImage}
+              onImageAltChange={setCardImageAlt}
+            />
+          </div>
+        )}
 
         {/* ── 7. SEO & META ─────────────────────────────────────────────── */}
         <div className={sectionClass}>

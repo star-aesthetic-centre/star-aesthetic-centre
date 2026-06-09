@@ -63,6 +63,8 @@ type TreatmentUpdateData = {
   meta_description?: string | null;
   meta_keywords?: string | null;
   og_image?: string | null;
+  card_image?: string | null;
+  card_image_alt?: string | null;
   // Content
   hero_text?: string | null;
   what_is?: string | null;
@@ -90,6 +92,7 @@ export async function updateTreatmentMeta(
 
     if (error) return { success: false, error: error.message };
 
+    revalidatePath("/");
     revalidatePath("/admin/treatments");
     revalidatePath(`/admin/treatments/${slug}/edit`);
     revalidatePath("/treatments");

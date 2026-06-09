@@ -63,7 +63,8 @@ export default async function AdminTreatmentsPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[#1A1917] mb-1">Treatments</h1>
         <p className="text-sm text-[#6B6966]">
-          Toggle visibility, update pricing, and edit treatment details.
+          Toggle visibility, update pricing, edit treatment details, and upload grid card images for the
+          homepage and /treatments page.
         </p>
       </div>
 

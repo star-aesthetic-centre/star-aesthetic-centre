@@ -1,15 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { calculateStarlights, formatStarlights } from "@/lib/utils/rewards";
-import { TREATMENT_CARDS, treatmentCategoryLabel } from "@/lib/treatment-cards";
+import { treatmentCategoryLabel, type TreatmentCardItem } from "@/lib/treatment-cards";
 
 interface TreatmentCardGridProps {
+  cards: TreatmentCardItem[];
   showHeader?: boolean;
   /** Use h1 on dedicated /treatments page; h2 when embedded on homepage */
   headingLevel?: "h1" | "h2";
 }
 
 export default function TreatmentCardGrid({
+  cards,
   showHeader = true,
   headingLevel = "h2",
 }: TreatmentCardGridProps) {
@@ -38,7 +40,7 @@ export default function TreatmentCardGrid({
       )}
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {TREATMENT_CARDS.map((t) => (
+        {cards.map((t) => (
           <Link
             key={`${t.category}-${t.slug}`}
             href={`/treatments/${t.category}/${t.slug}`}
@@ -51,6 +53,7 @@ export default function TreatmentCardGrid({
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                unoptimized={t.image.startsWith("http")}
               />
               <div className="absolute inset-x-0 bottom-0 flex translate-y-full items-center justify-center gap-2 bg-[#939EBA] py-3 text-xs font-semibold text-white transition-transform duration-300 group-hover:translate-y-0">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import treatmentsData from "@/lib/data/treatments.json";
 import EditTreatmentClient from "./EditTreatmentClient";
+import { TREATMENT_CARDS } from "@/lib/treatment-cards";
 import {
   mergePricingBreakdown,
   pricingBreakdownFromJson,
@@ -22,6 +23,7 @@ async function getTreatment(slug: string) {
     .select(`
       slug, title, category, is_active, tagline, price_from, duration, downtime,
       meta_title, meta_description, meta_keywords, og_image,
+      card_image, card_image_alt,
       hero_text, what_is, expected_results, downtime_detail, how_works, suitable_for, faqs,
       pricing_breakdown
     `)
@@ -50,6 +52,8 @@ export default async function EditTreatmentPage({ params }: Props) {
 
   // Computed SEO defaults — shown as placeholder values the editor can override
   const displayTitle = treatment.title ?? jsonFallback?.title ?? slug;
+  const cardDefaults = TREATMENT_CARDS.find((c) => c.slug === slug);
+
   const seoDefaults = {
     metaTitle: `${displayTitle} in Durban North | Star Aesthetic Centre`,
     metaDescription: `${displayTitle} at Star Aesthetic Centre, Durban North. ${
@@ -99,6 +103,7 @@ export default async function EditTreatmentPage({ params }: Props) {
         treatment={treatment}
         jsonFallback={jsonFallback}
         seoDefaults={seoDefaults}
+        cardDefaults={cardDefaults ?? null}
         initialPricingSections={mergedPricing?.sections ?? []}
         initialPricingNotes={mergedPricing?.notes?.join("\n") ?? ""}
       />

@@ -2,6 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import TreatmentCardGrid from "@/components/treatments/TreatmentCardGrid";
 import { buildPageMetadata } from "@/lib/seo";
+import { getTreatmentCards } from "@/lib/queries/treatment-cards";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Aesthetic Treatments in Durban North | Star Aesthetic Centre",
@@ -18,7 +21,9 @@ export const metadata: Metadata = buildPageMetadata({
   ],
 });
 
-export default function TreatmentsPage() {
+export default async function TreatmentsPage() {
+  const cards = await getTreatmentCards();
+
   return (
     <div className="min-h-screen bg-[#F7F7F8]">
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -31,7 +36,7 @@ export default function TreatmentsPage() {
           <span className="font-semibold text-[#1A1A1F]">Treatments</span>
         </nav>
 
-        <TreatmentCardGrid headingLevel="h1" />
+        <TreatmentCardGrid cards={cards} headingLevel="h1" />
 
         <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-[#E2E2E6] pt-12 sm:flex-row">
           <p className="max-w-lg text-center text-sm text-[#636374] sm:text-left">

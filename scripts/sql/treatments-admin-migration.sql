@@ -9,7 +9,9 @@ ALTER TABLE public.treatments
   ADD COLUMN IF NOT EXISTS meta_title        text,
   ADD COLUMN IF NOT EXISTS meta_description  text,
   ADD COLUMN IF NOT EXISTS meta_keywords     text,
-  ADD COLUMN IF NOT EXISTS og_image          text;
+  ADD COLUMN IF NOT EXISTS og_image          text,
+  ADD COLUMN IF NOT EXISTS card_image        text,
+  ADD COLUMN IF NOT EXISTS card_image_alt    text;
 
 -- ── Long-form HTML content (edited via Tiptap in admin) ───────────────────
 ALTER TABLE public.treatments
