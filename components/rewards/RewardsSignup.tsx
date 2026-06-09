@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { HoneypotField } from "@/components/security/HoneypotField";
+import { TurnstileWidget } from "@/components/security/TurnstileWidget";
 
 type SignupState =
   | { status: "idle" }
@@ -14,10 +16,19 @@ export function RewardsSignup() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [website, setWebsite] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
   const [state, setState] = useState<SignupState>({ status: "idle" });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+    if (siteKey && !turnstileToken) {
+      setState({ status: "error", message: "Please complete the security check below." });
+      return;
+    }
+
     setState({ status: "loading" });
 
     try {
@@ -29,6 +40,8 @@ export function RewardsSignup() {
           lastName,
           email,
           phone: phone || undefined,
+          turnstileToken: turnstileToken || undefined,
+          website,
         }),
       });
       const data = await res.json();
@@ -89,7 +102,8 @@ export function RewardsSignup() {
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="max-w-lg space-y-4">
+        <form onSubmit={handleSubmit} className="relative max-w-lg space-y-4">
+          <HoneypotField value={website} onChange={setWebsite} />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label
@@ -156,6 +170,12 @@ export function RewardsSignup() {
               className="w-full border border-[#E5E4E0] px-4 py-3 text-sm text-[#1A1917] focus:border-[#C8A882] focus:outline-none"
             />
           </div>
+
+          <TurnstileWidget
+            onToken={setTurnstileToken}
+            onExpire={() => setTurnstileToken("")}
+            className="flex justify-start"
+          />
 
           {state.status === "error" && (
             <p className="border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{state.message}</p>

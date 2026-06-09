@@ -21,6 +21,10 @@ import {
 } from '@/lib/availability';
 import { getAppointmentType } from '@/lib/booking-config';
 import { createLead } from '@/lib/crm/leads';
+import {
+  guardFailureResponse,
+  verifyPublicFormSubmission,
+} from '@/lib/security/public-form-guard';
 
 // ── Clients ────────────────────────────────────────────────────────────────────
 
@@ -41,6 +45,8 @@ interface BookingPayload {
   patientEmail:   string;
   patientPhone:   string;
   notes?:         string;
+  turnstileToken?: string;
+  website?:        string;
 }
 
 // ── Day formatter for emails ───────────────────────────────────────────────────
@@ -68,7 +74,20 @@ export async function POST(req: NextRequest) {
       patientEmail,
       patientPhone,
       notes,
+      turnstileToken,
+      website,
     } = body;
+
+    const guard = await verifyPublicFormSubmission(req, {
+      turnstileToken,
+      website,
+      patientEmail,
+      patientName,
+    });
+    if (!guard.ok) {
+      const fail = guardFailureResponse(guard);
+      return NextResponse.json(fail.body, { status: fail.status });
+    }
 
     // ── Input validation ───────────────────────────────────────────────────────
     if (!treatmentSlug || !date || !timeSlot || !patientName || !patientEmail || !patientPhone) {

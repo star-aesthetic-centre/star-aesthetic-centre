@@ -34,7 +34,8 @@ export default async function ContactPage() {
     const content = await getSitePageContent("contact");
     const { hero, formIntro, doctorCard, contact, hours: hoursRows, testimonials } = content;
     const phoneTel = contact.phone.replace(/\D/g, "");
-    const waUrl = `https://wa.me/27${phoneTel.replace(/^0/, "")}`;
+    const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27601230000").replace(/\D/g, "");
+    const waUrl = `https://wa.me/${whatsappDigits.startsWith("27") ? whatsappDigits : `27${whatsappDigits}`}`;
 
     return (
         <>
@@ -143,10 +144,11 @@ export default async function ContactPage() {
                                 <div className="flex items-center gap-4 mb-4">
                                     <div className="relative h-16 w-16 shrink-0 overflow-hidden border-2 border-[#C8A882]">
                                         <Image
-                                            src="/images/dr-bangalee-portrait.jpg"
+                                            src="/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp"
                                             alt="Dr. Rajeev Bangalee"
                                             fill
                                             className="object-cover"
+                                            sizes="64px"
                                         />
                                     </div>
                                     <div>

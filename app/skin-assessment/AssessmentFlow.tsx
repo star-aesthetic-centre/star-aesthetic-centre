@@ -2,6 +2,8 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+import { HoneypotField } from "@/components/security/HoneypotField";
+import { TurnstileWidget } from "@/components/security/TurnstileWidget";
 import {
     ArrowLeft, ArrowRight, Upload, X, CheckCircle2,
     Star, Loader2, ChevronRight, Camera, SkipForward,
@@ -112,6 +114,9 @@ function OptionCard({
 // ── Main component ─────────────────────────────────────────────────────────
 export default function AssessmentFlow() {
     const [step, setStep] = useState(0);
+    const [website, setWebsite] = useState("");
+    const [turnstileToken, setTurnstileToken] = useState("");
+    const [emailGateError, setEmailGateError] = useState("");
     const [answers, setAnswers] = useState<Answers>(INITIAL);
     const [emailSending, setEmailSending] = useState(false);
     const fileRef = useRef<HTMLInputElement>(null);
@@ -141,9 +146,17 @@ export default function AssessmentFlow() {
 
     const handleEmailGate = async (e: React.FormEvent) => {
         e.preventDefault();
+        setEmailGateError("");
+
+        const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+        if (siteKey && !turnstileToken) {
+            setEmailGateError("Please complete the security check below.");
+            return;
+        }
+
         setEmailSending(true);
         try {
-            await fetch("/api/leads", {
+            const res = await fetch("/api/leads", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -151,6 +164,8 @@ export default function AssessmentFlow() {
                     name: answers.name,
                     email: answers.email,
                     phone: answers.phone,
+                    turnstileToken: turnstileToken || undefined,
+                    website,
                     answers: {
                         concerns: answers.concerns,
                         age: answers.age,
@@ -159,8 +174,16 @@ export default function AssessmentFlow() {
                     },
                 }),
             });
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                setEmailGateError(data.error ?? "Could not save your details. Please try again.");
+                setEmailSending(false);
+                return;
+            }
         } catch {
-            /* still show results if save fails */
+            setEmailGateError("Network error. Please try again.");
+            setEmailSending(false);
+            return;
         }
         setEmailSending(false);
         next();
@@ -596,7 +619,8 @@ export default function AssessmentFlow() {
                         <p className="text-sm text-[#6B6966] mb-8">
                             Enter your details below to unlock your personalised Skin Health Score and receive your recommendations.
                         </p>
-                        <form onSubmit={handleEmailGate} className="space-y-4 text-left">
+                        <form onSubmit={handleEmailGate} className="relative space-y-4 text-left">
+                            <HoneypotField value={website} onChange={setWebsite} />
                             <div>
                                 <label className="block text-xs font-semibold uppercase tracking-widest text-[#6B6966] mb-1.5">
                                     Your Name <span className="text-[#C8A882]">*</span>
@@ -635,6 +659,14 @@ export default function AssessmentFlow() {
                                     className="w-full border border-[#E5E4E0] bg-[#F8F8F7] px-4 py-3 text-sm focus:border-[#939EBA] focus:outline-none"
                                 />
                             </div>
+                            <TurnstileWidget
+                                onToken={setTurnstileToken}
+                                onExpire={() => setTurnstileToken("")}
+                                className="flex justify-center"
+                            />
+                            {emailGateError && (
+                                <p className="text-center text-sm text-red-700">{emailGateError}</p>
+                            )}
                             <button
                                 type="submit"
                                 disabled={emailSending}

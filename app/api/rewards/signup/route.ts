@@ -1,18 +1,36 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
+import {
+  guardFailureResponse,
+  verifyPublicFormSubmission,
+} from "@/lib/security/public-form-guard";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   let body: {
     email?: string;
     firstName?: string;
     lastName?: string;
     phone?: string;
+    turnstileToken?: string;
+    website?: string;
   };
 
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
+
+  const guard = await verifyPublicFormSubmission(req, {
+    turnstileToken: body.turnstileToken,
+    website: body.website,
+    email: body.email,
+    firstName: body.firstName,
+    lastName: body.lastName,
+  });
+  if (!guard.ok) {
+    const fail = guardFailureResponse(guard);
+    return NextResponse.json(fail.body, { status: fail.status });
   }
 
   const email = body.email?.toLowerCase().trim();

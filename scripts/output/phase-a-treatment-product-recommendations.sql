@@ -502,44 +502,16 @@ values
 
 
 -- ══════════════════════════════════════════════════════════
--- BOTOX® WRINKLE TREATMENT
--- Zero downtime — focus on maintenance and enhancing results
+-- ANTI-WRINKLE TREATMENT (formerly botox slug)
+-- Home care: SkinCeuticals P-TIOX only
 -- ══════════════════════════════════════════════════════════
 
-  ('botox',
-   (select id from public.products where slug = 'mesoestetic-aox-ferulic'),
-   'maintenance', 'Daily morning antioxidant — use continuously',
+  ('anti-wrinkle-treatment',
+   (select id from public.products where slug = 'skinceuticals-ptiox'),
+   'maintenance', 'Home care between appointments — daily use',
    true,
-   'Botox treats the visible signs of ageing; Aox Ferulic prevents the environmental damage that causes them. This is the most important maintenance product after any anti-ageing treatment — protecting the collagen you still have while Botox smooths the lines that have already formed.',
+   'P-TIOX softens expression lines topically and helps prolong your Anti-Wrinkle Treatment results between appointments. Dr. Bangalee recommends it for patients extending injectable results at home, or those not yet ready for injectables.',
    1),
-
-  ('botox',
-   (select id from public.products where slug = 'mesoestetic-ha-densimatrix'),
-   'maintenance', 'Daily evening serum to complement Botox results',
-   true,
-   'HA Densimatrix multi-level hyaluronic acid works synergistically with Botox — Botox relaxes the muscles that cause lines; HA Densimatrix plumps and volumises the skin from within. Patients using both typically need less Botox volume over time.',
-   2),
-
-  ('botox',
-   (select id from public.products where slug = 'mesoestetic-age-element-brightening-eye-cream'),
-   'maintenance', 'Essential for patients treating eye area Botox',
-   false,
-   'Specifically recommended for patients who have crow feet or forehead Botox. The AGE Element Brightening Eye Cream addresses the thin periocular skin between Botox appointments — puffiness, dark circles and fine lines that Botox alone does not treat.',
-   3),
-
-  ('botox',
-   (select id from public.products where slug = 'mesoestetic-mesoprotech-melan-130-pigment-control-spf50'),
-   'maintenance', 'Daily SPF — essential year-round',
-   true,
-   'UV protection is non-negotiable for any anti-ageing patient. UV radiation is the single biggest driver of skin ageing between appointments — wearing SPF50+ daily directly extends the results of your Botox treatment.',
-   4),
-
-  ('botox',
-   (select id from public.products where slug = 'mesoestetic-hydratonic-mist'),
-   'post-treatment', 'Use on the day of treatment if needed',
-   false,
-   'The cooling, hydrating mist provides comfort if the injection sites feel tender immediately after the treatment session. Optional — most patients require nothing more after Botox.',
-   5),
 
 
 -- ══════════════════════════════════════════════════════════

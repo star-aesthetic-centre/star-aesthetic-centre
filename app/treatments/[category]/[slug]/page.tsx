@@ -587,7 +587,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                                 </span>
                                             </summary>
                                             <div
-                                                className="px-6 pb-6 text-[#636374] leading-relaxed prose prose-sm max-w-none"
+                                                className="px-6 pb-6 text-[#636374] leading-relaxed prose prose-sm max-w-none prose-ul:my-3 prose-ul:list-disc prose-ul:pl-5 prose-li:my-2"
                                                 dangerouslySetInnerHTML={{
                                                     // renderWithLinks handles both HTML (Tiptap) and markdown (**bold**)
                                                     __html: renderWithLinks(faq.answer, usedSlugs) ?? faq.answer

@@ -1,5 +1,12 @@
 /** Cloudflare Turnstile server-side verification */
 
+export function isTurnstileConfigured(): boolean {
+  return Boolean(
+    process.env.TURNSTILE_SECRET_KEY?.trim() &&
+      process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim()
+  );
+}
+
 export async function verifyTurnstileToken(
   token: string | undefined | null,
   remoteIp?: string | null
@@ -7,11 +14,10 @@ export async function verifyTurnstileToken(
   const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
 
   if (!secret) {
-    if (process.env.NODE_ENV === "development") {
-      console.warn("[turnstile] TURNSTILE_SECRET_KEY missing — allowing in development only");
-      return { ok: true };
-    }
-    return { ok: false, error: "Security verification is not configured." };
+    console.warn(
+      "[turnstile] TURNSTILE_SECRET_KEY not set — captcha skipped. Add Turnstile keys for stronger spam protection."
+    );
+    return { ok: true };
   }
 
   if (!token?.trim()) {

@@ -1,9 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createLead, contactReasonToInterest } from "@/lib/crm/leads";
+import {
+  guardFailureResponse,
+  verifyPublicFormSubmission,
+} from "@/lib/security/public-form-guard";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+
+    const guard = await verifyPublicFormSubmission(req, {
+      turnstileToken: body.turnstileToken,
+      website: body.website,
+      email: body.email,
+      name: body.name,
+    });
+    if (!guard.ok) {
+      const fail = guardFailureResponse(guard);
+      return NextResponse.json(fail.body, { status: fail.status });
+    }
 
     if (body.type === "contact") {
       const { name, email, phone, reason, message } = body;

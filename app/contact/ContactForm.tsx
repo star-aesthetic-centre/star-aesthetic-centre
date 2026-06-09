@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Send, CheckCircle2, Loader2 } from "lucide-react";
+import { HoneypotField } from "@/components/security/HoneypotField";
+import { TurnstileWidget } from "@/components/security/TurnstileWidget";
 
 const REASONS = [
     "Book a Consultation",
@@ -18,8 +20,11 @@ export default function ContactForm() {
         phone: "",
         reason: "",
         message: "",
+        website: "",
     });
+    const [turnstileToken, setTurnstileToken] = useState("");
     const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -29,6 +34,15 @@ export default function ContactForm() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setErrorMessage("");
+
+        const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+        if (siteKey && !turnstileToken) {
+            setErrorMessage("Please complete the security check below.");
+            setStatus("error");
+            return;
+        }
+
         setStatus("sending");
         const res = await fetch("/api/leads", {
             method: "POST",
@@ -40,10 +54,14 @@ export default function ContactForm() {
                 phone: form.phone,
                 reason: form.reason,
                 message: form.message,
+                turnstileToken: turnstileToken || undefined,
+                website: form.website,
             }),
         });
+        const data = await res.json().catch(() => ({}));
         if (!res.ok) {
             setStatus("error");
+            setErrorMessage(data.error ?? "Something went wrong. Please try again.");
             return;
         }
         setStatus("sent");
@@ -64,7 +82,7 @@ export default function ContactForm() {
                     </p>
                 </div>
                 <button
-                    onClick={() => { setStatus("idle"); setForm({ name: "", email: "", phone: "", reason: "", message: "" }); }}
+                    onClick={() => { setStatus("idle"); setForm({ name: "", email: "", phone: "", reason: "", message: "", website: "" }); setTurnstileToken(""); }}
                     className="text-xs text-[#939EBA] underline underline-offset-2 hover:text-[#0F2647] transition-colors"
                 >
                     Send another message
@@ -74,7 +92,9 @@ export default function ContactForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="relative space-y-4">
+            <HoneypotField value={form.website} onChange={(website) => setForm((prev) => ({ ...prev, website }))} />
+
             {/* Name */}
             <div>
                 <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-widest text-[#6B6966] mb-1.5">
@@ -159,6 +179,16 @@ export default function ContactForm() {
                     className="w-full border border-[#E5E4E0] bg-white px-4 py-3 text-sm text-[#1A1917] placeholder:text-[#A9A8A4] focus:border-[#939EBA] focus:outline-none transition-colors resize-none"
                 />
             </div>
+
+            <TurnstileWidget
+                onToken={setTurnstileToken}
+                onExpire={() => setTurnstileToken("")}
+                className="flex justify-center"
+            />
+
+            {status === "error" && errorMessage && (
+                <p className="text-center text-sm text-red-700">{errorMessage}</p>
+            )}
 
             {/* Submit */}
             <div className="pt-1">

@@ -4,10 +4,16 @@ import {
   type TreatmentCardItem,
 } from "@/lib/treatment-cards";
 
-/** First Rand amount in strings like "R 850 – R 2,500" or "From R 1,900". */
+/**
+ * Numeric "from" price for treatment grid cards.
+ * Detail pages show the full price_from string (e.g. per-unit breakdowns).
+ * Per-unit strings must not use the unit rate — use the coded card minimum instead.
+ */
 function parsePriceFromZar(value: string | null | undefined, fallback: number): number {
   if (!value) return fallback;
-  const m = value.replace(/,/g, "").match(/(\d+(?:\.\d+)?)/);
+  const normalized = value.replace(/,/g, "");
+  if (/per\s+unit/i.test(normalized)) return fallback;
+  const m = normalized.match(/(\d+(?:\.\d+)?)/);
   return m ? Math.round(Number(m[1])) : fallback;
 }
 

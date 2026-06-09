@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, Check, Loader2, CalendarDays, Clock, User, Stethoscope } from 'lucide-react';
+import { HoneypotField } from '@/components/security/HoneypotField';
+import { TurnstileWidget } from '@/components/security/TurnstileWidget';
 import { APPOINTMENT_TYPES, appointmentsByCategory, AppointmentType } from '@/lib/booking-config';
 import {
   formatDateStr,
@@ -428,6 +430,7 @@ interface ContactState {
   email: string;
   phone: string;
   notes: string;
+  website: string;
 }
 
 function Step4Contact({
@@ -439,6 +442,8 @@ function Step4Contact({
   onSubmit,
   submitting,
   submitError,
+  turnstileToken,
+  onTurnstileToken,
 }: {
   apt:         AppointmentType;
   date:        string;
@@ -448,6 +453,8 @@ function Step4Contact({
   onSubmit:    () => void;
   submitting:  boolean;
   submitError: string | null;
+  turnstileToken: string;
+  onTurnstileToken: (token: string) => void;
 }) {
   const dateDisplay = new Date(date + 'T00:00:00').toLocaleDateString('en-ZA', {
     weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
@@ -491,7 +498,11 @@ function Step4Contact({
       </div>
 
       {/* Form */}
-      <div className="space-y-4">
+      <div className="relative space-y-4">
+        <HoneypotField
+          value={contact.website}
+          onChange={(website) => onChange('website', website)}
+        />
         <div>
           <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#1A1917]">
             Full Name <span className="text-[#C8A882]">*</span>
@@ -543,6 +554,12 @@ function Step4Contact({
         </div>
       </div>
 
+      <TurnstileWidget
+        onToken={onTurnstileToken}
+        onExpire={() => onTurnstileToken('')}
+        className="mt-4 flex justify-center"
+      />
+
       {submitError && (
         <div className="mt-4 rounded-none border border-red-200 bg-red-50 p-4 text-sm text-red-700">
           {submitError}
@@ -551,7 +568,7 @@ function Step4Contact({
 
       <button
         onClick={onSubmit}
-        disabled={!valid || submitting}
+        disabled={!valid || submitting || (!!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() && !turnstileToken)}
         className="mt-6 flex w-full items-center justify-center gap-2 bg-[#0F2647] px-8 py-4 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-[#1B3D6E] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {submitting ? (
@@ -682,7 +699,8 @@ export default function BookingWizard() {
   const [apt,  setApt]              = useState<AppointmentType | null>(null);
   const [date, setDate]             = useState<string | null>(null);
   const [slot, setSlot]             = useState<string | null>(null);
-  const [contact, setContact]       = useState<ContactState>({ name: '', email: '', phone: '', notes: '' });
+  const [contact, setContact]       = useState<ContactState>({ name: '', email: '', phone: '', notes: '', website: '' });
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [reference, setReference]   = useState<string | null>(null);
@@ -706,6 +724,13 @@ export default function BookingWizard() {
 
   async function handleSubmit() {
     if (!apt || !date || !slot) return;
+
+    const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+    if (siteKey && !turnstileToken) {
+      setSubmitError('Please complete the security check below.');
+      return;
+    }
+
     setSubmitting(true);
     setSubmitError(null);
     try {
@@ -720,6 +745,8 @@ export default function BookingWizard() {
           patientEmail:  contact.email,
           patientPhone:  contact.phone,
           notes:         contact.notes,
+          turnstileToken: turnstileToken || undefined,
+          website:       contact.website,
         }),
       });
       const data = await res.json();
@@ -818,6 +845,8 @@ export default function BookingWizard() {
             onSubmit={handleSubmit}
             submitting={submitting}
             submitError={submitError}
+            turnstileToken={turnstileToken}
+            onTurnstileToken={setTurnstileToken}
           />
         )}
       </div>

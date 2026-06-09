@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { GATED_WRITE_API_PREFIXES, hasPreviewAccess } from "@/lib/security/public-form-guard";
 
 /** Set ALLOW_SEARCH_INDEXING=true in Vercel when the site launches publicly. */
 const allowSearchIndexing = process.env.ALLOW_SEARCH_INDEXING === "true";
@@ -19,6 +20,17 @@ export function middleware(request: NextRequest) {
     const session = request.cookies.get("admin_session");
     if (session?.value !== "authenticated") {
       return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
+  }
+
+  // ── Block public write APIs during preview (bots bypass the HTML login) ──
+  if (
+    SITE_PASSWORD &&
+    request.method === "POST" &&
+    GATED_WRITE_API_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))
+  ) {
+    if (!hasPreviewAccess(request)) {
+      return NextResponse.json({ error: "Preview access required" }, { status: 403 });
     }
   }
 
