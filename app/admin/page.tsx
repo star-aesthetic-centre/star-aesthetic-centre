@@ -377,6 +377,9 @@ export default async function AdminDashboardPage() {
             <Link href="/admin/pages" className="border border-[#E5E4E0] px-3 py-2 hover:border-[#939EBA]">
               Edit site pages
             </Link>
+            <Link href="/admin/future-plans" className="border border-[#E5E4E0] px-3 py-2 hover:border-[#939EBA]">
+              Future plans
+            </Link>
             <Link href="/admin/vouchers" className="border border-[#E5E4E0] px-3 py-2 hover:border-[#939EBA]">
               Gift vouchers
             </Link>

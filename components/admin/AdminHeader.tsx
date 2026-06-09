@@ -15,6 +15,7 @@ const NAV = [
   { href: "/admin/vouchers", label: "Gift Vouchers" },
   { href: "/admin/orders", label: "Orders" },
   { href: "/admin/niki", label: "Niki Calls" },
+  { href: "/admin/future-plans", label: "Future Plans" },
 ];
 
 export default function AdminHeader() {

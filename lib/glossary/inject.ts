@@ -124,25 +124,16 @@ function escapeHtml(s: string): string {
 }
 
 /**
- * Main entry point. Pass any raw HTML — product descriptions, treatment copy,
- * static page content — and get back HTML with glossary anchors injected.
- *
- * If `usedSlugs` is provided, terms already used (e.g. on a previous block of
- * content rendered on the same page) won't be re-linked. The set is mutated
- * so callers can chain multiple HTML blocks on a single page.
+ * Find the first glossary match in tokenized HTML (text nodes only, outside <a>).
+ * Returns updated HTML string when a replacement was made.
  */
-export function injectGlossaryLinks(
-  html: string | null | undefined,
-  options: { usedSlugs?: Set<string> } = {}
-): InjectGlossaryResult {
-  if (!html) return { html: html ?? "", terms: {} };
-
-  const patterns = buildPatterns();
-  const used = options.usedSlugs ?? new Set<string>();
+function injectNextGlossaryLink(
+  html: string,
+  patterns: Pattern[],
+  used: Set<string>
+): { html: string; slug: string | null } {
+  let aDepth = 0;
   const segments = tokenize(html);
-  const lookup: Record<string, InjectedTerm> = {};
-
-  let aDepth = 0; // skip text inside existing <a>...</a>
 
   for (let i = 0; i < segments.length; i++) {
     const seg = segments[i];
@@ -156,29 +147,57 @@ export function injectGlossaryLinks(
 
     if (aDepth > 0) continue;
 
-    let text = seg.content;
     for (const p of patterns) {
       if (used.has(p.slug)) continue;
-      const result = replaceFirst(text, p.match, p.slug);
+      const result = replaceFirst(seg.content, p.match, p.slug);
       if (result.matched) {
-        used.add(p.slug);
-        text = result.text;
-        const termData = ALL_GLOSSARY_TERMS.find((t) => t.slug === p.slug);
-        if (termData) {
-          lookup[p.slug] = {
-            slug: termData.slug,
-            term: termData.term,
-            shortDesc: termData.shortDescription,
-            category: termData.category,
-          };
-        }
+        segments[i] = { type: "text", content: result.text };
+        return { html: segments.map((s) => s.content).join(""), slug: p.slug };
       }
     }
-    segments[i] = { type: "text", content: text };
   }
 
-  return {
-    html: segments.map((s) => s.content).join(""),
-    terms: lookup,
-  };
+  return { html, slug: null };
+}
+
+/**
+ * Main entry point. Pass any raw HTML — product descriptions, treatment copy,
+ * static page content — and get back HTML with glossary anchors injected.
+ *
+ * If `usedSlugs` is provided, terms already used (e.g. on a previous block of
+ * content rendered on the same page) won't be re-linked. The set is mutated
+ * so callers can chain multiple HTML blocks on a single page.
+ *
+ * After each injection the HTML is re-tokenized so later patterns cannot match
+ * inside newly inserted anchor attributes (e.g. "botox" inside slug botox-brand).
+ */
+export function injectGlossaryLinks(
+  html: string | null | undefined,
+  options: { usedSlugs?: Set<string> } = {}
+): InjectGlossaryResult {
+  if (!html) return { html: html ?? "", terms: {} };
+
+  const patterns = buildPatterns();
+  const used = options.usedSlugs ?? new Set<string>();
+  const lookup: Record<string, InjectedTerm> = {};
+  let current = html;
+
+  for (;;) {
+    const { html: next, slug } = injectNextGlossaryLink(current, patterns, used);
+    if (!slug) break;
+
+    current = next;
+    used.add(slug);
+    const termData = ALL_GLOSSARY_TERMS.find((t) => t.slug === slug);
+    if (termData) {
+      lookup[slug] = {
+        slug: termData.slug,
+        term: termData.term,
+        shortDesc: termData.shortDescription,
+        category: termData.category,
+      };
+    }
+  }
+
+  return { html: current, terms: lookup };
 }
