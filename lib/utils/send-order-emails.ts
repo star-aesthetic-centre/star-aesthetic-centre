@@ -3,7 +3,7 @@ import {
   buildAdminOrderEmail,
   buildCustomerOrderEmail,
   ORDER_FROM,
-  ORDER_POP_EMAIL,
+  ORDER_ADMIN_EMAILS,
   type OrderEmailPayload,
 } from "@/lib/utils/order-emails";
 
@@ -26,7 +26,7 @@ export async function sendOrderEmails(payload: OrderEmailPayload): Promise<void>
       }),
       resend.emails.send({
         from: ORDER_FROM,
-        to: ORDER_POP_EMAIL,
+        to: ORDER_ADMIN_EMAILS,
         replyTo: payload.customerEmail,
         subject: `New Shop Order — #${payload.reference} · ${payload.customerName}`,
         html: buildAdminOrderEmail(payload),

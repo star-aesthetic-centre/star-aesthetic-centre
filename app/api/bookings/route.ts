@@ -176,8 +176,9 @@ export async function POST(req: NextRequest) {
     const endDisplay  = formatSlotLabel(`${String(endHour).padStart(2, '0')}:00`);
 
     // Patient confirmation
+    // NOTE: staraesthetic.co.za is NOT a verified Resend sending domain — sends from it fail silently.
     await resend.emails.send({
-      from:    'Star Aesthetic Centre <bookings@staraesthetic.co.za>',
+      from:    'Star Aesthetic Centre <bookings@staraesthetic.site>',
       to:      patientEmail,
       subject: `Booking Confirmed — ${apt.title} | Ref: ${reference}`,
       html:    buildPatientEmail({
@@ -186,10 +187,10 @@ export async function POST(req: NextRequest) {
       }),
     });
 
-    // Nakita alert
+    // Nakita alert — dual-sent: .site is actually monitored, .co.za kept for the official record.
     await resend.emails.send({
-      from:    'Star Aesthetic Bookings <bookings@staraesthetic.co.za>',
-      to:      'info@staraesthetic.co.za',
+      from:    'Star Aesthetic Bookings <bookings@staraesthetic.site>',
+      to:      ['info@staraesthetic.site', 'info@staraesthetic.co.za'],
       subject: `New Booking: ${apt.title} — ${dateDisplay} at ${timeDisplay}`,
       html:    buildNakitaEmail({
         reference, patientName, patientEmail, patientPhone,
@@ -281,7 +282,7 @@ function buildPatientEmail(p: PatientEmailProps): string {
             <p style="margin:0 0 0;color:#6B6966;font-size:14px;line-height:1.7;">
               Please contact us at least 24 hours in advance:<br>
               <a href="tel:+27315731325" style="color:#C8A882;">+27 (0)31 573 1325</a> &nbsp;|&nbsp;
-              <a href="mailto:info@staraesthetic.co.za" style="color:#C8A882;">info@staraesthetic.co.za</a>
+              <a href="mailto:info@staraesthetic.site" style="color:#C8A882;">info@staraesthetic.site</a>
             </p>
           </td>
         </tr>

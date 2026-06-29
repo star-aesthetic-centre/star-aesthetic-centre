@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
     const uniqueRecipients = [...new Set(recipientList.map((r) => r.name))];
 
     await resend.emails.send({
-      from: "Star Aesthetic Centre <bookings@staraesthetic.co.za>",
+      from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
       to: purchaserEmail,
       subject: `Your Gift Voucher Order — ${paymentReference}`,
       html: buildPurchaserEmail({

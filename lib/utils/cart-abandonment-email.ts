@@ -35,7 +35,7 @@ export async function sendCartAbandonmentEmail(opts: {
   `;
 
   const { error } = await resend.emails.send({
-    from: process.env.RESEND_FROM ?? "Star Aesthetic Centre <bookings@staraesthetic.co.za>",
+    from: process.env.RESEND_FROM ?? "Star Aesthetic Centre <bookings@staraesthetic.site>",
     to: opts.to,
     subject: "Your Star Aesthetic Centre cart is saved",
     html,
