@@ -21,6 +21,7 @@ import {
   stripHtml,
 } from "@/lib/seo";
 import { TREATMENT_SLUG_TO_CATEGORY, treatmentPath } from "@/lib/treatment-routes";
+import { TREATMENT_CARDS } from "@/lib/treatment-cards";
 import { injectGlossaryLinks } from "@/lib/glossary/inject";
 import { mergePricingBreakdown, pricingBreakdownFromJson, type PricingBreakdown } from "@/lib/treatment-pricing";
 
@@ -326,7 +327,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     const supabase = createSupabaseAdmin();
     const { data: db } = await supabase
         .from("treatments")
-        .select("title, tagline, price_from, duration, downtime, hero_text, what_is, expected_results, downtime_detail, how_works, suitable_for, faqs, pricing_breakdown")
+        .select("title, tagline, price_from, duration, downtime, hero_text, what_is, expected_results, downtime_detail, how_works, suitable_for, faqs, pricing_breakdown, card_image, card_image_alt")
         .eq("slug", slug)
         .single();
 
@@ -357,6 +358,10 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
         db?.pricing_breakdown,
         pricingBreakdownFromJson(treatment as { pricingBreakdown?: PricingBreakdown })
     );
+
+    const cardDefaults = TREATMENT_CARDS.find((c) => c.slug === slug);
+    const displayCardImage = db?.card_image || cardDefaults?.image || null;
+    const displayCardImageAlt = db?.card_image_alt || cardDefaults?.imageAlt || displayTitle;
 
     const pagePath = treatmentPath(slug);
     const pageUrl = canonicalUrl(pagePath);
@@ -688,25 +693,65 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         {/* Niki Agent Card */}
                         <NikiAgentCard treatmentName={displayTitle} />
 
-                        {/* CTA Box */}
-                        <div className="bg-[#0F2647] p-8 text-white">
-                            <h3 className="font-heading text-2xl font-bold mb-4 text-white">Ready to start?</h3>
-                            <p className="text-[#939EBA] mb-6 pb-6 border-b border-[#1B3D6E] text-sm leading-relaxed">
-                                Book a consultation with Dr. Bangalee to discuss a tailored treatment plan for your specific concerns.
-                            </p>
-                            <a
-                                href="/book"
-                                className="w-full justify-center flex items-center gap-2 bg-white px-8 py-4 text-sm font-semibold text-[#0F2647] transition-colors hover:bg-[#F2F1EF]"
-                            >
-                                Book Your Consultation
-                            </a>
-                        </div>
-
                         {/* Rewards Programme card */}
                         <RewardsCard />
 
                         {/* Gift Vouchers card */}
                         <GiftVoucherCard />
+                    </div>
+                </div>
+            </section>
+
+            {/* ── Bottom Call to Action ── */}
+            <section className="bg-white py-16 lg:py-24 border-t border-[#E2E2E6]">
+                <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                    <div className="bg-[#F7F7F8] p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 shadow-sm">
+                        {/* Treatment image */}
+                        <div className="relative w-full md:w-72 aspect-[4/3] shrink-0 bg-white border border-[#E2E2E6] overflow-hidden">
+                            {displayCardImage ? (
+                                <Image
+                                    src={displayCardImage}
+                                    alt={displayCardImageAlt}
+                                    fill
+                                    unoptimized={displayCardImage.startsWith("http")}
+                                    className="object-cover"
+                                    sizes="(max-width: 768px) 100vw, 288px"
+                                />
+                            ) : (
+                                <div className="flex h-full w-full items-center justify-center">
+                                    <span className="text-xs text-[#939EBA]">{displayTitle}</span>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Copy + CTA */}
+                        <div className="flex-grow text-center md:text-left">
+                            <p className="overline mb-2 text-[#939EBA]">
+                                {category.replace(/-/g, ' ').toUpperCase()}
+                            </p>
+                            <h2 className="font-heading text-2xl md:text-3xl font-bold text-[#1A1A1F] mb-3">
+                                Ready to start your {displayTitle} journey?
+                            </h2>
+                            <p className="text-[#636374] mb-8 max-w-xl mx-auto md:mx-0">
+                                Book a consultation with Dr. Bangalee to discuss a tailored treatment plan built around your specific skin, goals, and budget.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                                <a
+                                    href="/book"
+                                    className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#0F2647] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#1B3D6E]"
+                                >
+                                    Book Your Consultation
+                                </a>
+                                <a
+                                    href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27315731325"}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-full sm:w-auto flex items-center justify-center border border-[#939EBA] px-8 py-4 font-semibold text-[#939EBA] hover:bg-[#EEF0F6] transition-colors"
+                                >
+                                    WhatsApp a Question
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
