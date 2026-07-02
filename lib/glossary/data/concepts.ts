@@ -68,6 +68,226 @@ export const CONCEPT_TERMS: GlossaryTerm[] = [
   },
 
   {
+    slug: "melanin",
+    term: "Melanin",
+    category: "concept",
+    shortDescription:
+      "Melanin is the natural pigment that gives skin, hair, and eyes their colour. It is produced by cells called melanocytes in response to UV exposure, hormones, and inflammation — and overproduction of melanin is what causes hyperpigmentation, sun spots, and melasma.",
+    title: "What is Melanin? How Skin Pigment Works | Star Aesthetic Centre Durban",
+    metaDescription:
+      "Expert guide to melanin: what it is, why darker skin produces more of it, and why melanin overproduction causes hyperpigmentation and melasma. Star Aesthetic Centre, Durban North.",
+    keywords: [
+      "what is melanin",
+      "melanin production skin",
+      "melanin and dark skin south africa",
+      "melanocytes skin pigment",
+      "excess melanin treatment durban",
+      "melanin and melasma",
+    ],
+    heroLine:
+      "Melanin is the pigment behind every skin tone, freckle, and sun spot — and understanding how it's produced is the starting point for understanding almost every pigmentation concern we treat at Star Aesthetic Centre.",
+    sections: [
+      {
+        heading: "What is melanin and where does it come from?",
+        paragraphs: [
+          "Melanin is a natural pigment produced by specialised cells called melanocytes, located in the deepest layer of the epidermis. Every person has roughly the same number of melanocytes regardless of skin tone — the difference in skin colour comes from how much melanin those cells produce and how it is distributed, not how many pigment cells are present.",
+          "There are two main types: eumelanin (brown-black pigment, the dominant type in medium to dark skin) and pheomelanin (red-yellow pigment, more dominant in fair skin and red hair). Most people produce a mix of both, and the ratio is largely genetic.",
+        ],
+      },
+      {
+        heading: "Why melanin production increases — and causes pigmentation",
+        paragraphs: [
+          "Melanocytes are triggered to produce more melanin by several factors: UV radiation (the most significant driver — melanin is the skin's natural defence against sun damage), hormonal changes (oestrogen and progesterone, which is why melasma is linked to pregnancy and the contraceptive pill), inflammation (any injury, breakout, or irritation can trigger localised overproduction), and genetics (Fitzpatrick Type IV–VI skin has naturally more reactive melanocytes).",
+          "When melanocytes are overstimulated in a localised area, they deposit excess melanin faster than it can be evenly distributed — creating a visibly darker patch. This is the underlying mechanism behind sun spots, melasma, and post-inflammatory hyperpigmentation. The type of pigmentation differs, but in every case, the root cause is the same: melanocytes producing too much melanin, too fast, in one spot.",
+        ],
+      },
+      {
+        heading: "Melanin and darker skin tones",
+        paragraphs: [
+          "Darker skin (Fitzpatrick Type IV–VI) contains more active, more reactive melanocytes than fairer skin. This provides genuine natural benefits — greater inherent UV protection and a lower (though not zero) skin cancer risk — but it also means darker skin responds more dramatically to any trigger. The same breakout, sunburn, or aggressive skincare product that leaves faint marks on fair skin can leave pronounced, longer-lasting pigmentation on darker skin.",
+          "This is why treatment for darker skin tones must be approached differently — gentler introduction of active ingredients, careful peel selection, and consistent visible-light-filtering SPF are essential to avoid triggering the very pigmentation response the treatment is meant to correct.",
+        ],
+      },
+    ],
+    clinicRelevance:
+      "Every pigmentation treatment at Star Aesthetic Centre — from Cosmelan® to Melan Tran3x home care to Heliocare 360° SPF — works by targeting some part of the melanin production pathway: suppressing melanocyte overactivity, breaking down existing pigment, or preventing the UV and visible-light triggers that switch melanin production on in the first place. Understanding melanin is the foundation of Dr. Bangalee's approach to every pigmentation consultation, and of the guidance Niki gives during a voice skin assessment.",
+    faq: [
+      {
+        q: "Does darker skin have more melanocytes than lighter skin?",
+        a: "No — the number of melanocytes is broadly similar across skin tones. The difference is how active those cells are and how much melanin each one produces. Darker skin's melanocytes are more reactive and produce more melanin per cell, which is what creates a deeper natural skin tone and a stronger (but not complete) natural defence against UV.",
+      },
+      {
+        q: "Can you reduce melanin permanently?",
+        a: "No, and this isn't the goal of pigmentation treatment. Melanin production is a normal, essential biological process — the aim of treatment is to correct localised overproduction (dark patches, melasma, sun spots) and prevent it recurring, not to permanently suppress melanin across the skin. Melanocytes remain active for life and will always respond to UV, hormones, and inflammation.",
+      },
+      {
+        q: "Why does my pigmentation get darker in summer?",
+        a: "UV radiation directly stimulates melanocytes to produce more melanin — it's the primary trigger for melanin overproduction. Existing pigmented patches such as melasma or sun spots will darken further with unprotected sun exposure, which is why daily, year-round SPF (not just in summer) is essential to any pigmentation treatment plan.",
+      },
+    ],
+    relatedTerms: ["hyperpigmentation", "melasma", "fitzpatrick-scale", "spf"],
+  },
+
+  {
+    slug: "melanocytes",
+    term: "Melanocytes",
+    category: "concept",
+    shortDescription:
+      "Melanocytes are the specialised cells in the skin that produce melanin, the pigment responsible for skin, hair, and eye colour. Located in the deepest layer of the epidermis, they respond to UV exposure, hormones, and inflammation by producing more or less melanin.",
+    title: "What Are Melanocytes? The Cells Behind Skin Pigmentation | Star Aesthetic Centre Durban",
+    metaDescription:
+      "Learn what melanocytes are, how they produce melanin, and why they become overactive in melasma and hyperpigmentation. Star Aesthetic Centre, Durban North.",
+    keywords: [
+      "melanocytes explained",
+      "melanocyte skin cells",
+      "melanocytes and pigmentation",
+      "overactive melanocytes treatment durban",
+      "melanocytes dark skin south africa",
+    ],
+    heroLine:
+      "Melanocytes are the pigment factories of the skin — specialised cells that, when triggered too often or too intensely, are directly responsible for the sun spots, melasma, and dark marks we treat at Star Aesthetic Centre.",
+    sections: [
+      {
+        heading: "What are melanocytes?",
+        paragraphs: [
+          "Melanocytes are dendritic (branch-shaped) cells located in the basal layer — the deepest layer of the epidermis. Each melanocyte connects to roughly 30–40 neighbouring skin cells, distributing the melanin it produces throughout the surrounding skin via small packages called melanosomes. This is how an even skin tone is normally maintained.",
+          "Every person has a broadly similar number of melanocytes, regardless of skin tone. What differs between individuals — and what determines natural skin colour — is how active those melanocytes are, how much melanin each one produces, and how that melanin is packaged and distributed.",
+        ],
+      },
+      {
+        heading: "What makes melanocytes overactive?",
+        paragraphs: [
+          "Melanocytes respond to several triggers: UV radiation is the strongest and most common; hormonal shifts such as pregnancy, the contraceptive pill, or HRT can stimulate melanocytes broadly across the face, producing melasma; inflammation from acne, injury, or aggressive skincare stimulates melanocytes locally at the site of the trauma, producing post-inflammatory hyperpigmentation; and genetics determines baseline melanocyte reactivity, which is why Fitzpatrick Type IV–VI skin tends to respond more dramatically to the same triggers than fairer skin.",
+          "When melanocytes are overstimulated in a specific area, they produce and deposit melanin faster than the surrounding skin, creating a visibly darker patch. Pigmentation treatment works by calming this overactivity and — critically — reducing future triggers, particularly UV exposure.",
+        ],
+      },
+    ],
+    clinicRelevance:
+      "Understanding melanocyte behaviour is central to how Dr. Bangalee assesses and treats every pigmentation case at Star Aesthetic Centre. Identifying which trigger is driving melanocyte overactivity — UV, hormonal, or inflammatory — determines whether the most appropriate treatment is a Cosmelan® programme, targeted home-care actives, or addressing an underlying hormonal cause alongside a dermatologically-guided skincare plan.",
+    faq: [
+      {
+        q: "Can melanocytes be permanently switched off?",
+        a: "No, and this isn't a treatment goal. Melanocytes are a normal, essential part of skin biology — they protect against UV damage and give skin its natural colour. Pigmentation treatment aims to calm localised overactivity and prevent recurrence, not eliminate melanocyte function.",
+      },
+      {
+        q: "Why do some areas of my face pigment more than others?",
+        a: "Melanocyte density and reactivity vary slightly across the face, and different areas receive different amounts of UV exposure, friction, and hormonal sensitivity — the cheeks, forehead, and upper lip (classic melasma zones) are particularly hormonally reactive, which is why melasma has such a characteristic, symmetrical pattern.",
+      },
+      {
+        q: "Do melanocytes become more active with age?",
+        a: "Not uniformly — but cumulative UV exposure over a lifetime means melanocytes in sun-exposed areas have been triggered repeatedly for decades, which is why sun spots (solar lentigines) become more common with age. This is a separate mechanism to melasma, which is primarily hormonally driven and can appear at any adult age.",
+      },
+    ],
+    relatedTerms: ["melanin", "hyperpigmentation", "melasma", "fitzpatrick-scale"],
+  },
+
+  {
+    slug: "tyrosinase-inhibitor",
+    term: "Tyrosinase Inhibitor",
+    category: "concept",
+    matchTerms: ["tyrosinase inhibitor", "tyrosinase inhibitors", "tyrosinase"],
+    shortDescription:
+      "A tyrosinase inhibitor is a skincare ingredient that slows melanin production by blocking tyrosinase, the key enzyme melanocytes use to make pigment. Azelaic acid, kojic acid, tranexamic acid, niacinamide, and vitamin C are common tyrosinase inhibitors used in pigmentation treatment.",
+    title: "What is a Tyrosinase Inhibitor? How Brightening Ingredients Work | Star Aesthetic Centre",
+    metaDescription:
+      "Learn what a tyrosinase inhibitor is and how ingredients like azelaic acid, kojic acid, tranexamic acid, and niacinamide reduce pigmentation. Star Aesthetic Centre, Durban North.",
+    keywords: [
+      "tyrosinase inhibitor explained",
+      "what is tyrosinase",
+      "brightening ingredients pigmentation",
+      "azelaic acid vs kojic acid",
+      "melanin production ingredients south africa",
+    ],
+    heroLine:
+      "Tyrosinase inhibitors are the working core of almost every pigmentation-brightening product we prescribe — a category of ingredients that interrupt melanin production at its source rather than simply removing pigment after it has already formed.",
+    sections: [
+      {
+        heading: "What does tyrosinase do?",
+        paragraphs: [
+          "Tyrosinase is the key enzyme melanocytes use to convert the amino acid tyrosine into melanin, through a multi-step chemical process. It is the rate-limiting step of melanin production — meaning if tyrosinase activity is reduced, melanin production slows down correspondingly. This makes tyrosinase the primary target for almost every brightening and depigmenting ingredient in modern skincare.",
+          "A tyrosinase inhibitor works by binding to or interfering with this enzyme, reducing the rate at which melanocytes can manufacture new pigment. Importantly, this addresses future pigment production — it does not immediately remove pigment that has already formed, which is why tyrosinase inhibitors are always combined with exfoliating or peeling treatments for existing dark patches.",
+        ],
+      },
+      {
+        heading: "Common tyrosinase inhibitors",
+        paragraphs: [
+          "Azelaic acid: a well-tolerated, naturally derived acid effective at inhibiting tyrosinase while also having anti-inflammatory and antibacterial properties, making it useful for pigmentation linked to acne. Kojic acid: derived from fungi, one of the more potent tyrosinase inhibitors, though it can be irritating at higher concentrations for sensitive skin.",
+          "Tranexamic acid: originally a medical treatment to reduce bleeding, now used topically for melasma specifically — targeting a blood-vessel-related inflammatory pathway linked to UV-triggered pigmentation, not tyrosinase directly. Niacinamide (vitamin B3): a gentle, well-tolerated option that also reduces the transfer of melanin from melanocytes to surrounding skin cells. Vitamin C: an antioxidant that inhibits tyrosinase and also has independent brightening effects.",
+        ],
+      },
+      {
+        heading: "Why tyrosinase inhibitors are only part of the picture",
+        paragraphs: [
+          "No tyrosinase inhibitor works effectively without daily SPF. Since UV exposure is the primary trigger for tyrosinase activation, using a brightening product without consistent sun protection means new melanin production continues to outpace the treatment. This is why every pigmentation protocol at Star Aesthetic Centre pairs a tyrosinase-inhibiting home-care routine with mandatory daily Heliocare 360° SPF 50+.",
+        ],
+      },
+    ],
+    clinicRelevance:
+      "Dr. Bangalee selects a combination of tyrosinase inhibitors tailored to each patient's pigmentation type, sensitivity, and Fitzpatrick skin type — often as part of the melan tran3x home-care protocol prescribed alongside professional in-clinic treatment. Understanding this mechanism is also core to how Niki explains pigmentation treatment during a voice skin assessment.",
+    faq: [
+      {
+        q: "Are tyrosinase inhibitors the same as exfoliants?",
+        a: "No. Tyrosinase inhibitors slow future melanin production; exfoliants (glycolic acid, retinol, chemical peels) remove pigment that has already formed and reached the skin's surface. An effective pigmentation programme combines both — a tyrosinase inhibitor to prevent new pigment, and an exfoliant or peel to remove existing pigment.",
+      },
+      {
+        q: "How long do tyrosinase inhibitors take to work?",
+        a: "Most show initial improvement within 4–8 weeks of consistent use, with fuller results over 3–6 months as part of a complete pigmentation programme. Because they work by slowing future pigment production, results build gradually rather than appearing immediately.",
+      },
+    ],
+    relatedTerms: ["melanin", "melasma", "hyperpigmentation", "azelaic-acid", "niacinamide"],
+  },
+
+  {
+    slug: "woods-lamp",
+    term: "Wood's Lamp",
+    category: "concept",
+    matchTerms: ["Wood's lamp", "Woods lamp", "Wood's lamp examination"],
+    shortDescription:
+      "A Wood's lamp is a handheld ultraviolet light device used during a skin consultation to reveal pigmentation depth and other skin changes invisible to the naked eye under normal light — helping guide an accurate diagnosis and treatment plan.",
+    title: "What is a Wood's Lamp? UV Skin Examination Explained | Star Aesthetic Centre",
+    metaDescription:
+      "Learn what a Wood's lamp is and how this UV light examination helps diagnose pigmentation depth and skin conditions at consultation. Star Aesthetic Centre, Durban North.",
+    keywords: [
+      "Wood's lamp examination",
+      "UV light skin diagnosis",
+      "pigmentation assessment durban",
+      "Wood's lamp melasma",
+      "skin consultation south africa",
+    ],
+    heroLine:
+      "A Wood's lamp is a simple but revealing diagnostic tool — a handheld ultraviolet light that shows a practitioner details about your skin's pigmentation that are completely invisible under normal room lighting.",
+    sections: [
+      {
+        heading: "How a Wood's lamp works",
+        paragraphs: [
+          "A Wood's lamp emits long-wave ultraviolet A (UVA) light, typically around 365nm, through a filtered glass lens. When held close to the skin in a darkened room, it causes different skin structures and pigment to fluoresce (glow) in characteristic patterns that aren't visible under ordinary light.",
+          "For pigmentation specifically, a Wood's lamp helps distinguish between epidermal pigmentation (in the upper skin layer, which fluoresces more distinctly and tends to respond well to topical treatment) and dermal pigmentation (deeper in the skin, which shows less contrast under the lamp and generally requires a more intensive treatment approach).",
+        ],
+      },
+      {
+        heading: "What a Wood's lamp examination is used for",
+        paragraphs: [
+          "Beyond pigmentation depth assessment, a Wood's lamp can help identify certain fungal skin infections and pigment or texture irregularities not otherwise visible — making it a useful general diagnostic tool during a skin consultation, not only for pigmentation cases.",
+          "The examination itself is quick, painless, and non-invasive — it takes only a few minutes as part of a broader consultation. It does not replace clinical judgement; rather, it adds useful information that helps guide an accurate diagnosis and appropriate treatment plan.",
+        ],
+      },
+    ],
+    clinicRelevance:
+      "Dr. Bangalee uses Wood's lamp examination, where appropriate, as part of a comprehensive pigmentation assessment at Star Aesthetic Centre — helping to identify the type and depth of pigmentation before recommending a personalised treatment programme, alongside a full medical history and visual examination.",
+    faq: [
+      {
+        q: "Does a Wood's lamp examination hurt?",
+        a: "No — it is completely painless and non-invasive. The lamp is simply held a short distance from the skin in a dimly lit room for a few minutes while the practitioner observes the fluorescence pattern.",
+      },
+      {
+        q: "Can a Wood's lamp diagnose melasma?",
+        a: "It can help assess the depth and distribution of pigmentation, which supports the diagnosis and informs which treatment approach is likely to be most effective, but it is used alongside — not instead of — a full clinical assessment and medical history.",
+      },
+    ],
+    relatedTerms: ["melasma", "hyperpigmentation", "melanin", "fitzpatrick-scale"],
+  },
+
+  {
     slug: "fitzpatrick-scale",
     term: "Fitzpatrick Scale",
     category: "concept",

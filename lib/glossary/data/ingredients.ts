@@ -393,6 +393,113 @@ export const INGREDIENT_TERMS: GlossaryTerm[] = [
   },
 
   {
+    slug: "tranexamic-acid",
+    term: "Tranexamic Acid",
+    category: "ingredient",
+    matchTerms: ["tranexamic acid", "tranexamic", "TXA"],
+    shortDescription:
+      "Tranexamic acid is a brightening ingredient particularly effective for melasma. Unlike most brightening actives, it targets a blood-vessel-related inflammatory pathway that drives melasma, not just melanin production directly.",
+    title: "What is Tranexamic Acid? The Melasma Treatment Ingredient | Star Aesthetic Centre",
+    metaDescription:
+      "Learn how tranexamic acid treats melasma by targeting inflammation and blood vessel activity, not just melanin. Used in Melan Tran3x at Star Aesthetic Centre, Durban North.",
+    keywords: [
+      "tranexamic acid melasma",
+      "tranexamic acid skincare",
+      "Melan Tran3x durban",
+      "tranexamic acid vs hydroquinone",
+      "melasma treatment ingredient south africa",
+    ],
+    heroLine:
+      "Tranexamic acid stands apart from most brightening ingredients — instead of only slowing melanin production, it interrupts a separate inflammatory pathway specific to melasma, which is why it has become one of the most valuable tools for this notoriously stubborn condition.",
+    sections: [
+      {
+        heading: "What is tranexamic acid?",
+        paragraphs: [
+          "Tranexamic acid was originally developed as a medical treatment to reduce bleeding, working by inhibiting an enzyme system (plasmin) involved in blood clotting. Dermatologists later discovered that the same plasmin pathway also plays a role in melasma — UV exposure activates plasmin activity in skin, which in turn stimulates melanocytes and promotes blood vessel changes seen in melasma-affected skin. Blocking this pathway helps calm melasma at a mechanism most other brightening ingredients don't address.",
+          "It is available in topical serums and creams, and in some cases as an oral tablet prescribed and monitored by a doctor. At Star Aesthetic Centre, tranexamic acid is used topically as the active ingredient in the melan tran3x home-care range prescribed alongside professional pigmentation treatment.",
+        ],
+      },
+      {
+        heading: "Why tranexamic acid is particularly effective for melasma",
+        paragraphs: [
+          "Because melasma has a hormonal and vascular (blood vessel) component that other tyrosinase inhibitors don't directly address, tranexamic acid is often combined with — rather than used instead of — ingredients like kojic acid, niacinamide, or azelaic acid. This multi-pathway approach is why the melan tran3x range combines tranexamic acid with several complementary actives rather than relying on it alone.",
+          "Clinical evidence shows tranexamic acid is generally well-tolerated with a lower irritation profile than stronger actives such as hydroquinone, making it suitable for longer-term maintenance use — an important consideration given that melasma is a chronic condition requiring ongoing management rather than a short course of treatment.",
+        ],
+      },
+    ],
+    clinicRelevance:
+      "Tranexamic acid, via the melan tran3x range, is a core component of the home-care protocol Dr. Bangalee prescribes for melasma at Star Aesthetic Centre — typically paired with daily Heliocare 360° SPF and, where appropriate, professional in-clinic treatment such as Cosmelan®. It is chosen for its unique action on the vascular and inflammatory drivers of melasma that purely melanin-focused ingredients do not address.",
+    faq: [
+      {
+        q: "Is tranexamic acid safe to use long-term?",
+        a: "Topical tranexamic acid is generally well-tolerated for ongoing use, which matters because melasma requires long-term maintenance rather than a short course of treatment. As with any active ingredient, Dr. Bangalee tailors the concentration and frequency to your skin's response.",
+      },
+      {
+        q: "Can I use tranexamic acid during pregnancy?",
+        a: "Topical tranexamic acid use during pregnancy should be discussed directly with Dr. Bangalee. Oral tranexamic acid is not used during pregnancy. Safe pregnancy-appropriate pigmentation options are discussed at consultation.",
+      },
+      {
+        q: "What's the difference between tranexamic acid and hydroquinone?",
+        a: "Hydroquinone works by directly inhibiting tyrosinase and is one of the most potent depigmenting ingredients available, but carries a higher risk of irritation and, with long-term or unsupervised use, a rare condition called ochronosis (paradoxical darkening). Tranexamic acid works through a different pathway, is generally gentler, and is well-suited to long-term maintenance — the two are sometimes used in combination under medical supervision for more resistant melasma.",
+      },
+    ],
+    relatedTerms: ["melasma", "tyrosinase-inhibitor", "hyperpigmentation", "mesoestetic"],
+  },
+
+  {
+    slug: "kojic-acid",
+    term: "Kojic Acid",
+    category: "ingredient",
+    shortDescription:
+      "Kojic acid is a potent, fungus-derived tyrosinase inhibitor used to fade hyperpigmentation, sun spots, and melasma. It is one of the more effective brightening actives available, though it can be more irritating than gentler alternatives like niacinamide or azelaic acid.",
+    title: "What is Kojic Acid? Benefits & Side Effects for Pigmentation | Star Aesthetic Centre",
+    metaDescription:
+      "Expert guide to kojic acid: how this potent tyrosinase inhibitor fades pigmentation, who should use it, and how it compares to azelaic acid and niacinamide. Star Aesthetic Centre, Durban North.",
+    keywords: [
+      "kojic acid pigmentation",
+      "kojic acid south africa",
+      "kojic acid vs niacinamide",
+      "kojic acid side effects",
+      "kojic acid melasma durban",
+    ],
+    heroLine:
+      "Kojic acid is one of the more potent tyrosinase inhibitors available in skincare — derived from the fermentation of certain fungi — and a longstanding, well-studied option for melasma, sun spots, and stubborn hyperpigmentation.",
+    sections: [
+      {
+        heading: "What is kojic acid?",
+        paragraphs: [
+          "Kojic acid is a naturally derived compound produced during the fermentation of rice and certain fungi (notably in the production of sake and soy sauce). It works by chelating (binding to) copper at the active site of tyrosinase, the enzyme melanocytes need to produce melanin — effectively blocking pigment production at its source.",
+          "It is used in serums, creams, and professional peel formulations, typically at concentrations of 1–4% for at-home use. Higher concentrations used in professional settings are applied and monitored by a practitioner given the increased potential for irritation at higher strengths.",
+        ],
+      },
+      {
+        heading: "Effectiveness and who should be cautious",
+        paragraphs: [
+          "Kojic acid has a long track record of clinical use for melasma, sun spots, and post-inflammatory hyperpigmentation, often used in combination formulations alongside other tyrosinase inhibitors such as tranexamic acid or azelaic acid for a stronger combined effect than any single ingredient alone.",
+          "It carries a higher risk of contact irritation and, in some individuals, sensitisation compared to gentler options like niacinamide. For sensitive skin, rosacea-prone skin, or those new to active ingredients, Dr. Bangalee often recommends starting with a gentler tyrosinase inhibitor and introducing kojic acid later if needed.",
+        ],
+      },
+    ],
+    clinicRelevance:
+      "Kojic acid is one of several tyrosinase-inhibiting actives Dr. Bangalee may include in a personalised pigmentation home-care programme at Star Aesthetic Centre, selected based on skin sensitivity and how the individual pigmentation is responding to treatment. It is always paired with daily Heliocare 360° SPF, without which any brightening ingredient's benefit is undermined by ongoing UV-triggered melanin production.",
+    faq: [
+      {
+        q: "Is kojic acid safe for sensitive skin?",
+        a: "It can be more irritating than gentler alternatives like niacinamide or azelaic acid, so it isn't always the first choice for very sensitive or reactive skin. Dr. Bangalee assesses your skin's tolerance and selects the most appropriate combination of brightening actives for your specific skin type.",
+      },
+      {
+        q: "How long does kojic acid take to fade pigmentation?",
+        a: "Most patients see initial improvement within 4–8 weeks of consistent use, with fuller results developing over 3–6 months as part of a complete pigmentation programme that includes daily SPF and, where appropriate, in-clinic treatment.",
+      },
+      {
+        q: "Can kojic acid be combined with other brightening ingredients?",
+        a: "Yes — it is commonly combined with ingredients like tranexamic acid, niacinamide, or azelaic acid for a stronger combined effect on melanin production through multiple pathways simultaneously. This is a common approach in professional pigmentation formulations.",
+      },
+    ],
+    relatedTerms: ["tyrosinase-inhibitor", "melasma", "hyperpigmentation", "azelaic-acid"],
+  },
+
+  {
     slug: "ceramides",
     term: "Ceramides",
     category: "ingredient",

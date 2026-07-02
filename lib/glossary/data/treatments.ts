@@ -267,4 +267,58 @@ export const TREATMENT_TERMS: GlossaryTerm[] = [
     ],
     relatedTerms: ["collagen", "chemical-peel", "hyaluronic-acid", "post-inflammatory-hyperpigmentation"],
   },
+
+  {
+    slug: "prp",
+    term: "Platelet-Rich Plasma (PRP)",
+    category: "treatment",
+    matchTerms: ["PRP", "Platelet-Rich Plasma", "platelet rich plasma"],
+    shortDescription:
+      "Platelet-Rich Plasma (PRP) is a treatment that uses a concentrated portion of your own blood — rich in growth factors — to accelerate healing and stimulate collagen production. It is often combined with microneedling for enhanced results in scarring and pigmentation.",
+    title: "What is PRP (Platelet-Rich Plasma)? How It Works | Star Aesthetic Centre Durban",
+    metaDescription:
+      "Expert guide to PRP (Platelet-Rich Plasma): how it's prepared from your own blood, how it's combined with microneedling, and what it treats. Star Aesthetic Centre, Durban North.",
+    keywords: [
+      "PRP treatment durban",
+      "platelet rich plasma south africa",
+      "PRP microneedling durban north",
+      "PRP scarring pigmentation",
+      "PRP facial durban",
+    ],
+    heroLine:
+      "Platelet-Rich Plasma — often paired with microneedling — harnesses your own blood's natural healing and growth factors to accelerate skin repair and collagen production, making it one of the most biologically 'natural' treatments available in aesthetic medicine.",
+    sections: [
+      {
+        heading: "What is PRP and how is it prepared?",
+        paragraphs: [
+          "PRP is prepared by drawing a small sample of your own blood and processing it in a centrifuge, which separates it into layers based on density. The platelet-rich layer — concentrated well above normal blood levels — is drawn off and used for treatment. Platelets contain growth factors that play a central role in the body's natural healing and tissue-repair processes.",
+          "Because PRP is derived entirely from your own blood, the risk of allergic reaction or rejection is essentially eliminated, which is one of its key advantages over synthetic alternatives.",
+        ],
+      },
+      {
+        heading: "How PRP is used in treatment",
+        paragraphs: [
+          "PRP is most commonly combined with microneedling (Dermapen) — the micro-channels created by needling allow the concentrated growth factors to penetrate more deeply, amplifying the skin's natural collagen-building response beyond what microneedling alone achieves. This combination is particularly used for more significant acne scarring and severe pigmentation, where an enhanced healing response is beneficial.",
+          "Dr. Bangalee determines whether PRP is appropriate, and whether it should be combined with microneedling or another treatment, based on your specific concern and skin assessment at consultation.",
+        ],
+      },
+    ],
+    clinicRelevance:
+      "At Star Aesthetic Centre, PRP is most commonly offered alongside Dermapen microneedling for patients with significant acne scarring or severe pigmentation who would benefit from an enhanced healing and collagen response. Dr. Bangalee assesses suitability at consultation, as PRP is a more involved treatment than microneedling alone and is reserved for cases where the additional benefit justifies it.",
+    faq: [
+      {
+        q: "Does PRP hurt?",
+        a: "The blood draw itself feels like a standard blood test. When combined with microneedling, topical numbing cream is applied beforehand, making the overall procedure well-tolerated. Some redness and mild swelling in the treated area is normal for a day or two afterward.",
+      },
+      {
+        q: "How many PRP sessions are needed?",
+        a: "This depends on what is being treated — significant acne scarring or severe pigmentation typically benefits from a course of several sessions spaced weeks apart, similar to a microneedling protocol. Dr. Bangalee will recommend a specific number of sessions based on your individual assessment.",
+      },
+      {
+        q: "Is PRP safe?",
+        a: "Yes — because PRP uses your own blood, the risk of allergic reaction or disease transmission is essentially eliminated. As with any treatment involving injections or skin needling, it should only be performed by a trained medical practitioner in a clinical setting.",
+      },
+    ],
+    relatedTerms: ["microneedling", "collagen", "post-inflammatory-hyperpigmentation", "hyperpigmentation"],
+  },
 ];

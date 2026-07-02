@@ -206,6 +206,85 @@ function ResultsTimeline({ text }: { text: string }) {
     );
 }
 
+interface HowItWorksStep {
+    title: string;
+    bodyHtml: string;
+}
+
+/** Titles render as plain JSX text (not dangerouslySetInnerHTML), so entities must be decoded first. */
+function decodeHtmlEntities(s: string): string {
+    return s
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#0?39;/g, "'");
+}
+
+/**
+ * Parses the Tiptap-authored <ol><li><strong>Title</strong> — body</li></ol>
+ * format (saved via the admin "How It Works" editor) into title/body pairs.
+ */
+function parseHowWorksHtml(html: string): HowItWorksStep[] {
+    const items = [...html.matchAll(/<li>([\s\S]*?)<\/li>/gi)];
+    return items.map((m) => {
+        const inner = m[1].trim().replace(/^<p>/i, '').replace(/<\/p>$/i, '');
+        const lead = inner.match(/^<strong>([\s\S]*?)<\/strong>\s*(?:—|-)?\s*/i);
+        if (lead) {
+            return {
+                title: decodeHtmlEntities(lead[1].replace(/<[^>]+>/g, '')).trim(),
+                bodyHtml: inner.slice(lead[0].length).trim(),
+            };
+        }
+        return { title: '', bodyHtml: inner };
+    });
+}
+
+/** Parses the legacy "Title — body **bold**" markdown array format from treatments.json. */
+function parseHowWorksMarkdown(steps: string[]): HowItWorksStep[] {
+    const mdToHtml = (s: string) => s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    return steps.map((step) => {
+        const dashIdx = step.indexOf(' — ');
+        if (dashIdx !== -1) {
+            return {
+                title: step.slice(0, dashIdx).replace(/\*\*/g, '').trim(),
+                bodyHtml: mdToHtml(step.slice(dashIdx + 3)),
+            };
+        }
+        return { title: '', bodyHtml: mdToHtml(step) };
+    });
+}
+
+/** Numbered steps connected by a vertical line — same dot-and-line language as ResultsTimeline, scaled up. */
+function HowItWorksTimeline({ steps }: { steps: HowItWorksStep[] }) {
+    return (
+        <div className="space-y-0">
+            {steps.map((step, i) => (
+                <div key={i} className="flex gap-5 relative">
+                    {/* Connecting line between circles */}
+                    {i < steps.length - 1 && (
+                        <div className="absolute left-[19px] top-10 bottom-0 w-[2px] bg-[#E2E2E6]" />
+                    )}
+                    {/* Numbered circle */}
+                    <div className="w-10 h-10 rounded-full bg-[#939EBA] text-white flex items-center justify-center font-bold text-sm shrink-0 relative z-10 border-2 border-white ring-2 ring-[#939EBA]">
+                        {i + 1}
+                    </div>
+                    {/* Content */}
+                    <div className="pb-8 flex-1 min-w-0">
+                        {step.title && (
+                            <h3 className="font-semibold text-[#1A1A1F] mb-1.5">{step.title}</h3>
+                        )}
+                        <div
+                            className="text-[#636374] leading-relaxed [&_strong]:font-semibold [&_strong]:text-[#525866]"
+                            dangerouslySetInnerHTML={{ __html: step.bodyHtml }}
+                        />
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
 // Phase display order
 const PHASE_ORDER = [
     "pre-treatment",
@@ -448,42 +527,17 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
                                     How it Works
                                 </h2>
-                                {/* HTML format (saved from editor) vs legacy array format */}
-                                {displayHowWorks.length === 1 && displayHowWorks[0].trimStart().startsWith('<') ? (
-                                    <div
-                                        className="prose prose-sm max-w-none text-[#636374] leading-relaxed"
-                                        dangerouslySetInnerHTML={{ __html: injectWithDrBangalee(displayHowWorks[0], usedSlugs) }}
-                                    />
-                                ) : (
-                                    <div className="space-y-6">
-                                        {displayHowWorks.map((step: string, index: number) => {
-                                            const dashIdx = step.indexOf(' — ');
-                                            if (dashIdx !== -1) {
-                                                const title = step.slice(0, dashIdx).replace(/\*\*/g, '');
-                                                const body  = step.slice(dashIdx + 3);
-                                                return (
-                                                    <div key={index} className="flex gap-4">
-                                                        <div className="w-8 h-8 bg-[#EEF0F6] text-[#939EBA] flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
-                                                            {index + 1}
-                                                        </div>
-                                                        <div>
-                                                            <span className="font-medium text-[#525866] block mb-1">{title}</span>
-                                                            <RichText text={body} as="span" className="text-[#636374]" />
-                                                        </div>
-                                                    </div>
-                                                );
-                                            }
-                                            return (
-                                                <div key={index} className="flex gap-4">
-                                                    <div className="w-8 h-8 bg-[#EEF0F6] text-[#939EBA] flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
-                                                        {index + 1}
-                                                    </div>
-                                                    <RichText text={step} as="span" className="text-[#636374] mt-1" />
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                )}
+                                {/* HTML format (saved from editor) vs legacy markdown array format */}
+                                <HowItWorksTimeline
+                                    steps={
+                                        displayHowWorks.length === 1 && displayHowWorks[0].trimStart().startsWith('<')
+                                            ? parseHowWorksHtml(injectWithDrBangalee(displayHowWorks[0], usedSlugs))
+                                            : parseHowWorksMarkdown(displayHowWorks).map((s) => ({
+                                                  ...s,
+                                                  bodyHtml: injectWithDrBangalee(s.bodyHtml, usedSlugs),
+                                              }))
+                                    }
+                                />
                             </div>
                         )}
 
