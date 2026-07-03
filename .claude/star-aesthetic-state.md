@@ -1,5 +1,22 @@
 ﻿# Star Aesthetic Centre — Project State Log
-_Last updated: 2026-04-04 (session 5 — major admin panel session)_
+_Last updated: 2026-07-02 (session 6 — pigmentation content overhaul + treatment page CTA redesign)_
+
+---
+
+## Session 6 (2026-07-02) — Summary
+
+**Git/machine sync fixed:** The DELL laptop's local `nextjs` folder had no `.git` at all (all prior pushes came from the Acer). Wired it to `origin`, hard-reset to match GitHub exactly. Any pre-existing DELL-only work from that session is preserved on local branch `dell-session-backup` (never pushed) — includes an unshipped admin "Products for Your Journey" recommendations editor; re-apply fresh on current code if still wanted.
+
+**Known tooling issue:** `git push` from the command line/automated shell fails on this machine (`fatal: could not read Username... /dev/tty: No such device`) — Git Credential Manager needs an interactive terminal this environment doesn't have. **Push via GitHub Desktop instead** — its own sign-in works fine. `git fetch`/`pull` work fine from the CLI, just not `push`.
+
+**Shipped this session:**
+- Pigmentation Treatment page: new hero paragraph, rebuilt "What is it?" section, "How It Works" redesigned as a numbered-circle vertical-line timeline (site-wide component change — applies to all 12 treatments, also fixed proper H3 headings + an `&` entity double-escape bug affecting Pigmentation/Lip Filler/Jaw & Chin), 4 FAQs updated/added
+- Glossary: 7 new full-depth entries — Melanin, Melanocytes, Tyrosinase Inhibitor, Wood's Lamp, Tranexamic Acid, Kojic Acid, PRP (glossary now 33 terms total)
+- Treatment pages: new full-width bottom CTA (photo + headline + Book/WhatsApp buttons, reusing the product page's bottom-CTA pattern), removed the redundant small navy "Ready to start?" sidebar box
+- Lip Filler recommended-product swap (Hydratonic Mist → NeoStrata Bionic Face Cream) — done directly in Supabase
+- PayFast confirmed as the payment gateway to pursue (already the documented plan); sent Nakita sign-up instructions + verified current fee schedule
+
+**Commits pushed:** `7ea427b` (timeline redesign + glossary), `a23b196` (bottom CTA + sidebar cleanup)
 
 ---
 
@@ -10,8 +27,8 @@ _Last updated: 2026-04-04 (session 5 — major admin panel session)_
 
 ## Git Status
 - **Branch:** `main`
-- **Last commit:** `7c3266b` — "Add Dr. Bangalee page, Contact, Legal pages, Skin Assessment & CTA"
-- **Status:** Large amount of uncommitted work — commit before go-live
+- **Last commit:** `a23b196` — "Add full-width bottom CTA with treatment photo, remove redundant sidebar CTA"
+- **Status:** Clean, pushed, deployed to Vercel production, verified live
 
 ---
 
