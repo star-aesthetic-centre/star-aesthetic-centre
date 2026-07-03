@@ -111,7 +111,17 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
   }, []);
 
   const startMic = useCallback(async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    // Echo cancellation is essential: without it, Niki's own voice from the
+    // speakers is picked up by the mic and mistaken for the visitor interrupting,
+    // making her stop and restart mid-sentence.
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: true,
+        autoGainControl: true,
+      },
+      video: false,
+    });
     streamRef.current = stream;
 
     const ctx = new AudioContext();
@@ -204,10 +214,11 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
               endOfSpeechSensitivity: EndSensitivity.END_SENSITIVITY_LOW,
               // Require a little more sustained speech before treating it as an interruption
               prefixPaddingMs: 60,
-              // Wait longer before deciding the visitor finished talking —
-              // patients pause to think; don't talk over them. (Default is far
-              // shorter; 400ms balances patience against reply latency.)
-              silenceDurationMs: 400,
+              // Wait before deciding the visitor finished talking — patients
+              // pause mid-thought to gather words; don't talk over them. 600ms
+              // is patient without feeling laggy (thinking is off, so once she
+              // does reply there's no extra internal delay).
+              silenceDurationMs: 600,
             },
           },
         },
