@@ -1,12 +1,19 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { GoogleGenAI, Modality } from "@google/genai";
+import { GoogleGenAI, Modality, StartSensitivity, EndSensitivity } from "@google/genai";
 import type { Session } from "@google/genai";
 import type { NikiPageContext, NikiSessionStatus } from "@/lib/niki/types";
 import { INTRODUCTION_TOUR_SECTIONS } from "@/lib/content/introduction-tour";
 import { buildNikiSystemPrompt } from "@/lib/niki/system-prompt";
 import { resampleAudio, float32ToBase64Pcm16, base64Pcm16ToFloat32 } from "@/lib/niki/audio";
+
+/**
+ * Niki's voice. Other warm female candidates to audition (always test through
+ * the live widget on a real device, never judge from a console): Leda, Kore,
+ * Sulafat, Despina.
+ */
+const NIKI_VOICE = "Aoede";
 
 export function useNikiVoiceSession(pageContext: NikiPageContext) {
   const [status, setStatus] = useState<NikiSessionStatus>("idle");
@@ -164,7 +171,8 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
       if (!res.ok) throw new Error(`Token fetch failed: ${res.status}`);
       const { apiKey } = (await res.json()) as { apiKey: string };
 
-      const ai = new GoogleGenAI({ apiKey });
+      // v1alpha is required for enableAffectiveDialog on native-audio models
+      const ai = new GoogleGenAI({ apiKey, httpOptions: { apiVersion: "v1alpha" } });
       const ctx = contextRef.current;
 
       const session = await ai.live.connect({
@@ -179,7 +187,27 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
           ),
           speechConfig: {
             voiceConfig: {
-              prebuiltVoiceConfig: { voiceName: "Aoede" },
+              prebuiltVoiceConfig: { voiceName: NIKI_VOICE },
+            },
+          },
+          // Slight creativity for warmth without drifting from clinic facts
+          temperature: 0.65,
+          // Disable internal "thinking" — it adds seconds of dead air before
+          // each reply, which reads as unresponsive in live conversation
+          thinkingConfig: { thinkingBudget: 0 },
+          // Adapt tone to the visitor's emotional state (nervous, excited, unsure)
+          enableAffectiveDialog: true,
+          realtimeInputConfig: {
+            automaticActivityDetection: {
+              // LOW = harder for background chatter to register as speech
+              startOfSpeechSensitivity: StartSensitivity.START_SENSITIVITY_LOW,
+              endOfSpeechSensitivity: EndSensitivity.END_SENSITIVITY_LOW,
+              // Require a little more sustained speech before treating it as an interruption
+              prefixPaddingMs: 60,
+              // Wait longer before deciding the visitor finished talking —
+              // patients pause to think; don't talk over them. (Default is far
+              // shorter; 400ms balances patience against reply latency.)
+              silenceDurationMs: 400,
             },
           },
         },
