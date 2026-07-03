@@ -207,6 +207,10 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
           thinkingConfig: { thinkingBudget: 0 },
           // Adapt tone to the visitor's emotional state (nervous, excited, unsure)
           enableAffectiveDialog: true,
+          // Let the model choose NOT to respond when the visitor's speech is
+          // clearly not a finished thought directed at her — the main defence
+          // against jumping in while someone pauses to gather their words
+          proactivity: { proactiveAudio: true },
           realtimeInputConfig: {
             automaticActivityDetection: {
               // LOW = harder for background chatter to register as speech
@@ -215,10 +219,11 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
               // Require a little more sustained speech before treating it as an interruption
               prefixPaddingMs: 60,
               // Wait before deciding the visitor finished talking — patients
-              // pause mid-thought to gather words; don't talk over them. 600ms
-              // is patient without feeling laggy (thinking is off, so once she
-              // does reply there's no extra internal delay).
-              silenceDurationMs: 600,
+              // pause mid-thought to gather words; don't talk over them.
+              // 400ms proved too twitchy for hesitant speakers in live tests.
+              // (Thinking is off, so once she does reply there's no extra
+              // internal delay on top of this.)
+              silenceDurationMs: 800,
             },
           },
         },
