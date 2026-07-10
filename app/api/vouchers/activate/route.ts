@@ -2,6 +2,7 @@
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import { buildVoucherEmail, type GiftVoucher } from "@/lib/utils/vouchers";
 import { Resend } from "resend";
+import { ADMIN_COOKIE, isValidAdminSession } from "@/lib/security/admin-auth";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -10,8 +11,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
  *        { payment_reference } — activate all pending in batch
  */
 export async function POST(req: NextRequest) {
-  const session = req.cookies.get("admin_session")?.value;
-  if (session !== "authenticated") {
+  if (!(await isValidAdminSession(req.cookies.get(ADMIN_COOKIE)?.value))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

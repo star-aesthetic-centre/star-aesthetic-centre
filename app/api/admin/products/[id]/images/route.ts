@@ -3,9 +3,10 @@ export const runtime = "nodejs";
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import sharp from "sharp";
+import { ADMIN_COOKIE, isValidAdminSession } from "@/lib/security/admin-auth";
 
-function isAdmin(req: NextRequest) {
-  return req.cookies.get("admin_session")?.value === "authenticated";
+async function isAdmin(req: NextRequest): Promise<boolean> {
+  return isValidAdminSession(req.cookies.get(ADMIN_COOKIE)?.value);
 }
 
 type Params = { params: Promise<{ id: string }> };
@@ -18,7 +19,7 @@ function extractStoragePath(publicUrl: string): string {
 
 // ── POST: upload one or more images ──────────────────────────────────────────
 export async function POST(req: NextRequest, { params }: Params) {
-  if (!isAdmin(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await isAdmin(req))) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id: productId } = await params;
   const supabase = createSupabaseAdmin();
@@ -106,7 +107,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
 // ── DELETE: remove one image ──────────────────────────────────────────────────
 export async function DELETE(req: NextRequest, { params }: Params) {
-  if (!isAdmin(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await isAdmin(req))) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id: productId } = await params;
   const { imageId, url } = (await req.json()) as { imageId: string; url: string };
@@ -149,7 +150,7 @@ export async function DELETE(req: NextRequest, { params }: Params) {
 
 // ── PATCH: reorder images ─────────────────────────────────────────────────────
 export async function PATCH(req: NextRequest, { params }: Params) {
-  if (!isAdmin(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await isAdmin(req))) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id: productId } = await params;
   const { orderedIds } = (await req.json()) as { orderedIds: string[] };

@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import { creditOrderStarlights } from "@/lib/utils/credit-order-starlights";
 import { formatStarlights } from "@/lib/utils/rewards";
+import { ADMIN_COOKIE, isValidAdminSession } from "@/lib/security/admin-auth";
 
-function isAdmin(req: NextRequest): boolean {
-  return req.cookies.get("admin_session")?.value === "authenticated";
+async function isAdmin(req: NextRequest): Promise<boolean> {
+  return isValidAdminSession(req.cookies.get(ADMIN_COOKIE)?.value);
 }
 
 export async function POST(req: NextRequest) {
-  if (!isAdmin(req)) {
+  if (!(await isAdmin(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

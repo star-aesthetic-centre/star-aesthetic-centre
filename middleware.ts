@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { GATED_WRITE_API_PREFIXES, hasPreviewAccess } from "@/lib/security/public-form-guard";
+import { ADMIN_COOKIE, isValidAdminSession } from "@/lib/security/admin-auth";
 
 /** Set ALLOW_SEARCH_INDEXING=true in Vercel when the site launches publicly. */
 const allowSearchIndexing = process.env.ALLOW_SEARCH_INDEXING === "true";
@@ -12,13 +13,13 @@ const allowSearchIndexing = process.env.ALLOW_SEARCH_INDEXING === "true";
  */
 const SITE_PASSWORD = process.env.SITE_PASSWORD ?? "";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // ── Admin protection ─────────────────────────────────────────────────────
   if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
-    const session = request.cookies.get("admin_session");
-    if (session?.value !== "authenticated") {
+    const session = request.cookies.get(ADMIN_COOKIE);
+    if (!(await isValidAdminSession(session?.value))) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
   }

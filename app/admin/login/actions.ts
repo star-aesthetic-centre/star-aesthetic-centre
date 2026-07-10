@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { ADMIN_COOKIE, adminSessionToken } from "@/lib/security/admin-auth";
 
 export async function loginAction(
   _prevState: { error: string } | null,
@@ -10,12 +11,18 @@ export async function loginAction(
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
-  const validUsername = process.env.ADMIN_USERNAME ?? "nakita";
+  const validUsername = process.env.ADMIN_USERNAME;
   const validPassword = process.env.ADMIN_PASSWORD;
 
-  if (username === validUsername && password === validPassword) {
+  // Fail closed if credentials aren't configured on the server.
+  if (
+    validUsername &&
+    validPassword &&
+    username === validUsername &&
+    password === validPassword
+  ) {
     const cookieStore = await cookies();
-    cookieStore.set("admin_session", "authenticated", {
+    cookieStore.set(ADMIN_COOKIE, await adminSessionToken(), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -30,6 +37,6 @@ export async function loginAction(
 
 export async function logoutAction(): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.delete("admin_session");
+  cookieStore.delete(ADMIN_COOKIE);
   redirect("/admin/login");
 }

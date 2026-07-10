@@ -11,6 +11,8 @@ import {
 } from "@/lib/utils/vouchers";
 import { BANK_DETAILS } from "@/lib/constants/banking";
 import { Resend } from "resend";
+import { rateLimit } from "@/lib/security/rate-limit";
+import { getClientIp } from "@/lib/security/public-form-guard";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -18,6 +20,12 @@ type RecipientInput = { name: string; email: string };
 
 export async function POST(req: NextRequest) {
   try {
+    // This endpoint sends email via Resend — throttle to prevent abuse.
+    const ip = getClientIp(req) ?? "unknown";
+    if (!rateLimit(`vouchers-create:${ip}`, 5, 60_000)) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+    }
+
     const body = await req.json();
     const {
       denomination_rands,

@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
+import { rateLimit } from "@/lib/security/rate-limit";
+import { getClientIp } from "@/lib/security/public-form-guard";
 
 export async function GET(req: NextRequest) {
+  // Throttle to prevent bulk enumeration of loyalty accounts by email.
+  const ip = getClientIp(req) ?? "unknown";
+  if (!rateLimit(`rewards-lookup:${ip}`, 15, 60_000)) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
   const email = req.nextUrl.searchParams.get("email")?.toLowerCase().trim();
 
   if (!email || !email.includes("@")) {

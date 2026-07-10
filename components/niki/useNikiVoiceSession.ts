@@ -179,10 +179,11 @@ export function useNikiVoiceSession(pageContext: NikiPageContext) {
     try {
       const res = await fetch("/api/gemini-token");
       if (!res.ok) throw new Error(`Token fetch failed: ${res.status}`);
-      const { apiKey } = (await res.json()) as { apiKey: string };
+      const { token } = (await res.json()) as { token: string };
 
-      // v1alpha is required for enableAffectiveDialog on native-audio models
-      const ai = new GoogleGenAI({ apiKey, httpOptions: { apiVersion: "v1alpha" } });
+      // Short-lived ephemeral token (not the raw key). v1alpha is required both
+      // for ephemeral-token auth and for enableAffectiveDialog on native-audio.
+      const ai = new GoogleGenAI({ apiKey: token, httpOptions: { apiVersion: "v1alpha" } });
       const ctx = contextRef.current;
 
       const session = await ai.live.connect({

@@ -5,16 +5,17 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import sharp from "sharp";
 import { TREATMENT_SLUG_TO_CATEGORY } from "@/lib/treatment-routes";
+import { ADMIN_COOKIE, isValidAdminSession } from "@/lib/security/admin-auth";
 
-function isAdmin(req: NextRequest) {
-  return req.cookies.get("admin_session")?.value === "authenticated";
+async function isAdmin(req: NextRequest): Promise<boolean> {
+  return isValidAdminSession(req.cookies.get(ADMIN_COOKIE)?.value);
 }
 
 type Params = { params: Promise<{ slug: string }> };
 
 /** POST — upload 4:3 WebP treatment grid card image to Supabase Storage */
 export async function POST(req: NextRequest, { params }: Params) {
-  if (!isAdmin(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await isAdmin(req))) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { slug } = await params;
   const supabase = createSupabaseAdmin();
