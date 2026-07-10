@@ -10,14 +10,14 @@ Website: https://staraesthetic.co.za
 
 ## Treatments
 
-- [Botox (Anti-Wrinkle)](https://staraesthetic.co.za/treatments/face/botox) — Botulinum toxin for frown lines, forehead, and crow's feet. Excessive sweating (hyperhidrosis) treatment also available.
+- [Botox (Anti-Wrinkle)](https://staraesthetic.co.za/treatments/face/anti-wrinkle-treatment) — Botulinum toxin for frown lines, forehead, and crow's feet. Excessive sweating (hyperhidrosis) treatment also available.
 - [Lip Filler](https://staraesthetic.co.za/treatments/face/lip-filler) — Hyaluronic acid lip augmentation for volume, definition, and symmetry.
 - [Jaw & Chin Contouring](https://staraesthetic.co.za/treatments/face/jaw-amp-chin-contouring) — Dermal filler jaw sculpting and chin projection without surgery.
 - [Dermapen Microneedling](https://staraesthetic.co.za/treatments/face/dermapen-microneedling) — Collagen induction therapy for skin texture, scars, and anti-ageing.
 - [Skin Peel (Chemical Peel)](https://staraesthetic.co.za/treatments/skin/skin-peel) — Medical-grade chemical peels for pigmentation, acne, and skin renewal.
 - [Pigmentation Treatment](https://staraesthetic.co.za/treatments/skin/pigmentation-treatment) — Melasma, sun damage, and uneven skin tone correction.
 - [Acne Treatment](https://staraesthetic.co.za/treatments/skin/acne) — Medical acne management combining peels, microneedling, and skincare.
-- [Excessive Sweating (Hyperhidrosis)](https://staraesthetic.co.za/treatments/body-wellness/excessive-sweating) — Botox injections for axillary hyperhidrosis.
+- [Excessive Sweating (Hyperhidrosis)](https://staraesthetic.co.za/treatments/skin/excessive-sweating) — Botox injections for axillary hyperhidrosis.
 - [Body Contouring](https://staraesthetic.co.za/treatments/body-wellness/body-contouring) — Non-surgical fat reduction and body shaping.
 - [Medi-Lean (Medical Weight Loss)](https://staraesthetic.co.za/treatments/body-wellness/medi-lean) — Doctor-supervised medical weight loss programme.
 - [Varicose Veins](https://staraesthetic.co.za/treatments/body-wellness/varicose-veins) — Sclerotherapy for spider veins and varicose veins.

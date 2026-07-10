@@ -42,7 +42,7 @@ export default function CookieConsent() {
           We use cookies to analyse website usage and improve your experience.
           You can accept all cookies, or decline non-essential ones.{" "}
           <Link
-            href="/privacy-policy"
+            href="/legal/privacy-policy"
             className="underline underline-offset-2 hover:text-[#0F2647] transition-colors"
           >
             Cookie Policy
