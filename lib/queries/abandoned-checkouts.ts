@@ -162,6 +162,48 @@ export async function listAbandonedCheckoutsForReminder(opts: {
   return (data ?? []) as AbandonedCheckoutRow[];
 }
 
+/**
+ * Claim the send slot for one reminder BEFORE dispatching it.
+ *
+ * Returns false if another run already claimed it. Marking the row only after a
+ * successful send leaves a window where two overlapping runs both select the
+ * row and both message the customer — the flag has to be claimed first.
+ */
+export async function claimAbandonedReminder(
+  id: string,
+  channel: "whatsapp" | "email"
+): Promise<boolean> {
+  const supabase = createSupabaseAdmin();
+  const column = channel === "whatsapp" ? "whatsapp_sent_at" : "email_sent_at";
+
+  const { data, error } = await supabase
+    .from("abandoned_checkouts")
+    .update({ [column]: new Date().toISOString() })
+    .eq("id", id)
+    .is(column, null)
+    .select("id")
+    .maybeSingle();
+
+  if (error) {
+    console.error("[abandoned-checkout] claim:", error.message);
+    return false;
+  }
+  return Boolean(data);
+}
+
+/** Hand the slot back when the send failed, so it can be retried next run. */
+export async function releaseAbandonedReminder(
+  id: string,
+  channel: "whatsapp" | "email"
+): Promise<void> {
+  const supabase = createSupabaseAdmin();
+  const column = channel === "whatsapp" ? "whatsapp_sent_at" : "email_sent_at";
+  await supabase
+    .from("abandoned_checkouts")
+    .update({ [column]: null })
+    .eq("id", id);
+}
+
 export async function markAbandonedReminderSent(
   id: string,
   channel: "whatsapp" | "email"

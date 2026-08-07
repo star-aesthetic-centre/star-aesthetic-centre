@@ -14,12 +14,12 @@ import { createClient }              from '@supabase/supabase-js';
 import { Resend }                    from 'resend';
 import {
   computeAvailableSlots,
-  generateReference,
   isBookableDate,
   parseLocalDate,
   formatSlotLabel,
 } from '@/lib/availability';
 import { getAppointmentType } from '@/lib/booking-config';
+import { nextBookingReference } from '@/lib/utils/booking-reference';
 import { createLead } from '@/lib/crm/leads';
 import {
   guardFailureResponse,
@@ -135,7 +135,7 @@ export async function POST(req: NextRequest) {
     }
 
     // ── Generate reference and insert ──────────────────────────────────────────
-    const reference = generateReference(date);
+    const reference = await nextBookingReference(date);
 
     const { error: insertError } = await supabase.from('bookings').insert({
       reference,

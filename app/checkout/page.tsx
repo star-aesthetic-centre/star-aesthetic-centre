@@ -5,8 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import CheckoutReassurance from "@/components/checkout/CheckoutReassurance";
-import { ShoppingCart, AlertCircle } from "lucide-react";
+import { ShoppingCart, AlertCircle, Truck, Store, CreditCard, Landmark } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
+import {
+    COLLECTION_POINT,
+    type DeliveryMethod,
+    type PaymentMethod,
+} from "@/lib/constants/fulfilment";
 import { FUNNEL_OFFER_LABEL } from "@/lib/funnel";
 import {
     getPendingFunnelSlug,
@@ -15,6 +20,13 @@ import {
     saveCheckoutBilling,
     clearFunnelSession,
 } from "@/lib/funnel-session";
+
+/**
+ * Card payments are hidden until PayFast activates the merchant account.
+ * Flip NEXT_PUBLIC_PAYFAST_ENABLED to "true" in Vercel to reveal the option —
+ * /api/orders enforces the same flag, so this is presentation only.
+ */
+const PAYFAST_ENABLED = process.env.NEXT_PUBLIC_PAYFAST_ENABLED === "true";
 
 /* ─── SA Provinces ─────────────────────────────────────────────── */
 const PROVINCES = [
@@ -68,6 +80,8 @@ export default function CheckoutPage() {
         postalCode: "",
     });
 
+    const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>("delivery");
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("bank_transfer");
     const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState("");
@@ -189,10 +203,13 @@ export default function CheckoutPage() {
         if (!form.email.trim() || !form.email.includes("@"))
             newErrors.email = "Valid email required";
         if (!form.phone.trim()) newErrors.phone = "Required";
-        if (!form.address1.trim()) newErrors.address1 = "Required";
-        if (!form.city.trim()) newErrors.city = "Required";
-        if (!form.province) newErrors.province = "Required";
-        if (!form.postalCode.trim()) newErrors.postalCode = "Required";
+        // Nothing is couriered on a collection order — don't demand an address.
+        if (deliveryMethod === "delivery") {
+            if (!form.address1.trim()) newErrors.address1 = "Required";
+            if (!form.city.trim()) newErrors.city = "Required";
+            if (!form.province) newErrors.province = "Required";
+            if (!form.postalCode.trim()) newErrors.postalCode = "Required";
+        }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     }
@@ -247,7 +264,12 @@ export default function CheckoutPage() {
     /* ── Shipping ─────────────────────────────────────────────── */
     const FREE_SHIPPING_THRESHOLD = 800;
     const STANDARD_SHIPPING = 120;
-    const shippingCost = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING;
+    const shippingCost =
+        deliveryMethod === "collection"
+            ? 0
+            : subtotal >= FREE_SHIPPING_THRESHOLD
+              ? 0
+              : STANDARD_SHIPPING;
 
     /* ── Voucher discount ──────────────────────────────────────── */
     const voucherDiscount = appliedVoucher
@@ -299,18 +321,45 @@ export default function CheckoutPage() {
             const res = await fetch("/api/orders", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ items, billing: form, voucher_code: appliedVoucher?.code ?? null }),
+                body: JSON.stringify({
+                    items,
+                    billing: form,
+                    voucher_code: appliedVoucher?.code ?? null,
+                    payment_method: paymentMethod,
+                    delivery_method: deliveryMethod,
+                }),
             });
             if (!res.ok) {
                 const errData = await res.json().catch(() => ({}));
                 // Surface full WC error details in dev for easy diagnosis
                 throw new Error(errData.error ?? "Order submission failed");
             }
-            const { orderId, orderKey } = await res.json();
+            const data = await res.json();
             if (pendingFunnelSlug) clearFunnelSession(pendingFunnelSlug);
             dispatch({ type: "CLEAR_CART" });
+
+            // Card: hand off to PayFast. The signature is over the params in the
+            // exact order the server built them, so post them as-is.
+            if (data.method === "payfast" && data.payfastUrl) {
+                const gateway = document.createElement("form");
+                gateway.method = "POST";
+                gateway.action = data.payfastUrl;
+                for (const [name, value] of Object.entries(
+                    data.params as Record<string, string>
+                )) {
+                    const input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = name;
+                    input.value = value;
+                    gateway.appendChild(input);
+                }
+                document.body.appendChild(gateway);
+                gateway.submit();
+                return;
+            }
+
             router.push(
-                `/order-confirmation?orderId=${encodeURIComponent(orderId)}&key=${encodeURIComponent(orderKey)}&total=${orderTotal}`
+                `/order-confirmation?orderId=${encodeURIComponent(data.orderId)}&key=${encodeURIComponent(data.orderKey)}&token=${encodeURIComponent(data.token ?? "")}&total=${orderTotal}`
             );
         } catch (err: unknown) {
             setSubmitError(
@@ -418,11 +467,74 @@ export default function CheckoutPage() {
                             </div>
                         </div>
 
-                        {/* Shipping address */}
+                        {/* Delivery or collection */}
                         <div className="border border-[#E2E2E6] bg-white p-6">
                             <h2 className="font-heading mb-5 text-base font-bold text-[#1A1A1F]">
-                                Shipping Address
+                                Delivery
                             </h2>
+
+                            <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                {([
+                                    {
+                                        value: "delivery" as const,
+                                        icon: Truck,
+                                        title: "Courier delivery",
+                                        sub:
+                                            subtotal >= FREE_SHIPPING_THRESHOLD
+                                                ? "Free — order over R800"
+                                                : `R ${STANDARD_SHIPPING} · free over R${FREE_SHIPPING_THRESHOLD}`,
+                                    },
+                                    {
+                                        value: "collection" as const,
+                                        icon: Store,
+                                        title: "Collect from the clinic",
+                                        sub: `Free · ${COLLECTION_POINT.suburb}`,
+                                    },
+                                ]).map((option) => {
+                                    const Icon = option.icon;
+                                    const active = deliveryMethod === option.value;
+                                    return (
+                                        <button
+                                            key={option.value}
+                                            type="button"
+                                            onClick={() => setDeliveryMethod(option.value)}
+                                            aria-pressed={active}
+                                            className={`flex items-start gap-3 border p-4 text-left transition-colors ${
+                                                active
+                                                    ? "border-[#0F2647] bg-[#F4F7FC]"
+                                                    : "border-[#E2E2E6] bg-white hover:border-[#939EBA]"
+                                            }`}
+                                        >
+                                            <Icon
+                                                size={18}
+                                                className={`mt-0.5 shrink-0 ${active ? "text-[#0F2647]" : "text-[#939EBA]"}`}
+                                            />
+                                            <span>
+                                                <span className="block text-sm font-semibold text-[#1A1A1F]">
+                                                    {option.title}
+                                                </span>
+                                                <span className="mt-0.5 block text-xs text-[#636374]">
+                                                    {option.sub}
+                                                </span>
+                                            </span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {deliveryMethod === "collection" ? (
+                                <div className="border border-[#C8A882]/40 bg-[#FFF8F0] p-5 text-sm">
+                                    <p className="font-semibold text-[#1A1A1F]">
+                                        {COLLECTION_POINT.name}
+                                    </p>
+                                    <p className="mt-1 text-[#636374]">{COLLECTION_POINT.oneLine}</p>
+                                    <p className="mt-1 text-[#636374]">{COLLECTION_POINT.hours}</p>
+                                    <p className="mt-3 text-[#636374] leading-relaxed">
+                                        We&apos;ll email you as soon as your order is packed and
+                                        ready — please don&apos;t travel before then.
+                                    </p>
+                                </div>
+                            ) : (
                             <div className="space-y-4">
                                 <div>
                                     <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-[#636374]">
@@ -526,6 +638,63 @@ export default function CheckoutPage() {
                                     )}
                                 </div>
                             </div>
+                            )}
+                        </div>
+
+                        {/* Payment method */}
+                        <div className="border border-[#E2E2E6] bg-white p-6">
+                            <h2 className="font-heading mb-5 text-base font-bold text-[#1A1A1F]">
+                                Payment
+                            </h2>
+                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                {([
+                                    {
+                                        value: "bank_transfer" as const,
+                                        icon: Landmark,
+                                        title: "EFT / bank transfer",
+                                        sub: "Pay from your banking app. We send the details on the next screen.",
+                                    },
+                                    ...(PAYFAST_ENABLED
+                                        ? [
+                                              {
+                                                  value: "payfast" as const,
+                                                  icon: CreditCard,
+                                                  title: "Card via PayFast",
+                                                  sub: "Pay now by card or instant EFT. Secured by PayFast.",
+                                              },
+                                          ]
+                                        : []),
+                                ]).map((option) => {
+                                    const Icon = option.icon;
+                                    const active = paymentMethod === option.value;
+                                    return (
+                                        <button
+                                            key={option.value}
+                                            type="button"
+                                            onClick={() => setPaymentMethod(option.value)}
+                                            aria-pressed={active}
+                                            className={`flex items-start gap-3 border p-4 text-left transition-colors ${
+                                                active
+                                                    ? "border-[#0F2647] bg-[#F4F7FC]"
+                                                    : "border-[#E2E2E6] bg-white hover:border-[#939EBA]"
+                                            }`}
+                                        >
+                                            <Icon
+                                                size={18}
+                                                className={`mt-0.5 shrink-0 ${active ? "text-[#0F2647]" : "text-[#939EBA]"}`}
+                                            />
+                                            <span>
+                                                <span className="block text-sm font-semibold text-[#1A1A1F]">
+                                                    {option.title}
+                                                </span>
+                                                <span className="mt-0.5 block text-xs text-[#636374]">
+                                                    {option.sub}
+                                                </span>
+                                            </span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
 
@@ -585,12 +754,13 @@ export default function CheckoutPage() {
                                 </div>
                                 <div className="flex justify-between text-sm">
                                     <span className="text-[#636374]">
-                                        Shipping
-                                        {subtotal < FREE_SHIPPING_THRESHOLD && (
-                                            <span className="ml-1 text-[10px] text-[#939EBA]">
-                                                (free over R{FREE_SHIPPING_THRESHOLD})
-                                            </span>
-                                        )}
+                                        {deliveryMethod === "collection" ? "Collection" : "Shipping"}
+                                        {deliveryMethod === "delivery" &&
+                                            subtotal < FREE_SHIPPING_THRESHOLD && (
+                                                <span className="ml-1 text-[10px] text-[#939EBA]">
+                                                    (free over R{FREE_SHIPPING_THRESHOLD})
+                                                </span>
+                                            )}
                                     </span>
                                     {shippingCost === 0 ? (
                                         <span className="font-semibold text-green-600">Free</span>
@@ -673,7 +843,13 @@ export default function CheckoutPage() {
                             disabled={isSubmitting}
                             className="w-full bg-[#1B3D6E] py-4 text-sm font-semibold text-white transition-colors hover:bg-[#162f56] disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                            {isSubmitting ? "Placing order…" : "Place order"}
+                            {isSubmitting
+                                ? paymentMethod === "payfast"
+                                    ? "Redirecting to PayFast…"
+                                    : "Placing order…"
+                                : paymentMethod === "payfast"
+                                  ? `Pay R ${orderTotal.toFixed(2)} with PayFast`
+                                  : "Place order"}
                         </button>
 
                         <p className="text-center text-xs text-[#636374]">

@@ -1,4 +1,5 @@
 ﻿import { BANK_DETAILS } from "@/lib/constants/banking";
+import { COLLECTION_POINT, type DeliveryMethod } from "@/lib/constants/fulfilment";
 import { formatStarlights } from "@/lib/utils/rewards";
 
 /** Customer-facing "send proof of payment to" address — must be an inbox that's actually monitored. */
@@ -29,7 +30,22 @@ export type OrderEmailPayload = {
   voucherNote?: string | null;
   starlightsEarned: number;
   isNewMember: boolean;
+  deliveryMethod?: DeliveryMethod;
+  paymentMethod?: "bank_transfer" | "payfast";
 };
+
+/** Where the order is going — courier address, or the clinic for collection. */
+function fulfilmentBlockHtml(p: OrderEmailPayload): string {
+  if (p.deliveryMethod === "collection") {
+    return `<p style="margin:0 0 8px;font-size:13px;color:#6B6966;line-height:1.6;">
+      <strong style="color:#1A1917;">Collect from:</strong><br/>
+      ${COLLECTION_POINT.name}, ${COLLECTION_POINT.oneLine}<br/>
+      <span style="color:#939EBA;">${COLLECTION_POINT.hours}</span><br/>
+      We'll email you as soon as it's packed and ready — please don't travel before then.
+    </p>`;
+  }
+  return `<p style="margin:0 0 8px;font-size:13px;color:#6B6966;"><strong style="color:#1A1917;">Deliver to:</strong><br/>${p.shippingAddress}</p>`;
+}
 
 function formatZar(cents: number): string {
   return new Intl.NumberFormat("en-ZA", {
@@ -182,7 +198,7 @@ export function buildCustomerOrderEmail(p: OrderEmailPayload): string {
       ${totalsBlockHtml(p)}
     </table>
 
-    <p style="margin:0 0 8px;font-size:13px;color:#6B6966;"><strong style="color:#1A1917;">Deliver to:</strong><br/>${p.shippingAddress}</p>
+    ${fulfilmentBlockHtml(p)}
 
     <h3 style="margin:24px 0 16px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#1A1917;">EFT banking details</h3>
     ${bankingTableHtml(p.reference)}
@@ -220,7 +236,12 @@ export function buildAdminOrderEmail(p: OrderEmailPayload): string {
         ["Customer", p.customerName],
         ["Email", `<a href="mailto:${p.customerEmail}" style="color:#C8A882;">${p.customerEmail}</a>`],
         ["Phone", `<a href="tel:${p.customerPhone.replace(/\s/g, "")}" style="color:#C8A882;">${p.customerPhone}</a>`],
-        ["Ship to", p.shippingAddress],
+        [
+          p.deliveryMethod === "collection" ? "Collection" : "Ship to",
+          p.deliveryMethod === "collection"
+            ? `<strong style="color:#C8A882;">Customer collects</strong> — ${COLLECTION_POINT.oneLine}`
+            : p.shippingAddress,
+        ],
         ...(p.voucherNote ? [["Notes", p.voucherNote]] : []),
       ]
         .map(
@@ -255,4 +276,204 @@ export function buildAdminOrderEmail(p: OrderEmailPayload): string {
     </p>`;
 
   return emailShell("New Shop Order", body, `Order #${p.reference} · ${p.customerName}`);
+}
+
+/* ─── PayFast payment outcomes ────────────────────────────────────────────────
+ *
+ * These are the ONLY emails a card order ever produces, and they are sent from
+ * the ITN handler once PayFast has said what actually happened. Nothing here
+ * may be reused on the order-placement path — that is the mistake that told a
+ * declined customer their order was placed (LAVA, 6 Aug 2026).
+ * ────────────────────────────────────────────────────────────────────────── */
+
+export type OrderOutcome = "paid" | "unsuccessful" | "returned_unconfirmed";
+
+/** Customer: the result of their card payment. */
+export function buildCustomerOutcomeEmail(
+  p: OrderEmailPayload,
+  outcome: OrderOutcome
+): string {
+  const firstName = p.customerName.split(" ")[0] || p.customerName;
+
+  if (outcome === "unsuccessful") {
+    const body = `
+    <p style="margin:0 0 20px;font-size:15px;color:#1A1917;">Hi ${firstName},</p>
+
+    <div style="background:#FEF2F2;border:1px solid #DC2626;border-left:4px solid #DC2626;padding:16px 20px;margin:0 0 24px;">
+      <p style="margin:0 0 8px;font-size:15px;font-weight:bold;color:#B91C1C;">Your payment was not successful</p>
+      <p style="margin:0;font-size:13px;color:#7F1D1D;line-height:1.6;">
+        Order <strong>#${p.reference}</strong> has <strong>not</strong> been paid and nothing has been
+        charged to your card. Your order has not been dispatched.
+      </p>
+    </div>
+
+    <p style="margin:0 0 24px;font-size:14px;color:#6B6966;line-height:1.6;">
+      We've kept your order on file so you don't have to start again. To complete it, reply to this
+      email or call us and we'll send you a fresh payment link — or you're welcome to pay by EFT instead.
+    </p>
+
+    <h3 style="margin:0 0 12px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#1A1917;">Your order</h3>
+    ${lineItemsTableHtml(p.lineItems)}
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border:1px solid #E5E4E0;">
+      ${totalsBlockHtml(p)}
+    </table>
+
+    <h3 style="margin:24px 0 16px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#1A1917;">Prefer to pay by EFT?</h3>
+    ${bankingTableHtml(p.reference)}
+
+    <p style="margin:0;font-size:13px;color:#6B6966;">
+      Call <a href="tel:+27315731325" style="color:#C8A882;">+27 (0)31 573 1325</a> or reply to this email.
+    </p>`;
+
+    return emailShell("Payment Unsuccessful", body, `Order #${p.reference} · not paid`);
+  }
+
+  if (outcome === "returned_unconfirmed") {
+    const body = `
+    <p style="margin:0 0 20px;font-size:15px;color:#1A1917;">Hi ${firstName},</p>
+
+    <div style="background:#FFFBEB;border:1px solid #D97706;border-left:4px solid #D97706;padding:16px 20px;margin:0 0 24px;">
+      <p style="margin:0 0 8px;font-size:15px;font-weight:bold;color:#92400E;">We're still confirming your payment</p>
+      <p style="margin:0;font-size:13px;color:#78350F;line-height:1.6;">
+        You returned from PayFast, but we haven't received confirmation for order
+        <strong>#${p.reference}</strong> yet. This is usually a short delay — please
+        <strong>don't pay again</strong>.
+      </p>
+    </div>
+
+    <p style="margin:0 0 24px;font-size:14px;color:#6B6966;line-height:1.6;">
+      We're checking it on our side and will email you as soon as we know. If your card was charged,
+      your order is safe — the reference above is all we need.
+    </p>
+
+    <h3 style="margin:0 0 12px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#1A1917;">Your order</h3>
+    ${lineItemsTableHtml(p.lineItems)}
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border:1px solid #E5E4E0;">
+      ${totalsBlockHtml(p)}
+    </table>
+
+    <p style="margin:0;font-size:13px;color:#6B6966;">
+      Questions? Call <a href="tel:+27315731325" style="color:#C8A882;">+27 (0)31 573 1325</a> or reply to this email.
+    </p>`;
+
+    return emailShell("Payment Being Confirmed", body, `Order #${p.reference} · awaiting confirmation`);
+  }
+
+  const nextSteps =
+    p.deliveryMethod === "collection"
+      ? `<li>We pack your order — usually within 1 business day</li>
+         <li>We email you the moment it's ready to collect</li>
+         <li>Collect from ${COLLECTION_POINT.oneLine} (${COLLECTION_POINT.hours})</li>`
+      : `<li>We pack your order — usually within 1 business day</li>
+         <li>Your order is dispatched and you'll receive tracking details</li>`;
+
+  const body = `
+    <p style="margin:0 0 20px;font-size:15px;color:#1A1917;">Hi ${firstName},</p>
+
+    <div style="background:#F0FDF4;border:1px solid #16A34A;border-left:4px solid #16A34A;padding:16px 20px;margin:0 0 24px;">
+      <p style="margin:0 0 8px;font-size:15px;font-weight:bold;color:#15803D;">Payment received — thank you</p>
+      <p style="margin:0;font-size:13px;color:#166534;line-height:1.6;">
+        PayFast has confirmed payment for order <strong>#${p.reference}</strong>.
+      </p>
+    </div>
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#0F2647;margin:0 0 24px;">
+      <tr><td style="padding:24px 32px;">
+        <p style="margin:0 0 4px;font-size:11px;letter-spacing:2px;color:#939EBA;text-transform:uppercase;">Amount Paid</p>
+        <p style="margin:0;font-size:40px;font-weight:bold;color:#C8A882;font-family:Georgia,serif;">${formatZar(p.totalCents)}</p>
+        <p style="margin:8px 0 0;font-size:13px;color:#939EBA;">Order #${p.reference}</p>
+      </td></tr>
+    </table>
+
+    <h3 style="margin:0 0 12px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#1A1917;">Your order</h3>
+    ${lineItemsTableHtml(p.lineItems)}
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border:1px solid #E5E4E0;">
+      ${totalsBlockHtml(p)}
+    </table>
+
+    ${fulfilmentBlockHtml(p)}
+
+    <div style="background:#FFF8F0;border:1px solid #C8A882;border-left:4px solid #C8A882;padding:16px 20px;margin:24px 0;">
+      <p style="margin:0 0 12px;font-size:13px;color:#6B6966;"><strong style="color:#1A1917;">What happens next</strong></p>
+      <ol style="margin:0;padding-left:20px;font-size:13px;color:#6B6966;line-height:1.8;">${nextSteps}</ol>
+    </div>
+
+    ${starlightsBlockHtml(p)}
+
+    <p style="margin:0;font-size:13px;color:#6B6966;">
+      Questions? Call <a href="tel:+27315731325" style="color:#C8A882;">+27 (0)31 573 1325</a> or reply to this email.
+    </p>`;
+
+  return emailShell("Payment Confirmed", body, `Order #${p.reference} · paid`);
+}
+
+/** Clinic: the result of a card payment, including the ones that need rescuing. */
+export function buildAdminOutcomeEmail(
+  p: OrderEmailPayload,
+  outcome: OrderOutcome,
+  failureDetail?: string | null
+): string {
+  const headline =
+    outcome === "paid"
+      ? `<div style="background:#F0FDF4;border-left:4px solid #16A34A;padding:16px 20px;margin:0 0 24px;">
+           <p style="margin:0;font-size:15px;font-weight:bold;color:#15803D;">PAID via PayFast — ready to fulfil</p>
+         </div>`
+      : outcome === "unsuccessful"
+        ? `<div style="background:#FEF2F2;border-left:4px solid #DC2626;padding:16px 20px;margin:0 0 24px;">
+             <p style="margin:0 0 6px;font-size:15px;font-weight:bold;color:#B91C1C;">PAYMENT FAILED — do not dispatch</p>
+             <p style="margin:0;font-size:13px;color:#7F1D1D;">
+               PayFast reported <strong>${failureDetail || "an unsuccessful payment"}</strong>.
+               No money was received. The customer has been told and invited to retry or pay by EFT — worth a call.
+             </p>
+           </div>`
+        : `<div style="background:#FFFBEB;border-left:4px solid #D97706;padding:16px 20px;margin:0 0 24px;">
+             <p style="margin:0 0 6px;font-size:15px;font-weight:bold;color:#92400E;">UNCONFIRMED — check the PayFast dashboard</p>
+             <p style="margin:0;font-size:13px;color:#78350F;">
+               The customer completed the PayFast step and returned to the site, but no ITN has arrived.
+               Confirm the transaction in PayFast before dispatching.
+             </p>
+           </div>`;
+
+  const body = `
+    ${headline}
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border:1px solid #E5E4E0;">
+      ${[
+        ["Order", `<strong style="color:#1A1917;">#${p.reference}</strong>`],
+        ["Total", formatZar(p.totalCents)],
+        ["Customer", p.customerName],
+        ["Email", `<a href="mailto:${p.customerEmail}" style="color:#C8A882;">${p.customerEmail}</a>`],
+        ["Phone", `<a href="tel:${p.customerPhone.replace(/\s/g, "")}" style="color:#C8A882;">${p.customerPhone}</a>`],
+        [
+          p.deliveryMethod === "collection" ? "Collection" : "Ship to",
+          p.deliveryMethod === "collection"
+            ? `<strong style="color:#C8A882;">Customer collects</strong> — ${COLLECTION_POINT.oneLine}`
+            : p.shippingAddress,
+        ],
+        ...(p.voucherNote ? [["Notes", p.voucherNote]] : []),
+      ]
+        .map(
+          ([label, value], i) => `
+      <tr style="background:${i % 2 === 0 ? "#fff" : "#F8F8F7"};">
+        <td style="padding:10px 16px;font-size:13px;color:#6B6966;width:100px;vertical-align:top;">${label}</td>
+        <td style="padding:10px 16px;font-size:13px;color:#1A1917;">${value}</td>
+      </tr>`
+        )
+        .join("")}
+    </table>
+
+    <h3 style="margin:0 0 12px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#1A1917;">Items</h3>
+    ${lineItemsTableHtml(p.lineItems)}
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;border:1px solid #E5E4E0;">
+      ${totalsBlockHtml(p)}
+    </table>`;
+
+  const title =
+    outcome === "paid"
+      ? "Payment Received"
+      : outcome === "unsuccessful"
+        ? "Payment Failed"
+        : "Payment Unconfirmed";
+
+  return emailShell(title, body, `Order #${p.reference} · ${p.customerName}`);
 }

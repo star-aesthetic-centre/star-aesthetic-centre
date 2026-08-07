@@ -29,6 +29,15 @@ export const DEFAULT_KEYWORDS = [
 ];
 
 /** Resolve a path or URL to an absolute URL on the production site. */
+/**
+ * Origin PayFast must call back on. Overridable so sandbox testing can point
+ * return/notify URLs at a tunnel instead of the production domain.
+ */
+export function getPublicSiteUrl(): string {
+  const override = process.env.PUBLIC_SITE_URL?.trim();
+  return (override || SITE_URL).replace(/\/+$/, "");
+}
+
 export function absoluteUrl(path: string): string {
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
   const normalized = path.startsWith("/") ? path : `/${path}`;

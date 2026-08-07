@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type { CartItem } from "@/lib/cart-context";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import {
-  generateShopOrderReference,
+  nextOrderReference,
   randToCents,
   shippingCentsForSubtotal,
 } from "@/lib/utils/orders";
@@ -14,6 +14,21 @@ import {
   isValidCartProductId,
   resolveCartProductId,
 } from "@/lib/cart-product-id";
+import {
+  COLLECTION_POINT,
+  isDeliveryMethod,
+  isPaymentMethod,
+  shippingCentsForMethod,
+  type DeliveryMethod,
+  type PaymentMethod,
+} from "@/lib/constants/fulfilment";
+import { generateSignature, getPayFastUrl } from "@/lib/payfast";
+import { createOrderAccessToken } from "@/lib/utils/order-access-token";
+import { getPublicSiteUrl } from "@/lib/seo";
+
+function truncate(value: string, max: number): string {
+  return value.length <= max ? value : `${value.slice(0, max - 1)}…`;
+}
 
 type Billing = {
   firstName: string;
@@ -33,9 +48,31 @@ export async function POST(req: NextRequest) {
       items: CartItem[];
       billing: Billing;
       voucher_code?: string | null;
+      payment_method?: PaymentMethod;
+      delivery_method?: DeliveryMethod;
     };
 
     const { items, billing, voucher_code } = body;
+
+    // Server decides both — never trust the browser's arithmetic or its claim
+    // about how the order will be paid for.
+    const paymentMethod: PaymentMethod = isPaymentMethod(body.payment_method)
+      ? body.payment_method
+      : "bank_transfer";
+    const deliveryMethod: DeliveryMethod = isDeliveryMethod(body.delivery_method)
+      ? body.delivery_method
+      : "delivery";
+
+    // Card payments stay switched off until PayFast activates the merchant
+    // account. Checked here as well as in the UI — the browser can send
+    // whatever it likes, and a card order we can't collect on is worse than
+    // no card option at all.
+    if (paymentMethod === "payfast" && process.env.NEXT_PUBLIC_PAYFAST_ENABLED !== "true") {
+      return NextResponse.json(
+        { error: "Card payments aren't available yet. Please choose EFT / bank transfer." },
+        { status: 503 }
+      );
+    }
 
     if (!items?.length) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
@@ -120,7 +157,10 @@ export async function POST(req: NextRequest) {
 
     const subtotalCents = lineItems.reduce((sum, li) => sum + li.line_total_cents, 0);
     const subtotalRands = subtotalCents / 100;
-    const shippingCents = shippingCentsForSubtotal(subtotalRands);
+    const shippingCents = shippingCentsForMethod(
+      deliveryMethod,
+      shippingCentsForSubtotal(subtotalRands)
+    );
 
     let voucherDiscountCents = 0;
     let voucherNote: string | null = null;
@@ -149,31 +189,65 @@ export async function POST(req: NextRequest) {
     }
 
     const totalCents = Math.max(0, subtotalCents + shippingCents - voucherDiscountCents);
-    const reference = generateShopOrderReference();
+    const reference = await nextOrderReference(supabase);
 
-    const { data: order, error: orderError } = await supabase
-      .from("orders")
-      .insert({
+    const orderRow = {
         reference,
         customer_name: `${billing.firstName.trim()} ${billing.lastName.trim()}`.trim(),
         customer_email: billing.email.toLowerCase().trim(),
         customer_phone: billing.phone.trim(),
-        shipping_address: {
-          line1: billing.address1.trim(),
-          line2: billing.address2?.trim() || null,
-          city: billing.city.trim(),
-          province: billing.province,
-          postal_code: billing.postalCode.trim(),
-          country: "ZA",
-        },
+        // Nothing is couriered on a collection order, and the address fields are
+        // hidden at checkout — storing a row of empty strings would just look
+        // like a broken address on the packing slip.
+        shipping_address:
+          deliveryMethod === "collection"
+            ? null
+            : {
+                line1: billing.address1.trim(),
+                line2: billing.address2?.trim() || null,
+                city: billing.city.trim(),
+                province: billing.province,
+                postal_code: billing.postalCode.trim(),
+                country: "ZA",
+              },
         subtotal_cents: subtotalCents,
         shipping_cents: shippingCents,
         total_cents: totalCents,
         status: "pending",
         notes: voucherNote,
-      })
+        payment_method: paymentMethod,
+        delivery_method: deliveryMethod,
+    };
+
+    let { data: order, error: orderError } = await supabase
+      .from("orders")
+      .insert(orderRow)
       .select("id, reference")
       .single();
+
+    // The payment/collection migration hasn't been run yet. Don't fail an
+    // otherwise-valid order over it — insert without the new columns and say so
+    // loudly. A card order can't proceed without them, though.
+    if (orderError?.code === "42703") {
+      console.error(
+        "[orders] orders table is missing payment_method/delivery_method — run " +
+          "scripts/sql/payfast-and-collection-migration.sql in Supabase"
+      );
+      if (paymentMethod === "payfast") {
+        return NextResponse.json(
+          { error: "Card payments are not configured yet. Please choose EFT, or contact the clinic." },
+          { status: 503 }
+        );
+      }
+      const legacyRow: Partial<typeof orderRow> = { ...orderRow };
+      delete legacyRow.payment_method;
+      delete legacyRow.delivery_method;
+      ({ data: order, error: orderError } = await supabase
+        .from("orders")
+        .insert(legacyRow)
+        .select("id, reference")
+        .single());
+    }
 
     if (orderError || !order) {
       console.error("[orders] insert order:", orderError);
@@ -230,15 +304,18 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const shippingAddress = [
-      billing.address1.trim(),
-      billing.address2?.trim(),
-      billing.city.trim(),
-      billing.province,
-      billing.postalCode.trim(),
-    ]
-      .filter(Boolean)
-      .join(", ");
+    const shippingAddress =
+      deliveryMethod === "collection"
+        ? COLLECTION_POINT.oneLine
+        : [
+            billing.address1.trim(),
+            billing.address2?.trim(),
+            billing.city.trim(),
+            billing.province,
+            billing.postalCode.trim(),
+          ]
+            .filter(Boolean)
+            .join(", ");
 
     const loyalty = await ensureLoyaltyAccountForOrder(
       supabase,
@@ -253,30 +330,98 @@ export async function POST(req: NextRequest) {
 
     await markAbandonedCheckoutConverted(billing.email, billing.phone);
 
-    await sendOrderEmails({
-      reference: order.reference,
-      customerName: `${billing.firstName.trim()} ${billing.lastName.trim()}`.trim(),
-      customerEmail: billing.email.toLowerCase().trim(),
-      customerPhone: billing.phone.trim(),
-      shippingAddress,
-      lineItems: lineItems.map((li) => ({
-        product_name: li.product_name,
-        quantity: li.quantity,
-        unit_price_cents: li.unit_price_cents,
-        line_total_cents: li.line_total_cents,
-      })),
-      subtotalCents,
-      shippingCents,
-      voucherDiscountCents,
-      totalCents,
-      voucherNote,
-      starlightsEarned: loyalty.starlightsEarned,
-      isNewMember: loyalty.isNewMember,
-    });
+    const customerEmail = billing.email.toLowerCase().trim();
+    const orderToken = createOrderAccessToken(order.reference, customerEmail);
+
+    // ── EFT ONLY: announce the order now ──────────────────────────────────────
+    //
+    // A card order gets NO email here. The customer has not paid yet — they are
+    // only about to be redirected to PayFast, and the payment can still be
+    // declined. Emailing at this point once made a declined card look like a
+    // completed sale (LAVA, 6 Aug 2026). Card orders are announced from the ITN
+    // handler, which knows the real outcome. With EFT, money is merely expected
+    // later, so "we've received your order, here are the banking details" is
+    // honest.
+    if (paymentMethod === "bank_transfer") {
+      await sendOrderEmails({
+        reference: order.reference,
+        customerName: `${billing.firstName.trim()} ${billing.lastName.trim()}`.trim(),
+        customerEmail,
+        customerPhone: billing.phone.trim(),
+        shippingAddress,
+        lineItems: lineItems.map((li) => ({
+          product_name: li.product_name,
+          quantity: li.quantity,
+          unit_price_cents: li.unit_price_cents,
+          line_total_cents: li.line_total_cents,
+        })),
+        subtotalCents,
+        shippingCents,
+        voucherDiscountCents,
+        totalCents,
+        voucherNote,
+        starlightsEarned: loyalty.starlightsEarned,
+        isNewMember: loyalty.isNewMember,
+        deliveryMethod,
+        paymentMethod,
+      });
+
+      return NextResponse.json({
+        method: "bank_transfer",
+        orderId: order.reference,
+        orderKey: order.id,
+        token: orderToken,
+      });
+    }
+
+    // ── PayFast: hand back a signed payment request ───────────────────────────
+    // Field ORDER matters — the signature is an MD5 over the params in exactly
+    // this sequence.
+    const siteUrl = getPublicSiteUrl();
+    const merchantId = process.env.NEXT_PUBLIC_PAYFAST_MERCHANT_ID || "";
+    const merchantKey = process.env.NEXT_PUBLIC_PAYFAST_MERCHANT_KEY || "";
+    const passphrase = process.env.PAYFAST_PASSPHRASE || "";
+
+    if (!merchantId || !merchantKey) {
+      console.error("[orders] PayFast merchant credentials not configured");
+      return NextResponse.json(
+        { error: "Card payments are unavailable right now. Please choose EFT." },
+        { status: 503 }
+      );
+    }
+
+    const itemSummary = truncate(
+      lineItems.map((li) => `${li.quantity}× ${li.product_name}`).join(", "),
+      255
+    );
+    const tokenParam = encodeURIComponent(orderToken);
+
+    const orderedParams: [string, string][] = [
+      ["merchant_id", merchantId],
+      ["merchant_key", merchantKey],
+      ["return_url", `${siteUrl}/order-confirmation?orderId=${order.reference}&token=${tokenParam}`],
+      ["cancel_url", `${siteUrl}/order-confirmation?orderId=${order.reference}&token=${tokenParam}&cancelled=1`],
+      ["notify_url", `${siteUrl}/api/payfast/itn`],
+      ["name_first", billing.firstName.trim()],
+      ["name_last", billing.lastName.trim()],
+      ["email_address", customerEmail],
+      ["cell_number", billing.phone.trim()],
+      ["m_payment_id", order.reference],
+      ["amount", (totalCents / 100).toFixed(2)],
+      ["item_name", truncate(`Star Aesthetic Centre — Order ${order.reference}`, 100)],
+      ["item_description", itemSummary],
+    ];
+
+    const params: Record<string, string> = Object.fromEntries(orderedParams);
+    params.signature = generateSignature(orderedParams, passphrase);
 
     return NextResponse.json({
+      method: "payfast",
       orderId: order.reference,
       orderKey: order.id,
+      token: orderToken,
+      payfastUrl: getPayFastUrl(),
+      params,
     });
   } catch (err) {
     console.error("[orders] Unexpected error:", err);

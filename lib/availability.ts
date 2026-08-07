@@ -136,7 +136,14 @@ export function computeAvailableSlots(
 
 // ── Reference number generator ─────────────────────────────────────────────────
 
-/** Generates a booking reference like SAC-20260320-A1B2 */
+/**
+ * Fallback reference like SAC-20260320-A1B2.
+ *
+ * Only used if next_booking_reference() isn't available — i.e.
+ * scripts/sql/sequential-booking-numbers.sql hasn't been run. Hard to read out
+ * over the phone, but unique without a database round trip, so a booking never
+ * fails for want of a reference.
+ */
 export function generateReference(dateStr: string): string {
   const compact = dateStr.replace(/-/g, '');
   const suffix = Math.random().toString(36).toUpperCase().slice(2, 6);

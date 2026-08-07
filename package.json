@@ -8,7 +8,8 @@
     "dev:clean": "rimraf .next && next dev --webpack --port 3001",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "conformance": "node \"../../_commerce-core/conformance/run.mjs\" --site ."
   },
   "dependencies": {
     "@google/genai": "^1.45.0",

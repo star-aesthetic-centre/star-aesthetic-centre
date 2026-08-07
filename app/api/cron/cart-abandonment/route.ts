@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import {
+  claimAbandonedReminder,
   listAbandonedCheckoutsForReminder,
-  markAbandonedReminderSent,
+  releaseAbandonedReminder,
 } from "@/lib/queries/abandoned-checkouts";
 import { sendWhatsAppTemplate, isWhatsAppConfigured } from "@/lib/utils/whatsapp";
 import {
@@ -41,7 +42,9 @@ export async function GET(request: Request) {
 
     let sent = false;
 
-    if (whatsappEnabled && row.phone) {
+    // The send slot is claimed BEFORE dispatch, so two overlapping runs can
+    // never both message the same person. A failed send hands the slot back.
+    if (whatsappEnabled && row.phone && (await claimAbandonedReminder(row.id, "whatsapp"))) {
       const wa = await sendWhatsAppTemplate({
         toPhone: row.phone,
         templateName,
@@ -51,15 +54,15 @@ export async function GET(request: Request) {
       });
 
       if (wa.ok) {
-        await markAbandonedReminderSent(row.id, "whatsapp");
         sent = true;
         results.push({ id: row.id, whatsapp: "sent" });
-      } else if (!wa.skipped) {
-        results.push({ id: row.id, whatsapp: wa.error });
+      } else {
+        await releaseAbandonedReminder(row.id, "whatsapp");
+        if (!wa.skipped) results.push({ id: row.id, whatsapp: wa.error });
       }
     }
 
-    if (!sent && row.email) {
+    if (!sent && row.email && (await claimAbandonedReminder(row.id, "email"))) {
       const mail = await sendCartAbandonmentEmail({
         to: row.email,
         firstName,
@@ -69,10 +72,10 @@ export async function GET(request: Request) {
       });
 
       if (mail.ok) {
-        await markAbandonedReminderSent(row.id, "email");
         results.push({ id: row.id, email: "sent" });
-      } else if (!mail.skipped) {
-        results.push({ id: row.id, email: mail.error });
+      } else {
+        await releaseAbandonedReminder(row.id, "email");
+        if (!mail.skipped) results.push({ id: row.id, email: mail.error });
       }
     }
   }
