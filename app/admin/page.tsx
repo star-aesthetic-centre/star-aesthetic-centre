@@ -22,11 +22,14 @@ import KPICard from "@/components/admin/KPICard";
 import MonthlyRevenueChart from "@/components/admin/charts/MonthlyRevenueChart";
 import OrderStatusChart from "@/components/admin/charts/OrderStatusChart";
 import { getDashboardStats } from "@/lib/admin/dashboard-stats";
+import ChannelsPanel from "@/components/admin/ChannelsPanel";
+import { getChannels, getAnalyticsStatus } from "@/lib/admin/channels";
 import { formatZAR, formatZARDetailed } from "@/lib/admin/format";
 import { formatNumber } from "@/lib/admin/format";
 
 export default async function AdminDashboardPage() {
-  const stats = await getDashboardStats();
+  const [stats, channels] = await Promise.all([getDashboardStats(), getChannels()]);
+  const analytics = getAnalyticsStatus();
 
   const abandonedRecoveryRate =
     stats.abandoned.converted + stats.abandoned.active > 0
@@ -188,6 +191,8 @@ export default async function AdminDashboardPage() {
           accent="bg-[#636374]"
         />
       </div>
+
+      <ChannelsPanel channels={channels} analytics={analytics} />
 
       {/* Vouchers · Bookings · Reviews */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
