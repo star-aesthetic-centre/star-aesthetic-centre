@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Star, CheckCircle2, Loader2 } from "lucide-react";
 import { HoneypotField } from "@/components/security/HoneypotField";
 import { TurnstileWidget } from "@/components/security/TurnstileWidget";
-import { REVIEW_QUESTIONS, type ReviewQuestion } from "@/lib/reviews/questions";
+import { questionsFor, type ReviewQuestion } from "@/lib/reviews/questions";
 import type { ReviewSubjectOption } from "@/lib/reviews/types";
 
 /**
@@ -45,7 +45,15 @@ export default function ReviewForm({
   }, [options]);
 
   const selected = options.find((o) => (o.slug ?? "") === treatmentSlug);
-  const written = Object.values(answers).reduce((n, a) => n + a.trim().length, 0);
+
+  // Questions change with the treatment — a weight-loss programme and a lip
+  // filler appointment have almost nothing in common from the patient's side.
+  const questions = useMemo(() => questionsFor(treatmentSlug || null), [treatmentSlug]);
+
+  // Count only answers belonging to the CURRENT question set, so text left
+  // behind by a previously selected treatment can't satisfy the threshold for
+  // a form the patient hasn't actually filled in.
+  const written = questions.reduce((n, q) => n + (answers[q.id] ?? "").trim().length, 0);
   const enough = written >= 80;
 
   function setAnswer(id: string, value: string) {
@@ -216,7 +224,7 @@ export default function ReviewForm({
           Answer whichever you like — you don&apos;t need to fill in all four.
         </p>
 
-        {REVIEW_QUESTIONS.map((q: ReviewQuestion) => (
+        {questions.map((q: ReviewQuestion) => (
           <div key={q.id}>
             <label htmlFor={q.id} className="mb-2 block text-sm font-semibold text-[#1A1917]">
               {q.label}

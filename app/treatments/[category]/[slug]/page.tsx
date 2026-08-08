@@ -22,6 +22,7 @@ import {
 } from "@/lib/seo";
 import { TREATMENT_SLUG_TO_CATEGORY, treatmentPath } from "@/lib/treatment-routes";
 import TreatmentReviews from "@/components/reviews/TreatmentReviews";
+import { DoctorAssessedCard } from "@/components/treatments/DoctorAssessedCard";
 import { getTreatmentReviews } from "@/lib/reviews/queries";
 import { TREATMENT_CARDS } from "@/lib/treatment-cards";
 import { injectGlossaryLinks } from "@/lib/glossary/inject";
@@ -695,6 +696,13 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 )}
                             </div>
                         )}
+
+                        {/* Treatment photo + doctor byline */}
+                        <DoctorAssessedCard
+                            treatmentImage={displayCardImage}
+                            treatmentImageAlt={displayCardImageAlt}
+                            treatmentTitle={displayTitle}
+                        />
 
                         {/* Niki Agent Card */}
                         <NikiAgentCard treatmentName={displayTitle} />

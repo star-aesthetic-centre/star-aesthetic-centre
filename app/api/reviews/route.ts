@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { saveReview } from "@/lib/reviews/queries";
 import {
-  REVIEW_QUESTIONS,
   buildAnswers,
   compileBody,
   isKnownTreatmentSlug,
@@ -69,7 +68,10 @@ export async function POST(req: NextRequest) {
     }
 
     const rawAnswers = (body.answers ?? {}) as Record<string, string>;
-    const answers = buildAnswers(rawAnswers);
+    // Questions are resolved from the treatment server-side, so the stored
+    // question text always matches the set for that treatment — a client
+    // can't relabel an answer by posting its own question strings.
+    const answers = buildAnswers(treatmentSlug, rawAnswers);
 
     // Require enough substance to be useful, but count across the whole set so
     // someone who wrote one thorough answer isn't blocked on a box they had
@@ -77,9 +79,7 @@ export async function POST(req: NextRequest) {
     const totalLength = answers.reduce((n, a) => n + a.answer.length, 0);
     if (answers.length === 0 || totalLength < 80) {
       return NextResponse.json(
-        {
-          error: `Please tell us a little more — answer at least one question in a sentence or two. (${REVIEW_QUESTIONS.length} short questions, none required individually.)`,
-        },
+        { error: "Please tell us a little more — a sentence or two in any one question is plenty." },
         { status: 400 }
       );
     }
