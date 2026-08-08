@@ -11,18 +11,18 @@ export interface TreatmentCardItem {
 const WP = "/images";
 
 export const TREATMENT_CARDS: TreatmentCardItem[] = [
-  { name: "Anti-Wrinkle Treatment", category: "face", slug: "anti-wrinkle-treatment", priceFrom: 1800, image: `${WP}/anti-wrinkle-treatment-star-durban-north.webp`, imageAlt: "Anti-Wrinkle Treatment — natural refreshed results, Durban North" },
-  { name: "Lip Filler Treatment", category: "face", slug: "lip-filler", priceFrom: 2500, image: `${WP}/lip-filler-treatment-durban-north.webp`, imageAlt: "Lip Filler Treatment — natural lip enhancement, Durban North" },
-  { name: "Jaw & Chin Contouring", category: "face", slug: "jaw-amp-chin-contouring", priceFrom: 2500, image: `${WP}/jaw-chin-contouring-filler-durban.webp`, imageAlt: "Jaw and Chin Contouring Filler Durban" },
-  { name: "Dermapen Microneedling", category: "face", slug: "dermapen-microneedling", priceFrom: 1900, image: `${WP}/dermapen-microneedling-skin-renewal.webp`, imageAlt: "Dermapen Microneedling Skin Renewal" },
-  { name: "Chemical Skin Peel", category: "skin", slug: "skin-peel", priceFrom: 665, image: `${WP}/chemical-skin-peel-rejuvenation.webp`, imageAlt: "Chemical Skin Peel Rejuvenation" },
-  { name: "Pigmentation & Melasma", category: "skin", slug: "pigmentation-treatment", priceFrom: 850, image: `${WP}/pigmentation-melasma-treatment-durban.webp`, imageAlt: "Pigmentation Melasma Treatment Durban" },
-  { name: "Acne Treatment", category: "skin", slug: "acne", priceFrom: 850, image: `${WP}/acne-scarring-treatment-durban-north.webp`, imageAlt: "Acne Treatment Durban North" },
-  { name: "Excessive Sweating", category: "skin", slug: "excessive-sweating", priceFrom: 3800, image: `${WP}/excessive-sweating-hyperhidrosis-treatment.webp`, imageAlt: "Excessive Sweating Hyperhidrosis Treatment" },
-  { name: "Body Contouring", category: "body-wellness", slug: "body-contouring", priceFrom: 850, image: `${WP}/body-contouring-fat-reduction-durban.webp`, imageAlt: "Body Contouring Fat Reduction Durban" },
-  { name: "Medi-Lean Weight Loss", category: "body-wellness", slug: "medi-lean", priceFrom: 850, image: `${WP}/medi-lean-weight-loss-diet-program.webp`, imageAlt: "Medi-Lean Weight Loss Diet Program" },
-  { name: "Varicose Vein Removal", category: "body-wellness", slug: "varicose-veins", priceFrom: 850, image: `${WP}/varicose-vein-removal-sclerotherapy.webp`, imageAlt: "Varicose Vein Removal Sclerotherapy" },
-  { name: "Vitamin IV Therapy", category: "body-wellness", slug: "vitamin-drips", priceFrom: 1265, image: `${WP}/vitamin-drip-iv-therapy-wellness.webp`, imageAlt: "Vitamin Drip IV Therapy Wellness" },
+  { name: "Anti-Wrinkle Treatment", category: "face", slug: "anti-wrinkle-treatment", priceFrom: 1800, image: `${WP}/anti-wrinkle-treatment-star-aesthetic-centre-durban-north-01.webp`, imageAlt: "Anti-Wrinkle Treatment — natural refreshed results, Durban North" },
+  { name: "Lip Filler Treatment", category: "face", slug: "lip-filler", priceFrom: 2500, image: `${WP}/lip-filler-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Lip Filler Treatment — natural lip enhancement, Durban North" },
+  { name: "Jaw & Chin Contouring", category: "face", slug: "jaw-amp-chin-contouring", priceFrom: 2500, image: `${WP}/jaw-and-chin-contouring-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Jaw and Chin Contouring Filler Durban" },
+  { name: "Dermapen Microneedling", category: "face", slug: "dermapen-microneedling", priceFrom: 1900, image: `${WP}/dermapen-microneedling-star-aesthetic-centre-durban-north.webp`, imageAlt: "Dermapen Microneedling Skin Renewal" },
+  { name: "Chemical Skin Peel", category: "skin", slug: "skin-peel", priceFrom: 665, image: `${WP}/skin-peel-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Chemical Skin Peel Rejuvenation" },
+  { name: "Pigmentation & Melasma", category: "skin", slug: "pigmentation-treatment", priceFrom: 850, image: `${WP}/pigmentation-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Pigmentation Melasma Treatment Durban" },
+  { name: "Acne Treatment", category: "skin", slug: "acne", priceFrom: 850, image: `${WP}/acne-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Acne Treatment Durban North" },
+  { name: "Excessive Sweating", category: "skin", slug: "excessive-sweating", priceFrom: 3800, image: `${WP}/excessive-sweating-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Excessive Sweating Hyperhidrosis Treatment" },
+  { name: "Body Contouring", category: "body-wellness", slug: "body-contouring", priceFrom: 850, image: `${WP}/body-contouring-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Body Contouring Fat Reduction Durban" },
+  { name: "Medi-Lean Weight Loss", category: "body-wellness", slug: "medi-lean", priceFrom: 850, image: `${WP}/medi-lean-weight-loss-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Medi-Lean Weight Loss Diet Program" },
+  { name: "Varicose Vein Removal", category: "body-wellness", slug: "varicose-veins", priceFrom: 850, image: `${WP}/varicose-veins-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Varicose Vein Removal Sclerotherapy" },
+  { name: "Vitamin IV Therapy", category: "body-wellness", slug: "vitamin-drips", priceFrom: 1265, image: `${WP}/vitamin-drip-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Vitamin Drip IV Therapy Wellness" },
 ];
 
 export function treatmentCategoryLabel(category: string): string {
