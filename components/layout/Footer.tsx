@@ -46,7 +46,7 @@ export default function Footer() {
                         </p>
                         <div className="flex gap-3">
                             <a
-                                href="https://instagram.com/staraesthetic"
+                                href="https://www.instagram.com/staraestheticcentre"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex h-9 w-9 items-center justify-center border border-[#E2E2E6] text-[#636374] transition-colors hover:border-[#939EBA] hover:text-[#939EBA]"
@@ -55,7 +55,7 @@ export default function Footer() {
                                 <Instagram size={16} />
                             </a>
                             <a
-                                href="https://facebook.com/staraesthetic"
+                                href="https://www.facebook.com/staraesthetic.centre"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex h-9 w-9 items-center justify-center border border-[#E2E2E6] text-[#636374] transition-colors hover:border-[#939EBA] hover:text-[#939EBA]"

@@ -109,8 +109,8 @@ const localBusinessSchema = {
     },
     "medicalSpecialty": "Aesthetic Medicine",
     "sameAs": [
-        "https://instagram.com/staraesthetic",
-        "https://facebook.com/staraesthetic",
+        "https://www.instagram.com/staraestheticcentre",
+        "https://www.facebook.com/staraesthetic.centre",
     ],
     "knowsAbout": [
         "Botox", "Lip Fillers", "Dermal Fillers", "Dermapen Microneedling",
