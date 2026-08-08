@@ -21,6 +21,8 @@ import {
   stripHtml,
 } from "@/lib/seo";
 import { TREATMENT_SLUG_TO_CATEGORY, treatmentPath } from "@/lib/treatment-routes";
+import TreatmentReviews from "@/components/reviews/TreatmentReviews";
+import { getTreatmentReviews } from "@/lib/reviews/queries";
 import { TREATMENT_CARDS } from "@/lib/treatment-cards";
 import { injectGlossaryLinks } from "@/lib/glossary/inject";
 import { mergePricingBreakdown, pricingBreakdownFromJson, type PricingBreakdown } from "@/lib/treatment-pricing";
@@ -330,6 +332,10 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
         .select("title, tagline, price_from, duration, downtime, hero_text, what_is, expected_results, downtime_detail, how_works, suitable_for, faqs, pricing_breakdown, card_image, card_image_alt")
         .eq("slug", slug)
         .single();
+
+    // Approved reviews for this treatment. Fails soft to an empty summary, so
+    // a reviews outage can never take a treatment page down.
+    const reviewSummary = await getTreatmentReviews(slug);
 
     // Merge: DB values take priority over JSON when non-null
     type DbFaq = { question: string; answer: string };
@@ -848,6 +854,12 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                     </div>
                 </section>
             )}
+
+            <TreatmentReviews
+                treatmentName={displayTitle}
+                treatmentSlug={slug}
+                summary={reviewSummary}
+            />
 
             <section className="border-t border-[#E2E2E6] bg-white py-8">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
