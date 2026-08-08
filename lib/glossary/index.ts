@@ -1,4 +1,5 @@
 import { INGREDIENT_TERMS } from "./data/ingredients";
+import { CLINICAL_INGREDIENT_TERMS } from "./data/ingredients-clinical";
 import { TREATMENT_TERMS } from "./data/treatments";
 import { CONDITION_TERMS } from "./data/conditions";
 import { CONCEPT_TERMS } from "./data/concepts";
@@ -10,6 +11,7 @@ export type { GlossaryTerm, GlossaryCategory };
 /** All glossary terms — add new data files and spread them here */
 export const ALL_GLOSSARY_TERMS: GlossaryTerm[] = [
   ...INGREDIENT_TERMS,
+  ...CLINICAL_INGREDIENT_TERMS,
   ...TREATMENT_TERMS,
   ...CONDITION_TERMS,
   ...CONCEPT_TERMS,
