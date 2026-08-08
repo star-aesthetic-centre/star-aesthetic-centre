@@ -86,6 +86,33 @@ export type DashboardStats = {
     newLeadCount: number;
     customerCount: number;
   };
+  vouchers: {
+    totalIssued: number;
+    pendingCount: number;
+    pendingValueRands: number;
+    activeCount: number;
+    /** Outstanding liability — unredeemed balance the clinic still owes. */
+    outstandingBalanceRands: number;
+    redeemedValueRands: number;
+    lifetimeValueRands: number;
+  };
+  /**
+   * Counts only, deliberately no value. The site books consultations; what a
+   * patient is actually charged is decided in the room and never reaches this
+   * database, and treatments.json prices are free-text ranges. Any rand figure
+   * here would be invented.
+   */
+  bookings: {
+    total: number;
+    thisMonth: number;
+    upcoming: number;
+    byTreatment: Array<{ treatment: string; count: number }>;
+  };
+  reviews: {
+    pending: number;
+    approved: number;
+    averageRating: number;
+  };
   revenueLensExplanation: string;
 };
 
@@ -251,7 +278,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
   const topProducts = [...productMap.entries()]
     .map(([name, v]) => ({ name, units: v.units, revenueCents: v.revenueCents }))
     .sort((a, b) => b.revenueCents - a.revenueCents)
-    .slice(0, 5);
+    .slice(0, 10);
 
   const topCustomers = [...customerMap.entries()]
     .map(([email, v]) => ({ email, revenueCents: v.revenueCents, orders: v.orders }))
@@ -380,6 +407,107 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 
   const { customers: customerList } = await listCustomers();
 
+  // ── Gift vouchers ─────────────────────────────────────────────────────────
+  // Reported in rands: gift_vouchers stores whole rands, unlike orders which
+  // store cents. Mixing the two units silently would misstate money by 100×.
+  const vouchers: DashboardStats["vouchers"] = {
+    totalIssued: 0,
+    pendingCount: 0,
+    pendingValueRands: 0,
+    activeCount: 0,
+    outstandingBalanceRands: 0,
+    redeemedValueRands: 0,
+    lifetimeValueRands: 0,
+  };
+
+  const { data: voucherRows, error: voucherErr } = await supabase
+    .from("gift_vouchers")
+    .select("status, denomination_rands, balance_rands");
+
+  if (voucherErr) {
+    if (!isMissingTable(voucherErr.message)) loadErrors.push(`gift_vouchers: ${voucherErr.message}`);
+  } else {
+    for (const v of voucherRows ?? []) {
+      const face = Number(v.denomination_rands ?? 0);
+      const balance = Number(v.balance_rands ?? 0);
+      vouchers.totalIssued++;
+      vouchers.lifetimeValueRands += face;
+
+      if (v.status === "pending_payment") {
+        vouchers.pendingCount++;
+        vouchers.pendingValueRands += face;
+      } else if (v.status === "active" || v.status === "partially_redeemed") {
+        vouchers.activeCount++;
+        // Only paid-for vouchers are a real liability.
+        vouchers.outstandingBalanceRands += balance;
+      }
+      // Redeemed value is face minus whatever is still on the card, for any
+      // voucher that has been paid for.
+      if (v.status !== "pending_payment" && v.status !== "cancelled" && v.status !== "failed") {
+        vouchers.redeemedValueRands += Math.max(0, face - balance);
+      }
+    }
+  }
+
+  // ── Bookings / treatments ─────────────────────────────────────────────────
+  const bookings: DashboardStats["bookings"] = {
+    total: 0,
+    thisMonth: 0,
+    upcoming: 0,
+    byTreatment: [],
+  };
+
+  const { data: bookingRows, error: bookingErr } = await supabase
+    .from("bookings")
+    .select("treatment, treatment_slug, date, status")
+    .neq("status", "cancelled");
+
+  if (bookingErr) {
+    if (!isMissingTable(bookingErr.message)) loadErrors.push(`bookings: ${bookingErr.message}`);
+  } else {
+    const today = new Date().toISOString().slice(0, 10);
+    const monthStart = `${today.slice(0, 7)}-01`;
+    const perTreatment = new Map<string, number>();
+
+    for (const b of bookingRows ?? []) {
+      bookings.total++;
+      const date = String(b.date ?? "");
+      if (date >= monthStart) bookings.thisMonth++;
+      if (date >= today) bookings.upcoming++;
+
+      const name = (b.treatment ?? b.treatment_slug ?? "Unspecified") as string;
+      perTreatment.set(name, (perTreatment.get(name) ?? 0) + 1);
+    }
+
+    bookings.byTreatment = [...perTreatment.entries()]
+      .map(([treatment, count]) => ({ treatment, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
+  }
+
+  // ── Reviews awaiting moderation ───────────────────────────────────────────
+  const reviews: DashboardStats["reviews"] = { pending: 0, approved: 0, averageRating: 0 };
+
+  const { data: reviewRows, error: reviewErr } = await supabase
+    .from("reviews")
+    .select("approved, rating");
+
+  if (reviewErr) {
+    if (!isMissingTable(reviewErr.message)) loadErrors.push(`reviews: ${reviewErr.message}`);
+  } else {
+    let ratingSum = 0;
+    for (const r of reviewRows ?? []) {
+      if (r.approved) {
+        reviews.approved++;
+        ratingSum += Number(r.rating ?? 0);
+      } else {
+        reviews.pending++;
+      }
+    }
+    reviews.averageRating =
+      reviews.approved > 0 ? Math.round((ratingSum / reviews.approved) * 10) / 10 : 0;
+  }
+
   return {
     loadErrors,
     productCount,
@@ -414,6 +542,9 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       newLeadCount,
       customerCount: customerList.length,
     },
+    vouchers,
+    bookings,
+    reviews,
     revenueLensExplanation:
       "Revenue includes orders marked Paid, Processing, Shipped, or Delivered (EFT confirmed or fulfilled). Pending = checkout placed, awaiting EFT. Cancelled and refunded orders are excluded.",
   };

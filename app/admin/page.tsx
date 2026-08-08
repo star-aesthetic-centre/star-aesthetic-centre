@@ -14,6 +14,9 @@ import {
   Target,
   AlertCircle,
   Mail,
+  Gift,
+  CalendarCheck,
+  Star,
 } from "lucide-react";
 import KPICard from "@/components/admin/KPICard";
 import MonthlyRevenueChart from "@/components/admin/charts/MonthlyRevenueChart";
@@ -185,6 +188,69 @@ export default async function AdminDashboardPage() {
           accent="bg-[#636374]"
         />
       </div>
+
+      {/* Vouchers · Bookings · Reviews */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <KPICard
+          label="Gift vouchers issued"
+          value={formatNumber(stats.vouchers.totalIssued)}
+          sub={`${formatNumber(stats.vouchers.activeCount)} active · ${formatNumber(stats.vouchers.pendingCount)} awaiting payment`}
+          icon={Gift}
+          href="/admin/vouchers"
+        />
+        <KPICard
+          label="Voucher liability"
+          value={formatZAR(stats.vouchers.outstandingBalanceRands)}
+          sub={`unredeemed balance · ${formatZAR(stats.vouchers.pendingValueRands)} unpaid`}
+          icon={Wallet}
+          href="/admin/vouchers"
+          accent="bg-[#C8A882]"
+        />
+        <KPICard
+          label="Treatments booked"
+          value={formatNumber(stats.bookings.total)}
+          sub={`${formatNumber(stats.bookings.thisMonth)} this month · ${formatNumber(stats.bookings.upcoming)} upcoming`}
+          icon={CalendarCheck}
+          href="/admin/leads"
+        />
+        <KPICard
+          label="Reviews awaiting approval"
+          value={formatNumber(stats.reviews.pending)}
+          sub={
+            stats.reviews.approved > 0
+              ? `${formatNumber(stats.reviews.approved)} live · ${stats.reviews.averageRating.toFixed(1)}★ average`
+              : "nothing published yet"
+          }
+          icon={Star}
+          href="/admin/reviews"
+          accent={stats.reviews.pending > 0 ? "bg-[#f59e0b]" : undefined}
+        />
+      </div>
+
+      {/* Bookings by treatment */}
+      <section className="bg-white border border-[#E5E4E0] p-6 mb-8">
+        <h2 className="font-heading text-sm font-bold uppercase tracking-widest text-[#0F2647] mb-1">
+          Treatments booked from the site
+        </h2>
+        <p className="mb-4 text-xs text-[#6B6966]">
+          Booking counts only. What a patient is charged is decided in consultation and never
+          reaches this system, so no rand value is shown here.
+        </p>
+        {stats.bookings.byTreatment.length === 0 ? (
+          <p className="text-sm text-[#6B6966]">No bookings yet.</p>
+        ) : (
+          <ul className="divide-y divide-[#F0EFEC]">
+            {stats.bookings.byTreatment.map((t) => (
+              <li key={t.treatment} className="flex items-center justify-between py-2.5">
+                <span className="text-sm text-[#1A1917]">{t.treatment}</span>
+                <span className="text-sm font-semibold text-[#0F2647]">
+                  {formatNumber(t.count)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       {/* Abandoned carts + Niki */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
