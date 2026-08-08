@@ -13,6 +13,15 @@ import { BANK_DETAILS } from "@/lib/constants/banking";
 import { Resend } from "resend";
 import { rateLimit } from "@/lib/security/rate-limit";
 import { getClientIp } from "@/lib/security/public-form-guard";
+import { generateSignature, getPayFastUrl } from "@/lib/payfast";
+import { getPublicSiteUrl } from "@/lib/seo";
+
+/** Mirrors the product checkout: card payments stay hidden until the flag is on. */
+const PAYFAST_ENABLED = process.env.NEXT_PUBLIC_PAYFAST_ENABLED === "true";
+
+function truncate(value: string, max: number): string {
+  return value.length <= max ? value : value.slice(0, max - 1) + "…";
+}
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -39,10 +48,20 @@ export async function POST(req: NextRequest) {
       recipients,
       message,
       theme = "general",
+      payment_method = "bank_transfer",
     } = body;
 
     if (!VOUCHER_DENOMINATIONS.includes(denomination_rands)) {
       return NextResponse.json({ error: "Invalid denomination" }, { status: 400 });
+    }
+
+    // Never let a request opt into card payments while the gateway is gated off.
+    const paymentMethod = payment_method === "payfast" ? "payfast" : "bank_transfer";
+    if (paymentMethod === "payfast" && !PAYFAST_ENABLED) {
+      return NextResponse.json(
+        { error: "Card payments are unavailable right now. Please choose EFT." },
+        { status: 503 }
+      );
     }
 
     const qty = Math.min(Math.max(1, Number(quantity) || 1), MAX_VOUCHER_QUANTITY);
@@ -108,17 +127,102 @@ export async function POST(req: NextRequest) {
         recipient_email: recipient.email,
         message: message?.trim() || null,
         theme: theme as VoucherTheme,
+        payment_method: paymentMethod,
       };
     });
 
-    const { data: vouchers, error } = await supabase.from("gift_vouchers").insert(rows).select();
+    let { data: vouchers, error } = await supabase.from("gift_vouchers").insert(rows).select();
 
-    if (error || !vouchers?.length) {
-      console.error("Voucher insert error:", error);
+    if (error) {
+      // The PayFast migration may not have been run yet. EFT orders must keep
+      // working regardless — only the card path genuinely needs the column.
+      const legacyRows = rows.map(({ payment_method: _pm, ...rest }) => rest);
+      const retry = await supabase.from("gift_vouchers").insert(legacyRows).select();
+
+      if (retry.error) {
+        // Log the real Postgres message — "Failed to create voucher(s)" alone
+        // hid a missing-column fault on production for three months.
+        console.error("[vouchers] insert failed:", retry.error.message, retry.error);
+        return NextResponse.json({ error: "Failed to create voucher(s)" }, { status: 500 });
+      }
+
+      console.warn(
+        "[vouchers] payment_method not stored — run scripts/sql/voucher-payfast-migration.sql"
+      );
+      vouchers = retry.data;
+
+      if (paymentMethod === "payfast") {
+        return NextResponse.json(
+          { error: "Card payments are unavailable right now. Please choose EFT." },
+          { status: 503 }
+        );
+      }
+    }
+
+    if (!vouchers?.length) {
+      console.error("[vouchers] insert returned no rows");
       return NextResponse.json({ error: "Failed to create voucher(s)" }, { status: 500 });
     }
 
     const uniqueRecipients = [...new Set(recipientList.map((r) => r.name))];
+
+    // ── Card payment: hand the signed form back, send no EFT instructions ────
+    // The voucher stays pending_payment until the ITN confirms the money.
+    if (paymentMethod === "payfast") {
+      const merchantId = process.env.NEXT_PUBLIC_PAYFAST_MERCHANT_ID || "";
+      const merchantKey = process.env.NEXT_PUBLIC_PAYFAST_MERCHANT_KEY || "";
+      const passphrase = process.env.PAYFAST_PASSPHRASE || "";
+
+      if (!merchantId || !merchantKey) {
+        console.error("[vouchers] PayFast merchant credentials not configured");
+        return NextResponse.json(
+          { error: "Card payments are unavailable right now. Please choose EFT." },
+          { status: 503 }
+        );
+      }
+
+      const siteUrl = getPublicSiteUrl();
+      const ref = encodeURIComponent(paymentReference);
+
+      const orderedParams: [string, string][] = [
+        ["merchant_id", merchantId],
+        ["merchant_key", merchantKey],
+        ["return_url", `${siteUrl}/gift-vouchers/pending?ref=${ref}`],
+        ["cancel_url", `${siteUrl}/gift-vouchers/pending?ref=${ref}&cancelled=1`],
+        // Vouchers notify their own endpoint — the order ITN only knows orders.
+        ["notify_url", `${siteUrl}/api/payfast/voucher-itn`],
+        ["name_first", purchaser_first_name.trim()],
+        ["name_last", purchaser_surname?.trim() || ""],
+        ["email_address", purchaserEmail],
+        ["cell_number", purchaserPhone],
+        ["m_payment_id", paymentReference],
+        ["amount", totalRands.toFixed(2)],
+        ["item_name", truncate(`Star Aesthetic Gift Voucher — ${paymentReference}`, 100)],
+        [
+          "item_description",
+          truncate(
+            qty > 1
+              ? `${qty} × R ${denomination_rands} gift vouchers`
+              : `R ${denomination_rands} gift voucher`,
+            255
+          ),
+        ],
+      ];
+
+      const pfParams: Record<string, string> = Object.fromEntries(orderedParams);
+      pfParams.signature = generateSignature(orderedParams, passphrase);
+
+      return NextResponse.json({
+        success: true,
+        method: "payfast",
+        payment_reference: paymentReference,
+        quantity: qty,
+        total_rands: totalRands,
+        denomination_rands,
+        payfastUrl: getPayFastUrl(),
+        params: pfParams,
+      });
+    }
 
     await resend.emails.send({
       from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
@@ -137,6 +241,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
+      method: "bank_transfer",
       payment_reference: paymentReference,
       order_reference: paymentReference,
       quantity: qty,

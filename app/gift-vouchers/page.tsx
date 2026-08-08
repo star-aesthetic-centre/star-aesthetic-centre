@@ -24,6 +24,14 @@ const THEME_ICONS: Record<VoucherTheme, string> = {
 
 type RecipientForm = { name: string; email: string };
 
+/**
+ * Card payments stay hidden until PayFast's business verification clears.
+ * Flip NEXT_PUBLIC_PAYFAST_ENABLED to "true" in Vercel to reveal the option —
+ * the API refuses "payfast" while the flag is off, so hiding it is not the
+ * only line of defence.
+ */
+const PAYFAST_ENABLED = process.env.NEXT_PUBLIC_PAYFAST_ENABLED === "true";
+
 function GiftVoucherForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -49,6 +57,9 @@ function GiftVoucherForm() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"bank_transfer" | "payfast">(
+    "bank_transfer"
+  );
 
   const totalRands = amount * quantity;
   const purchaserDisplayName = formatPurchaserName(purchaser.first_name, purchaser.surname);
@@ -89,6 +100,7 @@ function GiftVoucherForm() {
         purchaser_email: purchaser.email,
         purchaser_phone: purchaser.phone,
         message,
+        payment_method: paymentMethod,
       };
 
       if (differentRecipients && quantity > 1) {
@@ -108,6 +120,25 @@ function GiftVoucherForm() {
         setError(data.error || "Something went wrong. Please try again.");
         return;
       }
+      // Card payment: hand off to PayFast. The vouchers stay pending_payment
+      // until the ITN confirms the money — never activate on this redirect,
+      // which proves only that the customer reached the gateway.
+      if (data.method === "payfast" && data.payfastUrl && data.params) {
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = data.payfastUrl;
+        for (const [key, value] of Object.entries(data.params as Record<string, string>)) {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key;
+          input.value = value;
+          form.appendChild(input);
+        }
+        document.body.appendChild(form);
+        form.submit();
+        return;
+      }
+
       const ref = data.payment_reference ?? data.order_reference;
       router.push(
         `/gift-vouchers/pending?ref=${encodeURIComponent(ref)}&amount=${data.total_rands ?? totalRands}&qty=${quantity}&denom=${amount}&recipient=${encodeURIComponent(data.recipient_name)}`
@@ -360,6 +391,42 @@ function GiftVoucherForm() {
               <p className="text-xs text-[#939EBA] mt-1">{message.length}/200</p>
             </div>
 
+            {PAYFAST_ENABLED && (
+              <div>
+                <h3 className="text-xs tracking-[2px] uppercase text-[#6B6966] mb-3">Payment Method</h3>
+                <div className="space-y-2">
+                  {(
+                    [
+                      ["bank_transfer", "EFT / Bank Transfer", "Pay by bank transfer using the reference we email you."],
+                      ["payfast", "Card Payment", "Pay securely by card via PayFast. Vouchers are sent immediately."],
+                    ] as const
+                  ).map(([value, label, hint]) => (
+                    <label
+                      key={value}
+                      className={`flex gap-3 border px-4 py-3 cursor-pointer transition-colors ${
+                        paymentMethod === value
+                          ? "border-[#C8A882] bg-[#FFF8F0]"
+                          : "border-[#E5E4E0] hover:border-[#939EBA]"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="payment_method"
+                        value={value}
+                        checked={paymentMethod === value}
+                        onChange={() => setPaymentMethod(value)}
+                        className="mt-1 accent-[#C8A882]"
+                      />
+                      <span>
+                        <span className="block text-sm font-semibold text-[#1A1917]">{label}</span>
+                        <span className="block text-xs text-[#6B6966] mt-0.5">{hint}</span>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {error && (
               <div className="bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">{error}</div>
             )}
@@ -378,15 +445,18 @@ function GiftVoucherForm() {
                 className="flex-1 bg-[#C8A882] text-white py-4 text-sm font-semibold hover:bg-[#A08060] transition-colors disabled:opacity-60"
               >
                 {loading
-                  ? "Processing…"
+                  ? paymentMethod === "payfast"
+                    ? "Redirecting to PayFast…"
+                    : "Processing…"
                   : quantity > 1
                     ? `Purchase ${quantity} × R ${amount.toLocaleString("en-ZA")} (R ${totalRands.toLocaleString("en-ZA")})`
                     : `Purchase R ${amount.toLocaleString("en-ZA")} Voucher`}
               </button>
             </div>
             <p className="text-xs text-[#6B6966] text-center">
-              Payment via EFT — same as our online shop. One payment reference for your order. Vouchers emailed once
-              payment is confirmed.
+              {paymentMethod === "payfast"
+                ? "You'll be redirected to PayFast to pay securely by card. Vouchers are emailed as soon as payment is confirmed."
+                : "Payment via EFT — same as our online shop. One payment reference for your order. Vouchers emailed once payment is confirmed."}
             </p>
           </form>
         )}

@@ -1,10 +1,8 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
-import { buildVoucherEmail, type GiftVoucher } from "@/lib/utils/vouchers";
-import { Resend } from "resend";
+import { type GiftVoucher } from "@/lib/utils/vouchers";
+import { activateVoucher } from "@/lib/utils/voucher-activation";
 import { ADMIN_COOKIE, isValidAdminSession } from "@/lib/security/admin-auth";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 /** POST /api/vouchers/activate
  *  Body: { order_reference } — single line, OR
@@ -45,7 +43,7 @@ export async function POST(req: NextRequest) {
   const activated: { code: string; recipient_email: string }[] = [];
 
   for (const voucher of pending) {
-    const result = await activateOne(supabase, voucher as GiftVoucher);
+    const result = await activateVoucher(supabase, voucher as GiftVoucher);
     if (result) activated.push(result);
   }
 
@@ -57,50 +55,3 @@ export async function POST(req: NextRequest) {
   });
 }
 
-async function activateOne(
-  supabase: ReturnType<typeof createSupabaseAdmin>,
-  voucher: GiftVoucher
-) {
-  const expiresAt = new Date();
-  expiresAt.setFullYear(expiresAt.getFullYear() + 3);
-
-  const { error: updateError } = await supabase
-    .from("gift_vouchers")
-    .update({
-      status: "active",
-      activated_at: new Date().toISOString(),
-      expires_at: expiresAt.toISOString(),
-    })
-    .eq("id", voucher.id);
-
-  if (updateError) {
-    console.error("Activate error:", updateError);
-    return null;
-  }
-
-  const activatedVoucher: GiftVoucher = {
-    ...voucher,
-    status: "active",
-    expires_at: expiresAt.toISOString(),
-  };
-
-  await resend.emails.send({
-    from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
-    to: voucher.recipient_email,
-    subject: `You've received a Star Aesthetic Gift Voucher from ${voucher.purchaser_name} 🎁`,
-    html: buildVoucherEmail(activatedVoucher),
-  });
-
-  await resend.emails.send({
-    from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
-    to: voucher.purchaser_email,
-    subject: `Your Gift Voucher has been sent to ${voucher.recipient_name}`,
-    html: `<p>Hi ${voucher.purchaser_name},</p>
-<p>Your R ${voucher.denomination_rands} gift voucher has been confirmed and sent to <strong>${voucher.recipient_name}</strong> at ${voucher.recipient_email}.</p>
-<p>Voucher code: <strong>${voucher.code}</strong></p>
-<p>Thank you for your purchase — we look forward to welcoming ${voucher.recipient_name} to Star Aesthetic Centre.</p>
-<p style="margin-top:24px;color:#6B6966;font-size:12px;">Star Aesthetic Centre · 22 Ennisdale Drive, Durban North, 4051</p>`,
-  });
-
-  return { code: voucher.code, recipient_email: voucher.recipient_email };
-}
