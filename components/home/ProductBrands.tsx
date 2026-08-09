@@ -12,25 +12,33 @@ export default function ProductBrands() {
                     </span>
                 </div>
 
-                {/* Flex wrap container: 2-3 per row on mobile, single row on large desktop */}
-                <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-12 sm:gap-x-16 lg:gap-y-16">
+                {/*
+                  Fixed 3-column grid — six brands land as a clean 3 × 2 block.
+                  The previous flex-wrap produced a ragged 4-then-2, which reads
+                  as an afterthought rather than a considered stockist list for
+                  brands at this price point.
+                */}
+                <div className="grid grid-cols-2 gap-px overflow-hidden border border-[#E2E2E6] bg-[#E2E2E6] md:grid-cols-3">
                     {brands.map((brand) => (
                         <Link
                             key={brand.slug}
                             href={`/shop/brands/${brand.slug}`}
-                            className="group relative flex items-center justify-center transition-transform hover:scale-105"
+                            className="group flex flex-col items-center justify-center gap-4 bg-white px-6 py-12 transition-colors hover:bg-[#FBFBFC] lg:py-16"
                             title={`Shop ${brand.name} Skincare`}
                         >
-                            <div className="relative h-20 w-40 sm:h-24 sm:w-48 lg:h-32 lg:w-64">
+                            <div className="relative h-16 w-full max-w-[190px] transition-transform duration-300 group-hover:scale-105">
                                 <Image
                                     src={brand.logo}
                                     alt={`${brand.name} logo`}
                                     fill
                                     unoptimized
                                     className="object-contain"
-                                    sizes="(max-width: 640px) 128px, (max-width: 1024px) 160px, 192px"
+                                    sizes="(max-width: 768px) 45vw, 190px"
                                 />
                             </div>
+                            <span className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9C9D1] transition-colors group-hover:text-[#939EBA]">
+                                Shop range →
+                            </span>
                         </Link>
                     ))}
                 </div>
