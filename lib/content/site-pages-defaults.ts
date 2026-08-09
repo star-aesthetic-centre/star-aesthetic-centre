@@ -74,7 +74,7 @@ export const DEFAULT_CONTACT: ContactPageContent = {
   contact: {
     phone: "0315731325",
     phoneDisplay: "031 573 1325",
-    email: "info@staraesthetic.co.za",
+    email: "info@staraesthetic.site",
     addressLine1: "22 Ennisdale Drive",
     addressLine2: "Durban North, 4051",
     whatsappNote: "060 123 0000",

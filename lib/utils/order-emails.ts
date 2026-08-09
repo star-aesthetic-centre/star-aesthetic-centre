@@ -5,7 +5,7 @@ import { formatStarlights } from "@/lib/utils/rewards";
 /** Customer-facing "send proof of payment to" address — must be an inbox that's actually monitored. */
 export const ORDER_POP_EMAIL = "info@staraesthetic.site";
 /** Admin notification recipients — dual-sent to the monitored .site inbox and the official .co.za address. */
-export const ORDER_ADMIN_EMAILS = ["info@staraesthetic.site", "info@staraesthetic.co.za"];
+export const ORDER_ADMIN_EMAILS = ["info@staraesthetic.site"];
 /** staraesthetic.co.za is NOT a verified Resend sending domain — sends from it fail silently. Use staraesthetic.site. */
 export const ORDER_FROM = "Star Aesthetic Centre <bookings@staraesthetic.site>";
 

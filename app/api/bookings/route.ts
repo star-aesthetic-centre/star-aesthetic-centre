@@ -190,7 +190,7 @@ export async function POST(req: NextRequest) {
     // Nakita alert — dual-sent: .site is actually monitored, .co.za kept for the official record.
     await resend.emails.send({
       from:    'Star Aesthetic Bookings <bookings@staraesthetic.site>',
-      to:      ['info@staraesthetic.site', 'info@staraesthetic.co.za'],
+      to:      ['info@staraesthetic.site', 'info@staraesthetic.site'],
       subject: `New Booking: ${apt.title} — ${dateDisplay} at ${timeDisplay}`,
       html:    buildNakitaEmail({
         reference, patientName, patientEmail, patientPhone,

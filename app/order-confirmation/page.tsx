@@ -8,7 +8,7 @@ import { BANK_DETAILS } from "@/lib/constants/banking";
 import { COLLECTION_POINT } from "@/lib/constants/fulfilment";
 import { calculateStarlights, formatStarlights } from "@/lib/utils/rewards";
 
-const POP_EMAIL = "info@staraesthetic.co.za";
+const POP_EMAIL = "info@staraesthetic.site";
 
 /**
  * What this page is allowed to say.

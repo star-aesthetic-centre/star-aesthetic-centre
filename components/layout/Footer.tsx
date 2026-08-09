@@ -167,11 +167,11 @@ export default function Footer() {
                             </li>
                             <li>
                                 <a
-                                    href="mailto:info@staraesthetic.co.za"
+                                    href="mailto:info@staraesthetic.site"
                                     className="flex items-center gap-3 text-sm text-[#636374] transition-colors hover:text-[#939EBA]"
                                 >
                                     <Mail size={15} className="shrink-0 text-[#939EBA]" />
-                                    info@staraesthetic.co.za
+                                    info@staraesthetic.site
                                 </a>
                             </li>
                         </ul>

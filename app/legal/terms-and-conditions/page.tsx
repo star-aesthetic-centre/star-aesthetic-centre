@@ -406,9 +406,9 @@ export default function TermsPage() {
                   Star Aesthetic Centre
                 </p>
                 <div className="space-y-3">
-                  <a href="mailto:info@staraesthetic.co.za" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
+                  <a href="mailto:info@staraesthetic.site" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
                     <Mail size={14} className="shrink-0 text-[#939EBA]" />
-                    info@staraesthetic.co.za
+                    info@staraesthetic.site
                   </a>
                   <a href="tel:+27315731325" className="flex items-center gap-3 text-sm text-[#6B6966] transition-colors hover:text-[#1B3D6E]">
                     <Phone size={14} className="shrink-0 text-[#939EBA]" />

@@ -72,7 +72,7 @@ const localBusinessSchema = {
     "image": `${SITE_URL}${DEFAULT_OG_IMAGE}`,
     "description": "Doctor-led aesthetic treatments and curated medical skincare in Durban North by Dr. Rajeev Bangalee (MB, BS). Botox, fillers, skin peels, microneedling and more.",
     "telephone": "+27315731325",
-    "email": "info@staraesthetic.co.za",
+    "email": "info@staraesthetic.site",
     "priceRange": "R850–R2500",
     "address": {
         "@type": "PostalAddress",

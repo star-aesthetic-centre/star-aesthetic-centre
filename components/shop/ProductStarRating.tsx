@@ -172,7 +172,7 @@ export default function ProductStarRating({ productName, reviews = [] }: Product
                     Be the first to share your experience with this product. Your review helps other clients make confident decisions.
                   </p>
                   <a
-                    href={`mailto:info@staraesthetic.co.za?subject=Product Review&body=I would like to leave a review for ${encodeURIComponent(productName)}.`}
+                    href={`mailto:info@staraesthetic.site?subject=Product Review&body=I would like to leave a review for ${encodeURIComponent(productName)}.`}
                     className="inline-block bg-[#0F2647] text-white text-sm font-semibold px-6 py-3 hover:bg-[#1B3D6E] transition-colors"
                   >
                     Write a Review

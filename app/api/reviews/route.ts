@@ -8,6 +8,10 @@ import {
 } from "@/lib/reviews/questions";
 import { rateLimit } from "@/lib/security/rate-limit";
 import {
+  sendReviewAdminNotification,
+  sendReviewPendingEmail,
+} from "@/lib/utils/review-admin-email";
+import {
   getClientIp,
   guardFailureResponse,
   verifyPublicFormSubmission,
@@ -104,6 +108,27 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Tell the clinic. Reviews are held unapproved, so without this a review
+    // sits invisible until someone happens to open the admin panel — and a
+    // complaint arriving as a one-star review needs answering quickly.
+    const subjectLabel = subjectLabelFor(treatmentSlug);
+
+    await Promise.all([
+      sendReviewAdminNotification({
+        id: result.id,
+        name,
+        email,
+        city,
+        rating,
+        headline,
+        subjectLabel,
+        answers,
+      }),
+      // The reviewer is told their review is with a person and will not appear
+      // instantly. Without this, moderation looks like the review vanished.
+      sendReviewPendingEmail({ name, email, headline, subjectLabel }),
+    ]);
 
     return NextResponse.json({ ok: true, id: result.id });
   } catch (err) {
