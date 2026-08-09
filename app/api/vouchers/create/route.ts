@@ -15,6 +15,7 @@ import { rateLimit } from "@/lib/security/rate-limit";
 import { getClientIp } from "@/lib/security/public-form-guard";
 import { generateSignature, getPayFastUrl } from "@/lib/payfast";
 import { getPublicSiteUrl } from "@/lib/seo";
+import { sendVoucherAdminNotification } from "@/lib/utils/voucher-admin-email";
 
 /** Mirrors the product checkout: card payments stay hidden until the flag is on. */
 const PAYFAST_ENABLED = process.env.NEXT_PUBLIC_PAYFAST_ENABLED === "true";
@@ -237,6 +238,24 @@ export async function POST(req: NextRequest) {
         recipientsSummary: uniqueRecipients.join(", "),
         bankDetails: BANK_DETAILS,
       }),
+    });
+
+    // Tell the clinic. EFT means someone has to match an incoming payment to
+    // this reference — without this the order was invisible until an admin
+    // happened to look. Deliberately after the purchaser email and never
+    // allowed to fail the request.
+    await sendVoucherAdminNotification({
+      paymentReference,
+      denominationRands: denomination_rands,
+      quantity: qty,
+      totalRands,
+      purchaserName: purchaserFullName,
+      purchaserEmail,
+      purchaserPhone,
+      recipients: uniqueRecipients.join(", "),
+      message: message?.trim() || null,
+      paymentMethod: "bank_transfer",
+      stage: "awaiting_payment",
     });
 
     return NextResponse.json({

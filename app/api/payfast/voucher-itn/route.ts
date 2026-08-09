@@ -4,6 +4,7 @@ import { createSupabaseAdmin } from "@/lib/supabase-admin";
 import { verifyITNSignature, validateITNWithPayFast } from "@/lib/payfast";
 import { activateVoucher } from "@/lib/utils/voucher-activation";
 import { type GiftVoucher } from "@/lib/utils/vouchers";
+import { sendVoucherAdminNotification } from "@/lib/utils/voucher-admin-email";
 
 /**
  * PayFast ITN for GIFT VOUCHER purchases — the only source of truth for
@@ -125,6 +126,33 @@ export async function POST(req: NextRequest) {
       `[voucher-itn] ${reference}: activated ${activated} of ${vouchers.length} ` +
         `(${vouchers.length - activated} already done — normal on a retry)`
     );
+
+    // Tell the clinic, but only on the run that actually activated something.
+    // PayFast retries this endpoint, and a retry activates nothing — sending
+    // regardless would mail the clinic the same voucher several times.
+    if (activated > 0) {
+      const first = vouchers[0] as GiftVoucher & {
+        purchaser_phone?: string | null;
+        message?: string | null;
+      };
+      const total = vouchers.reduce(
+        (sum, v) => sum + Number((v as GiftVoucher).denomination_rands),
+        0
+      );
+      await sendVoucherAdminNotification({
+        paymentReference: reference,
+        denominationRands: Number(first.denomination_rands),
+        quantity: vouchers.length,
+        totalRands: total,
+        purchaserName: first.purchaser_name,
+        purchaserEmail: first.purchaser_email,
+        purchaserPhone: first.purchaser_phone ?? "",
+        recipients: [...new Set(vouchers.map((v) => (v as GiftVoucher).recipient_name))].join(", "),
+        message: first.message ?? null,
+        paymentMethod: "payfast",
+        stage: "paid",
+      });
+    }
   } else if (outcome === "failed" || outcome === "cancelled") {
     const { error: failErr } = await supabase
       .from("gift_vouchers")
