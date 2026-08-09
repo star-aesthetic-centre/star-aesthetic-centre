@@ -1,8 +1,89 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { Fragment, useState, useTransition } from "react";
 import type { LeadRow, LeadSource, LeadStatus } from "@/lib/crm/types";
 import { importLeadsCsvAction, updateLeadStatusAction } from "./actions";
+
+/** Question ids as stored, mapped to what the clinic actually calls them. */
+const ANSWER_LABELS: Record<string, string> = {
+  age: "Age",
+  concerns: "Primary concerns",
+  treatmentHistory: "Previous professional treatment",
+  currentProducts: "Current products",
+  photoProvided: "Photo supplied",
+  spf: "Daily SPF",
+  sleep: "Sleep & stress",
+  diet: "Diet & hydration",
+  desiredOutcome: "Wants in 90 days",
+  obstacle: "Main obstacle",
+  preferredApproach: "Preferred approach",
+  anythingElse: "Anything else",
+};
+
+/** Order the clinic reads them in, not the order they happen to be stored. */
+const ANSWER_ORDER = [
+  "age", "concerns", "treatmentHistory", "currentProducts", "photoProvided",
+  "spf", "sleep", "diet", "desiredOutcome", "obstacle", "preferredApproach", "anythingElse",
+];
+
+function AssessmentDetail({ metadata }: { metadata: unknown }) {
+  const meta = (metadata ?? {}) as Record<string, unknown>;
+  const answers = (meta.answers ?? {}) as Record<string, unknown>;
+  const score = meta.skinScore;
+  const completed = meta.completed === true;
+
+  const rows = ANSWER_ORDER.filter((k) => {
+    const v = answers[k];
+    return v !== undefined && v !== null && v !== "" && !(Array.isArray(v) && v.length === 0);
+  });
+
+  return (
+    <div>
+      <div className="mb-3 flex flex-wrap items-center gap-3">
+        <span className="text-xs font-bold uppercase tracking-widest text-[#0F2647]">
+          Skin assessment
+        </span>
+        {score !== undefined && score !== null && (
+          <span className="bg-[#0F2647] px-2 py-1 text-xs font-semibold text-white">
+            Lifestyle score {String(score)} / 9
+          </span>
+        )}
+        <span
+          className={`px-2 py-1 text-xs font-semibold ${
+            completed ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"
+          }`}
+        >
+          {completed ? "Completed" : "Abandoned before finishing"}
+        </span>
+      </div>
+
+      {rows.length === 0 ? (
+        <p className="text-xs text-[#6B6966]">
+          No answers stored. Assessments taken before 9 Aug 2026 kept only a summary.
+        </p>
+      ) : (
+        <dl className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
+          {rows.map((k) => {
+            const v = answers[k];
+            const display = Array.isArray(v)
+              ? v.join(", ")
+              : typeof v === "boolean"
+                ? v ? "Yes" : "No"
+                : String(v);
+            return (
+              <div key={k} className="flex gap-2">
+                <dt className="min-w-[150px] shrink-0 text-xs text-[#939EBA]">
+                  {ANSWER_LABELS[k] ?? k}
+                </dt>
+                <dd className="text-xs text-[#1A1917]">{display}</dd>
+              </div>
+            );
+          })}
+        </dl>
+      )}
+    </div>
+  );
+}
 
 const STATUS_OPTIONS: LeadStatus[] = ["new", "contacted", "booked", "converted", "archived"];
 
@@ -20,6 +101,7 @@ export default function LeadsClient({ initialLeads }: { initialLeads: LeadRow[] 
   const [sourceFilter, setSourceFilter] = useState<"all" | LeadSource>("all");
   const [csv, setCsv] = useState("");
   const [importMsg, setImportMsg] = useState("");
+  const [openAssessment, setOpenAssessment] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const filtered = leads.filter((l) => {
@@ -123,7 +205,8 @@ export default function LeadsClient({ initialLeads }: { initialLeads: LeadRow[] 
           </thead>
           <tbody>
             {filtered.map((l) => (
-              <tr key={l.id} className="border-t border-[#E5E4E0]">
+              <Fragment key={l.id}>
+              <tr className="border-t border-[#E5E4E0]">
                 <td className="px-4 py-3">
                   <p className="font-semibold text-[#1A1917]">
                     {[l.first_name, l.last_name].filter(Boolean).join(" ") || "—"}
@@ -134,6 +217,14 @@ export default function LeadsClient({ initialLeads }: { initialLeads: LeadRow[] 
                 <td className="px-4 py-3">
                   <span className="text-xs uppercase text-[#939EBA]">{l.interest_type}</span>
                   <p className="text-[#1A1917]">{l.interest_value || "—"}</p>
+                  {l.source === "skin_assessment" && (
+                    <button
+                      onClick={() => setOpenAssessment(openAssessment === l.id ? null : l.id)}
+                      className="mt-1 text-xs font-semibold text-[#939EBA] hover:underline"
+                    >
+                      {openAssessment === l.id ? "Hide answers ▲" : "View answers ▼"}
+                    </button>
+                  )}
                 </td>
                 <td className="px-4 py-3 capitalize">{l.source.replace(/_/g, " ")}</td>
                 <td className="px-4 py-3">
@@ -153,6 +244,14 @@ export default function LeadsClient({ initialLeads }: { initialLeads: LeadRow[] 
                   {new Date(l.created_at).toLocaleDateString("en-ZA")}
                 </td>
               </tr>
+              {openAssessment === l.id && (
+                <tr className="border-t border-[#E5E4E0] bg-[#FBFBFC]">
+                  <td colSpan={5} className="px-4 py-4">
+                    <AssessmentDetail metadata={l.metadata} />
+                  </td>
+                </tr>
+              )}
+              </Fragment>
             ))}
           </tbody>
         </table>

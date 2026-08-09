@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { HoneypotField } from "@/components/security/HoneypotField";
 import { TurnstileWidget } from "@/components/security/TurnstileWidget";
@@ -35,6 +35,7 @@ const INITIAL: Answers = {
 
 // Steps: 0=landing, 1–8=questions, 9=email gate, 10–13=qualifying, 14=results
 const TOTAL_Q = 13; // steps 1–13
+const RESULTS_STEP = 14;
 
 // ── Result helpers ─────────────────────────────────────────────────────────
 function getLifestyleScore(a: Answers) {
@@ -118,6 +119,36 @@ export default function AssessmentFlow() {
     const [turnstileToken, setTurnstileToken] = useState("");
     const [emailGateError, setEmailGateError] = useState("");
     const [answers, setAnswers] = useState<Answers>(INITIAL);
+    // Id of the lead created at the email gate, so the qualifying answers
+    // collected afterwards update that record instead of creating a second one.
+    const [leadId, setLeadId] = useState<string | null>(null);
+    const [completionSent, setCompletionSent] = useState(false);
+
+    // Reaching the results means the survey was finished. Send the answers
+    // gathered after the email gate — desired outcome, obstacle, preferred
+    // approach — and mark the record complete. Fire-and-forget: a failure here
+    // must never block someone from seeing their result.
+    useEffect(() => {
+        if (step !== RESULTS_STEP || !leadId || completionSent) return;
+        setCompletionSent(true);
+        fetch("/api/leads", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                leadId,
+                answers: {
+                    desiredOutcome: answers.desiredOutcome,
+                    obstacle: answers.obstacle,
+                    preferredApproach: answers.preferredApproach,
+                    anythingElse: answers.anythingElse,
+                    lifestyleScore: getLifestyleScore(answers),
+                    tier: getTier(getLifestyleScore(answers)),
+                },
+            }),
+        }).catch(() => {
+            /* results already shown; nothing useful to tell the patient */
+        });
+    }, [step, leadId, completionSent, answers]);
     const [emailSending, setEmailSending] = useState(false);
     const fileRef = useRef<HTMLInputElement>(null);
 
@@ -166,9 +197,22 @@ export default function AssessmentFlow() {
                     phone: answers.phone,
                     turnstileToken: turnstileToken || undefined,
                     website,
+                    // Send everything answered so far, not a four-field
+                    // summary. "Scored 9" is far less useful to a consultation
+                    // than knowing they use no products and have never had
+                    // professional advice. The photo is stripped server-side.
                     answers: {
-                        concerns: answers.concerns,
                         age: answers.age,
+                        concerns: answers.concerns,
+                        treatmentHistory: answers.treatmentHistory,
+                        currentProducts: answers.currentProducts,
+                        photoPreview: answers.photoPreview,
+                        spf: answers.spf,
+                        spfScore: answers.spfScore,
+                        sleep: answers.sleep,
+                        sleepScore: answers.sleepScore,
+                        diet: answers.diet,
+                        dietScore: answers.dietScore,
                         lifestyleScore,
                         tier,
                     },
@@ -180,6 +224,8 @@ export default function AssessmentFlow() {
                 setEmailSending(false);
                 return;
             }
+            const created = await res.json().catch(() => ({}));
+            if (created.leadId) setLeadId(created.leadId as string);
         } catch {
             setEmailGateError("Network error. Please try again.");
             setEmailSending(false);
