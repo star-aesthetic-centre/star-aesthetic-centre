@@ -21,7 +21,7 @@ type CheckSection = {
   items: CheckItem[];
 };
 
-const AUDIT_DATE = "10 July 2026";
+const AUDIT_DATE = "9 August 2026";
 
 const STATUS_STYLES: Record<
   Status,
@@ -92,14 +92,14 @@ const sections: CheckSection[] = [
       {
         title: "Preview password gate",
         detail:
-          "SITE_PASSWORD still gates public HTML via middleware. Expected pre-launch — remove/unset on go-live. Do not enable public indexing while the gate is on.",
-        status: "info",
+          "LIFTED. Verified 9 Aug 2026: https://staraesthetic.co.za returns 200 with no redirect to /preview-login. SITE_PASSWORD is unset on Vercel and the site is publicly reachable.",
+        status: "pass",
       },
       {
         title: "Search indexing switch",
         detail:
-          "ALLOW_SEARCH_INDEXING controls robots.txt, meta robots, and X-Robots-Tag. Must be true at launch, and the password gate must be off so Google can crawl pages.",
-        status: "warn",
+          "LIVE. Verified 9 Aug 2026: no noindex meta, no X-Robots-Tag, robots.txt allows all crawlers (including GPTBot, ClaudeBot, PerplexityBot) and declares the sitemap. THE SITE IS PUBLIC AND INDEXABLE — every remaining WARN and FAIL on this page is now a live-site issue, not a pre-launch one.",
+        status: "pass",
       },
     ],
   },
@@ -187,7 +187,8 @@ const sections: CheckSection[] = [
     items: [
       {
         title: "Google Analytics 4",
-        detail: "No GA4 / gtag / GTM implementation found in the Next.js app.",
+        detail:
+          "BLOCKED, not merely missing. The practice Google account (info@staraesthetic.site) was disabled by Google in 2024; an appeal was submitted 8 Aug 2026 and takes ~2 business days. No GA4 property exists. When restored, create the property under a CURRENT account — not the disabled one — then set GA4_PROPERTY_ID. Live reporting additionally needs the GA4 Data API and a service account. Admin → Dashboard → Channels shows this status.",
         status: "fail",
       },
       {
@@ -196,13 +197,38 @@ const sections: CheckSection[] = [
         status: "fail",
       },
       {
+        title: "Channels panel (admin)",
+        detail:
+          "Admin dashboard now surfaces both Facebook pages, Instagram and GA with live/error/not-connected states. Follower counts need META_PAGE_ACCESS_TOKEN plus page IDs; without them the panel shows a dash rather than inventing a number.",
+        status: "info",
+      },
+      {
         title: "Cookie / privacy consent",
         detail: "CookieConsent banner stores accept/decline. Privacy policy covers POPIA. Banner links to /legal/privacy-policy.",
         status: "pass",
       },
       {
         title: "Google Business Profile",
-        detail: "Update GBP website URL to https://staraesthetic.co.za and refresh photos/services/categories at launch.",
+        detail:
+          "Update GBP website URL to https://staraesthetic.co.za and refresh photos/services/categories at launch. NOW URGENT: if the profile sat under the disabled Google account it may be orphaned — for a Durban clinic, GBP drives map-pack visibility and matters more than GA history. Confirm who controls it.",
+        status: "warn",
+      },
+      {
+        title: "Social profile links",
+        detail:
+          "FIXED 8 Aug 2026. The footer icons and the MedicalClinic sameAs schema pointed at accounts belonging to other people — facebook.com/staraesthetic (an unrelated business in China) and instagram.com/staraesthetic (a private personal account, 1 follower). Now facebook.com/staraesthetic.centre and instagram.com/staraestheticcentre (3,768 followers, verified).",
+        status: "pass",
+      },
+      {
+        title: "Duplicate Facebook page",
+        detail:
+          "The clinic has TWO pages: /staraesthetic.centre and /StarAestheticC (\"Star Aesthetic Centre | Durban North\", the one Google indexes). Reviews and followers are split across both, weakening entity resolution. Merge them — but EXPORT BOTH FIRST: Meta combines followers while permanently deleting the absorbed page's posts, photos and videos. sameAs currently points at /staraesthetic.centre and must match whichever survives.",
+        status: "warn",
+      },
+      {
+        title: "Instagram bio link",
+        detail:
+          "Bio still points at the old staraesthetic.site, sending 3,768 followers to the wrong website. One-minute fix, highest return of any item on this page.",
         status: "warn",
       },
     ],
@@ -251,8 +277,27 @@ const sections: CheckSection[] = [
       },
       {
         title: "Gift vouchers & rewards",
-        detail: "Voucher purchase/activation and Starlights loyalty programme are implemented.",
+        detail:
+          "Voucher purchase/activation and Starlights loyalty programme are implemented. CRITICAL BUG FIXED 8 Aug 2026: voucher creation had been failing with \"Failed to create voucher(s)\" since mid-May — the gift_vouchers table was missing five columns the API inserts, because re-running a `create table if not exists` schema file silently changes nothing on an existing table. Migration applied and verified; purchases confirmed working. The route now logs the real Postgres error instead of a generic message.",
         status: "pass",
+      },
+      {
+        title: "PayFast card payments",
+        detail:
+          "Built for both the shop and gift vouchers, gated off behind NEXT_PUBLIC_PAYFAST_ENABLED until PayFast verifies the business documents. Vouchers use their own ITN endpoint so the order payment path stays untouched. Activation claims its status transition atomically, so ITN retries cannot email a recipient their voucher twice. NOT YET TESTED end-to-end against the PayFast sandbox — do that before flipping the flag.",
+        status: "warn",
+      },
+      {
+        title: "Patient reviews",
+        detail:
+          "NEW 8 Aug 2026. Guided review form at /submit-review with questions tailored per treatment (a weight-loss programme and a lip filler appointment are not the same experience). Per-treatment display on all 12 treatment pages, with a founding-reviewer offer while fewer than three exist. Moderation queue at /admin/reviews — nothing publishes without approval, and RLS is on with no policies so the anon key cannot read the table at all. Questions deliberately ask about care and aftercare rather than clinical results, given HPCSA restrictions on testimonial advertising. Post-appointment request email runs daily at 11:00.",
+        status: "pass",
+      },
+      {
+        title: "Treatment imagery",
+        detail:
+          "New June 2026 WebP set (34–60 KB) installed across cards, listing and detail pages, plus the new \"Assessed by Dr. Bangalee\" sidebar card. NOTE: anti-wrinkle-treatment and lip-filler carry card_image overrides in the database from earlier admin uploads; database beats code, so clear those two in /admin/treatments after deploy or they keep the old pictures.",
+        status: "warn",
       },
       {
         title: "Niki AI assistant",
