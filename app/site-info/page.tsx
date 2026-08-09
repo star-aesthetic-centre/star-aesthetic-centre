@@ -181,10 +181,10 @@ const sections: CheckSection[] = [
         status: "fail",
       },
       {
-        title: "Legacy domain 301s",
+        title: "Legacy domains (.site / .online)",
         detail:
-          "staraesthetic.site now 301s to the main site (confirmed by the owner). BUT staraesthetic.online is STILL LIVE — checked 9 Aug 2026, it returns HTTP 200 with no redirect and serves Dr. Bangalee content. That is a duplicate site competing with staraesthetic.co.za for the same searches, splitting ranking signals and forcing Google to guess which is the real practice. Point it at staraesthetic.co.za with a 301 — this is the single highest-value SEO fix outstanding.",
-        status: "fail",
+          "Correctly handled. staraesthetic.site 301s to the main site. staraesthetic.online returns 200 rather than redirecting, but it is a Vercel alias serving the SAME app and every page declares <link rel=canonical> and og:url pointing at staraesthetic.co.za — verified 9 Aug 2026. Google consolidates to the canonical, so this is not duplicate content. A 301 would still be marginally stronger than a canonical (definitive rather than a hint, and stops the alias being crawled at all), but it is an optimisation, not a problem. Separately: Google still has legacy .html URLs indexed from the pre-Next.js site — worth a Change of Address in Search Console once that account is restored.",
+        status: "pass",
       },
     ],
   },
