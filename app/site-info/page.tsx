@@ -21,7 +21,7 @@ type CheckSection = {
   items: CheckItem[];
 };
 
-const AUDIT_DATE = "9 August 2026";
+const AUDIT_DATE = "9 August 2026 (live stress test)";
 
 const STATUS_STYLES: Record<
   Status,
@@ -86,7 +86,13 @@ const sections: CheckSection[] = [
       {
         title: "Form submissions",
         detail:
-          "Contact, booking, skin assessment, rewards, and member forms use honeypot + Cloudflare Turnstile. Confirm NEXT_PUBLIC_TURNSTILE_SITE_KEY (not a typo’d EXT_…) and TURNSTILE_SECRET_KEY are set on Vercel.",
+          "TESTED 9 Aug 2026 with real submissions and inbox verification. Shop checkout, gift voucher purchase, /book consultation and the skin assessment all completed and delivered every expected email. Contact form and review submission NOT yet tested. Forms use honeypot + Cloudflare Turnstile via public-form-guard; keys confirmed present on Vercel.",
+        status: "warn",
+      },
+      {
+        title: "Turnstile on /book — unverified",
+        detail:
+          "No Turnstile widget rendered on the booking form during the 9 Aug test, and the booking submitted successfully without one. /book is a public endpoint that writes a database row and sends two emails per submission — exactly what bots target. Confirm whether Turnstile is in invisible mode or simply not wired on this form.",
         status: "warn",
       },
       {
@@ -267,12 +273,26 @@ const sections: CheckSection[] = [
     items: [
       {
         title: "Shop + checkout (EFT)",
-        detail: "Supabase-backed catalogue, cart, checkout, and EFT proof-of-payment flow. PayFast is planned later — not a launch blocker.",
+        detail:
+          "VERIFIED 9 Aug 2026: order SAC-2026-003 placed end to end (R1 745, EFT, pending). Sequential numbering advanced 002 → 003. Self-collection correctly hid the address fields and dropped shipping (R880 → R760). Customer confirmation and clinic notification both delivered. NOTE: the checkout diverts to the /buy funnel offer when a cart item has an uncompleted funnel — by design, but it means \"Place order\" does not always submit on the first click.",
         status: "pass",
       },
       {
         title: "Online booking",
-        detail: "/book wizard with Turnstile, emails to clinic inboxes, confirmation UX.",
+        detail:
+          "VERIFIED 9 Aug 2026: booking SAC-BK-2026-001 confirmed (first use of the new sequential format, replacing SAC-20260709-3Q00). Past dates, today, and Sundays correctly disabled; 8 slots offered. Customer confirmation and clinic notification both delivered. See the Turnstile warning under Critical Checks.",
+        status: "pass",
+      },
+      {
+        title: "Clinic notifications",
+        detail:
+          "All three revenue paths now alert the clinic: shop orders, bookings, and — since 9 Aug 2026 — gift vouchers. Voucher orders previously notified nobody, which mattered because staff must match an incoming EFT to a SAC-GV- reference. Card voucher purchases notify from the PayFast ITN once payment is confirmed, not at checkout, so unpaid card attempts are not announced.",
+        status: "pass",
+      },
+      {
+        title: "Skin assessment data capture",
+        detail:
+          "FIXED 9 Aug 2026. The twelve-question assessment stored only four summary fields and discarded the rest, including the post-gate answers (desired outcome, main obstacle, preferred approach) that a consultation actually turns on. Now stores all 17, marks completed vs abandoned, and renders under \"View answers\" in Admin → Leads. The face photo is deliberately NOT stored — it arrives as a base64 data URL and is health-related personal information under POPIA; a photoProvided flag is kept instead.",
         status: "pass",
       },
       {
@@ -288,10 +308,16 @@ const sections: CheckSection[] = [
         status: "warn",
       },
       {
+        title: "Test records on production — clean these up",
+        detail:
+          "The 9 Aug stress test wrote real rows to the live database. Vouchers SAC-GV-EN4XLW and SAC-GV-6YXL2J; order SAC-2026-003; booking SAC-BK-2026-001 (Monday 10 August, 9:00 AM — cancel this before someone prepares for a patient who does not exist); leads Emily Testerly and Olivia Fulltest.",
+        status: "warn",
+      },
+      {
         title: "Patient reviews",
         detail:
-          "NEW 8 Aug 2026. Guided review form at /submit-review with questions tailored per treatment (a weight-loss programme and a lip filler appointment are not the same experience). Per-treatment display on all 12 treatment pages, with a founding-reviewer offer while fewer than three exist. Moderation queue at /admin/reviews — nothing publishes without approval, and RLS is on with no policies so the anon key cannot read the table at all. Questions deliberately ask about care and aftercare rather than clinical results, given HPCSA restrictions on testimonial advertising. Post-appointment request email runs daily at 11:00.",
-        status: "pass",
+          "NEW 8 Aug 2026. Guided review form at /submit-review with questions tailored per treatment (a weight-loss programme and a lip filler appointment are not the same experience). Per-treatment display on all 12 treatment pages, with a founding-reviewer offer while fewer than three exist. Moderation queue at /admin/reviews — nothing publishes without approval, and RLS is on with no policies so the anon key cannot read the table at all. Questions deliberately ask about care and aftercare rather than clinical results, given HPCSA restrictions on testimonial advertising. Post-appointment request email runs daily at 11:00. NOT YET TESTED end to end — submission needs a real browser because of Turnstile, and the moderation queue has never been exercised with a genuine review.",
+        status: "warn",
       },
       {
         title: "Treatment imagery",
