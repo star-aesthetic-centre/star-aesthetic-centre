@@ -161,8 +161,9 @@ const sections: CheckSection[] = [
       },
       {
         title: "Favicon / app icon",
-        detail: "No app/icon.tsx, apple-icon, or public/favicon.ico found in the Next.js app. Browser tab may show a generic icon — add a brand favicon before launch.",
-        status: "fail",
+        detail:
+          "STALE CHECK, corrected 9 Aug 2026. All five icons are present in app/: icon.jpg, icon.png, apple-icon.jpg, apple-icon.png and favicon.ico. This was marked FAIL from an audit taken before they were added.",
+        status: "pass",
       },
       {
         title: "HPCSA registration number",
@@ -181,8 +182,9 @@ const sections: CheckSection[] = [
       },
       {
         title: "Legacy domain 301s",
-        detail: "In-app legacy path redirects exist. Host/DNS still needs staraesthetic.site (and .online if still live) → 301 → staraesthetic.co.za.",
-        status: "warn",
+        detail:
+          "staraesthetic.site now 301s to the main site (confirmed by the owner). BUT staraesthetic.online is STILL LIVE — checked 9 Aug 2026, it returns HTTP 200 with no redirect and serves Dr. Bangalee content. That is a duplicate site competing with staraesthetic.co.za for the same searches, splitting ranking signals and forcing Google to guess which is the real practice. Point it at staraesthetic.co.za with a 301 — this is the single highest-value SEO fix outstanding.",
+        status: "fail",
       },
     ],
   },
