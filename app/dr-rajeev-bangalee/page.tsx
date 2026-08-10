@@ -613,49 +613,35 @@ export default async function DrBangaleePage() {
               </p>
             </div>
 
+            {/*
+              Certificate images are deliberately NOT shown — Dr. Bangalee does
+              not want scans of his certificates published. The qualifications
+              themselves stay: they carry the E-E-A-T weight for a medical
+              practice, and the scan adds nothing a patient can verify anyway.
+            */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-auto lg:max-w-3xl">
 
-              {/* Certificate 1 — AAAM Diploma */}
-              <div className="relative overflow-hidden border-2 border-dashed border-[#939EBA]/30 bg-white p-8">
-                <div className="absolute right-4 top-4">
-                  <span className="rounded-full border border-[#939EBA]/30 bg-[#F8F8F7] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[#636374]">
-                    Image Pending
-                  </span>
-                </div>
-                <div className="mb-5 flex h-16 w-16 items-center justify-center border border-[#E5E4E0] bg-[#F2F1EF]">
-                  <FileText size={28} className="text-[#939EBA]" strokeWidth={1.5} />
-                </div>
-                <h3 className="text-base font-bold text-[#1A1917]">Diploma in Aesthetic Medicine</h3>
-                <p className="mt-1 text-sm font-medium text-[#939EBA]">American Academy of Aesthetic Medicine (AAAM)</p>
-                <p className="mt-2 text-xs text-[#6B6966]">Issued 2012 · Internationally recognised</p>
-                <div className="mt-6 flex aspect-[4/3] items-center justify-center border border-[#E5E4E0] bg-[#F8F8F7]">
-                  <div className="text-center">
-                    <Camera size={24} className="mx-auto text-[#939EBA]/50" strokeWidth={1.5} />
-                    <p className="mt-2 text-[11px] text-[#6B6966]">Certificate image will be uploaded here</p>
+              {[
+                {
+                  title: "Diploma in Aesthetic Medicine",
+                  body: "American Academy of Aesthetic Medicine (AAAM)",
+                  meta: "Issued 2012 · Internationally recognised",
+                },
+                {
+                  title: "Clinical Management in Dermatology",
+                  body: "Dermatology Certification Programme",
+                  meta: "Issued 2015 · Advanced clinical certification",
+                },
+              ].map(({ title, body, meta }) => (
+                <div key={title} className="border border-[#E5E4E0] bg-white p-8">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center border border-[#E5E4E0] bg-[#F2F1EF]">
+                    <FileText size={26} className="text-[#939EBA]" strokeWidth={1.5} />
                   </div>
+                  <h3 className="text-base font-bold text-[#1A1917]">{title}</h3>
+                  <p className="mt-1 text-sm font-medium text-[#939EBA]">{body}</p>
+                  <p className="mt-2 text-xs text-[#6B6966]">{meta}</p>
                 </div>
-              </div>
-
-              {/* Certificate 2 — Dermatology */}
-              <div className="relative overflow-hidden border-2 border-dashed border-[#939EBA]/30 bg-white p-8">
-                <div className="absolute right-4 top-4">
-                  <span className="rounded-full border border-[#939EBA]/30 bg-[#F8F8F7] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[#636374]">
-                    Image Pending
-                  </span>
-                </div>
-                <div className="mb-5 flex h-16 w-16 items-center justify-center border border-[#E5E4E0] bg-[#F2F1EF]">
-                  <FileText size={28} className="text-[#939EBA]" strokeWidth={1.5} />
-                </div>
-                <h3 className="text-base font-bold text-[#1A1917]">Clinical Management in Dermatology</h3>
-                <p className="mt-1 text-sm font-medium text-[#939EBA]">Dermatology Certification Programme</p>
-                <p className="mt-2 text-xs text-[#6B6966]">Issued 2015 · Advanced clinical certification</p>
-                <div className="mt-6 flex aspect-[4/3] items-center justify-center border border-[#E5E4E0] bg-[#F8F8F7]">
-                  <div className="text-center">
-                    <Camera size={24} className="mx-auto text-[#939EBA]/50" strokeWidth={1.5} />
-                    <p className="mt-2 text-[11px] text-[#6B6966]">Certificate image will be uploaded here</p>
-                  </div>
-                </div>
-              </div>
+              ))}
 
             </div>
           </div>
