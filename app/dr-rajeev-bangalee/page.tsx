@@ -9,7 +9,6 @@ import {
   Stethoscope,
   Star,
   ChevronRight,
-  Camera,
   FileText,
   Heart,
   Shield,
@@ -510,39 +509,33 @@ export default async function DrBangaleePage() {
                 </div>
               </div>
 
-              {/* Photo 2 — Dummy placeholder */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-[#E5E4E0]">
-                <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/60">
-                    <Camera size={28} className="text-[#939EBA]" strokeWidth={1.5} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#1A1917]">Photo Coming Soon</p>
-                    <p className="mt-1 text-xs leading-relaxed text-[#6B6966]">
-                      Additional images of Dr. Bangalee will be added here.
-                    </p>
-                  </div>
-                  <span className="rounded-full border border-[#939EBA]/40 bg-white/40 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-[#636374]">
-                    Placeholder
-                  </span>
+              {/* Photo 2 — Anti-wrinkle treatment with the nurse */}
+              <div className="group relative aspect-[3/4] overflow-hidden bg-[#E5E4E0]">
+                <Image
+                  src="/images/dr-rajeev-bangalee-anti-wrinkle-treatment-durban-north.webp"
+                  alt="Dr. Rajeev Bangalee marking injection points for anti-wrinkle treatment, assisted by a nurse, Durban North"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 50vw, 380px"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <p className="text-sm font-medium text-white">Anti-wrinkle treatment</p>
+                  <p className="text-xs text-white/70">Mapping injection points before treating</p>
                 </div>
               </div>
 
-              {/* Photo 3 — Dummy placeholder */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-[#EDECEA]">
-                <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/60">
-                    <Camera size={28} className="text-[#939EBA]" strokeWidth={1.5} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#1A1917]">Photo Coming Soon</p>
-                    <p className="mt-1 text-xs leading-relaxed text-[#6B6966]">
-                      Clinic and treatment room imagery will be added here.
-                    </p>
-                  </div>
-                  <span className="rounded-full border border-[#939EBA]/40 bg-white/40 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-[#636374]">
-                    Placeholder
-                  </span>
+              {/* Photo 3 — Pigmentation examination under lamp */}
+              <div className="group relative aspect-[3/4] overflow-hidden bg-[#EDECEA]">
+                <Image
+                  src="/images/dr-rajeev-bangalee-pigmentation-examination-durban-north.webp"
+                  alt="Dr. Rajeev Bangalee examining pigmentation on a patient's cheek under a dermatological light, Durban North"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 50vw, 380px"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <p className="text-sm font-medium text-white">Pigmentation assessment</p>
+                  <p className="text-xs text-white/70">Examining the skin before recommending a plan</p>
                 </div>
               </div>
 
