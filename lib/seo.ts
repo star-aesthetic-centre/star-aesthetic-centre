@@ -15,7 +15,17 @@ export const PRELAUNCH_ROBOTS: Metadata["robots"] = {
   nocache: true,
   googleBot: { index: false, follow: false, noimageindex: true },
 };
-export const DEFAULT_OG_IMAGE = "/images/star-aesthetic-centre-durban-homepage-hero-005.webp";
+/**
+ * Social share preview (WhatsApp, Facebook, X, LinkedIn).
+ *
+ * The real consulting room, matching the homepage hero — a shared link
+ * previewing a stock interior undercuts the same trust the hero was changed
+ * to build.
+ *
+ * Wider than the ideal 1200×630, so platforms centre-crop it. The treatment
+ * bed and DR RAJEEV BANGALEE signage survive that crop; the left edge does not.
+ */
+export const DEFAULT_OG_IMAGE = "/images/star-aesthetic-centre-durban-consulting-room.webp";
 
 export const DEFAULT_KEYWORDS = [
   "aesthetic clinic Durban",
