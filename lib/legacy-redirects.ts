@@ -58,8 +58,10 @@ export const legacyRedirects: Redirect[] = [
   r("/logout.html", "/"),
   r("/reset-password.html", "/book"),
   r("/my-account.html", "/book"),
-  r("/customer-dashboard.html", "/book"),
-  r("/customer-dashboard-sc.html", "/book"),
+  // Retargeted 10 Aug 2026: a customer dashboard is a member area, not a
+  // booking page. Sending it to /book answered a different intent.
+  r("/customer-dashboard.html", "/member"),
+  r("/customer-dashboard-sc.html", "/member"),
 
   // ─── Obsolete / builder / test pages → home ───────────────────────────────
   r("/box.html", "/"),
@@ -109,4 +111,41 @@ export const legacyRedirects: Redirect[] = [
   r("/treatments/the-medi-lean-weight-loss-program", "/treatments/body-wellness/medi-lean"),
   r("/treatments/varicose-veins-treatment", "/treatments/body-wellness/varicose-veins"),
   r("/treatments/vitamin-drips-treatment", "/treatments/body-wellness/vitamin-drips"),
+
+  // ─── Legacy shop category tree (/c/...) ───────────────────────────────────
+  // Confirmed 404s on 10 Aug 2026 against URLs Google still has indexed:
+  //   /c/dermaceutic-laboratoire/  /c/heliocare-products/
+  //   /c/neostrata-products/enlighten/
+  // These are commercial pages for brands still stocked, so the authority
+  // Google assigned them was being discarded rather than passed on.
+  r("/c/dermaceutic-laboratoire", "/shop/brands/dermaceutic"),
+  r("/c/dermaceutic-products", "/shop/brands/dermaceutic"),
+  r("/c/heliocare-products", "/shop/brands/heliocare"),
+  r("/c/isdin-products", "/shop/brands/isdin"),
+  r("/c/mesoestetic-products", "/shop/brands/mesoestetic"),
+  r("/c/neostrata-products", "/shop/brands/neostrata"),
+  r("/c/skinceuticals-products", "/shop/brands/skinceuticals"),
+
+  // Sub-ranges within a brand (e.g. /c/neostrata-products/enlighten/) collapse
+  // to the brand page — the new shop has no equivalent sub-range route, and a
+  // brand page is a far better landing than a 404.
+  r("/c/dermaceutic-laboratoire/:sub*", "/shop/brands/dermaceutic"),
+  r("/c/dermaceutic-products/:sub*", "/shop/brands/dermaceutic"),
+  r("/c/heliocare-products/:sub*", "/shop/brands/heliocare"),
+  r("/c/isdin-products/:sub*", "/shop/brands/isdin"),
+  r("/c/mesoestetic-products/:sub*", "/shop/brands/mesoestetic"),
+  r("/c/neostrata-products/:sub*", "/shop/brands/neostrata"),
+  r("/c/skinceuticals-products/:sub*", "/shop/brands/skinceuticals"),
+
+  // Catch-all for the rest of the /c/ tree Google has not surfaced to us.
+  // Deliberately LAST: Next matches in order, so the specific brand rules
+  // above win and only genuinely unknown categories fall through to /shop.
+  r("/c/:path*", "/shop"),
+
+  // ─── Remaining indexed 404s ───────────────────────────────────────────────
+  r("/index.html", "/"),
+  r("/about-us.html", "/dr-rajeev-bangalee"),
+  r("/about-us", "/dr-rajeev-bangalee"),
+  r("/about.html", "/dr-rajeev-bangalee"),
+  r("/customer-dashboard", "/member"),
 ];
