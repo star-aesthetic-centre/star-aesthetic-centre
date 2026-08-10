@@ -9,5 +9,8 @@ export const BANK_DETAILS = {
   branchCode:  "220426",
   accountType: "Cheque Account",
   reference:   "Your name",
-  email:       "medgp.info@gmail.com",
+  // Proof-of-payment address. Forwards to medgp.info@gmail.com internally —
+  // customers should only ever see the clinic domain, and a Gmail address on
+  // a payment instruction reads as a phishing risk to anyone paying attention.
+  email:       "info@staraesthetic.site",
 } as const;
