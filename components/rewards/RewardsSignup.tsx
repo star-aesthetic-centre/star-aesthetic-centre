@@ -9,7 +9,7 @@ type SignupState =
   | { status: "idle" }
   | { status: "loading" }
   | { status: "success"; name: string }
-  | { status: "error"; message: string };
+  | { status: "error"; message: string; existingAccount?: boolean };
 
 export function RewardsSignup() {
   const [firstName, setFirstName] = useState("");
@@ -18,6 +18,9 @@ export function RewardsSignup() {
   const [phone, setPhone] = useState("");
   const [website, setWebsite] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
+  // Bumped after every submit to remount the Turnstile widget and mint a
+  // fresh single-use token for the next attempt.
+  const [widgetKey, setWidgetKey] = useState(0);
   const [state, setState] = useState<SignupState>({ status: "idle" });
 
   async function handleSubmit(e: React.FormEvent) {
@@ -47,7 +50,14 @@ export function RewardsSignup() {
       const data = await res.json();
 
       if (!res.ok) {
-        setState({ status: "error", message: data.error ?? "Something went wrong. Please try again." });
+        const message = data.error ?? "Something went wrong. Please try again.";
+        setState({
+          status: "error",
+          message,
+          // An existing member reaching a signup form is not an error they can
+          // fix by retrying — send them to the account they already have.
+          existingAccount: /already exists/i.test(message),
+        });
         return;
       }
 
@@ -61,6 +71,13 @@ export function RewardsSignup() {
       setPhone("");
     } catch {
       setState({ status: "error", message: "Network error. Please try again or call the clinic." });
+    } finally {
+      // Cloudflare Turnstile tokens are SINGLE USE. Any failed submit consumes
+      // the token, so retrying with the same one fails verification — which
+      // showed as "Security verification failed" directly under a widget still
+      // displaying "Success!". Remounting the widget mints a fresh token.
+      setTurnstileToken("");
+      setWidgetKey((k) => k + 1);
     }
   }
 
@@ -172,13 +189,26 @@ export function RewardsSignup() {
           </div>
 
           <TurnstileWidget
+            key={widgetKey}
             onToken={setTurnstileToken}
             onExpire={() => setTurnstileToken("")}
             className="flex justify-start"
           />
 
           {state.status === "error" && (
-            <p className="border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{state.message}</p>
+            <div className="border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              <p>{state.message}</p>
+              {state.existingAccount && (
+                <p className="mt-2">
+                  <Link
+                    href={`/member?email=${encodeURIComponent(email)}`}
+                    className="font-semibold text-[#0F2647] underline underline-offset-2 hover:text-[#C8A882]"
+                  >
+                    Sign in to your account →
+                  </Link>
+                </p>
+              )}
+            </div>
           )}
 
           <button
