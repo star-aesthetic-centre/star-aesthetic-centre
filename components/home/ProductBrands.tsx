@@ -26,14 +26,17 @@ export default function ProductBrands() {
                             className="group flex flex-col items-center justify-center gap-4 bg-white px-6 py-12 transition-colors hover:bg-[#FBFBFC] lg:py-16"
                             title={`Shop ${brand.name} Skincare`}
                         >
-                            <div className="relative h-16 w-full max-w-[190px] transition-transform duration-300 group-hover:scale-105">
+                            {/* Doubled from h-16 / 190px — at 64px tall these
+                                logos read as footer marks rather than the
+                                clinical brands the shop is built on. */}
+                            <div className="relative h-28 w-full max-w-[300px] transition-transform duration-300 group-hover:scale-105 sm:h-32 sm:max-w-[380px]">
                                 <Image
                                     src={brand.logo}
                                     alt={`${brand.name} logo`}
                                     fill
                                     unoptimized
                                     className="object-contain"
-                                    sizes="(max-width: 768px) 45vw, 190px"
+                                    sizes="(max-width: 768px) 80vw, 380px"
                                 />
                             </div>
                             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9C9D1] transition-colors group-hover:text-[#939EBA]">
