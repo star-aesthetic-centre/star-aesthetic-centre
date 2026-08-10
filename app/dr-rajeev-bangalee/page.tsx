@@ -426,13 +426,18 @@ export default async function DrBangaleePage() {
 
               {/* Left: primary photo */}
               <div className="space-y-4">
+                {/* Portrait source, portrait slot — shot natively at 4:5 so
+                    object-cover has nothing to crop and nothing to upscale.
+                    A consultation photo suits a section about how he practises
+                    better than a third head-and-shoulders portrait; the studio
+                    shot already runs in the hero. */}
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#F2F1EF] shadow-lg">
                   <Image
-                    src={`${WP}/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp`}
-                    alt="Dr. Rajeev Bangalee — General Practitioner and Aesthetic Medicine Specialist"
+                    src="/images/dr-rajeev-bangalee-medi-lean-consultation-durban-north.webp"
+                    alt="Dr. Rajeev Bangalee discussing a personalised weight-loss plan with a patient at Star Aesthetic Centre, Durban North"
                     fill
-                    unoptimized
-                    className="object-cover object-top"
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 480px"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent p-6">
                     <p className="text-sm font-semibold text-white">Dr. Rajeev Bangalee</p>
@@ -440,7 +445,7 @@ export default async function DrBangaleePage() {
                   </div>
                 </div>
                 <p className="text-center text-xs text-[#6B6966]">
-                  Dr. Bangalee at Star Aesthetic Centre, Durban North
+                  Every plan starts with a one-on-one consultation
                 </p>
               </div>
 
