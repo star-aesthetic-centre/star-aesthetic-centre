@@ -225,7 +225,10 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    await resend.emails.send({
+    // Resend RETURNS { data, error } — it does not throw on rejection. Without
+    // checking, a refused send looks identical to a delivered one and the
+    // customer is told "instructions have been sent" when nothing left.
+    const { error: purchaserMailError } = await resend.emails.send({
       from: "Star Aesthetic Centre <bookings@staraesthetic.site>",
       to: purchaserEmail,
       subject: `Your Gift Voucher Order — ${paymentReference}`,
@@ -239,6 +242,16 @@ export async function POST(req: NextRequest) {
         bankDetails: BANK_DETAILS,
       }),
     });
+
+    if (purchaserMailError) {
+      // Loud on the server, because the confirmation screen tells the customer
+      // their instructions were emailed. If that is untrue, the clinic needs to
+      // know before the customer chases a payment reference they never received.
+      console.error(
+        `[vouchers] PAYMENT INSTRUCTIONS NOT SENT for ${paymentReference} to ${purchaserEmail}:`,
+        JSON.stringify(purchaserMailError)
+      );
+    }
 
     // Tell the clinic. EFT means someone has to match an incoming payment to
     // this reference — without this the order was invisible until an admin
