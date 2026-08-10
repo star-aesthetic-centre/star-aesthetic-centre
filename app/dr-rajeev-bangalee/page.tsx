@@ -494,23 +494,26 @@ export default async function DrBangaleePage() {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
 
-              {/* Photo 1 — Real */}
-              <div className="group relative aspect-[3/4] overflow-hidden bg-[#E5E4E0] shadow-sm">
+              {/* Photo 1 — Acne consultation.
+                  Was the burgundy-tie studio portrait, which already appears in
+                  the hero and again beside the biography. Three times on one
+                  page made it read as the only photo that exists. */}
+              <div className="group relative aspect-[4/3] overflow-hidden bg-[#E5E4E0] shadow-sm">
                 <Image
-                  src={`${WP}/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp`}
-                  alt="Dr. Rajeev Bangalee — Aesthetic Medicine Specialist, Durban North"
+                  src="/images/dr-rajeev-bangalee-acne-consultation-durban-north.webp"
+                  alt="Dr. Rajeev Bangalee assessing a patient's acne during consultation, Durban North"
                   fill
-                  unoptimized
-                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, 33vw"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <p className="text-sm font-medium text-white">Dr. Bangalee</p>
-                  <p className="text-xs text-white/70">Director, Star Aesthetic Centre</p>
+                  <p className="text-sm font-medium text-white">Acne consultation</p>
+                  <p className="text-xs text-white/70">Assessing the skin before treating it</p>
                 </div>
               </div>
 
               {/* Photo 2 — Anti-wrinkle treatment with the nurse */}
-              <div className="group relative aspect-[3/4] overflow-hidden bg-[#E5E4E0]">
+              <div className="group relative aspect-[4/3] overflow-hidden bg-[#E5E4E0]">
                 <Image
                   src="/images/dr-rajeev-bangalee-anti-wrinkle-treatment-durban-north.webp"
                   alt="Dr. Rajeev Bangalee marking injection points for anti-wrinkle treatment, assisted by a nurse, Durban North"
@@ -525,7 +528,7 @@ export default async function DrBangaleePage() {
               </div>
 
               {/* Photo 3 — Pigmentation examination under lamp */}
-              <div className="group relative aspect-[3/4] overflow-hidden bg-[#EDECEA]">
+              <div className="group relative aspect-[4/3] overflow-hidden bg-[#EDECEA]">
                 <Image
                   src="/images/dr-rajeev-bangalee-pigmentation-examination-durban-north.webp"
                   alt="Dr. Rajeev Bangalee examining pigmentation on a patient's cheek under a dermatological light, Durban North"
