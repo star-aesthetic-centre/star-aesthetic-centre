@@ -757,7 +757,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                     Book Your Consultation
                                 </a>
                                 <a
-                                    href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27315731325"}`}
+                                    href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27769770386"}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-full sm:w-auto flex items-center justify-center border border-[#939EBA] px-8 py-4 font-semibold text-[#939EBA] hover:bg-[#EEF0F6] transition-colors"

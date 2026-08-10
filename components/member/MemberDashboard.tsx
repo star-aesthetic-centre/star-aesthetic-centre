@@ -429,7 +429,15 @@ export default function MemberDashboard({ data }: { data: MemberProfileData }) {
         {/* ── REWARDS TAB ────────────────────────────────────────────────────── */}
         {tab === "rewards" && (
           <div className="space-y-6">
-            <h2 className="font-heading text-xl font-bold text-[#1A1A1F]">Star Light Rewards</h2>
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <h2 className="font-heading text-xl font-bold text-[#1A1A1F]">Star Light Rewards</h2>
+              <Link
+                href="/rewards"
+                className="text-sm font-semibold text-[#939EBA] transition-colors hover:text-[#C8A882]"
+              >
+                How Star Lights work →
+              </Link>
+            </div>
 
             {!data.rewards ? (
               <EmptyState icon={Star} title="No rewards account" body="A Star Lights account is created automatically when you make your first purchase or sign up for rewards." />
@@ -450,7 +458,9 @@ export default function MemberDashboard({ data }: { data: MemberProfileData }) {
                       { label: "Earn rate", value: "5%" },
                     ].map(({ label, value }) => (
                       <div key={label}>
-                        <p className="text-xs text-[#636E85]">{label}</p>
+                        {/* #636E85 was too dark against the navy gradient —
+                            matched to the lighter blue-grey used elsewhere. */}
+                        <p className="text-xs text-[#939EBA]">{label}</p>
                         <p className="mt-0.5 font-heading text-xl font-bold text-white">{value}</p>
                       </div>
                     ))}

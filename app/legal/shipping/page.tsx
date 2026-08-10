@@ -147,7 +147,7 @@ export default function ShippingPage() {
                 Email Us
               </a>
               <a
-                href="https://wa.me/27315731325"
+                href="https://wa.me/27769770386"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block border border-[#0F2647] text-[#0F2647] text-sm font-semibold px-8 py-3 hover:bg-[#0F2647] hover:text-white transition-colors"

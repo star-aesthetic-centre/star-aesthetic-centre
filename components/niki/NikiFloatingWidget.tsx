@@ -278,7 +278,7 @@ export function NikiFloatingWidget() {
               </div>
 
               <a
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27315731325"}?text=${whatsappText}`}
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27769770386"}?text=${whatsappText}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mb-2 flex items-center justify-between bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1EBD58]"
