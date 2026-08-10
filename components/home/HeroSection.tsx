@@ -10,11 +10,13 @@ export default function HeroSection({ content }: Props) {
   return (
     <section className="relative min-h-[93vh] overflow-hidden">
       <Image
-        src="/images/star-aesthetic-centre-durban-homepage-hero-005.webp"
-        alt="Star Aesthetic Centre Durban clinic"
+        src="/images/star-aesthetic-centre-durban-consulting-room.webp"
+        alt="Treatment room at Star Aesthetic Centre, Durban North — Dr. Rajeev Bangalee"
         fill
         priority
-        className="object-cover object-center"
+        // object-right keeps the treatment bed and signage visible once the
+        // navy gradient covers the left third for the headline.
+        className="object-cover object-right"
       />
 
       <div className="absolute inset-0 bg-gradient-to-r from-[#0F2647]/90 via-[#1B3D6E]/60 to-transparent" />
