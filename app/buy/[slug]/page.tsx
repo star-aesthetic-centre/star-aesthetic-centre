@@ -160,6 +160,12 @@ export default function FunnelPage() {
           image: selectedProduct.image ?? "",
           price: applyFunnelDiscount(selectedProduct.price, step.discountPercent),
           quantity: qty,
+          // Record what the discount is conditional on. If the primary
+          // product later leaves the cart, the cart reverts this line to
+          // listPrice — the offer was for buying the two together.
+          funnelOriginSlug: slug,
+          funnelDiscountPercent: step.discountPercent,
+          listPrice: selectedProduct.price,
         },
       });
     }
