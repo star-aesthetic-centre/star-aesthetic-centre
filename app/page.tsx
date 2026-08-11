@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
 import TrustStrip from "@/components/home/TrustStrip";
 import TreatmentCategories from "@/components/home/TreatmentCategories";
@@ -8,6 +8,7 @@ import PerksSection from "@/components/home/PerksSection";
 import DoctorTrust from "@/components/home/DoctorTrust";
 import SkinAssessmentCTA from "@/components/home/SkinAssessmentCTA";
 import Testimonials from "@/components/home/Testimonials";
+import ReviewInvite from "@/components/home/ReviewInvite";
 import BookingCTA from "@/components/home/BookingCTA";
 import MapSection from "@/components/home/MapSection";
 import { buildPageMetadata } from "@/lib/seo";
@@ -45,6 +46,7 @@ export default async function HomePage() {
       <DoctorTrust content={content.doctorTrust} />
       <SkinAssessmentCTA />
       <Testimonials />
+      <ReviewInvite />
       <BookingCTA content={content.bookingCta} />
       <MapSection />
     </>
