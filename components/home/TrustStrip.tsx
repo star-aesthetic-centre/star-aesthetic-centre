@@ -6,9 +6,15 @@
  { value: "100%", label: "Doctor-Led" },
 ];
 
+/**
+ * Pale blue rather than white. This strip now sits between the brands grid
+ * and the product picks, where three white sections running together read as
+ * one undifferentiated block. #EEF0F6 is already the hover tint on the
+ * outline buttons, so it introduces no new colour to the page.
+ */
 export default function TrustStrip() {
  return (
- <section className="border-y border-[#E2E2E6] bg-white">
+ <section className="border-y border-[#E2E2E6] bg-[#EEF0F6]">
  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
  <div className="flex items-stretch divide-x divide-[#E2E2E6] overflow-x-auto">
  {stats.map((stat) => (

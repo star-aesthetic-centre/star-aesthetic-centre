@@ -38,9 +38,13 @@ export default async function HomePage() {
   return (
     <>
       <HeroSection content={content.hero} />
-      <TrustStrip />
       <TreatmentCategories />
       <ProductBrands />
+      {/* Moved down from directly under the hero: the hero already carries
+          20+ years / 6 brands / 5-star, so the two stat rows sat stacked and
+          repeated each other. Here it breaks up three consecutive white
+          sections instead. */}
+      <TrustStrip />
       <FeaturedProducts />
       <PerksSection perksRewards={content.perksRewards} />
       <DoctorTrust content={content.doctorTrust} />
