@@ -154,6 +154,62 @@ export async function getProductsByBrand(brandSlug: string): Promise<SupabasePro
 }
 
 /**
+ * Fetch a specific set of products by slug, with their images, returned in the
+ * order the slugs were given. Used by the homepage picks, where the running
+ * order is a curation decision rather than anything the database knows about.
+ * Slugs that no longer exist are skipped rather than rendered as gaps.
+ */
+export async function getProductsBySlugs(slugs: string[]): Promise<SupabaseProduct[]> {
+  if (slugs.length === 0) return [];
+
+  try {
+    const supabase = createSupabaseServer();
+
+    const { data: products, error } = await supabase
+      .from("products")
+      .select("id, brand_slug, name, slug, short_description, description, price_cents, regular_price_cents, sku, is_active, subcategory, subcategory_sort")
+      .in("slug", slugs)
+      .eq("is_active", true);
+
+    if (error) {
+      console.error("Supabase products error:", error);
+      return [];
+    }
+
+    if (!products || products.length === 0) return [];
+
+    const productIds = products.map((p) => p.id);
+    const { data: images, error: imgError } = await supabase
+      .from("product_images")
+      .select("id, product_id, url, alt_text, sort_order")
+      .in("product_id", productIds)
+      .order("sort_order");
+
+    if (imgError) {
+      console.error("Supabase images error:", imgError);
+    }
+
+    const imagesByProduct: Record<string, SupabaseProductImage[]> = {};
+    for (const img of images ?? []) {
+      if (!imagesByProduct[img.product_id]) imagesByProduct[img.product_id] = [];
+      imagesByProduct[img.product_id].push(img);
+    }
+
+    const bySlug = new Map(
+      products.map((p) => [
+        p.slug,
+        { ...p, price: centsToRand(p.price_cents), images: imagesByProduct[p.id] ?? [] },
+      ])
+    );
+
+    return slugs.map((s) => bySlug.get(s)).filter((p): p is SupabaseProduct => p != null);
+  } catch (err) {
+    console.error("getProductsBySlugs error:", err);
+    return [];
+  }
+}
+
+/**
  * Fetch a single product by slug, with its images.
  * Returns null if not found or on error.
  */

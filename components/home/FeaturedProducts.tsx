@@ -1,11 +1,35 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getProductsByBrand, getPrimaryImage } from "@/lib/queries/supabase-products";
+import { getProductsBySlugs, getPrimaryImage } from "@/lib/queries/supabase-products";
+import { brands } from "@/lib/brands";
 import { calculateStarlights } from "@/lib/utils/rewards";
 
+/**
+ * Dr. Bangalee's picks — two products from each of four brands.
+ *
+ * This used to be the first eight Dermaceutic products, which read as a
+ * single-brand advert rather than a curation. The order below interleaves the
+ * brands so each row of four shows four different names.
+ *
+ * Edit this list to change the picks; order here is the order on the page.
+ */
+const PICK_SLUGS = [
+  "dermaceutic-k-ceutic-spf-50",
+  "heliocare-360-gel-oil-free-touch-spf50",
+  "skinceuticals-c-e-ferulic-with-15-l-ascorbic-acid",
+  "mesoestetic-melan-recovery",
+  "dermaceutic-tri-vita-c30",
+  "heliocare-360-pigment-solution-fluid-spf50",
+  "skinceuticals-hydrating-b5-gel",
+  "mesoestetic-melan-tran3x-gel-cream",
+];
+
+const BRAND_NAMES: Record<string, string> = Object.fromEntries(
+  brands.map((b) => [b.slug, b.name])
+);
+
 export default async function FeaturedProducts() {
-  const products = await getProductsByBrand("dermaceutic");
-  const featured = products.slice(0, 8);
+  const featured = await getProductsBySlugs(PICK_SLUGS);
 
   // Don't render the section at all if there are no products
   if (featured.length === 0) return null;
@@ -52,6 +76,7 @@ export default async function FeaturedProducts() {
               ? new Intl.NumberFormat("en-ZA", { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(product.price)
               : null;
             const starlights = product.price ? calculateStarlights(product.price) : null;
+            const brandName = BRAND_NAMES[product.brand_slug] ?? product.brand_slug;
 
             return (
               <Link
@@ -71,7 +96,7 @@ export default async function FeaturedProducts() {
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
-                      <span className="text-xs font-semibold text-[#939EBA]">Dermaceutic</span>
+                      <span className="text-xs font-semibold text-[#939EBA]">{brandName}</span>
                     </div>
                   )}
 
@@ -87,7 +112,7 @@ export default async function FeaturedProducts() {
                 {/* Card info */}
                 <div className="p-3.5 sm:p-4">
                   <p className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-[#939EBA]">
-                    Dermaceutic
+                    {brandName}
                   </p>
                   <h3 className="line-clamp-2 text-[15px] font-semibold leading-snug text-[#1A1A1F] group-hover:text-[#939EBA] transition-colors">
                     {product.name}
