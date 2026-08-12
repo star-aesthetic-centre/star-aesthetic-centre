@@ -8,6 +8,7 @@ export type HomePageContent = {
     subtitle: string;
     ctaPrimary: string;
     ctaSecondary: string;
+    trustLine: string;
     stats: StatItem[];
   };
   doctorTrust: {

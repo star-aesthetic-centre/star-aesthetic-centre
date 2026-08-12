@@ -38,21 +38,27 @@ export default function HeroSection({ content }: Props) {
 
           <p className="mt-5 max-w-lg text-base leading-relaxed text-white/80">{content.subtitle}</p>
 
-          <div className="mt-7 flex flex-wrap gap-4">
+          <div className="mt-7">
             <Link
-              href="/treatments"
-              className="inline-flex items-center gap-2.5 bg-[#939EBA] px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-black/20 transition-all hover:bg-[#7A87A6] hover:-translate-y-0.5"
+              href="/book"
+              className="inline-flex items-center gap-2.5 bg-[#C8A882] px-9 py-5 text-base font-bold text-[#0F2647] shadow-lg shadow-black/20 transition-all hover:bg-[#D9BE9C] hover:-translate-y-0.5"
             >
               {content.ctaPrimary}
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="opacity-70">
                 <path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
+
+            <p className="mt-4 text-xs leading-relaxed text-white/70">{content.trustLine}</p>
+
+            {/* Deliberately a text link, not a second button — the shop is a real
+                second audience, but it must not compete with the booking CTA. */}
             <Link
               href="/shop"
-              className="inline-flex items-center gap-2.5 border border-white/40 px-8 py-4 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/70 hover:bg-white/10 hover:-translate-y-0.5"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-white/80 underline-offset-4 transition-colors hover:text-white hover:underline"
             >
               {content.ctaSecondary}
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
 

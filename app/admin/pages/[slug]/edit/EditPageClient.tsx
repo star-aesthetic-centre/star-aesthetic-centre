@@ -155,8 +155,9 @@ function HomeEditor({
         <Field label="Subtitle" value={h.subtitle} onChange={(subtitle) => setContent({ ...content, hero: { ...h, subtitle } })} multiline />
         <div className="grid grid-cols-2 gap-3">
           <Field label="Primary button" value={h.ctaPrimary} onChange={(ctaPrimary) => setContent({ ...content, hero: { ...h, ctaPrimary } })} />
-          <Field label="Secondary button" value={h.ctaSecondary} onChange={(ctaSecondary) => setContent({ ...content, hero: { ...h, ctaSecondary } })} />
+          <Field label="Secondary link" value={h.ctaSecondary} onChange={(ctaSecondary) => setContent({ ...content, hero: { ...h, ctaSecondary } })} />
         </div>
+        <Field label="Reassurance line (under the button)" value={h.trustLine} onChange={(trustLine) => setContent({ ...content, hero: { ...h, trustLine } })} />
         <StatsEditor stats={h.stats} onChange={(stats) => setContent({ ...content, hero: { ...h, stats } })} />
       </section>
 

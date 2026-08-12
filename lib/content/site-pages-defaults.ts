@@ -7,8 +7,9 @@ export const DEFAULT_HOME: HomePageContent = {
     headingEmphasis: "natural beauty.",
     subtitle:
       "Personalised aesthetic treatments and pharmaceutical-grade skincare, guided by Dr. Rajeev Bangalee — so you look and feel effortlessly you.",
-    ctaPrimary: "Explore Treatments",
-    ctaSecondary: "Shop Skincare",
+    ctaPrimary: "Book a Free 15-Minute Consultation",
+    ctaSecondary: "Shop skincare",
+    trustLine: "HPCSA registered · Every injectable personally performed by Dr. Bangalee",
     stats: [
       { value: "20+", label: "Years Experience" },
       { value: "6", label: "Premium Brands" },
