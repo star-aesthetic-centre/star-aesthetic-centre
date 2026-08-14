@@ -517,7 +517,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         {(db?.what_is || treatment.whatIs || treatment.quickSummary) && (
                             <div>
                                 <h2 className="font-heading text-3xl font-bold text-[#1A1A1F] mb-6">
-                                    What is {displayTitle}?
+                                    {(treatment as { whatIsHeading?: string }).whatIsHeading ?? `What is ${displayTitle}?`}
                                 </h2>
                                 {(() => {
                                     const html = db?.what_is
