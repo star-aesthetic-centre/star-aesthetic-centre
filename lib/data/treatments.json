@@ -1016,7 +1016,7 @@
       ],
       "notes": ["Additional vitamins can be added at extra cost — request a drip menu for detailed pricing."]
     },
-    "duration": "45–75 minutes per drip",
+    "duration": "15–60 minutes",
     "downtime": "None — return to normal activities immediately after",
     "downtimeDetail": "None. You can drive, work, exercise, and resume all normal activities immediately after the infusion.",
     "suitableFor": [
@@ -1060,8 +1060,8 @@
         "answer": "Yes — you can **drive and resume all normal activities** immediately after your infusion. There are no sedative components in our vitamin drip formulas."
       },
       {
-        "question": "Why is IV therapy more effective than taking vitamin supplements?",
-        "answer": "Oral supplements must pass through the **digestive system** — absorption is significantly limited by gut function, and ranges from 10–50% depending on the nutrient. **IV administration** bypasses the gut entirely, delivering 100% of the nutrient directly into the bloodstream at therapeutic concentrations that simply cannot be achieved through oral supplementation alone."
+        "question": "Why is IV therapy different from taking vitamin supplements?",
+        "answer": "Oral supplements need to pass through the **digestive system** before their nutrients can enter the bloodstream, and absorption can vary depending on the nutrient, digestive health and individual factors. IV therapy delivers nutrients **directly into the bloodstream**, bypassing the digestive tract and allowing for **rapid and efficient delivery**."
       },
       {
         "question": "Can I have a vitamin drip if I am unwell or have a cold?",
@@ -1072,12 +1072,12 @@
         "answer": "For acute needs (illness recovery, hangover, pre-event), a **single session** provides immediate benefit. For ongoing wellness, immune support, and skin radiance maintenance, **monthly infusions** are recommended. Athletes may benefit from **fortnightly post-training infusions** during heavy training periods."
       },
       {
-        "question": "Is glutathione safe to put in a drip?",
-        "answer": "Yes — **Glutathione** (reduced L-Glutathione) administered intravenously is safe, well-researched, and well-tolerated. It is the body's most important **endogenous antioxidant**. IV Glutathione provides antioxidant support, liver detoxification, immune enhancement, and (as a bonus effect highly prized in our patient community) progressive **skin brightening** with regular use."
+        "question": "Is glutathione safe to include in an IV drip?",
+        "answer": "**Glutathione** is a naturally occurring antioxidant produced by the body and plays an important role in **protecting cells from oxidative stress**. When administered intravenously, glutathione can be used as part of a **medically supervised IV therapy protocol**.\n\nAs with any intravenous treatment, **suitability varies from person to person**. Dr Rajeev Bangalee will assess your medical history, current medications and individual needs before treatment to determine whether glutathione-containing IV therapy is appropriate for you."
       },
       {
         "question": "Do vitamin drips help with skin radiance?",
-        "answer": "Yes — particularly the **Star Hydration Drip and Star Ultimate Drip**. Deep cellular hydration, high-dose **Vitamin C** (which stimulates collagen production and inhibits melanin), and **Glutathione** (a well-documented skin brightening agent with regular IV use) all contribute to improved skin luminosity, tone evenness, and that 'lit from within' glow. Many patients report compliments on their skin within **24 hours** of a drip."
+        "answer": "Yes — particularly the **Star Hydration Drip and Star Ultimate Drip**. Deep cellular hydration, high-dose **Vitamin C** (which stimulates collagen production and inhibits melanin), and **Glutathione** (a well-documented skin brightening agent with regular IV use) all contribute to improved skin luminosity and tone evenness."
       }
     ],
     "slug": "vitamin-drips"
