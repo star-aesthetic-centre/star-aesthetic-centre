@@ -676,10 +676,10 @@
         {
           "heading": "Depigmenting Peels",
           "rows": [
-            { "label": "Mesoesthetic Melanostop Tranex — Eye", "price": "R 500" },
-            { "label": "Mesoesthetic Melanostop Tranex — Face", "price": "R 950" },
-            { "label": "Mesoesthetic Melanostop Tranex — Face and eye", "price": "R 1,350" },
-            { "label": "Mesoesthetic Melanostop Tranex — Face, eye + Microneedling", "price": "R 2,200" },
+            { "label": "Mesoestetic Melanostop Tranex — Eye", "price": "R 500" },
+            { "label": "Mesoestetic Melanostop Tranex — Face", "price": "R 950" },
+            { "label": "Mesoestetic Melanostop Tranex — Face and eye", "price": "R 1,350" },
+            { "label": "Mesoestetic Melanostop Tranex — Face, eye + Microneedling", "price": "R 2,200" },
             { "label": "Mesopeel MD Melanostop Tranex — Eye", "price": "R 500" },
             { "label": "Mesopeel MD Melanostop Tranex — Face", "price": "R 1,400" }
           ]
@@ -838,7 +838,7 @@
           ]
         },
         {
-          "heading": "Mesoesthetic Melanostop Tranex Peel",
+          "heading": "Mesoestetic Melanostop Tranex Peel",
           "rows": [
             { "label": "Eye", "price": "R 500" },
             { "label": "Face", "price": "R 950" },
@@ -873,8 +873,8 @@
       "Anyone with **hyperpigmentation, dark spots, or melasma** as part of a complete depigmentation programme.",
       "Busy professionals wanting a **real, visible result** without significant downtime."
     ],
-    "heroText": "There is a moment — usually in a certain light, or a certain photo — when **your skin just doesn't look like you feel**. You feel capable, energetic, ready for whatever is next. But the skin looking back at you carries a heaviness that doesn't match. For many women, that gap between how they feel inside and how they look outside has a **quiet but real impact on confidence** — in the boardroom, on a first impression, in client-facing moments that matter. **A professional chemical peel is one of the simplest ways to close that gap.** At Star Aesthetic Centre, Dr. Bangalee uses the **mesoestetic mesopeel® range** — the gold standard in professional peels — to deliver precisely calibrated results for your specific skin and your specific life.",
-    "whatIs": "A chemical peel is a **controlled application of a carefully selected acidic solution** that exfoliates the skin's outer layers, removes accumulated dead and damaged cells, breaks up pigment deposits, and **triggers the skin's renewal response** — stimulating new cell growth and collagen production that brings fresher, brighter skin to the surface.\n\nThe depth of the peel — superficial, medium, or deep — is **precisely calibrated** to your skin concern, type, and tolerance. At Star Aesthetic, we use the **mesoestetic mesopeel® professional range** — the globally recognised benchmark in professional chemical peels, developed by the original formulators of the glycolic acid peel. The mesopeel® range includes specific formulations for **pigmentation, acne, anti-ageing, and sensitive skin** — engineered for your specific concern, not a generic one-size-fits-all solution.\n\nThe result is skin that doesn't just look better — it **feels different**. Lighter. More alive. More like the person you already are on the inside.",
+    "heroText": "There are times when your skin **no longer reflects how vibrant and confident you feel**. Whether it is uneven pigmentation, breakouts, rough texture, or the visible effects of sun exposure and ageing, these changes can affect both your appearance and confidence.\n\nChemical peels offer a **clinically proven way to refresh and rejuvenate the skin** by promoting natural skin renewal. Suitable for a variety of concerns, chemical peels can help improve the appearance of **dullness, uneven skin tone, congestion, acne, and early signs of ageing**.\n\nAt Star Aesthetic Centre, we believe that every skin journey is unique. Following a **thorough consultation and skin assessment**, Dr Bangalee and our experienced team will recommend the most appropriate peel or combination of treatments based on your individual skin needs, concerns, and goals.\n\nOur aim is to help you achieve **healthier, brighter-looking skin** through safe, evidence-based treatments tailored specifically to you.",
+    "whatIs": "A chemical peel is a **professional skin resurfacing treatment** that uses carefully selected exfoliating acids to remove accumulated dead skin cells and promote skin renewal. Through controlled exfoliation, chemical peels can help improve the appearance of **uneven skin tone, pigmentation, sun damage, acne-prone skin, congestion, fine lines, and overall skin texture**.\n\nThe **depth and strength of the peel** are tailored to your individual skin type, concerns, and treatment goals. Depending on your needs, a superficial, medium-depth, or more intensive peel may be recommended as part of your personalised treatment plan.\n\nAt Star Aesthetic Centre, we offer a range of professional chemical peels from leading medical skincare brands, including **Mesoestetic, NeoStrata, Dermaceutic, and Institut Esthederm**. Following a **comprehensive skin assessment**, Dr Bangalee or a qualified therapist will recommend the most appropriate peel, treatment protocol, or combination approach based on your skin's unique needs.\n\nWhether used as a standalone treatment or as part of a comprehensive skin rejuvenation programme, chemical peels remain one of the most **effective and versatile options** for addressing a wide range of skin concerns. Treatment recommendations are always tailored to your individual needs, ensuring a personalised approach that supports both your immediate goals and long-term skin health.",
     "howWorks": [
       "Consultation & Skin Assessment — Dr. Bangalee assesses your skin type, **Fitzpatrick classification, and specific concerns** to select the most appropriate peel formulation.",
       "Pre-Peel Preparation — For deeper peels, 2–4 weeks of **home-care priming** (retinol, AHA) may be recommended to improve results and reduce complications.",
@@ -891,7 +891,7 @@
       },
       {
         "question": "Is a chemical peel safe for darker skin tones?",
-        "answer": "Yes — with the right peel selection. Higher-strength **TCA peels** carry risk of **post-inflammatory hyperpigmentation (PIH) in darker skin types**. At Star Aesthetic, we use the **mesoestetic mesopeel® range** which includes specific formulations optimised for Fitzpatrick III–VI skin — including **mandelic acid peels**, preferred for darker skin due to their lower PIH risk."
+        "answer": "Yes — with the right peel selection. Higher-strength **TCA peels** carry risk of **post-inflammatory hyperpigmentation (PIH) in darker skin types**."
       },
       {
         "question": "How long does the peeling last and what does it look like?",
@@ -923,7 +923,7 @@
       },
       {
         "question": "Can peels help with open pores?",
-        "answer": "Yes — regular chemical peels, particularly **salicylic and glycolic acid peels**, reduce enlarged pores by clearing congestion and stimulating the collagen that supports the pore walls. Combined with a **retinol home-care programme** (skinretin 0.3%), pore refinement over 3–6 months is significant and lasting."
+        "answer": "Yes — regular chemical peels, particularly **salicylic and glycolic acid peels**, reduce enlarged pores by clearing congestion and stimulating the collagen that supports the pore walls. Combined with a **retinol home-care programme**, pore refinement over 3–6 months is significant and lasting."
       }
     ],
     "slug": "skin-peel"
