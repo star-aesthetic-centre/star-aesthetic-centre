@@ -26,6 +26,7 @@ import { DoctorAssessedCard } from "@/components/treatments/DoctorAssessedCard";
 import { getTreatmentReviews } from "@/lib/reviews/queries";
 import { TREATMENT_CARDS } from "@/lib/treatment-cards";
 import DripComparison from "@/components/treatments/DripComparison";
+import DripChooser from "@/components/treatments/DripChooser";
 import { DRIP_TYPES } from "@/lib/drip-booking-config";
 import { injectGlossaryLinks } from "@/lib/glossary/inject";
 import { mergePricingBreakdown, pricingBreakdownFromJson, type PricingBreakdown } from "@/lib/treatment-pricing";
@@ -397,7 +398,11 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     // Drips book on their own engine (two chairs, same-day, no consultation
     // first). Everything else goes to the main appointment booking.
     const isDrip = DRIP_TYPES.some((d) => d.slug === slug);
-    const bookingHref = isDrip ? `/book-drip?drip=${slug}` : "/book";
+    const bookingHref = isDrip
+        ? `/book-drip?drip=${slug}`
+        : showDripComparison
+          ? "/book-drip"
+          : "/book";
 
     const pagePath = treatmentPath(slug);
     const pageUrl = canonicalUrl(pagePath);
@@ -663,7 +668,9 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                             </div>
                         )}
 
-                        {/* Drip comparison — pillar page only, opt-in via JSON. */}
+                        {/* Pillar page only — route people to the five children first,
+                            then let them compare. */}
+                        {showDripComparison && <DripChooser />}
                         {showDripComparison && <DripComparison />}
 
                         {/* Expected Results */}
