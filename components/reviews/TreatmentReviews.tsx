@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Star, Gift } from "lucide-react";
+import { Star } from "lucide-react";
 import type { PublicReview, ReviewSummary } from "@/lib/reviews/types";
 
 /**
@@ -10,12 +10,8 @@ import type { PublicReview, ReviewSummary } from "@/lib/reviews/types";
  * the follow-up email, so this links to the central form with the treatment
  * pre-selected rather than carrying a second form on twelve pages.
  *
- * THE EMPTY STATE IS THE POINT. A new clinic page has no reviews, and the
- * usual answers are both bad: hide the section (invisible, collects nothing)
- * or show grey skeleton cards (reads as broken, and empty star rows look like
- * one-star reviews). Instead the three founding slots are shown as a reward
- * ladder that visibly fills up. The gap becomes an invitation, and the
- * scarcity is real rather than manufactured — there genuinely are only three.
+ * Reviews are voluntary. No gift, discount, sample or other benefit is offered
+ * in exchange for submitting one.
  */
 
 const FOUNDING_SLOTS = 3;
@@ -78,25 +74,6 @@ export default function TreatmentReviews({
         </div>
 
         {/* ── Founding-reviewer offer ───────────────────────────────────── */}
-        {inFoundingPhase && (
-          <div className="mt-8 flex flex-wrap items-center gap-4 border border-[#C8A882] bg-[#FFF8F0] px-6 py-4">
-            <Gift className="h-5 w-5 shrink-0 text-[#C8A882]" aria-hidden="true" />
-            <p className="flex-grow text-sm text-[#1A1A1F]">
-              <strong className="font-semibold">
-                {remaining} of {FOUNDING_SLOTS} complimentary sample packs remaining.
-              </strong>{" "}
-              <span className="text-[#636374]">
-                The first {FOUNDING_SLOTS} people to review {treatmentName} each receive one.
-              </span>
-            </p>
-            {/* Disclosure is not optional. The pack is for reviewing, never for
-                reviewing WELL — saying so protects the clinic and the reader. */}
-            <p className="w-full text-xs text-[#8A8896]">
-              Given for sharing your honest experience — positive or not. Reviews are published
-              only after our team has read them.
-            </p>
-          </div>
-        )}
 
         {/* ── Reviews / open slots ──────────────────────────────────────── */}
         <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -159,7 +136,7 @@ function OpenSlot({ position, href }: { position: number; href: string }) {
         This space is waiting for you
       </p>
       <p className="mt-1 text-sm text-[#636374]">
-        Share your experience and claim a complimentary sample pack.
+        Share your experience to help other patients make an informed decision.
       </p>
 
       <div className="mt-5 flex items-center gap-3 border-t border-[#F0EFEC] pt-4">

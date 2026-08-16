@@ -1,7 +1,7 @@
 /**
  * Google Business Profile rating — single source of truth.
  *
- * The practice holds a verified Google Business Profile. Displaying the rating
+ * Displaying the linked Google Business Profile rating
  * with its source and count is far stronger than an unattributed "5★ Patient
  * Rating", and it is independently checkable by anyone.
  *

@@ -34,7 +34,7 @@ export default async function ContactPage() {
     const content = await getSitePageContent("contact");
     const { hero, formIntro, doctorCard, contact, hours: hoursRows } = content;
     const phoneTel = contact.phone.replace(/\D/g, "");
-    const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27601230000").replace(/\D/g, "");
+    const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27769770386").replace(/\D/g, "");
     const waUrl = `https://wa.me/${whatsappDigits.startsWith("27") ? whatsappDigits : `27${whatsappDigits}`}`;
 
     return (

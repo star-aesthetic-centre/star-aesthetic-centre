@@ -1,4 +1,4 @@
-﻿import type { ContactPageContent, DrPageContent, HomePageContent, SitePageSlug } from "./site-pages-types";
+import type { ContactPageContent, DrPageContent, HomePageContent, SitePageSlug } from "./site-pages-types";
 
 export const DEFAULT_HOME: HomePageContent = {
   hero: {
@@ -89,7 +89,7 @@ export const DEFAULT_CONTACT: ContactPageContent = {
     email: "info@staraesthetic.site",
     addressLine1: "22 Ennisdale Drive",
     addressLine2: "Durban North, 4051",
-    whatsappNote: "060 123 0000",
+    whatsappNote: "076 977 0386",
   },
   hours: [
     { day: "Monday – Friday", hours: "08:00 – 17:00" },

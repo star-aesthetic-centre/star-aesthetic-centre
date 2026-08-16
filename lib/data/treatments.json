@@ -12,7 +12,7 @@
       "**Adult women with hormonal acne** — breakouts along the jaw, chin, and neck that worsen around menstruation, with the pill, or during perimenopause.",
       "Anyone whose acne is **affecting confidence** at work, in social situations, or in front of a camera.",
       "Those dealing with **post-acne scarring, dark marks** (post-inflammatory hyperpigmentation), or pitting.",
-      "People ready to stop cycling through products and finally get a **medical plan that actually works**."
+      "People ready to stop cycling through products and get an **individualised medical treatment plan**."
     ],
     "heroText": "You've tried **every cream and cleanser on the shelf**. You've adjusted your diet, followed the skincare routines, and read every article. And yet — every morning brings the same quiet disappointment, the same reaching for concealer, the same wishing it would just stop. **Acne is not a hygiene problem.** It's not something you caused, and it's not something you should have to figure out alone. It is a **medical condition with a medical solution** — and at Star Aesthetic Centre, **Dr. Bangalee treats it exactly that way**: clinically, comprehensively, and with a plan built around the root cause of your specific acne.",
     "whatIs": "There is something quietly exhausting about **managing acne as an adult**. The morning mirror check. The decisions about which events to attend, which photos to allow. The way a single breakout can knock your confidence on a day that matters — a job interview, a client presentation, a first date. **You are not overreacting.** Research confirms what you already know: acne has measurable, documented impacts on self-esteem, professional confidence, and social engagement.\n\nMedically, acne is a **chronic inflammatory condition of the pilosebaceous unit** — the hair follicle and its associated oil gland. When excess sebum combines with dead skin cell build-up, it creates the perfect environment for Cutibacterium acnes (the acne-causing bacterium) to proliferate, triggering the inflammation that produces pimples, papules, pustules, nodules, and cysts.\n\nAt Star Aesthetic, **Dr. Bangalee treats every type of acne** — from mild comedonal acne (blackheads and whiteheads) and inflammatory acne to severe nodulo-cystic and hormonal acne in adult women. Treatment is always clinical, always personalised, and always designed to address the **underlying cause** — not just the surface symptom.\n\n**Acne is not caused by poor hygiene, eating chocolate, or laziness.** It is a medical condition with genetic, hormonal, and environmental drivers — and it deserves proper medical attention.",
@@ -135,7 +135,7 @@
   {
     "title": "Anti-Wrinkle Treatment",
     "tagline": "Soften lines. Look refreshed. Feel like yourself again.",
-    "quickSummary": "The **Anti-Wrinkle Treatment** at Star Aesthetic Centre uses **Botulinum Toxin** (Botox® / Xeomin®) — a purified protein that temporarily relaxes the facial muscles responsible for **expression lines**, smoothing frown lines, forehead creases, and crow's feet with zero downtime.",
+    "quickSummary": "The **Anti-Wrinkle Treatment** at Star Aesthetic Centre uses **botulinum toxin** to temporarily relax selected facial muscles responsible for expression lines. Suitability, likely effects and possible side effects are discussed during consultation.",
     "priceFrom": "From R 90 per unit · Optimal dosing (64 units) R 5,440",
     "pricingBreakdown": {
       "sections": [
@@ -167,7 +167,7 @@
       "notes": ["Unit requirements vary per patient and are assessed at consultation. A consultation fee applies for treatments under 15 units."]
     },
     "duration": "20–45 minutes (including consultation)",
-    "downtime": "Zero downtime — return to normal activities immediately",
+    "downtime": "Most patients resume routine activities promptly; temporary side effects may occur",
     "downtimeDetail": "**Zero clinical downtime.** You can return to work, driving, and most normal activities immediately. Avoid strenuous exercise, alcohol, facial massage, and lying face-down for **24 hours** post-treatment.",
     "suitableFor": [
       "Women and men with forehead lines, frown lines, or crow's feet they wish to soften.",
@@ -232,7 +232,7 @@
       },
       {
         "question": "How do I find a qualified practitioner for Anti-Wrinkle Treatment in Durban?",
-        "answer": "<p>Always seek Anti-Wrinkle Treatment from a <strong>qualified, registered medical practitioner</strong> — not a beauty salon or untrained injector. <strong>Dr. Rajeev Bangalee</strong> is a qualified medical doctor registered with the <strong>HPCSA</strong> (Health Professions Council of South Africa) with specific aesthetic medicine training.</p><p>Book at Star Aesthetic Centre:</p><ul><li><span><a href=\"/book\" class=\"font-semibold text-[#1B3D6E] underline underline-offset-2 hover:text-[#939EBA]\">Book Online</a></span></li><li><span><a href=\"tel:+27315731325\" class=\"font-semibold text-[#1B3D6E] underline underline-offset-2 hover:text-[#939EBA]\">+27 (0)31 573 1325</a></span></li><li><span><a href=\"https://wa.me/27601230000\" class=\"font-semibold text-[#1B3D6E] underline underline-offset-2 hover:text-[#939EBA]\" target=\"_blank\" rel=\"noopener noreferrer\">060 123 0000 (WhatsApp)</a></span></li></ul>"
+        "answer": "<p>Always seek Anti-Wrinkle Treatment from a <strong>qualified, registered medical practitioner</strong> — not a beauty salon or untrained injector. <strong>Dr. Rajeev Bangalee</strong> is a qualified medical doctor registered with the <strong>HPCSA</strong> (Health Professions Council of South Africa) with specific aesthetic medicine training.</p><p>Book at Star Aesthetic Centre:</p><ul><li><span><a href=\"/book\" class=\"font-semibold text-[#1B3D6E] underline underline-offset-2 hover:text-[#939EBA]\">Book Online</a></span></li><li><span><a href=\"tel:+27315731325\" class=\"font-semibold text-[#1B3D6E] underline underline-offset-2 hover:text-[#939EBA]\">+27 (0)31 573 1325</a></span></li><li><span><a href=\"https://wa.me/27769770386\" class=\"font-semibold text-[#1B3D6E] underline underline-offset-2 hover:text-[#939EBA]\" target=\"_blank\" rel=\"noopener noreferrer\">076 977 0386 (WhatsApp)</a></span></li></ul>"
       }
     ],
     "ctaHeading": "Ready to soften those lines?",
@@ -282,8 +282,8 @@
       "Patients with **hair loss** (scalp microneedling with growth factors).",
       "Anyone wanting to maximise the absorption of their **home-care skincare products** (microneedling dramatically improves product penetration)."
     ],
-    "heroText": "**Dermapen microneedling** is one of the most versatile and effective skin rejuvenation treatments available — addressing everything from fine lines and acne scarring to enlarged pores and skin texture. At Star Aesthetic, **Dr. Bangalee** uses the authentic **Dermapen®** — the world's leading medical-grade microneedling device.",
-    "whatIs": "**Dermapen® microneedling** is a minimally invasive skin rejuvenation procedure that uses a medical-grade device with multiple ultra-fine needles to create thousands of microscopic punctures in the skin's surface. These controlled micro-injuries trigger the skin's natural wound-healing response — stimulating the production of new **collagen and elastin fibres** that replace damaged or aged skin tissue.\n\nUnlike ablative laser treatments that remove the outer skin layer, microneedling stimulates regeneration from within while keeping the surface mostly intact. This means more effective healing, less risk of **pigmentation changes** (important for darker South African skin tones), and a significantly faster recovery than ablative alternatives.\n\n**Dermapen®** is the authentic, globally recognised gold standard in microneedling devices — used by aesthetic physicians, dermatologists, and plastic surgeons worldwide. At Star Aesthetic, every treatment is performed by **Dr. Bangalee** personally.",
+    "heroText": "**Dermapen microneedling** is used to address concerns including fine lines, acne scarring, enlarged pores and uneven skin texture. At Star Aesthetic Centre, treatment is planned after an individual consultation with **Dr. Bangalee**.",
+    "whatIs": "**Dermapen® microneedling** is a minimally invasive procedure that uses a device with multiple fine needles to create controlled micro-channels in the skin. This prompts a wound-healing response associated with collagen and elastin production.\n\nMicroneedling does not remove the outer skin layer in the way ablative treatments do. Recovery and the risk of pigmentation changes vary according to skin type, treatment depth and aftercare.\n\nDr. Bangalee assesses suitability and recommends an individual treatment plan. Results vary and a course of treatment may be required.",
     "howWorks": [
       "Consultation & Skin Assessment — Dr. Bangalee assesses your skin concerns, type, and treatment history to design your **Dermapen protocol** and select appropriate serums for infusion during treatment.",
       "Topical Anaesthetic Application — **EMLA cream** is applied and left for 30–45 minutes to ensure your comfort.",
@@ -625,7 +625,7 @@
   {
     "title": "Medi-Lean Medical Weight Loss Programme",
     "tagline": "Medically Supervised Weight Management — Real Results, Sustained Long-Term",
-    "quickSummary": "The **Medi-Lean Weight Loss Programme** combines FDA-approved prescription medication (including **GLP-1 receptor agonists**), personalised nutritional guidance, and regular physician monitoring to deliver meaningful, sustainable weight loss under full medical supervision.",
+    "quickSummary": "The **Medi-Lean Weight Loss Programme** combines clinically appropriate prescription medication, where indicated and lawfully prescribed in South Africa, with personalised nutritional guidance and regular medical monitoring. Suitability and results vary by patient.",
     "priceFrom": "",
     "duration": "",
     "downtime": "None — lifestyle-integrated programme",
@@ -807,7 +807,7 @@
   {
     "title": "Skin Peel Treatment (Chemical Peel)",
     "tagline": "Reveal Brighter, Younger Skin — Professional Chemical Peels in Durban",
-    "quickSummary": "A **professional chemical peel** is one of the most effective, most versatile, and most affordable treatments in aesthetic medicine. Using **mesoestetic's gold-standard mesopeel® range**, Dr. Bangalee delivers precisely calibrated results for texture, pigmentation, acne, and overall skin quality — with treatments ranging from a 'lunch-hour' refresh to a full medium-depth resurfacing.",
+    "quickSummary": "A **professional chemical peel** uses selected exfoliating acids to support skin renewal and may help improve texture, pigmentation, acne-prone skin and overall skin appearance. Peel type and depth are selected after an individual assessment.",
     "priceFrom": "From R 665 per session (peel type dependent)",
     "pricingBreakdown": {
       "sections": [
@@ -961,7 +961,7 @@
   {
     "title": "Varicose Veins Treatment",
     "tagline": "Non-Surgical Thread Vein & Varicose Vein Management in Durban",
-    "quickSummary": "**Sclerotherapy** — the injection of a sclerosing agent directly into unwanted veins — is the gold standard non-surgical treatment for **spider veins (telangiectasias)** and small-to-medium varicose veins, causing them to collapse and fade over **4–12 weeks**.",
+    "quickSummary": "**Sclerotherapy** involves injecting a sclerosing agent into selected spider veins and small varicose veins. Treated veins may fade over time, but response varies and complete clearance cannot be guaranteed.",
     "priceFrom": "R 1,500 – R 3,500 per session (extent dependent)",
     "duration": "30 minutes",
     "downtime": "Minimal — compression stockings worn for 5–7 days",
@@ -982,7 +982,7 @@
       "Compression Application — Following treatment, **graduated compression stockings** are applied immediately and worn continuously for 5–7 days to optimise outcome.",
       "Follow-Up — Results are assessed at **4–6 weeks**, and further sessions are planned as needed."
     ],
-    "expectedResults": "**Week 1–2:** Treated veins appear inflamed and possibly darker — this is the inflammatory response and is expected. **Weeks 3–6:** Veins begin to fade as they are absorbed. **Weeks 6–12:** Progressive fading continues; treated veins largely or completely invisible. **Multiple sessions** required for extensive veins.",
+    "expectedResults": "Treated veins may initially look darker or inflamed before gradually fading. The degree and timing of improvement vary. Some veins may not respond fully, new veins can develop, and more than one session or referral may be required.",
     "faqs": [
       {
         "question": "Does sclerotherapy hurt?",
@@ -1070,7 +1070,7 @@
       "Monitoring — You are **monitored by Dr. Bangalee or our nursing team** throughout the infusion to ensure your comfort and wellbeing.",
       "Post-Infusion — Once the infusion is complete, the cannula is removed and you can **return to your usual activities**, provided you are feeling well. Our team will advise you on any appropriate post-infusion care."
     ],
-    "expectedResults": "**During infusion:** Warmth, relaxation, and sense of wellbeing. **Hours 1–4 post-infusion:** Energy boost and improved mental clarity. **Days 1–3:** Sustained improvement in energy, skin luminosity, and overall wellbeing. **Monthly maintenance infusions** maintain optimal nutrient status and cumulative wellness benefits.",
+    "expectedResults": "Experiences after an infusion vary. Some people report temporary changes in wellbeing, while others notice no clear benefit. No specific result or timeline can be guaranteed. Further infusions are recommended only when clinically appropriate after individual assessment.",
     "faqs": [
       {
         "question": "What is the Star Hydrating Drip and what does it do?",
@@ -1090,7 +1090,7 @@
       },
       {
         "question": "Is IV vitamin therapy safe?",
-        "answer": "Yes — when administered by a **qualified medical doctor** in a clinical setting. Dr. Bangalee conducts a brief medical assessment before every first-time treatment to confirm suitability. All materials used are **sterile, pharmaceutical-grade, and single-use**. Serious reactions are extremely rare when administered by a trained medical professional."
+        "answer": "IV vitamin therapy carries potential risks and is not suitable for everyone. Before treatment, Dr. Bangalee reviews your health, medication, allergies and the proposed ingredients. Possible risks and alternatives are discussed as part of informed consent, and treatment proceeds only when considered clinically appropriate."
       },
       {
         "question": "Can I drive after my vitamin drip?",
@@ -1102,11 +1102,11 @@
       },
       {
         "question": "Can I have a vitamin drip if I am unwell or have a cold?",
-        "answer": "In many cases, yes — and this is one of the most popular indications. **High-dose Vitamin C and Glutathione** (in the Ultimate Drip) provide powerful antioxidant and immune support that can significantly support recovery from viral illness. Dr. Bangalee will assess before treating — severe illness or fever may require postponement."
+        "answer": "IV vitamin therapy is not a substitute for assessment or evidence-based treatment of a viral illness. If you are acutely unwell, have a fever or have concerning symptoms, contact an appropriate medical professional. Dr. Bangalee will assess whether an infusion should be postponed or is unsuitable."
       },
       {
         "question": "How often should I have a vitamin drip?",
-        "answer": "For acute needs (illness recovery, hangover, pre-event), a **single session** provides immediate benefit. For ongoing wellness, immune support, and skin radiance maintenance, **monthly infusions** are recommended. Athletes may benefit from **fortnightly post-training infusions** during heavy training periods."
+        "answer": "There is no universal schedule. The need for any infusion and its frequency depend on your medical history, clinical indication, ingredients and response. Dr. Bangalee will advise whether treatment is appropriate after assessment."
       },
       {
         "question": "Is glutathione safe to include in an IV drip?",

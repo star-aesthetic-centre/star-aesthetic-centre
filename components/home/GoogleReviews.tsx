@@ -5,8 +5,8 @@ import { getApprovedReviews } from "@/lib/reviews/queries";
 /**
  * Google rating band.
  *
- * The practice holds a verified Google Business Profile rated 5.0 from 21
- * reviews. That is real, independently checkable social proof — far stronger
+ * The practice's linked Google Business Profile is rated 5.0 from 21
+ * reviews. That is independently checkable social proof — far stronger
  * than the unsourced "5★ Patient Rating" and the invented testimonials this
  * replaces.
  *
@@ -56,7 +56,7 @@ export default async function GoogleReviews() {
           <p className="max-w-xl text-[#636374]">
             Rated <strong className="font-semibold text-[#1A1A1F]">{GOOGLE_REVIEWS.rating}</strong>{" "}
             by <strong className="font-semibold text-[#1A1A1F]">{GOOGLE_REVIEWS.count} patients</strong>{" "}
-            on Google — every one of them a verified review you can read for yourself.
+            on Google — follow the link to read the public reviews for yourself.
           </p>
 
           <Link
