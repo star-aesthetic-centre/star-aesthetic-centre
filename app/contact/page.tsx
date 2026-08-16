@@ -32,7 +32,7 @@ const trustBadges = [
 
 export default async function ContactPage() {
     const content = await getSitePageContent("contact");
-    const { hero, formIntro, doctorCard, contact, hours: hoursRows, testimonials } = content;
+    const { hero, formIntro, doctorCard, contact, hours: hoursRows } = content;
     const phoneTel = contact.phone.replace(/\D/g, "");
     const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27601230000").replace(/\D/g, "");
     const waUrl = `https://wa.me/${whatsappDigits.startsWith("27") ? whatsappDigits : `27${whatsappDigits}`}`;
@@ -105,35 +105,14 @@ export default async function ContactPage() {
                             {/* The form */}
                             <ContactForm />
 
-                            {/* Testimonials — below form */}
-                            <div className="mt-12 pt-10 border-t border-[#E5E4E0]">
-                                <p className="font-heading text-xs font-semibold uppercase tracking-[0.2em] text-[#939EBA] mb-6">
-                                    What Our Patients Say
-                                </p>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                    {testimonials.map((t) => (
-                                        <div key={t.name} className="border border-[#E5E4E0] bg-[#F8F8F7] p-5">
-                                            <div className="flex gap-0.5 mb-3">
-                                                {[...Array(t.rating)].map((_, i) => (
-                                                    <Star key={i} className="h-3.5 w-3.5 fill-[#C8A882] text-[#C8A882]" />
-                                                ))}
-                                            </div>
-                                            <p className="text-sm text-[#1A1917] leading-relaxed mb-4 italic">
-                                                &ldquo;{t.text}&rdquo;
-                                            </p>
-                                            <div className="flex items-center justify-between">
-                                                <div>
-                                                    <p className="text-xs font-semibold text-[#1A1917]">{t.name}</p>
-                                                    <p className="text-xs text-[#6B6966]">{t.location}</p>
-                                                </div>
-                                                <span className="text-[10px] uppercase tracking-wider text-[#C8A882] font-semibold border border-[#E5E4E0] px-2 py-1">
-                                                    {t.treatment}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            {/* Testimonials removed.
+                                These four (Priya M., Samantha L., Kavitha R.,
+                                Michelle T.) were written during the build, not
+                                collected from patients — none appear in the
+                                reviews table or in any public listing. The
+                                homepage now shows real approved reviews only;
+                                this section can be restored the same way once
+                                there are some. */}
                         </div>
 
                         {/* RIGHT: Contact info + Dr. Bangalee + hours */}
