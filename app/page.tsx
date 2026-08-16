@@ -4,6 +4,7 @@ import TrustStrip from "@/components/home/TrustStrip";
 import TreatmentCategories from "@/components/home/TreatmentCategories";
 import ProductBrands from "@/components/home/ProductBrands";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
+import VitaminDripSection from "@/components/home/VitaminDripSection";
 import PerksSection from "@/components/home/PerksSection";
 import DoctorTrust from "@/components/home/DoctorTrust";
 import SkinAssessmentCTA from "@/components/home/SkinAssessmentCTA";
@@ -46,6 +47,7 @@ export default async function HomePage() {
           sections instead. */}
       <TrustStrip />
       <FeaturedProducts />
+      <VitaminDripSection />
       <PerksSection perksRewards={content.perksRewards} />
       <DoctorTrust content={content.doctorTrust} />
       <SkinAssessmentCTA />

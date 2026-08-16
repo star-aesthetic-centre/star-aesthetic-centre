@@ -25,6 +25,7 @@ import TreatmentReviews from "@/components/reviews/TreatmentReviews";
 import { DoctorAssessedCard } from "@/components/treatments/DoctorAssessedCard";
 import { getTreatmentReviews } from "@/lib/reviews/queries";
 import { TREATMENT_CARDS } from "@/lib/treatment-cards";
+import DripComparison from "@/components/treatments/DripComparison";
 import { injectGlossaryLinks } from "@/lib/glossary/inject";
 import { mergePricingBreakdown, pricingBreakdownFromJson, type PricingBreakdown } from "@/lib/treatment-pricing";
 
@@ -389,6 +390,9 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
         "Book a consultation with Dr. Bangalee to discuss a tailored treatment plan built around your specific skin, goals, and budget.";
     const ctaButton = t.ctaButton ?? "Book Your Consultation";
 
+    // Five-drip comparison table — pillar page only.
+    const showDripComparison = Boolean((treatment as { showDripComparison?: boolean }).showDripComparison);
+
     const pagePath = treatmentPath(slug);
     const pageUrl = canonicalUrl(pagePath);
 
@@ -652,6 +656,9 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 </div>
                             </div>
                         )}
+
+                        {/* Drip comparison — pillar page only, opt-in via JSON. */}
+                        {showDripComparison && <DripComparison />}
 
                         {/* Expected Results */}
                         {(db?.expected_results || treatment.expectedResults || displayDowntimeDetail) && (

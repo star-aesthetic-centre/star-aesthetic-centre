@@ -45,6 +45,7 @@ export async function getTreatmentCards(): Promise<TreatmentCardItem[]> {
   }
 
   return TREATMENT_CARDS.filter((card) => {
+    if (card.hiddenFromGrid) return false;
     const db = bySlug.get(card.slug);
     if (db && db.is_active === false) return false;
     return true;
