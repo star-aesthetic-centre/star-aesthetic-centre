@@ -48,7 +48,7 @@ const personSchema = {
   "@type": "Person",
   name: "Dr. Rajeev Bangalee",
   honorificPrefix: "Dr.",
-  jobTitle: "General Practitioner & Aesthetic Medicine Specialist",
+  jobTitle: "General Practitioner · Aesthetic Medicine",
   description:
     "Dr. Rajeev Bangalee is the Director of Star Aesthetic Centre in Durban North, KwaZulu-Natal. A qualified GP specialising in Aesthetic Medicine with over 20 years of clinical experience in South Africa and the United Kingdom.",
   image:
@@ -387,7 +387,7 @@ export default async function DrBangaleePage() {
                 <div className="relative w-[340px]">
                   <Image
                     src={`${WP}/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp`}
-                    alt="Dr. Rajeev Bangalee — Director and Aesthetic Medicine Specialist at Star Aesthetic Centre, Durban North"
+                    alt="Dr. Rajeev Bangalee — Director of Star Aesthetic Centre, Durban North"
                     width={340}
                     height={460}
                     unoptimized
@@ -720,7 +720,7 @@ export default async function DrBangaleePage() {
                 Treatments Offered by Dr. Bangalee
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-sm text-[#6B6966]">
-                Medical and injectable procedures are personally performed by Dr. Bangalee. Skin treatments such as peels and microneedling are performed by Nakita.
+                Medical and injectable procedures are personally performed by Dr. Bangalee. Selected skin treatments, such as peels and microneedling, are performed by our aesthetic therapist under his clinical protocols.
               </p>
             </div>
 

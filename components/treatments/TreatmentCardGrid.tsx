@@ -34,7 +34,8 @@ export default function TreatmentCardGrid({
             </HeadingTag>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-[#636374] sm:text-right">
-            All treatments delivered by Dr. Rajeev Bangalee and Nakita for safe, clinical, natural-looking results.
+            All injectable and medical procedures are personally performed by Dr. Rajeev Bangalee.
+            Selected skin treatments are performed by our aesthetic therapist under his clinical protocols.
           </p>
         </div>
       )}

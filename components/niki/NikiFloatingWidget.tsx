@@ -348,11 +348,14 @@ export function NikiFloatingWidget() {
 
           {!isOpen && (
             <span className="relative flex flex-col justify-center py-2.5 pl-3 pr-1 text-left">
+              {/* Break after "skin", not after the ampersand — otherwise the two
+                  lines read as "your skin &" / "treatment consultant", and
+                  screen readers and text extractors run them together. */}
               <span className="text-[13px] font-bold leading-tight text-[#0F2647]">
-                Niki — your skin &amp;
+                Niki — your skin
               </span>
               <span className="text-[11px] font-semibold leading-snug text-[#1A1917]/85">
-                treatment consultant
+                &amp; treatment consultant
               </span>
             </span>
           )}

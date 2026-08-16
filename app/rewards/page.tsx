@@ -239,7 +239,7 @@ export default function RewardsPage() {
               {
                 step: "03",
                 title: "Redeem Anytime",
-                body: "Use your balance towards your next treatment or product purchase. Simply tell Nakita at reception, or apply at checkout online.",
+                body: "Use your balance towards your next treatment or product purchase. Simply mention it at reception, or apply at checkout online.",
               },
             ].map(({ step, title, body }) => (
               <div key={step} className="flex gap-6">

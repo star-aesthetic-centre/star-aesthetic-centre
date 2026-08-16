@@ -53,7 +53,7 @@ export default function SkinAssessmentCTA() {
                             <ArrowRight className="h-4 w-4" />
                         </Link>
                         <p className="mt-4 text-xs text-[#636E85]">
-                            Over 500 assessments completed · No credit card required
+                            12 questions · About 3 minutes · No credit card required
                         </p>
                     </div>
 

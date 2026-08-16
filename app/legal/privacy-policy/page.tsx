@@ -28,7 +28,7 @@ const sections = [
       {
         type: "text",
         value:
-          "We operate this website at staraesthetic.co.za and provide medical aesthetic treatments and pharmaceutical-grade skincare products under the direction of Dr. Rajeev Bangalee, a qualified General Practitioner and Aesthetic Medicine Specialist.",
+          "We operate this website at staraesthetic.co.za and provide medical aesthetic treatments and pharmaceutical-grade skincare products under the direction of Dr. Rajeev Bangalee, a qualified General Practitioner with postgraduate training in Aesthetic Medicine.",
       },
       {
         type: "text",
