@@ -2,11 +2,15 @@
 
 export const DEFAULT_HOME: HomePageContent = {
   hero: {
+    // "Reveal your natural beauty" read well but told a patient nothing: not
+    // what is offered, by whom, where, or why here rather than anywhere else.
+    // The headline now carries the differentiator and the subtitle carries
+    // what / who / where.
     overline: "Durban North · Doctor-Led Aesthetics",
-    headingLine1: "Reveal your",
-    headingEmphasis: "natural beauty.",
+    headingLine1: "Doctor-led aesthetics.",
+    headingEmphasis: "Natural-looking results.",
     subtitle:
-      "Personalised aesthetic treatments and pharmaceutical-grade skincare, guided by Dr. Rajeev Bangalee — so you look and feel effortlessly you.",
+      "Personalised aesthetic medicine in Durban North — injectables, skin treatments and pharmaceutical-grade skincare, led by Dr. Rajeev Bangalee (MB, BS).",
     ctaPrimary: "Book a Free 15-Minute Consultation",
     ctaSecondary: "Shop skincare",
     trustLine: "HPCSA registered · Every injectable personally performed by Dr. Bangalee",
