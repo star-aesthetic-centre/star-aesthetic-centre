@@ -23,6 +23,15 @@ export const TREATMENT_CARDS: TreatmentCardItem[] = [
   { name: "Medi-Lean Weight Loss", category: "body-wellness", slug: "medi-lean", priceFrom: 850, image: `${WP}/medi-lean-weight-loss-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Medi-Lean Weight Loss Diet Program" },
   { name: "Varicose Vein Removal", category: "body-wellness", slug: "varicose-veins", priceFrom: 850, image: `${WP}/varicose-veins-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Varicose Vein Removal Sclerotherapy" },
   { name: "Vitamin IV Therapy", category: "body-wellness", slug: "vitamin-drips", priceFrom: 1265, image: `${WP}/vitamin-drip-treatment-star-aesthetic-centre-durban-north.webp`, imageAlt: "Vitamin Drip IV Therapy Wellness" },
+
+  // Individual drips. Not shown in the main /treatments grid — that keeps the
+  // "Vitamin IV Therapy" pillar card as the single entry point. Listed here so
+  // each drip page has its own card image for social sharing and the pillar.
+  { name: "Party Recovery Drip", category: "body-wellness", slug: "party-recovery-drip", priceFrom: 1465, image: `${WP}/party-recovery-vitamin-drip-star-aesthetic-centre-durban-north.webp`, imageAlt: "Friends celebrating with champagne — party recovery vitamin drip, Durban North" },
+  { name: "Hydration Vitamin Drip", category: "body-wellness", slug: "hydration-vitamin-drip", priceFrom: 1265, image: `${WP}/hydration-vitamin-drip-star-aesthetic-centre-durban-north.webp`, imageAlt: "Woman looking refreshed and restored after a hydration vitamin drip in Durban North" },
+  { name: "Fitness & Recovery Drip", category: "body-wellness", slug: "fitness-vitamin-drip", priceFrom: 1620, image: `${WP}/fitness-vitamin-drip-star-aesthetic-centre-durban-north.webp`, imageAlt: "Runner on an open road at sunrise — fitness and recovery vitamin drip, Durban North" },
+  { name: "Glutathione & Vitamin C Drip", category: "body-wellness", slug: "glutathione-brightening-drip", priceFrom: 1070, image: `${WP}/glutathione-brightening-drip-star-aesthetic-centre-durban-north.webp`, imageAlt: "Healthy retired couple walking at sunrise over the sea — glutathione and vitamin C drip, Durban North" },
+  { name: "Ultimate Vitamin Drip", category: "body-wellness", slug: "ultimate-vitamin-drip", priceFrom: 1870, image: `${WP}/ultimate-vitamin-drip-star-aesthetic-centre-durban-north.webp`, imageAlt: "Fresh fruit and vegetables representing the full vitamin spectrum — ultimate vitamin drip, Durban North" },
 ];
 
 export function treatmentCategoryLabel(category: string): string {

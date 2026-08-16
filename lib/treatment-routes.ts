@@ -12,6 +12,13 @@ export const TREATMENT_SLUG_TO_CATEGORY: Record<string, string> = {
   "medi-lean": "body-wellness",
   "varicose-veins": "body-wellness",
   "vitamin-drips": "body-wellness",
+  // Individual drips — each targets its own search intent. "vitamin-drips"
+  // remains the pillar page that links to all five.
+  "hydration-vitamin-drip": "body-wellness",
+  "party-recovery-drip": "body-wellness",
+  "fitness-vitamin-drip": "body-wellness",
+  "glutathione-brightening-drip": "body-wellness",
+  "ultimate-vitamin-drip": "body-wellness",
 };
 
 export function treatmentPath(slug: string): string {

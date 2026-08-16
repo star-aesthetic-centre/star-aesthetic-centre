@@ -135,7 +135,12 @@ export async function generateMetadata({ params }: TreatmentPageProps): Promise<
                   "Dr Rajeev Bangalee",
                   "Star Aesthetic Centre",
               ],
-        ...(db?.og_image ? { ogImage: db.og_image } : {}),
+        // Share the treatment's own card image rather than the site default —
+        // otherwise every treatment looks identical when shared to WhatsApp,
+        // Facebook or a Google Business post.
+        ...(db?.og_image || TREATMENT_CARDS.find((c) => c.slug === slug)?.image
+            ? { ogImage: db?.og_image || TREATMENT_CARDS.find((c) => c.slug === slug)!.image }
+            : {}),
     });
 }
 
@@ -370,6 +375,20 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     const displayCardImage = db?.card_image || cardDefaults?.image || null;
     const displayCardImageAlt = db?.card_image_alt || cardDefaults?.imageAlt || displayTitle;
 
+    // Full-width hero banner, opt-in per treatment.
+    const heroImage = (treatment as { heroImage?: string }).heroImage ?? null;
+    const heroImageAlt =
+        (treatment as { heroImageAlt?: string }).heroImageAlt ?? displayCardImageAlt;
+
+    // Closing CTA. Injectables and skin treatments start with a consultation;
+    // a vitamin drip is a same-day booking, so the wording is per-treatment.
+    const t = treatment as { ctaHeading?: string; ctaBody?: string; ctaButton?: string };
+    const ctaHeading = t.ctaHeading ?? `Ready to start your ${displayTitle} journey?`;
+    const ctaBody =
+        t.ctaBody ??
+        "Book a consultation with Dr. Bangalee to discuss a tailored treatment plan built around your specific skin, goals, and budget.";
+    const ctaButton = t.ctaButton ?? "Book Your Consultation";
+
     const pagePath = treatmentPath(slug);
     const pageUrl = canonicalUrl(pagePath);
 
@@ -409,6 +428,38 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
             />
             <JsonLd data={structuredData} />
 
+            {/* ── Hero banner ──
+                Opt-in per treatment via `heroImage`. Treatments without one keep
+                the original text-only hero, so nothing else on the site moves. */}
+            {heroImage && (
+                <section className="relative isolate overflow-hidden">
+                    <Image
+                        src={heroImage}
+                        alt={heroImageAlt}
+                        width={1448}
+                        height={1086}
+                        priority
+                        sizes="100vw"
+                        className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    {/* Scrim — keeps the overlaid text readable whatever the photo does */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/20" />
+                    <div className="relative mx-auto flex min-h-[22rem] max-w-7xl flex-col justify-center px-4 py-20 sm:px-6 lg:min-h-[28rem] lg:px-8">
+                        <p className="overline mb-4 text-white/80">
+                            {category.replace(/-/g, ' ').toUpperCase()}
+                        </p>
+                        <h1 className="font-heading max-w-3xl text-4xl font-bold text-white drop-shadow-sm lg:text-6xl">
+                            {displayTitle}
+                        </h1>
+                        {displayTagline && (
+                            <p className="mt-4 max-w-2xl text-lg font-semibold text-white/90 lg:text-xl">
+                                {displayTagline}
+                            </p>
+                        )}
+                    </div>
+                </section>
+            )}
+
             {/* ── Hero Section ── */}
             <section className="bg-white py-16 lg:py-24 border-b border-[#E2E2E6]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -426,16 +477,22 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
 
                         {/* Left — headline + hero copy + CTA */}
                         <div>
-                            <p className="overline mb-4 text-[#939EBA]">
-                                {category.replace(/-/g, ' ').toUpperCase()}
-                            </p>
-                            <h1 className="font-heading text-4xl lg:text-6xl font-bold text-[#1A1A1F] mb-6">
-                                {displayTitle}
-                            </h1>
-                            {displayTagline && (
-                            <p className="text-xl font-semibold text-[#1A1A1F] mb-6">
-                                {displayTagline}
-                            </p>
+                            {/* When a hero banner is shown, the eyebrow, H1 and tagline
+                                live up there instead — never render them twice. */}
+                            {!heroImage && (
+                                <>
+                                    <p className="overline mb-4 text-[#939EBA]">
+                                        {category.replace(/-/g, ' ').toUpperCase()}
+                                    </p>
+                                    <h1 className="font-heading text-4xl lg:text-6xl font-bold text-[#1A1A1F] mb-6">
+                                        {displayTitle}
+                                    </h1>
+                                    {displayTagline && (
+                                    <p className="text-xl font-semibold text-[#1A1A1F] mb-6">
+                                        {displayTagline}
+                                    </p>
+                                    )}
+                                </>
                             )}
 
                             {/* Hero paragraph — DB HTML takes priority, else markdown from JSON */}
@@ -744,17 +801,17 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                                 {category.replace(/-/g, ' ').toUpperCase()}
                             </p>
                             <h2 className="font-heading text-2xl md:text-3xl font-bold text-[#1A1A1F] mb-3">
-                                Ready to start your {displayTitle} journey?
+                                {ctaHeading}
                             </h2>
                             <p className="text-[#636374] mb-8 max-w-xl mx-auto md:mx-0">
-                                Book a consultation with Dr. Bangalee to discuss a tailored treatment plan built around your specific skin, goals, and budget.
+                                {ctaBody}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                                 <a
                                     href="/book"
                                     className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#0F2647] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#1B3D6E]"
                                 >
-                                    Book Your Consultation
+                                    {ctaButton}
                                 </a>
                                 <a
                                     href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27769770386"}`}
