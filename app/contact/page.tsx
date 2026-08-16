@@ -184,17 +184,21 @@ export default async function ContactPage() {
                                     </div>
                                 </a>
 
+                                {/* The form above is the email route. Showing the raw
+                                    address surfaced a .site domain on a .co.za site. */}
                                 <a
-                                    href={`mailto:${contact.email}`}
+                                    href="https://wa.me/27769770386"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="flex items-center gap-4 group"
                                 >
                                     <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-[#E5E4E0] text-[#0F2647]">
                                         <Mail size={18} />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-[#6B6966]">Email</p>
+                                        <p className="text-xs font-semibold uppercase tracking-wider text-[#6B6966]">WhatsApp</p>
                                         <p className="text-sm font-semibold text-[#1A1917] group-hover:text-[#0F2647] transition-colors">
-                                            {contact.email}
+                                            Message the clinic
                                         </p>
                                     </div>
                                 </a>

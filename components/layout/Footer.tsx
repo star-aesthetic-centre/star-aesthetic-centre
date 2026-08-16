@@ -165,13 +165,21 @@ export default function Footer() {
                                     +27 (0)31 573 1325
                                 </a>
                             </li>
+                            {/* Email address deliberately not shown. Transactional mail
+                                sends from staraesthetic.site (the domain verified in
+                                Resend), which reads as a mismatch beside a .co.za site.
+                                Patients reach us by phone, WhatsApp or the contact form;
+                                the address is still published on the legal pages, where
+                                a written contact route is expected. */}
                             <li>
                                 <a
-                                    href="mailto:info@staraesthetic.site"
+                                    href="https://wa.me/27769770386"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="flex items-center gap-3 text-sm text-[#636374] transition-colors hover:text-[#939EBA]"
                                 >
                                     <Mail size={15} className="shrink-0 text-[#939EBA]" />
-                                    info@staraesthetic.site
+                                    WhatsApp us
                                 </a>
                             </li>
                         </ul>

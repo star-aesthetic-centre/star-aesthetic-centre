@@ -33,6 +33,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
+/**
+ * Revalidate hourly. The homepage reads approved reviews at request time, so
+ * without this it would be built once at deploy and a newly approved review
+ * would never appear until the next push.
+ */
+export const revalidate = 3600;
+
 export default async function HomePage() {
   const content = await getSitePageContent("home");
 
