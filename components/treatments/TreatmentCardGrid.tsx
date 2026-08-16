@@ -92,6 +92,17 @@ export default function TreatmentCardGrid({
           </Link>
         ))}
       </div>
+
+      {/*
+        Cards show a starting price; the treatment pages carry the full range
+        and what drives it. Without this line a patient reads "From R1,800",
+        clicks through to "R1,800 – R4,600" and feels the price moved.
+      */}
+      <p className="mt-8 text-xs leading-relaxed text-[#636374]">
+        Prices shown are starting prices. The final cost depends on the treatment plan agreed with
+        Dr. Bangalee at your consultation — see each treatment page for the full price range and
+        what determines it.
+      </p>
     </>
   );
 }
