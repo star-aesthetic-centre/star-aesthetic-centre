@@ -26,6 +26,7 @@ import { DoctorAssessedCard } from "@/components/treatments/DoctorAssessedCard";
 import { getTreatmentReviews } from "@/lib/reviews/queries";
 import { TREATMENT_CARDS } from "@/lib/treatment-cards";
 import DripComparison from "@/components/treatments/DripComparison";
+import { DRIP_TYPES } from "@/lib/drip-booking-config";
 import { injectGlossaryLinks } from "@/lib/glossary/inject";
 import { mergePricingBreakdown, pricingBreakdownFromJson, type PricingBreakdown } from "@/lib/treatment-pricing";
 
@@ -393,6 +394,11 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
     // Five-drip comparison table — pillar page only.
     const showDripComparison = Boolean((treatment as { showDripComparison?: boolean }).showDripComparison);
 
+    // Drips book on their own engine (two chairs, same-day, no consultation
+    // first). Everything else goes to the main appointment booking.
+    const isDrip = DRIP_TYPES.some((d) => d.slug === slug);
+    const bookingHref = isDrip ? `/book-drip?drip=${slug}` : "/book";
+
     const pagePath = treatmentPath(slug);
     const pageUrl = canonicalUrl(pagePath);
 
@@ -514,7 +520,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
 
                             <div className="flex flex-wrap gap-4">
                                 <a
-                                    href="/book"
+                                    href={bookingHref}
                                     className="bg-[#939EBA] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#7A87A6]"
                                 >
                                     Book Consultation
@@ -815,7 +821,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                                 <a
-                                    href="/book"
+                                    href={bookingHref}
                                     className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#0F2647] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#1B3D6E]"
                                 >
                                     {ctaButton}

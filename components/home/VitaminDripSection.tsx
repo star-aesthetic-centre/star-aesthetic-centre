@@ -54,11 +54,11 @@ export default function VitaminDripSection() {
           </p>
         </div>
 
-        {/* ── Party Drip — the hero of this section ── */}
-        <Link
-          href={treatmentPath(PARTY_SLUG)}
-          className="group relative isolate mb-8 block overflow-hidden rounded-sm"
-        >
+        {/* ── Party Drip — the hero of this section ──
+            Not a single wrapping link: the button books, the secondary link
+            reads. Nesting them inside one anchor is invalid HTML and would
+            have sent everyone to the wrong place. */}
+        <div className="group relative isolate mb-8 overflow-hidden rounded-sm">
           <Image
             src={party.image}
             alt={party.imageAlt}
@@ -81,15 +81,21 @@ export default function VitaminDripSection() {
             </p>
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <span className="inline-flex items-center justify-center bg-[#F3C969] px-10 py-5 text-base font-bold text-[#1A1A1F] shadow-lg transition-transform duration-200 group-hover:scale-[1.03]">
+              <Link
+                href={`/book-drip?drip=${PARTY_SLUG}`}
+                className="inline-flex items-center justify-center bg-[#F3C969] px-10 py-5 text-base font-bold text-[#1A1A1F] shadow-lg transition-transform duration-200 hover:scale-[1.03]"
+              >
                 Book a Party Drip →
-              </span>
-              <span className="text-sm font-semibold text-white/80">
-                {zar(party.priceFrom)} · about an hour · no downtime
-              </span>
+              </Link>
+              <Link
+                href={treatmentPath(PARTY_SLUG)}
+                className="text-sm font-semibold text-white/80 underline-offset-4 hover:text-white hover:underline"
+              >
+                {zar(party.priceFrom)} · about an hour · no downtime — read more
+              </Link>
             </div>
           </div>
-        </Link>
+        </div>
 
         {/* ── The other four ── */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
