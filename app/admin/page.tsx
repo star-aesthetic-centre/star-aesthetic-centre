@@ -17,10 +17,12 @@ import {
   Gift,
   CalendarCheck,
   Star,
+  Droplet,
 } from "lucide-react";
 import KPICard from "@/components/admin/KPICard";
 import MonthlyRevenueChart from "@/components/admin/charts/MonthlyRevenueChart";
 import OrderStatusChart from "@/components/admin/charts/OrderStatusChart";
+import { getDripBookings } from "@/lib/queries/drip-bookings-admin";
 import { getDashboardStats } from "@/lib/admin/dashboard-stats";
 import ChannelsPanel from "@/components/admin/ChannelsPanel";
 import { getChannels, getAnalyticsStatus } from "@/lib/admin/channels";
@@ -28,7 +30,11 @@ import { formatZAR, formatZARDetailed } from "@/lib/admin/format";
 import { formatNumber } from "@/lib/admin/format";
 
 export default async function AdminDashboardPage() {
-  const [stats, channels] = await Promise.all([getDashboardStats(), getChannels()]);
+  const [stats, channels, drips] = await Promise.all([
+    getDashboardStats(),
+    getChannels(),
+    getDripBookings(),
+  ]);
   const analytics = getAnalyticsStatus();
 
   const abandonedRecoveryRate =
@@ -229,6 +235,18 @@ export default async function AdminDashboardPage() {
           icon={Star}
           href="/admin/reviews"
           accent={stats.reviews.pending > 0 ? "bg-[#f59e0b]" : undefined}
+        />
+        <KPICard
+          label="Vitamin drip bookings"
+          value={formatNumber(drips.upcomingCount)}
+          sub={
+            drips.todayCount > 0
+              ? `${formatNumber(drips.todayCount)} today · ${formatNumber(drips.upcoming.length + drips.past.length)} all time`
+              : `none today · ${formatNumber(drips.upcoming.length + drips.past.length)} all time`
+          }
+          icon={Droplet}
+          href="/admin/drip-bookings"
+          accent={drips.todayCount > 0 ? "bg-[#0F2647]" : undefined}
         />
       </div>
 
