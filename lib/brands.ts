@@ -170,7 +170,7 @@ export const brands: Brand[] = [
         accent: "#C8A96E",
         tagline: "Prevent. Correct. Protect.",
         shortDescription:
-            "SkinCeuticals is the world's leading medical-grade antioxidant skincare brand. Their patented Duke University Duke Antioxidant formula — vitamin C, vitamin E, and ferulic acid — is the gold standard in topical antioxidant science.",
+            "SkinCeuticals is a well-established medical-grade antioxidant skincare brand. Their patented Duke University Duke Antioxidant formula — vitamin C, vitamin E, and ferulic acid — is the gold standard in topical antioxidant science.",
         about:
             "SkinCeuticals was founded following breakthrough research at Duke University on topical antioxidant stabilisation. Their L-Ascorbic Acid formulations (most notably C E Ferulic) have been validated in independent peer-reviewed studies and remain the most widely cited topical antioxidants in dermatological literature.",
         whyWeStock:

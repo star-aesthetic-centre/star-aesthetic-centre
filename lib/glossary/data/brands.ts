@@ -274,7 +274,7 @@ export const BRAND_TERMS: GlossaryTerm[] = [
     matchTerms: ["Mesoestetic", "Cosmelan"],
     title: "Mesoestetic & Cosmelan® | Depigmentation for Melasma | Star Aesthetic Centre Durban",
     metaDescription:
-      "Mesoestetic makes the Cosmelan® depigmentation system — the gold standard for melasma and stubborn hyperpigmentation. Available at Star Aesthetic Centre, Durban North.",
+      "Mesoestetic makes the Cosmelan® depigmentation system — one of the established professional options for melasma and stubborn hyperpigmentation. Available at Star Aesthetic Centre, Durban North.",
     keywords: [
       "Cosmelan Durban",
       "Mesoestetic South Africa",
@@ -294,7 +294,7 @@ export const BRAND_TERMS: GlossaryTerm[] = [
         ],
       },
       {
-        heading: "Cosmelan® — the gold standard depigmentation system",
+        heading: "Cosmelan® — a professional depigmentation system",
         paragraphs: [
           "Cosmelan® is a two-part system: an in-clinic treatment mask applied by a practitioner, followed by a comprehensive home-maintenance kit. It works by inhibiting tyrosinase — the key enzyme in melanin synthesis — through a synergistic combination of actives including kojic acid, phytic acid, ascorbic acid, azelaic acid, and arbutin.",
           "Clinical studies show significant reduction in melanin index after a single Cosmelan protocol. It is the treatment of choice for melasma — one of the most challenging pigmentation conditions to treat — and is equally effective for post-inflammatory hyperpigmentation in medium to dark skin tones. The home maintenance phase is critical for maintaining results and preventing recurrence.",

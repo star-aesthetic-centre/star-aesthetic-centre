@@ -21,7 +21,7 @@ export const INGREDIENT_TERMS: GlossaryTerm[] = [
       "vitamin A skincare",
     ],
     heroLine:
-      "Retinol is the gold standard of anti-ageing skincare — a vitamin A derivative backed by decades of clinical evidence as the single most effective topical ingredient for reducing wrinkles, evening skin tone, and renewing skin texture.",
+      "Retinol is among the most extensively studied anti-ageing ingredients — a vitamin A derivative backed by decades of clinical evidence as the single most effective topical ingredient for reducing wrinkles, evening skin tone, and renewing skin texture.",
     sections: [
       {
         heading: "What is retinol?",

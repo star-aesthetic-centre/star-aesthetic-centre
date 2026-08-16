@@ -40,7 +40,7 @@ export const TREATMENT_TERMS: GlossaryTerm[] = [
       {
         heading: "What to expect — treatment and results",
         paragraphs: [
-          "Treatment takes 15–30 minutes. A series of small injections are placed with a fine needle into the target muscles. Discomfort is minimal — most patients describe a brief pinching sensation. There is no downtime; you can return to most activities immediately. Avoid rubbing the treated area for 4 hours and strenuous exercise for 24 hours post-treatment.",
+          "Treatment takes 15–30 minutes. A series of small injections are placed with a fine needle into the target muscles. Discomfort is minimal — most patients describe a brief pinching sensation. Most people return to their usual activities promptly, though this varies. Avoid rubbing the treated area for 4 hours and strenuous exercise for 24 hours post-treatment.",
           "Results begin to appear within 3–5 days and reach full effect at 10–14 days. Duration varies by individual, treatment area, and units administered — typically 3–4 months. With consistent treatment, many patients find the results last progressively longer as the target muscles weaken slightly over time.",
         ],
       },
@@ -93,7 +93,7 @@ export const TREATMENT_TERMS: GlossaryTerm[] = [
       {
         heading: "What are dermal fillers made of?",
         paragraphs: [
-          "The most widely used and safest dermal fillers are made from hyaluronic acid (HA) — the same molecule the body produces naturally to hydrate and support skin tissue. Because HA fillers are biocompatible, they integrate seamlessly with existing tissue, feel natural, and carry a low risk of adverse reaction. Crucially, they can be dissolved with an enzyme called hyaluronidase if the result needs to be adjusted or reversed.",
+          "The most widely used dermal fillers are made from hyaluronic acid (HA) — the same molecule the body produces naturally to hydrate and support skin tissue. Because HA fillers are biocompatible, they integrate seamlessly with existing tissue, feel natural, and carry a low risk of adverse reaction. Crucially, they can be dissolved with an enzyme called hyaluronidase if the result needs to be adjusted or reversed.",
           "Other types include calcium hydroxylapatite (Radiesse), poly-L-lactic acid (Sculptra), and permanent fillers. At Star Aesthetic Centre, Dr Bangalee uses premium HA fillers for their safety profile, natural feel, and reversibility.",
         ],
       },
@@ -166,7 +166,7 @@ export const TREATMENT_TERMS: GlossaryTerm[] = [
       {
         heading: "Types of chemical peels",
         paragraphs: [
-          "Superficial peels (glycolic 20–50%, lactic, mandelic) require no downtime. Skin may look slightly flushed for a day and feels smoother within a few days. They are ideal for maintenance, mild pigmentation, dullness, and acne-prone skin. A series of 4–6 peels spaced 2–4 weeks apart is the standard protocol.",
+          "Superficial peels (glycolic 20–50%, lactic, mandelic) typically require little downtime. Skin may look slightly flushed for a day and feels smoother within a few days. They are ideal for maintenance, mild pigmentation, dullness, and acne-prone skin. A series of 4–6 peels spaced 2–4 weeks apart is the standard protocol.",
           "Medium-depth peels (higher-strength TCA, Cosmelan) produce visible peeling over 5–10 days. They treat more significant pigmentation, acne scarring, sun damage, and fine lines. The Cosmelan depigmentation peel — offered at Star Aesthetic Centre — is specifically designed for melasma and stubborn hyperpigmentation, combining an in-clinic application with a home maintenance protocol.",
         ],
       },

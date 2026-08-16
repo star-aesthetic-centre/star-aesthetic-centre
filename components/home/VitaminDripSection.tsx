@@ -91,7 +91,7 @@ export default function VitaminDripSection() {
                 href={treatmentPath(PARTY_SLUG)}
                 className="text-sm font-semibold text-white/80 underline-offset-4 hover:text-white hover:underline"
               >
-                {zar(party.priceFrom)} · about an hour · no downtime — read more
+                {zar(party.priceFrom)} · about an hour · minimal downtime — read more
               </Link>
             </div>
           </div>
