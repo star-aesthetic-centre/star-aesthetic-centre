@@ -129,7 +129,7 @@ export function buildVoucherEmail(voucher: GiftVoucher): string {
             <!-- How to redeem -->
             <h3 style="margin:0 0 16px;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#1A1917;font-family:Arial,sans-serif;">How to Redeem</h3>
             <table width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 32px;">
-              ${["Book a consultation or treatment online at staraesthetic.site", "Add products to your cart in our online shop", "Enter your voucher code at checkout — the value is automatically deducted", "Your voucher can be used in full or partially across multiple visits"].map((step, i) => `
+              ${["Book a consultation or treatment online at staraesthetic.co.za", "Add products to your cart in our online shop", "Enter your voucher code at checkout — the value is automatically deducted", "Your voucher can be used in full or partially across multiple visits"].map((step, i) => `
               <tr>
                 <td style="padding:8px 0;border-bottom:1px solid #E5E4E0;">
                   <table cellpadding="0" cellspacing="0"><tr>

@@ -16,9 +16,12 @@
 export const GOOGLE_REVIEWS = {
   rating: "5.0",
   count: 21,
-  /** Resolves to the Business Profile. Replace with the exact share link from
-   *  Google Business Profile → Share → Copy link when available. */
-  url: "https://www.google.com/maps/search/?api=1&query=Star+Aesthetic+Centre+Durban+North",
+  /** Canonical Google Place ID for Star Aesthetic Centre, Durban North. */
+  placeId: "ChIJrwqlNFcG9x4RZ-fPSLYoXmY",
+  /** Reads all reviews on the Business Profile. */
+  url: "https://www.google.com/maps/place/?q=place_id:ChIJrwqlNFcG9x4RZ-fPSLYoXmY",
+  /** Opens the review box directly — use this in follow-up emails. */
+  writeUrl: "https://search.google.com/local/writereview?placeid=ChIJrwqlNFcG9x4RZ-fPSLYoXmY",
 } as const;
 
 /** "5.0 ★ · 21 Google reviews" */
