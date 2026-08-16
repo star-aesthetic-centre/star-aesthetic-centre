@@ -105,7 +105,59 @@ export function buildPageMetadata(options: {
 }
 
 export function stripHtml(html: string): string {
-  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  return (
+    html
+      .replace(/<[^>]+>/g, " ")
+      // Treatment copy is markdown, so **bold** markers survived stripHtml and
+      // were being printed literally in search results.
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/\*\*/g, "")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&amp;/gi, "&")
+      .replace(/\s+/g, " ")
+      .trim()
+  );
+}
+
+/** Cut to `max` characters without splitting a word or leaving trailing punctuation. */
+export function truncateAtWord(text: string, max: number): string {
+  const clean = text.trim();
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 0 ? cut.slice(0, lastSpace) : cut).replace(/[\s,;:–—-]+$/, "");
+}
+
+/**
+ * Build a search-result description that fits.
+ *
+ * Google shows roughly 155 characters. Previously these were assembled by
+ * slicing the summary at 120 characters mid-word and appending a sentence,
+ * which produced "...clinically proven **acne t Book a consultation today."
+ */
+export function metaDescription(lead: string, summary: string, tail = "Book a consultation."): string {
+  const cleanLead = stripHtml(lead).trim();
+  const clean = stripHtml(summary);
+
+  // Prefer whole sentences. "…Dr. Bangalee provides Book a consultation."
+  // is what appending a tail to a mid-sentence cut produces.
+  const sentences = clean.match(/[^.!?]+[.!?]+/g) ?? [];
+  let body = "";
+  for (const s of sentences) {
+    const next = (body ? `${body} ` : "") + s.trim();
+    if (cleanLead.length + next.length + tail.length + 2 > 158) break;
+    body = next;
+  }
+
+  // Nothing fits whole — cut at a word and drop the tail, which would only
+  // read as a non sequitur after an ellipsis.
+  if (!body) {
+    const budget = 158 - cleanLead.length - 1;
+    const cut = budget > 40 ? truncateAtWord(clean, budget - 1) : "";
+    return [cleanLead, cut ? `${cut}…` : ""].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+  }
+
+  return [cleanLead, body, tail].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
 }
 
 export interface BreadcrumbItem {

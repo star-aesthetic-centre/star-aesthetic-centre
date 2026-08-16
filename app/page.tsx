@@ -8,7 +8,7 @@ import VitaminDripSection from "@/components/home/VitaminDripSection";
 import PerksSection from "@/components/home/PerksSection";
 import DoctorTrust from "@/components/home/DoctorTrust";
 import SkinAssessmentCTA from "@/components/home/SkinAssessmentCTA";
-import Testimonials from "@/components/home/Testimonials";
+import GoogleReviews from "@/components/home/GoogleReviews";
 import ReviewInvite from "@/components/home/ReviewInvite";
 import BookingCTA from "@/components/home/BookingCTA";
 import MapSection from "@/components/home/MapSection";
@@ -58,7 +58,7 @@ export default async function HomePage() {
       <TrustStrip />
       <VitaminDripSection />
       <SkinAssessmentCTA />
-      <Testimonials />
+      <GoogleReviews />
       <ReviewInvite />
       <ProductBrands />
       <FeaturedProducts />

@@ -17,7 +17,7 @@ export const DEFAULT_HOME: HomePageContent = {
     stats: [
       { value: "20+", label: "Years Experience" },
       { value: "6", label: "Premium Brands" },
-      { value: "MB, BS", label: "Doctor-Led Care" },
+      { value: "5.0★", label: "21 Google Reviews" },
     ],
   },
   doctorTrust: {

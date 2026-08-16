@@ -2,16 +2,16 @@
  { value: "20+", label: "Years Experience" },
  { value: "12", label: "Expert Treatments" },
  { value: "6", label: "Skincare Brands" },
- { value: "HPCSA", label: "Registered" },
+ { value: "5.0★", label: "21 Google Reviews" },
  { value: "MB, BS", label: "Doctor-Led Care" },
 ];
 
 /**
  * Every figure here must be independently verifiable.
  *
- * Removed "5★ Patient Rating" — the reviews table holds no approved ratings,
- * so nothing substantiated it. Restore it as "5.0★ · N Google reviews" only
- * once real reviews are published and the count is accurate.
+ * The rating is the practice's verified Google Business Profile score, shown
+ * with its source and count so it is independently checkable. Update the count
+ * in lib/google-reviews.ts when it changes.
  *
  * Removed "100% Doctor-Led" — injectables are all performed by Dr. Bangalee,
  * but selected skin treatments are performed by an aesthetic therapist, so

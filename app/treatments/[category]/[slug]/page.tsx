@@ -19,6 +19,7 @@ import {
   faqPageSchema,
   medicalProcedureSchema,
   stripHtml,
+  metaDescription,
 } from "@/lib/seo";
 import { TREATMENT_SLUG_TO_CATEGORY, treatmentPath } from "@/lib/treatment-routes";
 import TreatmentReviews from "@/components/reviews/TreatmentReviews";
@@ -120,17 +121,21 @@ export async function generateMetadata({ params }: TreatmentPageProps): Promise<
 
     const displayTitle = db?.title || treatment.title;
     const path = treatmentPath(slug);
-    const title = db?.meta_title || `${displayTitle} in Durban North | Star Aesthetic Centre`;
+    const t2 = treatment as { metaTitle?: string; metaKeywords?: string };
+    const title = db?.meta_title || t2.metaTitle || `${displayTitle} in Durban North | Star Aesthetic Centre`;
     const description =
         db?.meta_description ||
-        `${displayTitle} at Star Aesthetic Centre, Durban North. ${stripHtml(treatment.quickSummary ?? treatment.tagline).slice(0, 120)} Book a consultation today.`;
+        metaDescription(
+            `${displayTitle} at Star Aesthetic Centre, Durban North.`,
+            treatment.quickSummary ?? treatment.tagline,
+        );
 
     return buildPageMetadata({
         title,
         description,
         path,
-        keywords: db?.meta_keywords
-            ? db.meta_keywords.split(",").map((k: string) => k.trim())
+        keywords: (db?.meta_keywords || t2.metaKeywords)
+            ? (db?.meta_keywords || t2.metaKeywords)!.split(",").map((k: string) => k.trim())
             : [
                   `${displayTitle} Durban`,
                   `${displayTitle} Durban North`,
