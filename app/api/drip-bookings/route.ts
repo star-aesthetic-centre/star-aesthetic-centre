@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseAdmin } from "@/lib/supabase-admin";
+import { sendDripBookingEmails } from "@/lib/utils/drip-booking-emails";
 import {
   computeDripSlots,
   getDripType,
@@ -160,6 +161,30 @@ export async function POST(req: Request) {
       { error: "We could not save that booking. Please call the clinic and we will secure your slot." },
       { status: 503 },
     );
+  }
+
+  // Notify. The booking is already saved, so a failed send must never be
+  // reported as a failed booking — but it must be loud in the logs, because a
+  // booking nobody is told about is the same as one that was never made.
+  const dateDisplay = new Date(`${date}T00:00:00`).toLocaleDateString("en-ZA", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+  const notified = await sendDripBookingEmails({
+    reference,
+    drip: drip.title,
+    price: drip.price,
+    patientName: name,
+    patientEmail: email,
+    patientPhone: phone,
+    dateDisplay,
+    timeDisplay: formatDripSlot(timeSlot),
+    notes: notes || null,
+  });
+  if (!notified) {
+    console.error("[drip-bookings] SAVED BUT NOT NOTIFIED —", reference, email);
   }
 
   return NextResponse.json({
