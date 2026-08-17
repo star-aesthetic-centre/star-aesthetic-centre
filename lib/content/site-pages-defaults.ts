@@ -28,7 +28,7 @@ export const DEFAULT_HOME: HomePageContent = {
     quote:
       "My goal is simple — to help you look naturally radiant and feel beautifully you. Every treatment is customised, every product carefully chosen.",
     body:
-      "A qualified GP with specialisation in Aesthetic Medicine, Dr. Bangalee brings clinical precision and an artistic eye to every consultation. Based in Durban North, he personally recommends every treatment and product at Star Aesthetic Centre.",
+      "A qualified GP with postgraduate training in aesthetic medicine, Dr. Bangalee brings clinical precision and an artistic eye to every consultation. Based in Durban North, he personally recommends every treatment and product at Star Aesthetic Centre.",
     badgeValue: "20+",
     badgeLabel: "Years Experience",
     ctaLabel: "About Dr. Bangalee",
@@ -81,7 +81,7 @@ export const DEFAULT_CONTACT: ContactPageContent = {
     body: "We typically respond within 2 business hours. You're welcome to call or WhatsApp us directly if you prefer.",
   },
   doctorCard: {
-    body: "Every consultation and treatment is performed personally by Dr. Bangalee — not a therapist or nurse. You're in the hands of a qualified, experienced GP.",
+    body: "Consultations and injectable procedures are assessed and performed by Dr. Bangalee. Selected skin treatments may be carried out by an appropriately trained practitioner under clinic protocols, and IV infusions may be monitored by Dr. Bangalee or an appropriately registered nursing professional.",
   },
   contact: {
     phone: "0315731325",

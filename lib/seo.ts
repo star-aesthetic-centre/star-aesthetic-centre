@@ -141,7 +141,20 @@ export function metaDescription(lead: string, summary: string, tail = "Book a co
 
   // Prefer whole sentences. "…Dr. Bangalee provides Book a consultation."
   // is what appending a tail to a mid-sentence cut produces.
-  const sentences = clean.match(/[^.!?]+[.!?]+/g) ?? [];
+  //
+  // Abbreviations must be masked first. "Dr." ends in a full stop, so a naive
+  // split treats it as a sentence: the acne summary "…not a hygiene problem.
+  // Dr. Bangalee provides…" yielded the sentence "Dr.", which fitted the
+  // budget and produced the live meta description "Acne is a medical
+  // condition — not a hygiene problem. Dr. Book a consultation."
+  const ABBREVIATIONS = /\b(Dr|Mr|Mrs|Ms|Prof|Snr|Jnr|St|etc|vs|Inc|Ltd|No|approx)\./g;
+  // A control character that cannot occur in the copy, so restoring the
+  // full stops afterwards is unambiguous.
+  const MASK = "\u0000";
+  const masked = clean.replace(ABBREVIATIONS, `$1${MASK}`);
+  const sentences = (masked.match(/[^.!?]+[.!?]+/g) ?? []).map((s) =>
+    s.replaceAll(MASK, ".")
+  );
   let body = "";
   for (const s of sentences) {
     const next = (body ? `${body} ` : "") + s.trim();
