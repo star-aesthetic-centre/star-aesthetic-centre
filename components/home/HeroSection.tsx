@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { HomePageContent } from "@/lib/content/site-pages-types";
+import { whatsappLink } from "@/lib/constants/contact";
 
 type Props = {
   content: HomePageContent["hero"];
@@ -51,15 +52,18 @@ export default function HeroSection({ content }: Props) {
 
             <p className="mt-4 text-xs leading-relaxed text-white/70">{content.trustLine}</p>
 
-            {/* Deliberately a text link, not a second button — the shop is a real
-                second audience, but it must not compete with the booking CTA. */}
-            <Link
-              href="/shop"
+            {/* Deliberately a text link, not a second button — it must not
+                compete with the booking CTA. External href, so a plain <a>:
+                next/link is for internal routes. */}
+            <a
+              href={whatsappLink("Hi, I'd like to ask about a treatment at Star Aesthetic Centre.")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-white/80 underline-offset-4 transition-colors hover:text-white hover:underline"
             >
               {content.ctaSecondary}
               <span aria-hidden="true">→</span>
-            </Link>
+            </a>
           </div>
 
           <div className="mt-8 grid grid-cols-3 gap-6 border-t border-white/20 pt-6">

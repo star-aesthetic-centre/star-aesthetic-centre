@@ -1,8 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import TreatmentCardGrid from "@/components/treatments/TreatmentCardGrid";
+import TreatmentGroupGrid from "@/components/treatments/TreatmentGroupGrid";
 import { buildPageMetadata } from "@/lib/seo";
-import { getTreatmentCards } from "@/lib/queries/treatment-cards";
 
 export const revalidate = 3600;
 
@@ -22,7 +21,6 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default async function TreatmentsPage() {
-  const cards = await getTreatmentCards();
 
   return (
     <div className="min-h-screen bg-[#F7F7F8]">
@@ -36,7 +34,9 @@ export default async function TreatmentsPage() {
           <span className="font-semibold text-[#1A1A1F]">Treatments</span>
         </nav>
 
-        <TreatmentCardGrid cards={cards} headingLevel="h1" />
+        {/* Same grouped grid as the homepage — one source, so the pillar
+            page, the homepage and the dropdown cannot drift apart. */}
+        <TreatmentGroupGrid headingLevel="h1" showSectionCta={false} />
 
         <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-[#E2E2E6] pt-12 sm:flex-row">
           <p className="max-w-lg text-center text-sm text-[#636374] sm:text-left">

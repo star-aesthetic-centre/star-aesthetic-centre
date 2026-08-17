@@ -1,22 +1,25 @@
 import { TREATMENT_CARDS, type TreatmentCardItem } from "@/lib/treatment-cards";
 
 /**
- * The three homepage treatment groups, in the order and grouping Dr. Bangalee
- * specified: Injectables (7), Skin & Hair (6), Medical Services (3).
+ * The three treatment groups, matching the Treatments dropdown exactly:
+ * Face, Skin, Body & Wellness. The homepage and the /treatments pillar page
+ * both render from here, so the menu and the two pages can never disagree.
  *
- * Seven of the sixteen have no treatment page yet — dermal fillers, skin
- * boosters, collagen biostimulators, thread lift, dermaplaning, PRP and hair
- * restoration. Rather than link them to a 404 or invent a stock photo for a
- * treatment we have no image of, those render as compact enquiry cards in the
- * same visual family and route to /book. That keeps the counts Dr. Bangalee
- * asked for while every card still goes somewhere real.
+ * Dr. Bangalee's brief grouped these as Injectables / Skin & Hair / Medical
+ * Services. Those are kept as the group descriptions rather than the headings,
+ * because the headings have to match the navigation a patient just clicked.
  */
 
 export interface GroupedTreatment {
   name: string;
   /** Present when a real treatment page exists. */
   card?: TreatmentCardItem;
-  /** Shown on enquiry-only cards in place of the price line. */
+  /**
+   * Unpublished treatments stay in this file rather than being deleted, so
+   * they can be switched back on in one edit once Nakita confirms what the
+   * clinic actually offers. `published: false` hides them from every grid.
+   */
+  published?: boolean;
   note?: string;
 }
 
@@ -29,45 +32,60 @@ export interface TreatmentGroup {
 
 const bySlug = (slug: string) => TREATMENT_CARDS.find((c) => c.slug === slug);
 
-export const TREATMENT_GROUPS: TreatmentGroup[] = [
+const ALL_GROUPS: TreatmentGroup[] = [
   {
-    key: "injectables",
-    title: "Injectables",
+    key: "face",
+    title: "Face",
     blurb:
-      "Every injectable treatment is personally assessed and performed by Dr. Bangalee, with dosing and placement planned around your anatomy.",
+      "Injectables. Every one is personally assessed and performed by Dr. Bangalee, with dosing and placement planned around your anatomy.",
     items: [
-      { name: "Anti-Wrinkle Injections", card: bySlug("anti-wrinkle-treatment") },
-      { name: "Lip Filler", card: bySlug("lip-filler") },
-      { name: "Dermal Fillers", note: "Assessed at consultation" },
-      { name: "Jawline & Chin Contouring", card: bySlug("jaw-amp-chin-contouring") },
-      { name: "Skin Boosters", note: "Assessed at consultation" },
-      { name: "Collagen Biostimulators", note: "Assessed at consultation" },
-      { name: "Facial Thread Lift", note: "Assessed at consultation" },
+      { name: "Anti-Wrinkle Treatment", card: bySlug("anti-wrinkle-treatment") },
+      { name: "Lip Fillers", card: bySlug("lip-filler") },
+      { name: "Jaw & Chin Contouring", card: bySlug("jaw-amp-chin-contouring") },
+      { name: "Dermapen Microneedling", card: bySlug("dermapen-microneedling") },
+
+      // Awaiting confirmation from the clinic — kept, not deleted. Flip
+      // published to true (and add a card image) to bring one back.
+      { name: "Dermal Fillers", published: false, note: "Assessed at consultation" },
+      { name: "Skin Boosters", published: false, note: "Assessed at consultation" },
+      { name: "Collagen Biostimulators", published: false, note: "Assessed at consultation" },
+      { name: "Facial Thread Lift", published: false, note: "Assessed at consultation" },
     ],
   },
   {
-    key: "skin-hair",
-    title: "Skin & Hair",
+    key: "skin",
+    title: "Skin",
     blurb:
-      "Assessed and planned by Dr. Bangalee. Selected skin treatments may be performed by a trained assistant under his clinic protocols.",
+      "Skin and hair. Assessed and planned by Dr. Bangalee; selected treatments may be performed by a trained assistant under his clinic protocols.",
     items: [
-      { name: "Dermapen® Microneedling", card: bySlug("dermapen-microneedling") },
-      { name: "Professional Peels", card: bySlug("skin-peel") },
-      { name: "Dermaplaning", note: "Assessed at consultation" },
-      { name: "Pigmentation & Melasma", card: bySlug("pigmentation-treatment") },
-      { name: "Medical Acne Care", card: bySlug("acne") },
-      { name: "PRP & Hair Restoration", note: "Assessed at consultation" },
+      { name: "Skin Peels", card: bySlug("skin-peel") },
+      { name: "Pigmentation Treatment", card: bySlug("pigmentation-treatment") },
+      { name: "Acne Treatment", card: bySlug("acne") },
+      { name: "Excessive Sweating", card: bySlug("excessive-sweating") },
+
+      { name: "Dermaplaning", published: false, note: "Assessed at consultation" },
+      { name: "PRP & Hair Restoration", published: false, note: "Assessed at consultation" },
     ],
   },
   {
-    key: "medical",
-    title: "Medical Services",
+    key: "body-wellness",
+    title: "Body & Wellness",
     blurb:
-      "Doctor-led programmes that begin with a medical assessment rather than a treatment booking.",
+      "Medical services. Doctor-led programmes that begin with a medical assessment rather than a treatment booking.",
     items: [
-      { name: "Hyperhidrosis", card: bySlug("excessive-sweating") },
-      { name: "Medical Weight Management", card: bySlug("medi-lean") },
-      { name: "Medically Assessed IV Nutrient Therapy", card: bySlug("vitamin-drips") },
+      { name: "Body Contouring", card: bySlug("body-contouring") },
+      { name: "Medi-Lean Weight Loss", card: bySlug("medi-lean") },
+      { name: "Varicose Veins", card: bySlug("varicose-veins") },
+      { name: "Vitamin Drips", card: bySlug("vitamin-drips") },
     ],
   },
 ];
+
+/** Published treatments only — what every public grid renders. */
+export const TREATMENT_GROUPS: TreatmentGroup[] = ALL_GROUPS.map((g) => ({
+  ...g,
+  items: g.items.filter((i) => i.published !== false),
+}));
+
+/** Including unpublished, for admin or future use. */
+export const ALL_TREATMENT_GROUPS = ALL_GROUPS;

@@ -1,4 +1,5 @@
-import { MessageCircle, Phone } from "lucide-react";
+import Link from "next/link";
+import { MessageCircle, CalendarCheck } from "lucide-react";
 import { whatsappLink } from "@/lib/constants/contact";
 import type { HomePageContent } from "@/lib/content/site-pages-types";
 
@@ -44,21 +45,21 @@ export default function BookingCTA({ content }: Props) {
 
  {/* Contact buttons */}
  <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+ <Link
+ href="/book"
+ className="inline-flex items-center justify-center gap-2.5 bg-[#939EBA] px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-[#939EBA]/25 transition-all hover:-translate-y-0.5 hover:bg-[#7A87A6] hover:shadow-[#939EBA]/30 no-underline"
+ >
+ <CalendarCheck size={16} />
+ Book a Consultation
+ </Link>
  <a
  href={whatsappUrl}
  target="_blank"
  rel="noopener noreferrer"
- className="inline-flex items-center justify-center gap-2.5 bg-[#939EBA] px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-[#939EBA]/25 transition-all hover:-translate-y-0.5 hover:bg-[#7A87A6] hover:shadow-[#939EBA]/30 no-underline"
- >
- <MessageCircle size={16} />
- WhatsApp Us
- </a>
- <a
- href="tel:+27315731325"
  className="inline-flex items-center justify-center gap-2.5 border border-[#939EBA] px-8 py-4 text-sm font-semibold text-[#939EBA] transition-all hover:-translate-y-0.5 hover:bg-[#EEF0F6] no-underline"
  >
- <Phone size={16} />
- Call the Clinic
+ <MessageCircle size={16} />
+ WhatsApp the Clinic
  </a>
  </div>
 
