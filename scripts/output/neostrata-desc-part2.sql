@@ -48,7 +48,7 @@ set description = $desc_ultra_moisturising$
   <tbody>
     <tr>
       <td>"Hydration is underestimated in aesthetic medicine. I see patients investing in excellent resurfacing treatments and actives, then using a moisturiser that can't support what those products ask of their skin. The Ultra Moisturising Face Cream is what I prescribe when the barrier needs genuine support — post-treatment, in winter, or for patients with chronically dry skin who've been using products that promise moisture but don't deliver it."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -131,7 +131,7 @@ set description = $desc_eye_cream$
   <tbody>
     <tr>
       <td>"The eye contour is the area patients most frequently ask me about — it's where the gap between how someone feels and how they look is most visible. I recommend this eye cream as a daily home-care step for all patients with periorbital concerns. It supports the results of under-eye treatments and is formulated safely for the orbital zone where most face creams don't belong."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -214,7 +214,7 @@ set description = $desc_pha_daily_moisturizer$
   <tbody>
     <tr>
       <td>"I recommend the PHA Daily Moisturizer to patients who want their skincare to do more with less. The PHA formulation gives you daily renewal and consistent hydration in one product — and because it's gentle enough for daily use without any introduction period, patients actually stick with it. Adherence is everything in skincare. A good product you use every day beats a great product you use three times a week."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -297,7 +297,7 @@ set description = $desc_mandelic_cleanser$
   <tbody>
     <tr>
       <td>"Mandelic acid is one of the most versatile AHAs for oily and acne-prone skin — it's antibacterial, exfoliating, and significantly gentler than glycolic at comparable concentrations. I use this cleanser as the foundation of my Clarify protocol for patients with active acne or persistently congested skin. The difference in their skin within four weeks is consistently meaningful."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -380,7 +380,7 @@ set description = $desc_oily_skin_solution$
   <tbody>
     <tr>
       <td>"The dual-acid approach in the Oily Skin Solution is what makes it clinically effective where single-acid products fall short. Mandelic acid and salicylic acid work on different layers and through different mechanisms — together they address oiliness and congestion more completely than either does alone. For patients with persistently oily skin and enlarged pores, this is a cornerstone of my Clarify protocol."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -463,7 +463,7 @@ set description = $desc_targeted_clarifying_gel$
   <tbody>
     <tr>
       <td>"A well-formulated spot treatment is one of the most practically useful tools in skincare. The Targeted Clarifying Gel combines antibacterial, keratolytic, and anti-inflammatory action in a precise, concentrated format. I recommend it to all my acne patients as part of their home protocol — and for patients without regular acne, it's the product to have on hand for the occasional breakout that needs to resolve quickly."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -546,7 +546,7 @@ set description = $desc_sheer_hydration_spf40$
   <tbody>
     <tr>
       <td>"If I could prescribe one single product to every patient I see, it would be daily SPF. The data is unambiguous — UV damage is the primary driver of visible skin ageing and the primary preventable cause of skin cancer. But SPF only works if people wear it, and people only wear products they like. The Sheer Hydration SPF 40 is what I recommend because it actually gets used. The texture makes compliance easy."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -629,7 +629,7 @@ set description = $desc_enlighten_cleanser$
   <tbody>
     <tr>
       <td>"Pigmentation treatment is one of the most common reasons patients come to see me in Durban — our sun exposure means hyperpigmentation is almost universal for patients over 35. I always start with the Enlighten protocol, and the cleanser is the foundation. Having brightening actives working from the very first step of the routine means the Pigment Controller and serums that follow are working on better-prepared skin. Results are consistently faster when the full protocol is followed."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -712,7 +712,7 @@ set description = $desc_enlighten_pigment_controller$
   <tbody>
     <tr>
       <td>"The Pigment Controller is the product I reach for when a patient presents with melasma or persistent hyperpigmentation. The multi-mechanism approach — kojic acid, niacinamide, tranexamic acid, and PHA together — is clinically more effective than any single brightening active. I pair it with in-clinic chemical peels and IPL for accelerated results, but used consistently at home it achieves meaningful pigmentation reduction on its own. I've seen it change patients' relationships with their skin."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>

@@ -52,7 +52,7 @@ products.append(("neostrata-enlighten-illuminating-serum", "desc_illum_ser", """
   <tbody>
     <tr>
       <td>"The Illuminating Serum is the product I see the most dramatic patient responses to in the Enlighten range. It delivers the kind of radiance improvement that patients describe as transformative — they come back telling me their colleagues are asking what they have done differently. I use it as the cornerstone of my home-care pigmentation programmes."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -130,7 +130,7 @@ products.append(("neostrata-enlighten-skin-brightener-spf35", "desc_brightener_s
   <tbody>
     <tr>
       <td>"In my experience, patients who relapse in their pigmentation programmes almost always have one thing in common — inconsistent SPF use. The Skin Brightener SPF35 solves this by making SPF inseparable from the brightening treatment itself. You cannot apply the brightening actives without applying the protection. That discipline is what finally breaks the cycle of returning pigmentation."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -208,7 +208,7 @@ products.append(("neostrata-enlighten-dark-spot-corrector", "desc_dark_spot", ""
   <tbody>
     <tr>
       <td>"Targeted spot correction is something I recommend as an adjunct to any comprehensive brightening programme. For patients with specific marks — a stubborn age spot, a post-acne scar, an area that has not fully responded to general treatment — this gives them a precision tool to apply maximum concentration exactly where it is needed. Used alongside in-clinic treatment, results are significantly faster."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -286,7 +286,7 @@ products.append(("neostrata-enlighten-brightening-eye-cream", "desc_bright_eye",
   <tbody>
     <tr>
       <td>"Dark circles are more complex than most patients realise — there are multiple contributing factors and topical treatment addresses some better than others. I recommend the Brightening Eye Cream for patients whose darkness has a strong melanin and surface cell component. For patients where vascular or structural causes dominate, we discuss in-clinic options. Most patients benefit from a combination approach."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -364,7 +364,7 @@ products.append(("neostrata-15-vitamin-c-pha-serum", "desc_vit_c_pha", """
   <tbody>
     <tr>
       <td>"Vitamin C at 15% is one of the actives I recommend most consistently across all patient profiles — whether the primary concern is pigmentation, anti-ageing, or simply skin quality maintenance. The combination with PHA is smart formulation: it makes a high-concentration vitamin C serum accessible to patients who have previously struggled with irritation, without compromising its efficacy."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -442,7 +442,7 @@ products.append(("neostrata-skin-active-exfoliating-wash", "desc_sa_exfol", """
   <tbody>
     <tr>
       <td>"When mature skin patients come to me frustrated that their anti-ageing products are not working, the first thing I look at is their cleansing step. Using a non-active cleanser on older skin is like painting over dust — the layer underneath prevents anything from adhering properly. The Skin Active Exfoliating Wash solves this foundational problem before we build the rest of the programme."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -520,7 +520,7 @@ products.append(("neostrata-skin-active-matrix-support-spf30", "desc_sa_matrix",
   <tbody>
     <tr>
       <td>"Structural ageing — the loss of collagen and matrix support — is something patients often accept as inevitable. My role is to show them that it does not have to accelerate unchecked. Matrix Support SPF30 is a product I prescribe for patients in their 40s and above who want to actively invest in their skin architecture, not just manage the surface appearance."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -598,7 +598,7 @@ products.append(("neostrata-skin-active-intensive-eye-therapy", "desc_sa_eye", "
   <tbody>
     <tr>
       <td>"The Skin Active Intensive Eye Therapy is a product I reserve for patients with significant orbital ageing who want the most effective topical treatment available. I combine it with in-clinic Botox and occasionally filler for the most comprehensive results — but used consistently on its own, it delivers structural improvements that many patients do not expect from a topical product."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -676,7 +676,7 @@ products.append(("neostrata-skin-active-potent-retinol-complex", "desc_sa_retino
   <tbody>
     <tr>
       <td>"Retinol is the single most evidence-backed topical anti-ageing ingredient we have. I prescribe it to almost every patient over 35 as the cornerstone of their night routine. The key is progressive introduction — the patients who try to start at full frequency and get a bad reaction put themselves off the most effective product they could use. Start slowly, be patient through the adjustment, and the results will follow."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -754,7 +754,7 @@ products.append(("neostrata-skin-active-hyaluronic-luminous-lift", "desc_sa_ha_l
   <tbody>
     <tr>
       <td>"Hyaluronic acid loss is one of the primary drivers of the aged, deflated appearance that patients bring to my clinic. I use filler to address structural volume loss, and I recommend the Hyaluronic Luminous Lift to maintain the dermal hydration environment between injectable treatments. Patients consistently tell me their filler results look better and last longer when they use this at home."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -832,7 +832,7 @@ products.append(("neostrata-skin-active-rebound-sculpting-cream", "desc_sa_sculp
   <tbody>
     <tr>
       <td>"Laxity is the concern that brings more of my patients to clinic than almost any other. In-clinic treatments address it structurally. But between appointments, what patients do at home determines whether those results hold or fade. The Rebound Sculpting Cream is the product I trust most in this category — it complements in-clinic lifting and gives patients an active role in maintaining their results."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -907,7 +907,7 @@ products.append(("neostrata-enlighten-trio-pack", "desc_trio_pack", """
   <tbody>
     <tr>
       <td>"The Enlighten Trio is the home programme I prescribe for the majority of my pigmentation patients. The three products are designed to work together — each one amplifies the effect of the others. Starting the full protocol simultaneously rather than adding products one at a time gives patients the best possible results in the shortest time frame."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -982,7 +982,7 @@ products.append(("neostrata-enlighten-brightening-pack", "desc_bright_pack", """
   <tbody>
     <tr>
       <td>"The Brightening Pack is my recommendation for patients who want a straightforward, evidence-based morning brightening routine. Vitamin C in the morning followed by SPF is one of the most powerful combinations in skincare — you get the antioxidant benefit at the time it is most needed, and the SPF protects what the vitamin C has just defended. This pack makes that combination easy to follow every morning."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>

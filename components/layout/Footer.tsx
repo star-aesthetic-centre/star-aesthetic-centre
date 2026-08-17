@@ -1,6 +1,7 @@
 ﻿import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, Instagram, Facebook, Lock } from "lucide-react";
+import { HPCSA_LINE } from "@/lib/constants/practitioner";
 
 const treatmentLinks = [
     { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment" },
@@ -224,7 +225,8 @@ export default function Footer() {
                         </Link>
                     </div>
                     <p className="text-xs text-[#939EBA]">
-                        © {new Date().getFullYear()} Star Aesthetic Centre · Dr. Rajeev Bangalee · All rights reserved.
+                        © {new Date().getFullYear()} Star Aesthetic Centre · Dr. Rajeev Bangalee, MBBch · {HPCSA_LINE} · All
+                        rights reserved.
                     </p>
                 </div>
             </div>

@@ -42,7 +42,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"For my actinic keratosis patients and anyone I consider at elevated skin cancer risk, the AK Fluid SPF100+ is non-negotiable. SPF50+ is excellent preventive care for healthy skin — but when managing pre-cancerous lesions or a history of skin cancer, I want maximum surface protection working alongside our clinical treatment. The lightweight fluid means patients will actually use it consistently, which matters far more than a theoretical SPF number on a product that stays in the cabinet." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"For my actinic keratosis patients and anyone I consider at elevated skin cancer risk, the AK Fluid SPF100+ is non-negotiable. SPF50+ is excellent preventive care for healthy skin — but when managing pre-cancerous lesions or a history of skin cancer, I want maximum surface protection working alongside our clinical treatment. The lightweight fluid means patients will actually use it consistently, which matters far more than a theoretical SPF number on a product that stays in the cabinet." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -102,7 +102,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Mineral Tolerance Fluid is my standard post-procedure SPF prescription — every Dermapen patient, every peel patient leaves with this. Chemical filters on disrupted skin can trigger irritation and interfere with healing, and I will not accept that risk when there is a product this effective available. For my rosacea patients, I often find that switching them from a chemical SPF to this mineral formula alone produces a meaningful improvement in their baseline condition — it is frequently an underappreciated trigger that we correct simply by changing their sunscreen." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Mineral Tolerance Fluid is my standard post-procedure SPF prescription — every Dermapen patient, every peel patient leaves with this. Chemical filters on disrupted skin can trigger irritation and interfere with healing, and I will not accept that risk when there is a product this effective available. For my rosacea patients, I often find that switching them from a chemical SPF to this mineral formula alone produces a meaningful improvement in their baseline condition — it is frequently an underappreciated trigger that we correct simply by changing their sunscreen." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -162,7 +162,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"I introduced the Color Gel range for patients who were using tinted moisturisers or BB creams with inadequate SPF — often SPF15 or SPF20 — because they preferred the coverage. The Color Gel solves that problem entirely: true SPF50+ 360° protection in a tinted base that replaces the cosmetic step. For my post-peel patients with residual redness, the Beige shade is particularly useful as a coverage tool while the skin completes its recovery and confidence is rebuilt." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"I introduced the Color Gel range for patients who were using tinted moisturisers or BB creams with inadequate SPF — often SPF15 or SPF20 — because they preferred the coverage. The Color Gel solves that problem entirely: true SPF50+ 360° protection in a tinted base that replaces the cosmetic step. For my post-peel patients with residual redness, the Beige shade is particularly useful as a coverage tool while the skin completes its recovery and confidence is rebuilt." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -222,7 +222,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Bronze shade was specifically important to stock because the majority of my patients have medium to darker skin tones, and many had been skipping SPF altogether because products left them looking ashy or grey. PIH and melasma management in darker skin is directly impacted by SPF compliance, and a product patients genuinely enjoy wearing is the single biggest lever I have. The iron oxide tint also provides visible light protection — an underappreciated driver of pigmentation in darker Fitzpatrick skin types that is often overlooked entirely when prescribing photoprotection." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Bronze shade was specifically important to stock because the majority of my patients have medium to darker skin tones, and many had been skipping SPF altogether because products left them looking ashy or grey. PIH and melasma management in darker skin is directly impacted by SPF compliance, and a product patients genuinely enjoy wearing is the single biggest lever I have. The iron oxide tint also provides visible light protection — an underappreciated driver of pigmentation in darker Fitzpatrick skin types that is often overlooked entirely when prescribing photoprotection." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -282,7 +282,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"Pigment Solution Fluid is one of the most clinically useful products I prescribe — particularly for my melasma patients and anyone finishing a peel or brightening treatment series. The problem with treating pigmentation is that UV exposure can undo a month of clinical progress in a single unprotected day outdoors. By combining the SPF with active depigmenting ingredients, the patient is protected and treated simultaneously. I have seen consistently faster and more sustained pigmentation results in patients using this compared to separate SPF and brightening products." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"Pigment Solution Fluid is one of the most clinically useful products I prescribe — particularly for my melasma patients and anyone finishing a peel or brightening treatment series. The problem with treating pigmentation is that UV exposure can undo a month of clinical progress in a single unprotected day outdoors. By combining the SPF with active depigmenting ingredients, the patient is protected and treated simultaneously. I have seen consistently faster and more sustained pigmentation results in patients using this compared to separate SPF and brightening products." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>

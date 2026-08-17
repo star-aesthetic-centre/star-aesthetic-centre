@@ -127,7 +127,7 @@ const faqSchema = {
       name: "Is Dr. Bangalee a qualified medical doctor?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Dr. Bangalee is a fully qualified General Practitioner (GP) with postgraduate training in aesthetic medicine. All treatments at Star Aesthetic Centre are performed or directly overseen by a licensed medical professional, not a beauty therapist or unqualified practitioner.",
+        text: "Yes. Dr. Bangalee is a fully qualified General Practitioner (GP) with postgraduate training in aesthetic medicine, registered with the HPCSA (Reg. MP 0558605). Every treatment is assessed by him personally, and all medical injectables are performed by him. Selected skin treatments are carried out by a trained assistant working to his clinic protocols.",
       },
     },
     {
@@ -263,7 +263,7 @@ const faqs = [
   },
   {
     q: "Is Dr. Bangalee a qualified medical doctor?",
-    a: "Yes. Dr. Bangalee is a fully qualified General Practitioner (GP) with postgraduate training in aesthetic medicine. All treatments at Star Aesthetic Centre are performed or directly overseen by a licensed medical professional — not a beauty therapist or unqualified practitioner. This distinction is critically important for patient safety.",
+    a: "Yes. Dr. Bangalee is a fully qualified General Practitioner (GP) with postgraduate training in aesthetic medicine, registered with the HPCSA (Reg. MP 0558605). Every treatment is assessed by him personally, and all medical injectables are performed by him. Selected skin treatments, such as peels, are carried out by a trained assistant working to his clinic protocols — always following his assessment.",
   },
   {
     q: "How long has Dr. Bangalee been practising aesthetic medicine?",

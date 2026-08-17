@@ -41,7 +41,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Fusion Water Magic is the sunscreen I recommend for patients who have been resistant to daily SPF because of texture. Nothing else I have found comes close to its feel — it genuinely disappears on contact. For my post-treatment patients who need to protect their investment, the fact that it can be applied on wet skin also makes reapplication realistic for active patients in our climate." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Fusion Water Magic is the sunscreen I recommend for patients who have been resistant to daily SPF because of texture. Nothing else I have found comes close to its feel — it genuinely disappears on contact. For my post-treatment patients who need to protect their investment, the fact that it can be applied on wet skin also makes reapplication realistic for active patients in our climate." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -100,7 +100,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"For my lighter-skinned patients who want everything in one morning product, the Fusion Water Light is exceptional. The tint is subtle enough to look completely natural but does a genuine job of evening the complexion. I particularly like recommending it to patients post-peel or post-Dermapen — it gives them the SPF protection they need with the coverage to feel confident while their skin finishes healing." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"For my lighter-skinned patients who want everything in one morning product, the Fusion Water Light is exceptional. The tint is subtle enough to look completely natural but does a genuine job of evening the complexion. I particularly like recommending it to patients post-peel or post-Dermapen — it gives them the SPF protection they need with the coverage to feel confident while their skin finishes healing." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -159,7 +159,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Medium is the shade I prescribe most often in my practice — it suits the majority of my patients perfectly and gives them the coverage they need to feel confident while ensuring daily SPF50 compliance. For my pigmentation patients in particular, the combination of coverage and prevention in one product is genuinely valuable. They feel better about their skin immediately while the treatment protocol works in the background." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Medium is the shade I prescribe most often in my practice — it suits the majority of my patients perfectly and gives them the coverage they need to feel confident while ensuring daily SPF50 compliance. For my pigmentation patients in particular, the combination of coverage and prevention in one product is genuinely valuable. They feel better about their skin immediately while the treatment protocol works in the background." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -218,7 +218,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"For my patients with deeper skin tones, finding an SPF they will actually wear consistently has historically been difficult — the white cast problem is real and I understand why patients avoid products that make their skin look grey. The Fusion Water Bronze solves this completely. It looks beautiful on deep skin and the SPF compliance improvement I see in patients who switch to it makes a meaningful difference to their outcomes." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"For my patients with deeper skin tones, finding an SPF they will actually wear consistently has historically been difficult — the white cast problem is real and I understand why patients avoid products that make their skin look grey. The Fusion Water Bronze solves this completely. It looks beautiful on deep skin and the SPF compliance improvement I see in patients who switch to it makes a meaningful difference to their outcomes." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -277,7 +277,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The UV Mineral Brush is one of the most practically impactful products I recommend. I know from experience that patients apply their morning SPF and then do not reapply — and for pigmentation patients especially, that gap in the afternoon is where UV exposure does its damage. The Brush removes every excuse not to reapply. I give it to every pigmentation and anti-ageing patient and ask them to keep it at their desk or in their bag without exception." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The UV Mineral Brush is one of the most practically impactful products I recommend. I know from experience that patients apply their morning SPF and then do not reapply — and for pigmentation patients especially, that gap in the afternoon is where UV exposure does its damage. The Brush removes every excuse not to reapply. I give it to every pigmentation and anti-ageing patient and ask them to keep it at their desk or in their bag without exception." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>

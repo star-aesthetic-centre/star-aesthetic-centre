@@ -41,7 +41,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Sensation is for patients who take their skincare seriously and have high standards for every product in their routine. When someone tells me they find sunscreen unpleasant to wear, this is the product I reach for. The texture is genuinely exceptional — it applies like a serum and disappears completely. And because it feels this good, patients actually wear it every day without being reminded, which is ultimately the only thing that matters for the long-term photoprotection outcomes I want to see." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Sensation is for patients who take their skincare seriously and have high standards for every product in their routine. When someone tells me they find sunscreen unpleasant to wear, this is the product I reach for. The texture is genuinely exceptional — it applies like a serum and disappears completely. And because it feels this good, patients actually wear it every day without being reminded, which is ultimately the only thing that matters for the long-term photoprotection outcomes I want to see." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -101,7 +101,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"I recommend the 200ml format specifically to families who are committed to daily SPF use and want to make sure they never run short. The biggest mistake in paediatric sun protection is underapplying because the bottle is almost empty and the parent wants to stretch it out. Buying the larger format removes that temptation entirely. The same 100% mineral, Fernblock-supported formula — just the right size for a family that takes photoprotection seriously." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"I recommend the 200ml format specifically to families who are committed to daily SPF use and want to make sure they never run short. The biggest mistake in paediatric sun protection is underapplying because the bottle is almost empty and the parent wants to stretch it out. Buying the larger format removes that temptation entirely. The same 100% mineral, Fernblock-supported formula — just the right size for a family that takes photoprotection seriously." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -161,7 +161,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The classic Heliocare Gel is where many of my patients start — it is reliable, affordable, comfortable to wear, and it contains Fernblock®. For patients who do not yet have specific concerns around pigmentation, post-treatment skin, or oiliness that would point to a more targeted product, this is an excellent daily SPF50 that I have recommended with complete confidence for years. Getting patients into a daily SPF habit is the priority, and the Gel makes that as easy as possible." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The classic Heliocare Gel is where many of my patients start — it is reliable, affordable, comfortable to wear, and it contains Fernblock®. For patients who do not yet have specific concerns around pigmentation, post-treatment skin, or oiliness that would point to a more targeted product, this is an excellent daily SPF50 that I have recommended with complete confidence for years. Getting patients into a daily SPF habit is the priority, and the Gel makes that as easy as possible." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -221,7 +221,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"Body SPF is one of the most neglected aspects of sun protection in South Africa — most patients are consistent with their face and completely unprotected on their arms, chest, and legs. I particularly recommend this spray to my post-sclerotherapy and post-body-contouring patients where the treated areas need UV protection and rubbing in a cream is not ideal for the tissue. The 200ml size means they have enough to actually use it generously every day, which is the only way body SPF works." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"Body SPF is one of the most neglected aspects of sun protection in South Africa — most patients are consistent with their face and completely unprotected on their arms, chest, and legs. I particularly recommend this spray to my post-sclerotherapy and post-body-contouring patients where the treated areas need UV protection and rubbing in a cream is not ideal for the tissue. The 200ml size means they have enough to actually use it generously every day, which is the only way body SPF works." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -281,7 +281,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"One of the biggest gaps in my patients' photoprotection routines is midday reapplication — most people apply SPF in the morning and then never reapply, which means they are unprotected from mid-morning onwards. The compact solves this practically. I prescribe it alongside every morning face SPF in my pigmentation and post-treatment patients especially, because consistent all-day protection is what drives the results we both want to see. If the product is in your bag and takes 10 seconds to use, you will actually use it." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"One of the biggest gaps in my patients' photoprotection routines is midday reapplication — most people apply SPF in the morning and then never reapply, which means they are unprotected from mid-morning onwards. The compact solves this practically. I prescribe it alongside every morning face SPF in my pigmentation and post-treatment patients especially, because consistent all-day protection is what drives the results we both want to see. If the product is in your bag and takes 10 seconds to use, you will actually use it." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>

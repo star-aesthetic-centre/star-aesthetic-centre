@@ -55,7 +55,7 @@ set description = $desc_glycolic_cream$
   <tbody>
     <tr>
       <td>"Glycolic acid is one of the most researched actives we have in aesthetic medicine — there's decades of peer-reviewed data behind it. I recommend this cream to patients who want meaningful texture improvement at home between clinic visits. Used consistently, it maintains and extends the results of in-clinic peels and resurfacing treatments. It earns its place in a serious skincare routine."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -138,7 +138,7 @@ set description = $desc_glycolic_lotion$
   <tbody>
     <tr>
       <td>"Consistency is everything with AHA use, and the lotion format makes consistency achievable. I often recommend this to patients who travel frequently or find cream textures too heavy in our Durban climate. It fits naturally into any routine and the cumulative benefit — particularly for uneven texture and tone — is clinically meaningful over 8–12 weeks."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -221,7 +221,7 @@ set description = $desc_high_potency$
   <tbody>
     <tr>
       <td>"This is the product I recommend when patients tell me nothing has worked. It's not for everyone — you need to introduce it carefully and respect the protocol — but for patients with significant texture concerns or those maintaining post-peel results, it delivers clinical-grade resurfacing at home. I've seen it transform skin that patients had given up on improving."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -304,7 +304,7 @@ set description = $desc_facial_cleanser$
   <tbody>
     <tr>
       <td>"A cleanser is the most underestimated step in any skincare routine. I see patients regularly who are spending on excellent actives but stripping their barrier with a harsh cleanser — and then wondering why their skin is reactive. The NeoStrata Facial Cleanser is what I recommend post-treatment and for any patient with sensitive or compromised skin. It does its job without drama."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -387,7 +387,7 @@ set description = $desc_bionic_face_cream$
   <tbody>
     <tr>
       <td>"The Bionic Face Cream is the product I recommend when a patient needs anti-ageing action but their skin won't tolerate standard AHAs or retinol. The PHA technology gives you real renewal — not just surface moisturisation — without the irritation barrier. For my patients with rosacea, sensitivity, or post-treatment healing skin, this is a cornerstone recommendation."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -467,7 +467,7 @@ set description = $desc_umfc$
   <tbody>
     <tr>
       <td>"Chronic skin dryness is something I see constantly in my practice — and it undermines every other treatment we do. A well-hydrated barrier responds better to actives, heals faster after procedures, and simply looks healthier. I recommend this cream to patients who struggle with persistent dryness, particularly after the winter months or after starting active skincare programmes."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -548,7 +548,7 @@ set description = $desc_eye_cream$
   <tbody>
     <tr>
       <td>&quot;The eye area is where I see the most visible signs of ageing in my patients — and the most neglect. Most people extend their regular moisturiser here and wonder why it is not working. The periorbital skin requires a specifically calibrated product. NeoStrata Eye Cream is one I trust for patients who want to begin addressing this area without irritation.&quot;</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -628,7 +628,7 @@ set description = $desc_pha_moist$
   <tbody>
     <tr>
       <td>"I recommend the PHA Daily Moisturizer as a starting point for patients who want active skincare results without a complex multi-step routine. It is also my first recommendation for patients who have had reactions to glycolic or salicylic acid — PHAs give them results without the discomfort they have come to associate with actives."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -709,7 +709,7 @@ set description = $desc_mandelic$
   <tbody>
     <tr>
       <td>"Mandelic acid is my preferred recommendation for patients with acne-prone skin who also have darker complexions. The risk of post-inflammatory hyperpigmentation with more aggressive acids is real, and mandelic gives us the exfoliation and clearing we need without that risk. This cleanser is a foundational step I prescribe before building any active treatment programme."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -789,7 +789,7 @@ set description = $desc_oily$
   <tbody>
     <tr>
       <td>"Oily skin is one of the most common concerns I see, and it is often undertreated because patients rely on cosmetic fixes rather than addressing the underlying sebum production. NeoStrata Oily Skin Solution is a clinically grounded approach — I prescribe it as part of treatment programmes for acne, enlarged pores, and patients who simply cannot get their skin under control with standard products."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -870,7 +870,7 @@ set description = $desc_clarify_gel$
   <tbody>
     <tr>
       <td>"Every patient with acne-prone skin needs a reliable spot treatment in their kit. The key is using it at the first sign — not after the blemish has fully developed. NeoStrata Targeted Clarifying Gel gives my patients something they can apply immediately, at home, that genuinely shortens the breakout cycle and reduces post-inflammatory marking."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -951,7 +951,7 @@ set description = $desc_sheer_spf$
   <tbody>
     <tr>
       <td>"If there is one product I prescribe to every single patient regardless of their skin concern, it is a daily SPF. In South Africa, our UV exposure is among the highest in the world — and most of my patients are not adequately protected. NeoStrata Sheer Hydration SPF 40 is the product I recommend when patients tell me they have not found an SPF they will actually wear every day. Its texture removes every excuse."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1032,7 +1032,7 @@ set description = $desc_bright_clean$
   <tbody>
     <tr>
       <td>"Pigmentation is one of the most prevalent skin concerns I treat in Durban. The Enlighten range is my clinical programme of choice for hyperpigmentation management — and this cleanser is the step most patients initially want to skip, thinking it is not doing anything meaningful. In fact, it is critical. It clears the surface layer so that the actives applied afterwards can actually reach their target."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1113,7 +1113,7 @@ set description = $desc_pigment_ctrl$
   <tbody>
     <tr>
       <td>"Pigmentation is the number one concern that brings patients to my practice, and it is one of the most nuanced conditions to treat. The Enlighten Pigment Controller is the product I rely on for patients who need clinical-level results at home between their in-clinic treatments. Melasma particularly requires the multi-pathway approach this formula delivers — single-ingredient lighteners simply do not move it."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1194,7 +1194,7 @@ set description = $desc_illum_ser$
   <tbody>
     <tr>
       <td>"The Illuminating Serum is the product I see the most dramatic patient responses to in the Enlighten range. It delivers the kind of radiance improvement that patients describe as transformative — they come back telling me their colleagues are asking what they have done differently. I use it as the cornerstone of my home-care pigmentation programmes."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1275,7 +1275,7 @@ set description = $desc_brightener_spf$
   <tbody>
     <tr>
       <td>"In my experience, patients who relapse in their pigmentation programmes almost always have one thing in common — inconsistent SPF use. The Skin Brightener SPF35 solves this by making SPF inseparable from the brightening treatment itself. You cannot apply the brightening actives without applying the protection. That discipline is what finally breaks the cycle of returning pigmentation."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1356,7 +1356,7 @@ set description = $desc_dark_spot$
   <tbody>
     <tr>
       <td>"Targeted spot correction is something I recommend as an adjunct to any comprehensive brightening programme. For patients with specific marks — a stubborn age spot, a post-acne scar, an area that has not fully responded to general treatment — this gives them a precision tool to apply maximum concentration exactly where it is needed. Used alongside in-clinic treatment, results are significantly faster."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1437,7 +1437,7 @@ set description = $desc_bright_eye$
   <tbody>
     <tr>
       <td>"Dark circles are more complex than most patients realise — there are multiple contributing factors and topical treatment addresses some better than others. I recommend the Brightening Eye Cream for patients whose darkness has a strong melanin and surface cell component. For patients where vascular or structural causes dominate, we discuss in-clinic options. Most patients benefit from a combination approach."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1518,7 +1518,7 @@ set description = $desc_vit_c_pha$
   <tbody>
     <tr>
       <td>"Vitamin C at 15% is one of the actives I recommend most consistently across all patient profiles — whether the primary concern is pigmentation, anti-ageing, or simply skin quality maintenance. The combination with PHA is smart formulation: it makes a high-concentration vitamin C serum accessible to patients who have previously struggled with irritation, without compromising its efficacy."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1599,7 +1599,7 @@ set description = $desc_sa_exfol$
   <tbody>
     <tr>
       <td>"When mature skin patients come to me frustrated that their anti-ageing products are not working, the first thing I look at is their cleansing step. Using a non-active cleanser on older skin is like painting over dust — the layer underneath prevents anything from adhering properly. The Skin Active Exfoliating Wash solves this foundational problem before we build the rest of the programme."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1680,7 +1680,7 @@ set description = $desc_sa_matrix$
   <tbody>
     <tr>
       <td>"Structural ageing — the loss of collagen and matrix support — is something patients often accept as inevitable. My role is to show them that it does not have to accelerate unchecked. Matrix Support SPF30 is a product I prescribe for patients in their 40s and above who want to actively invest in their skin architecture, not just manage the surface appearance."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1761,7 +1761,7 @@ set description = $desc_sa_eye$
   <tbody>
     <tr>
       <td>"The Skin Active Intensive Eye Therapy is a product I reserve for patients with significant orbital ageing who want the most effective topical treatment available. I combine it with in-clinic Botox and occasionally filler for the most comprehensive results — but used consistently on its own, it delivers structural improvements that many patients do not expect from a topical product."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1842,7 +1842,7 @@ set description = $desc_sa_retinol$
   <tbody>
     <tr>
       <td>"Retinol is the single most evidence-backed topical anti-ageing ingredient we have. I prescribe it to almost every patient over 35 as the cornerstone of their night routine. The key is progressive introduction — the patients who try to start at full frequency and get a bad reaction put themselves off the most effective product they could use. Start slowly, be patient through the adjustment, and the results will follow."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1923,7 +1923,7 @@ set description = $desc_sa_ha_lift$
   <tbody>
     <tr>
       <td>"Hyaluronic acid loss is one of the primary drivers of the aged, deflated appearance that patients bring to my clinic. I use filler to address structural volume loss, and I recommend the Hyaluronic Luminous Lift to maintain the dermal hydration environment between injectable treatments. Patients consistently tell me their filler results look better and last longer when they use this at home."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -2004,7 +2004,7 @@ set description = $desc_sa_sculpt$
   <tbody>
     <tr>
       <td>"Laxity is the concern that brings more of my patients to clinic than almost any other. In-clinic treatments address it structurally. But between appointments, what patients do at home determines whether those results hold or fade. The Rebound Sculpting Cream is the product I trust most in this category — it complements in-clinic lifting and gives patients an active role in maintaining their results."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -2082,7 +2082,7 @@ set description = $desc_trio_pack$
   <tbody>
     <tr>
       <td>"The Enlighten Trio is the home programme I prescribe for the majority of my pigmentation patients. The three products are designed to work together — each one amplifies the effect of the others. Starting the full protocol simultaneously rather than adding products one at a time gives patients the best possible results in the shortest time frame."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -2160,7 +2160,7 @@ set description = $desc_bright_pack$
   <tbody>
     <tr>
       <td>"The Brightening Pack is my recommendation for patients who want a straightforward, evidence-based morning brightening routine. Vitamin C in the morning followed by SPF is one of the most powerful combinations in skincare — you get the antioxidant benefit at the time it is most needed, and the SPF protects what the vitamin C has just defended. This pack makes that combination easy to follow every morning."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>

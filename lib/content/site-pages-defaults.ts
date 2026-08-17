@@ -42,7 +42,7 @@ export const DEFAULT_HOME: HomePageContent = {
     credentials: [
       "MBBch · University of the Witwatersrand",
       "Diploma in Aesthetic Medicine (AAAM)",
-      "HPCSA Registered",
+      "HPCSA Reg. MP 0558605",
       "20+ Years Clinical Experience",
     ],
   },

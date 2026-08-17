@@ -41,7 +41,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Airgel is my answer to every patient who tells me they hate wearing sunscreen. The texture genuinely removes every objection — there is nothing to feel, nothing to see, and no reason not to wear it every day. In our climate, I consider daily SPF non-negotiable for anyone receiving aesthetic treatments, and the Airgel makes compliance effortless." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Airgel is my answer to every patient who tells me they hate wearing sunscreen. The texture genuinely removes every objection — there is nothing to feel, nothing to see, and no reason not to wear it every day. In our climate, I consider daily SPF non-negotiable for anyone receiving aesthetic treatments, and the Airgel makes compliance effortless." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -100,7 +100,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Fluid Cream is what I recommend for patients whose skin tends toward dryness, especially those going through hormonal changes or on certain medications that reduce skin hydration. It gives them everything they need in one morning step — protection, hydration and antioxidant support — and the compliance is excellent because it actually feels nice to use." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Fluid Cream is what I recommend for patients whose skin tends toward dryness, especially those going through hormonal changes or on certain medications that reduce skin hydration. It gives them everything they need in one morning step — protection, hydration and antioxidant support — and the compliance is excellent because it actually feels nice to use." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -159,7 +159,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"For my acne and oily skin patients, SPF compliance is always a challenge because they associate sunscreen with breakouts and shine. The Gel Oil Free Touch solves that entirely — it is the one sunscreen I can recommend with full confidence that it will not make their skin worse. In fact, the sebum-control properties often improve how their skin looks by midday." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"For my acne and oily skin patients, SPF compliance is always a challenge because they associate sunscreen with breakouts and shine. The Gel Oil Free Touch solves that entirely — it is the one sunscreen I can recommend with full confidence that it will not make their skin worse. In fact, the sebum-control properties often improve how their skin looks by midday." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -218,7 +218,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Heliocare Oral capsules are the only internal sun protection supplement I recommend to my patients. The evidence behind Fernblock® is genuinely compelling — it is not a wellness trend, it is a clinically validated photoprotective agent. For my pigmentation patients especially, adding oral protection has made a measurable difference to how long their treatment results last. I take them myself." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Heliocare Oral capsules are the only internal sun protection supplement I recommend to my patients. The evidence behind Fernblock® is genuinely compelling — it is not a wellness trend, it is a clinically validated photoprotective agent. For my pigmentation patients especially, adding oral protection has made a measurable difference to how long their treatment results last. I take them myself." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -277,7 +277,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"As a doctor and a parent, the Paediatric Lotion is what I recommend without hesitation for children. The 100% mineral formula gives me complete confidence in its safety for young skin, and the Fernblock® component provides a level of cellular protection that no other children's SPF I have seen can match. Protecting children's skin now prevents serious consequences decades later." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"As a doctor and a parent, the Paediatric Lotion is what I recommend without hesitation for children. The 100% mineral formula gives me complete confidence in its safety for young skin, and the Fernblock® component provides a level of cellular protection that no other children's SPF I have seen can match. Protecting children's skin now prevents serious consequences decades later." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -336,7 +336,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The AK Fluid SPF100+ occupies a specific and important position in my practice — I prescribe it for patients where sun protection is a genuine medical priority, not a cosmetic preference. For patients with actinic keratosis, a history of skin cancer or those on immunosuppressants, the difference between SPF50 and SPF100+ is clinically real and I will not compromise on this for those patients." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The AK Fluid SPF100+ occupies a specific and important position in my practice — I prescribe it for patients where sun protection is a genuine medical priority, not a cosmetic preference. For patients with actinic keratosis, a history of skin cancer or those on immunosuppressants, the difference between SPF50 and SPF100+ is clinically real and I will not compromise on this for those patients." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -395,7 +395,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Mineral Tolerance Fluid is the SPF I prescribe to every patient after Dermapen and chemical peels — no exceptions. After any skin procedure, the barrier is temporarily compromised and chemical filters can trigger reactions that undo the treatment results. Mineral-only SPF is the only safe choice during recovery, and this one is the best I have found." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Mineral Tolerance Fluid is the SPF I prescribe to every patient after Dermapen and chemical peels — no exceptions. After any skin procedure, the barrier is temporarily compromised and chemical filters can trigger reactions that undo the treatment results. Mineral-only SPF is the only safe choice during recovery, and this one is the best I have found." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -454,7 +454,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Color Gel is something my female patients genuinely love — it gives them the SPF compliance I need them to have and a cosmetic result they actually enjoy. For patients post-pigmentation treatment, it covers the residual discolouration while the SPF prevents new spots forming. It is one of the most practical products in our range." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Color Gel is something my female patients genuinely love — it gives them the SPF compliance I need them to have and a cosmetic result they actually enjoy. For patients post-pigmentation treatment, it covers the residual discolouration while the SPF prevents new spots forming. It is one of the most practical products in our range." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -513,7 +513,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Bronze shade was a genuine breakthrough for my patients with deeper skin tones. For too long, the SPF market ignored them — every tinted sunscreen left a grey cast or simply did not work. The Bronze Color Gel gives these patients a product that does its job medically and looks good on them. For my melasma patients with darker skin, the combination of consistent SPF and a colour match they are happy to wear has significantly improved outcomes." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Bronze shade was a genuine breakthrough for my patients with deeper skin tones. For too long, the SPF market ignored them — every tinted sunscreen left a grey cast or simply did not work. The Bronze Color Gel gives these patients a product that does its job medically and looks good on them. For my melasma patients with darker skin, the combination of consistent SPF and a colour match they are happy to wear has significantly improved outcomes." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -572,7 +572,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Pigment Solution Fluid is the most clinically useful SPF I prescribe for pigmentation patients. Most patients understand they need SPF after a peel or treatment — what they do not realise is that SPF alone is passive. The Pigment Solution actively continues the treatment every morning. My patients on a full pigmentation protocol who use this SPF consistently achieve and maintain significantly better results than those on plain SPF." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Pigment Solution Fluid is the most clinically useful SPF I prescribe for pigmentation patients. Most patients understand they need SPF after a peel or treatment — what they do not realise is that SPF alone is passive. The Pigment Solution actively continues the treatment every morning. My patients on a full pigmentation protocol who use this SPF consistently achieve and maintain significantly better results than those on plain SPF." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -631,7 +631,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The best sunscreen is the one patients actually use every day. The Sensation is the product I reach for when a patient tells me they cannot stick to an SPF routine because of texture. Within two weeks, almost every patient is converted. Compliance is the biggest driver of outcome in sun protection, and this product solves the compliance problem." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The best sunscreen is the one patients actually use every day. The Sensation is the product I reach for when a patient tells me they cannot stick to an SPF routine because of texture. Within two weeks, almost every patient is converted. Compliance is the biggest driver of outcome in sun protection, and this product solves the compliance problem." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -690,7 +690,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"One of the most consistent findings in skin cancer research is that childhood sun protection has a disproportionate impact on lifetime risk. Parents who use clinical-grade mineral SPF on their children from a young age are making a genuinely important health decision. The 200ml size removes the practical barrier of running out — families that have enough product apply more of it." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"One of the most consistent findings in skin cancer research is that childhood sun protection has a disproportionate impact on lifetime risk. Parents who use clinical-grade mineral SPF on their children from a young age are making a genuinely important health decision. The 200ml size removes the practical barrier of running out — families that have enough product apply more of it." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -749,7 +749,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Heliocare Gel is where most patients start their relationship with the brand, and it does exactly what a daily SPF should do — reliably and at a price that makes consistent use realistic. For patients who need something more specialised, I guide them to the 360° range. But the Gel is a solid, dependable choice and the Fernblock® component means it does more than a generic SPF50 regardless." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Heliocare Gel is where most patients start their relationship with the brand, and it does exactly what a daily SPF should do — reliably and at a price that makes consistent use realistic. For patients who need something more specialised, I guide them to the 360° range. But the Gel is a solid, dependable choice and the Fernblock® component means it does more than a generic SPF50 regardless." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -808,7 +808,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"After varicose vein treatment, I ask patients to protect their legs from UV specifically — the sclerotherapy process leaves the skin temporarily more reactive to UV, and sun exposure can cause post-treatment pigmentation on the treated leg. The spray format is the only realistic way most patients will consistently apply SPF to their whole leg. It is also what I recommend for all body contouring patients as they become more active outdoors during their transformation." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"After varicose vein treatment, I ask patients to protect their legs from UV specifically — the sclerotherapy process leaves the skin temporarily more reactive to UV, and sun exposure can cause post-treatment pigmentation on the treated leg. The spray format is the only realistic way most patients will consistently apply SPF to their whole leg. It is also what I recommend for all body contouring patients as they become more active outdoors during their transformation." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>
@@ -867,7 +867,7 @@ update public.products set description = $desc$
 
 <h3>Dr. Bangalee's clinical perspective</h3>
 <table>
-<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Compacts are the product that completes a sun protection routine. I tell every patient who wears makeup that morning SPF is not enough — you need to reapply, and until the Compacts existed there was no realistic way to do that. Now there is no excuse. For my pigmentation and anti-ageing patients especially, the difference between morning-only and twice-daily reapplication is measurable in their results." — Dr. Rajeev Bangalee, MB BS</td></tr>
+<tr><td><strong>Dr. Bangalee Recommends</strong></td><td>"The Compacts are the product that completes a sun protection routine. I tell every patient who wears makeup that morning SPF is not enough — you need to reapply, and until the Compacts existed there was no realistic way to do that. Now there is no excuse. For my pigmentation and anti-ageing patients especially, the difference between morning-only and twice-daily reapplication is measurable in their results." — Dr. Rajeev Bangalee, MBBch</td></tr>
 </table>
 
 <h3>What our patients say</h3>

@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const trustBadges = [
     { icon: Award, label: "MBBch Qualified GP" },
     { icon: Star, label: "5.0★ · 21 Google Reviews" },
-    { icon: Shield, label: "HPCSA Registered" },
+    { icon: Shield, label: "HPCSA Reg. MP 0558605" },
     { icon: Clock, label: "20+ Years Experience" },
 ];
 

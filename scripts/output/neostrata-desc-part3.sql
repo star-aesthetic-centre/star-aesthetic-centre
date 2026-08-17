@@ -48,7 +48,7 @@ set description = $desc_enlighten_illuminating_serum$
   <tbody>
     <tr>
       <td>"The Illuminating Serum is often the product patients love most quickly because the improvement in luminosity is genuinely fast. I use it alongside the Pigment Controller in my standard Enlighten protocol — the serum provides the rapid visible brightening that motivates patients to stay with the programme, while the Controller does the deeper work on established pigmentation. Together they cover the full spectrum of what a brightening routine needs to achieve."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -131,7 +131,7 @@ set description = $desc_enlighten_spf35$
   <tbody>
     <tr>
       <td>"One of the most common mistakes I see in pigmentation treatment is inconsistent SPF use. Patients invest in excellent brightening products and then allow UV exposure to re-trigger melanin production daily. The Skin Brightener SPF35 solves this by making sun protection and brightening the same product. I always include it in my Enlighten protocols — particularly in Durban where UV exposure is year-round and unavoidable."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -214,7 +214,7 @@ set description = $desc_enlighten_dark_spot_corrector$
   <tbody>
     <tr>
       <td>"I recommend the Dark Spot Corrector for patients who have specific marks — sun spots, old acne scars, age spots — that are not responding adequately to general brightening treatments. By concentrating the actives directly on the target, we achieve much faster visible improvement on those specific spots than spreading a serum across the whole face. I use it as an intensifier within the full Enlighten protocol."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -297,7 +297,7 @@ set description = $desc_enlighten_brightening_eye_cream$
   <tbody>
     <tr>
       <td>"Periorbital pigmentation is a concern I see frequently, and it's one that significantly affects how patients feel about their appearance. The challenge has always been formulating brightening actives at a concentration that works on the orbital zone without causing irritation. The Enlighten Brightening Eye Cream achieves that balance — I include it in my Enlighten protocols for patients with dark circles, and the results on brownish, pigmentary circles in particular are consistently meaningful."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -380,7 +380,7 @@ set description = $desc_vitamin_c_pha_serum$
   <tbody>
     <tr>
       <td>"Vitamin C at clinical concentration is one of the most evidence-backed anti-ageing actives available. I recommend this serum to patients who want meaningful antioxidant protection and brightening in their morning routine — particularly those managing sun damage or early signs of photoageing. The PHA formulation makes it better tolerated than most 15% vitamin C serums without compromising efficacy. Paired with SPF, it's a genuinely powerful combination."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>

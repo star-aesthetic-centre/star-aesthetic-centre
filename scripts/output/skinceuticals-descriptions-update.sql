@@ -53,7 +53,7 @@ set description = $desc_ce_ferulic$
   <tbody>
     <tr>
       <td>"C E Ferulic is the one product I recommend to virtually every patient, regardless of their primary concern. The science behind it is exceptional — this isn't marketing, it comes from peer-reviewed research. I use it myself every morning. When patients are investing in laser treatments or peels at our practice, adding C E Ferulic to their morning routine amplifies those results and protects the skin against the UV exposure that undoes our work."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -133,7 +133,7 @@ set description = $desc_phloretin$
   <tbody>
     <tr>
       <td>"For my patients with oily skin or significant pigmentation concerns, Phloretin CF is my first recommendation over C E Ferulic. The phloretin component adds a meaningful dimension to the formula — it addresses melanin production directly, which is particularly relevant for our patient population here in KwaZulu-Natal where sun exposure is intense year-round. I often prescribe this alongside our chemical peel protocols for best results."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -211,7 +211,7 @@ set description = $desc_ha_intens$
   <tbody>
     <tr>
       <td>"I recommend the HA Intensifier to all my patients receiving dermal fillers — it's one of the most logical pairings in aesthetic medicine. The filler replaces lost volume, and the Intensifier maintains the hydration and quality of the surrounding tissue, which means results look better and last longer. Even for patients not receiving injectables, the Proxylane stimulation mechanism is genuinely impressive — it works at a biological level, not just as a surface treatment."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -289,7 +289,7 @@ set description = $desc_hydrating_b5$
   <tbody>
     <tr>
       <td>"Hydrating B5 Gel is a workhorse in my post-procedure protocols. After chemical peels and laser treatments, the skin barrier is temporarily compromised and patients need something gentle and immediately effective — B5 delivers that. I also recommend it to patients who are new to retinol to buffer the initial dryness and irritation phase. It's simple, well-tolerated, and does exactly what it says."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -368,7 +368,7 @@ set description = $desc_gentle_clean$
   <tbody>
     <tr>
       <td>"Patients often focus all their attention on serums and treatments while underestimating the cleanser — but everything that follows depends on how well the barrier has been maintained during cleansing. I recommend the Gentle Cleanser to patients who are starting active ingredient protocols, post-procedure patients, and anyone whose skin is reactive. It's the foundation that makes everything else work better."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -446,7 +446,7 @@ set description = $desc_glycolic_clean$
   <tbody>
     <tr>
       <td>"For patients with oily skin, congestion, or dull texture who want consistent exfoliation without a separate step, the Glycolic Renewal Cleanser is a practical and effective option. I particularly recommend it as a prep step for patients receiving in-clinic treatments — skin that is regularly exfoliated responds better to peels and laser procedures. Just as importantly, I always advise strict daily SPF use alongside it."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -524,7 +524,7 @@ set description = $desc_glycolic_10$
   <tbody>
     <tr>
       <td>"The Glycolic 10 Renew Overnight is one of the most cost-effective treatments in the SkinCeuticals range — 10% glycolic in a well-formulated leave-on cream delivers results that previously required clinical intervention. I use it in maintenance protocols between peel sessions and for patients who want visible texture and tone improvement but aren't yet ready for retinol. The Phytic Acid addition is smart — it broadens the corrective effect while reducing the irritation that sometimes limits glycolic adherence."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -602,7 +602,7 @@ set description = $desc_resveratrol$
   <tbody>
     <tr>
       <td>"Resveratrol BE is my recommendation for patients who want to maximise overnight repair and are already using a morning antioxidant. The sirtuin activation science is compelling — this is one area where the research genuinely backs the marketing. Paired with C E Ferulic in the morning, you have comprehensive antioxidant coverage around the clock. For patients in their 40s and 50s concerned about cellular ageing, this is a meaningful addition to their protocol."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -680,7 +680,7 @@ set description = $desc_serum10$
   <tbody>
     <tr>
       <td>"Serum 10 is where I start patients who are new to vitamin C or who have expressed concern about sensitivity. The 10% concentration still delivers real clinical benefit — the important thing is that it is formulated correctly at the right pH, which many cheaper vitamin C products are not. It is also a good option for younger patients in their 20s who are starting antioxidant protection early, and we can step them up to C E Ferulic once their skin is comfortable."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -759,7 +759,7 @@ set description = $desc_age_eye$
   <tbody>
     <tr>
       <td>"The eye area is where ageing becomes visible first, and it is what patients ask about most. AGE Eye Complex is what I recommend most frequently as an adjunct to periorbital Botox and filler treatments — the Proxylane and peptide components work synergistically with injectables to maintain and extend results. For patients not yet ready for injectables, it delivers meaningful improvement on its own. The optical diffusers also give an immediate result that patients appreciate from the very first use."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -837,7 +837,7 @@ set description = $desc_age_interrupter$
   <tbody>
     <tr>
       <td>"AGE Interrupter Advanced is my recommendation for patients with established deep wrinkles who want topical support between clinic visits. The Proxylane concentration is meaningful and the clinical data on glycosaminoglycan stimulation is solid. I often prescribe this alongside filler treatments — when we restore volume with hyaluronic acid filler, this cream helps maintain the tissue quality around the treated area. The niacinamide component also addresses the uneven tone that typically accompanies mature skin."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -916,7 +916,7 @@ set description = $desc_disco_defense$
   <tbody>
     <tr>
       <td>"Discoloration Defense is one of the most clinically effective over-the-counter brightening serums I have used. The multi-pathway approach is scientifically sound — by targeting tyrosinase inhibition, melanocyte-keratinocyte signalling, and melanosome transfer simultaneously, you achieve results that single-ingredient products simply cannot match. For my patients with melasma or significant post-inflammatory pigmentation, this forms a cornerstone of their at-home protocol alongside strict SPF discipline."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -994,7 +994,7 @@ set description = $desc_blemish_age$
   <tbody>
     <tr>
       <td>"Adult acne is one of the most frustrating concerns I treat — patients do not want to sacrifice their anti-ageing progress to manage breakouts. Blemish + AGE Serum is genuinely dual-purpose: the LHA component works inside the pore in a way that traditional BHA does not, and the dioic acid targets the hormonal sebum pathway that drives so much adult acne. I frequently recommend this as the centrepiece of an adult acne protocol combined with appropriate SPF and a gentle cleanser."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1072,7 +1072,7 @@ set description = $desc_phyto_a$
   <tbody>
     <tr>
       <td>"Phyto A+ fills an important gap in our protocols — there are patients who genuinely need retinol-like renewal but whose skin, health status, or life stage makes conventional retinol inappropriate. The botanical retinol pathway activation is scientifically sound, and I've seen very good results in patients with rosacea and sensitive skin who would otherwise be excluded from this class of treatment. It is also my go-to recommendation for patients who need to pause prescription vitamin A during pregnancy."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1150,7 +1150,7 @@ set description = $desc_ptiox$
   <tbody>
     <tr>
       <td>"PTIOX occupies an interesting position in my protocols — it is the product I recommend to patients who are committed to Botox but want topical support between sessions, and also to patients who are hesitant about injectables but want to start addressing expression lines. The GABA mechanism is not a replacement for neuromodulators, but it contributes meaningfully to the overall result. The pollution defence element is also increasingly relevant as environmental ageing receives more scientific attention."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1228,7 +1228,7 @@ set description = $desc_retinol_03$
   <tbody>
     <tr>
       <td>"Retinol 0.3 is where I start the majority of my patients on a retinol programme. The adjustment phase is real — I always counsel patients that the initial dryness and sensitivity is expected, not a sign that the product is wrong for them, and that pushing through it with proper moisturisation delivers transformative results. I have seen it change the quality of patients' skin more reliably than almost anything else we prescribe at this price point."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1306,7 +1306,7 @@ set description = $desc_retinol_05$
   <tbody>
     <tr>
       <td>"Retinol 0.5 is where the results really become dramatic. Most patients who have done the work to establish tolerance at 0.3% progress to 0.5% within 3–6 months, and the step up in visible results is significant. I use this as the cornerstone of anti-ageing protocols for patients in their 30s and 40s — combined with a morning vitamin C and strict SPF, it is the most impactful at-home programme available outside of prescription retinoids."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1384,7 +1384,7 @@ set description = $desc_retinol_10$
   <tbody>
     <tr>
       <td>"Retinol 1.0 is the product I reserve for patients who have done the work — who have progressed through the concentrations correctly and whose skin is ready for the maximum non-prescription retinol experience. The results at 1.0% are remarkable: I have patients whose skin quality at 50 is measurably better than it was at 40, and retinol is the foundation of that transformation. The microencapsulation is what makes it accessible — without that, 1.0% would be intolerable for most patients."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1462,7 +1462,7 @@ set description = $desc_triple_lipid$
   <tbody>
     <tr>
       <td>"Triple Lipid Restore is one of the most underappreciated products in the SkinCeuticals range. The barrier science it is based on is excellent — the 1:1:1 molar ratio of ceramides, cholesterol, and fatty acids is grounded in fundamental research into how the stratum corneum is constructed. I prescribe this to virtually all my patients on retinol to manage the adjustment phase, to post-procedure patients to accelerate barrier recovery, and to anyone whose skin is dry or compromised. A healthy barrier is the prerequisite for everything else to work."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -1540,7 +1540,7 @@ set description = $desc_spf50_bright$
   <tbody>
     <tr>
       <td>"I always tell my patients that the most expensive serum in the world is undermined by inconsistent SPF use. Advanced Brightening UV Defense SPF50 solves the compliance problem elegantly — the tint makes it pleasant to wear daily, the tranexamic acid makes it functional beyond basic protection, and the SPF50 rating is appropriate for our climate here in KwaZulu-Natal. For my patients with melasma or post-inflammatory pigmentation, this is the most important product in their entire routine."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>

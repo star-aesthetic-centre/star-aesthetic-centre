@@ -105,7 +105,7 @@ const localBusinessSchema = {
         "@type": "Person",
         "name": "Dr. Rajeev Bangalee",
         "jobTitle": "Aesthetic Physician",
-        "description": "MBBch — HPCSA registered aesthetic medicine practitioner",
+        "description": "MBBch — HPCSA registered medical practitioner (Reg. MP 0558605) with postgraduate training in aesthetic medicine",
     },
     "medicalSpecialty": "Aesthetic Medicine",
     "sameAs": [

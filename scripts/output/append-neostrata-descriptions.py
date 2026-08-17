@@ -52,7 +52,7 @@ products.append(("neostrata-pha-daily-moisturizer", "desc_pha_moist", """
   <tbody>
     <tr>
       <td>"I recommend the PHA Daily Moisturizer as a starting point for patients who want active skincare results without a complex multi-step routine. It is also my first recommendation for patients who have had reactions to glycolic or salicylic acid — PHAs give them results without the discomfort they have come to associate with actives."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -130,7 +130,7 @@ products.append(("neostrata-mandelic-clarifying-cleanser", "desc_mandelic", """
   <tbody>
     <tr>
       <td>"Mandelic acid is my preferred recommendation for patients with acne-prone skin who also have darker complexions. The risk of post-inflammatory hyperpigmentation with more aggressive acids is real, and mandelic gives us the exfoliation and clearing we need without that risk. This cleanser is a foundational step I prescribe before building any active treatment programme."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -207,7 +207,7 @@ products.append(("neostrata-oily-skin-solution", "desc_oily", """
   <tbody>
     <tr>
       <td>"Oily skin is one of the most common concerns I see, and it is often undertreated because patients rely on cosmetic fixes rather than addressing the underlying sebum production. NeoStrata Oily Skin Solution is a clinically grounded approach — I prescribe it as part of treatment programmes for acne, enlarged pores, and patients who simply cannot get their skin under control with standard products."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -285,7 +285,7 @@ products.append(("neostrata-targeted-clarifying-gel", "desc_clarify_gel", """
   <tbody>
     <tr>
       <td>"Every patient with acne-prone skin needs a reliable spot treatment in their kit. The key is using it at the first sign — not after the blemish has fully developed. NeoStrata Targeted Clarifying Gel gives my patients something they can apply immediately, at home, that genuinely shortens the breakout cycle and reduces post-inflammatory marking."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -363,7 +363,7 @@ products.append(("neostrata-sheer-hydration-spf40", "desc_sheer_spf", """
   <tbody>
     <tr>
       <td>"If there is one product I prescribe to every single patient regardless of their skin concern, it is a daily SPF. In South Africa, our UV exposure is among the highest in the world — and most of my patients are not adequately protected. NeoStrata Sheer Hydration SPF 40 is the product I recommend when patients tell me they have not found an SPF they will actually wear every day. Its texture removes every excuse."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -441,7 +441,7 @@ products.append(("neostrata-enlighten-ultra-brightening-cleanser", "desc_bright_
   <tbody>
     <tr>
       <td>"Pigmentation is one of the most prevalent skin concerns I treat in Durban. The Enlighten range is my clinical programme of choice for hyperpigmentation management — and this cleanser is the step most patients initially want to skip, thinking it is not doing anything meaningful. In fact, it is critical. It clears the surface layer so that the actives applied afterwards can actually reach their target."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
@@ -519,7 +519,7 @@ products.append(("neostrata-enlighten-pigment-controller", "desc_pigment_ctrl", 
   <tbody>
     <tr>
       <td>"Pigmentation is the number one concern that brings patients to my practice, and it is one of the most nuanced conditions to treat. The Enlighten Pigment Controller is the product I rely on for patients who need clinical-level results at home between their in-clinic treatments. Melasma particularly requires the multi-pathway approach this formula delivers — single-ingredient lighteners simply do not move it."</td>
-      <td>Dr. Rajeev Bangalee<br/>MB, BS · HPCSA Registered<br/>Star Aesthetic Centre</td>
+      <td>Dr. Rajeev Bangalee<br/>MBBch · HPCSA Reg. MP 0558605<br/>Star Aesthetic Centre</td>
     </tr>
   </tbody>
 </table>
