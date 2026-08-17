@@ -96,9 +96,9 @@ export async function updateTreatmentMeta(
     revalidatePath("/admin/treatments");
     revalidatePath(`/admin/treatments/${slug}/edit`);
     revalidatePath("/treatments");
-    revalidatePath(`/treatments/face/${slug}`);
-    revalidatePath(`/treatments/skin/${slug}`);
-    revalidatePath(`/treatments/body-wellness/${slug}`);
+    revalidatePath(`/treatments/injectables/${slug}`);
+    revalidatePath(`/treatments/skin-hair/${slug}`);
+    revalidatePath(`/treatments/medical-services/${slug}`);
     return { success: true };
   } catch (err) {
     return { success: false, error: String(err) };

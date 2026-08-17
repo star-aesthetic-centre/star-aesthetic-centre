@@ -71,24 +71,24 @@ const TIER_CONFIG = {
 
 const CONCERN_RECS: Record<string, { treatment: string; href: string; product: string }[]> = {
     pigmentation: [
-        { treatment: "Pigmentation Treatment", href: "/treatments/skin/pigmentation-treatment", product: "Dermaceutic Yellow Cream" },
-        { treatment: "Skin Peel Treatment", href: "/treatments/skin/skin-peel", product: "Dermaceutic Foamer 15" },
+        { treatment: "Pigmentation Treatment", href: "/treatments/skin-hair/pigmentation-treatment", product: "Dermaceutic Yellow Cream" },
+        { treatment: "Skin Peel Treatment", href: "/treatments/skin-hair/skin-peel", product: "Dermaceutic Foamer 15" },
     ],
     ageing: [
-        { treatment: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment", product: "SkinCeuticals C E Ferulic" },
-        { treatment: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring", product: "NeoStrata Skin Active" },
+        { treatment: "Anti-Wrinkle Treatment", href: "/treatments/injectables/anti-wrinkle-treatment", product: "SkinCeuticals C E Ferulic" },
+        { treatment: "Jaw & Chin Contouring", href: "/treatments/injectables/jaw-amp-chin-contouring", product: "NeoStrata Skin Active" },
     ],
     acne: [
-        { treatment: "Acne & Acne Scarring", href: "/treatments/skin/acne", product: "Dermaceutic Foamer 15" },
-        { treatment: "Skin Peel Treatment", href: "/treatments/skin/skin-peel", product: "Dermaceutic Hyal Ceutic" },
+        { treatment: "Acne & Acne Scarring", href: "/treatments/skin-hair/acne", product: "Dermaceutic Foamer 15" },
+        { treatment: "Skin Peel Treatment", href: "/treatments/skin-hair/skin-peel", product: "Dermaceutic Hyal Ceutic" },
     ],
     texture: [
-        { treatment: "Skin Peel Treatment", href: "/treatments/skin/skin-peel", product: "Mesoestetic Glow Range" },
-        { treatment: "Vitamin Drips", href: "/treatments/body-wellness/vitamin-drips", product: "SkinCeuticals Retinol" },
+        { treatment: "Skin Peel Treatment", href: "/treatments/skin-hair/skin-peel", product: "Mesoestetic Glow Range" },
+        { treatment: "Vitamin Drips", href: "/treatments/medical-services/vitamin-drips", product: "SkinCeuticals Retinol" },
     ],
     all: [
         { treatment: "Personalised Consultation", href: "/contact", product: "Full Skin Assessment" },
-        { treatment: "Skin Peel Treatment", href: "/treatments/skin/skin-peel", product: "Dermaceutic Programme" },
+        { treatment: "Skin Peel Treatment", href: "/treatments/skin-hair/skin-peel", product: "Dermaceutic Programme" },
     ],
 };
 

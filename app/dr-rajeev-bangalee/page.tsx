@@ -235,18 +235,18 @@ const affiliations = [
 ];
 
 const treatments = [
-  { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment", category: "Face" },
-  { label: "Lip Fillers", href: "/treatments/face/lip-filler", category: "Face" },
-  { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring", category: "Face" },
-  { label: "Dermapen Microneedling", href: "/treatments/face/dermapen-microneedling", category: "Skin" },
-  { label: "Skin Peels", href: "/treatments/skin/skin-peel", category: "Skin" },
-  { label: "Pigmentation Treatment", href: "/treatments/skin/pigmentation-treatment", category: "Skin" },
-  { label: "Acne Treatment", href: "/treatments/skin/acne", category: "Skin" },
-  { label: "Excessive Sweating", href: "/treatments/skin/excessive-sweating", category: "Skin" },
-  { label: "Body Contouring", href: "/treatments/body-wellness/body-contouring", category: "Body & Wellness" },
-  { label: "Medi-Lean Weight Loss", href: "/treatments/body-wellness/medi-lean", category: "Body & Wellness" },
-  { label: "Varicose Vein Treatment", href: "/treatments/body-wellness/varicose-veins", category: "Body & Wellness" },
-  { label: "Vitamin Drips", href: "/treatments/body-wellness/vitamin-drips", category: "Body & Wellness" },
+  { label: "Anti-Wrinkle Treatment", href: "/treatments/injectables/anti-wrinkle-treatment", category: "Face" },
+  { label: "Lip Fillers", href: "/treatments/injectables/lip-filler", category: "Face" },
+  { label: "Jaw & Chin Contouring", href: "/treatments/injectables/jaw-amp-chin-contouring", category: "Face" },
+  { label: "Dermapen Microneedling", href: "/treatments/injectables/dermapen-microneedling", category: "Skin" },
+  { label: "Skin Peels", href: "/treatments/skin-hair/skin-peel", category: "Skin" },
+  { label: "Pigmentation Treatment", href: "/treatments/skin-hair/pigmentation-treatment", category: "Skin" },
+  { label: "Acne Treatment", href: "/treatments/skin-hair/acne", category: "Skin" },
+  { label: "Excessive Sweating", href: "/treatments/skin-hair/excessive-sweating", category: "Skin" },
+  { label: "Body Contouring", href: "/treatments/medical-services/body-contouring", category: "Body & Wellness" },
+  { label: "Medi-Lean Weight Loss", href: "/treatments/medical-services/medi-lean", category: "Body & Wellness" },
+  { label: "Varicose Vein Treatment", href: "/treatments/medical-services/varicose-veins", category: "Body & Wellness" },
+  { label: "Vitamin Drips", href: "/treatments/medical-services/vitamin-drips", category: "Body & Wellness" },
 ];
 
 const brands = [

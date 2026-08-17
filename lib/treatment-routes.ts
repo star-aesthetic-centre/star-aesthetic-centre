@@ -1,28 +1,28 @@
 /** Canonical category slug per treatment — single source of truth for URLs and sitemap. */
 export const TREATMENT_SLUG_TO_CATEGORY: Record<string, string> = {
-  "anti-wrinkle-treatment": "face",
-  "lip-filler": "face",
-  "jaw-amp-chin-contouring": "face",
-  "dermapen-microneedling": "face",
-  "skin-peel": "skin",
-  "pigmentation-treatment": "skin",
-  acne: "skin",
-  "excessive-sweating": "skin",
-  "body-contouring": "body-wellness",
-  "medi-lean": "body-wellness",
-  "varicose-veins": "body-wellness",
-  "vitamin-drips": "body-wellness",
+  "anti-wrinkle-treatment": "injectables",
+  "lip-filler": "injectables",
+  "jaw-amp-chin-contouring": "injectables",
+  "dermapen-microneedling": "injectables",
+  "skin-peel": "skin-hair",
+  "pigmentation-treatment": "skin-hair",
+  acne: "skin-hair",
+  "excessive-sweating": "skin-hair",
+  "body-contouring": "medical-services",
+  "medi-lean": "medical-services",
+  "varicose-veins": "medical-services",
+  "vitamin-drips": "medical-services",
   // Individual drips — each targets its own search intent. "vitamin-drips"
   // remains the pillar page that links to all five.
-  "hydration-vitamin-drip": "body-wellness",
-  "party-recovery-drip": "body-wellness",
-  "fitness-vitamin-drip": "body-wellness",
-  "glutathione-brightening-drip": "body-wellness",
-  "ultimate-vitamin-drip": "body-wellness",
+  "hydration-vitamin-drip": "medical-services",
+  "party-recovery-drip": "medical-services",
+  "fitness-vitamin-drip": "medical-services",
+  "glutathione-brightening-drip": "medical-services",
+  "ultimate-vitamin-drip": "medical-services",
 };
 
 export function treatmentPath(slug: string): string {
-  const category = TREATMENT_SLUG_TO_CATEGORY[slug] ?? "skin";
+  const category = TREATMENT_SLUG_TO_CATEGORY[slug] ?? "skin-hair";
   return `/treatments/${category}/${slug}`;
 }
 
@@ -34,8 +34,8 @@ export const ALL_TREATMENT_SLUGS = Object.keys(TREATMENT_SLUG_TO_CATEGORY);
 
 export const TREATMENT_LISTING_CATEGORIES = [
   {
-    slug: "face",
-    name: "Injectables & Facial Aesthetics",
+    slug: "injectables",
+    name: "Injectables",
     treatments: [
       { slug: "anti-wrinkle-treatment", image: "/images/anti-wrinkle-treatment-star-aesthetic-centre-durban-north-01.webp", imageAlt: "Anti-Wrinkle Treatment — natural refreshed results, Durban North" },
       { slug: "lip-filler", image: "/images/lip-filler-treatment-star-aesthetic-centre-durban-north.webp", imageAlt: "Lip Filler Treatment — natural lip enhancement, Durban North" },
@@ -44,7 +44,7 @@ export const TREATMENT_LISTING_CATEGORIES = [
     ],
   },
   {
-    slug: "skin",
+    slug: "skin-hair",
     name: "Medical Skin Treatments",
     treatments: [
       { slug: "acne", image: "/images/acne-treatment-star-aesthetic-centre-durban-north.webp", imageAlt: "Acne scarring treatment Durban North" },
@@ -53,7 +53,7 @@ export const TREATMENT_LISTING_CATEGORIES = [
     ],
   },
   {
-    slug: "body-wellness",
+    slug: "medical-services",
     name: "Health, Wellness & Body",
     treatments: [
       { slug: "vitamin-drips", image: "/images/vitamin-drip-treatment-star-aesthetic-centre-durban-north.webp", imageAlt: "Vitamin drip IV therapy wellness Durban" },

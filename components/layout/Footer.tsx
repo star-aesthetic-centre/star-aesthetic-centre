@@ -6,14 +6,14 @@ import { whatsappLink } from "@/lib/constants/contact";
 import { MedicalDisclaimer } from "@/components/layout/MedicalDisclaimer";
 
 const treatmentLinks = [
-    { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment" },
-    { label: "Lip Fillers", href: "/treatments/face/lip-filler" },
-    { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring" },
-    { label: "Skin Peels", href: "/treatments/skin/skin-peel" },
-    { label: "Pigmentation Treatment", href: "/treatments/skin/pigmentation-treatment" },
-    { label: "Acne Treatment", href: "/treatments/skin/acne" },
-    { label: "Vitamin Drips", href: "/treatments/body-wellness/vitamin-drips" },
-    { label: "Body Contouring", href: "/treatments/body-wellness/body-contouring" },
+    { label: "Anti-Wrinkle Treatment", href: "/treatments/injectables/anti-wrinkle-treatment" },
+    { label: "Lip Fillers", href: "/treatments/injectables/lip-filler" },
+    { label: "Jaw & Chin Contouring", href: "/treatments/injectables/jaw-amp-chin-contouring" },
+    { label: "Skin Peels", href: "/treatments/skin-hair/skin-peel" },
+    { label: "Pigmentation Treatment", href: "/treatments/skin-hair/pigmentation-treatment" },
+    { label: "Acne Treatment", href: "/treatments/skin-hair/acne" },
+    { label: "Vitamin Drips", href: "/treatments/medical-services/vitamin-drips" },
+    { label: "Body Contouring", href: "/treatments/medical-services/body-contouring" },
 ];
 
 const shopLinks = [

@@ -34,8 +34,8 @@ const bySlug = (slug: string) => TREATMENT_CARDS.find((c) => c.slug === slug);
 
 const ALL_GROUPS: TreatmentGroup[] = [
   {
-    key: "face",
-    title: "Face",
+    key: "injectables",
+    title: "Injectables",
     blurb:
       "Injectables. Every one is personally assessed and performed by Dr. Bangalee, with dosing and placement planned around your anatomy.",
     items: [
@@ -53,8 +53,8 @@ const ALL_GROUPS: TreatmentGroup[] = [
     ],
   },
   {
-    key: "skin",
-    title: "Skin",
+    key: "skin-hair",
+    title: "Skin & Hair",
     blurb:
       "Skin and hair. Assessed and planned by Dr. Bangalee; selected treatments may be performed by a trained assistant under his clinic protocols.",
     items: [
@@ -68,8 +68,8 @@ const ALL_GROUPS: TreatmentGroup[] = [
     ],
   },
   {
-    key: "body-wellness",
-    title: "Body & Wellness",
+    key: "medical-services",
+    title: "Medical Services",
     blurb:
       "Medical services. Doctor-led programmes that begin with a medical assessment rather than a treatment booking.",
     items: [

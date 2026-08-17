@@ -71,46 +71,46 @@ export const legacyRedirects: Redirect[] = [
   r("/global-colors-green.html", "/"),
 
   // ─── Treatments (old .html slugs → /treatments/{category}/{slug}) ─────────
-  r("/treatments/botox-treatment.html", "/treatments/face/anti-wrinkle-treatment"),
-  r("/treatments/lip-filler-treatment.html", "/treatments/face/lip-filler"),
-  r("/treatments/jaw-and-chin-contouring.html", "/treatments/face/jaw-amp-chin-contouring"),
-  r("/treatments/dermapen-microneedling-treatment.html", "/treatments/face/dermapen-microneedling"),
-  r("/treatments/skin-peel-treatment.html", "/treatments/skin/skin-peel"),
-  r("/treatments/pigmentation-treatment.html", "/treatments/skin/pigmentation-treatment"),
-  r("/treatments/acne-treatment.html", "/treatments/skin/acne"),
-  r("/treatments/excessive-sweating-treatment.html", "/treatments/skin/excessive-sweating"),
-  r("/treatments/body-contouring-treatment.html", "/treatments/body-wellness/body-contouring"),
-  r("/treatments/the-medi-lean-weight-loss-program.html", "/treatments/body-wellness/medi-lean"),
-  r("/treatments/varicose-veins-treatment.html", "/treatments/body-wellness/varicose-veins"),
-  r("/treatments/vitamin-drips-treatment.html", "/treatments/body-wellness/vitamin-drips"),
+  r("/treatments/botox-treatment.html", "/treatments/injectables/anti-wrinkle-treatment"),
+  r("/treatments/lip-filler-treatment.html", "/treatments/injectables/lip-filler"),
+  r("/treatments/jaw-and-chin-contouring.html", "/treatments/injectables/jaw-amp-chin-contouring"),
+  r("/treatments/dermapen-microneedling-treatment.html", "/treatments/injectables/dermapen-microneedling"),
+  r("/treatments/skin-peel-treatment.html", "/treatments/skin-hair/skin-peel"),
+  r("/treatments/pigmentation-treatment.html", "/treatments/skin-hair/pigmentation-treatment"),
+  r("/treatments/acne-treatment.html", "/treatments/skin-hair/acne"),
+  r("/treatments/excessive-sweating-treatment.html", "/treatments/skin-hair/excessive-sweating"),
+  r("/treatments/body-contouring-treatment.html", "/treatments/medical-services/body-contouring"),
+  r("/treatments/the-medi-lean-weight-loss-program.html", "/treatments/medical-services/medi-lean"),
+  r("/treatments/varicose-veins-treatment.html", "/treatments/medical-services/varicose-veins"),
+  r("/treatments/vitamin-drips-treatment.html", "/treatments/medical-services/vitamin-drips"),
   r(
     "/treatments/vitamin-drips-treatment/the-star-ultimate-vitamin-drip-durban.html",
-    "/treatments/body-wellness/vitamin-drips"
+    "/treatments/medical-services/vitamin-drips"
   ),
   r(
     "/treatments/vitamin-drips-treatment/the-star-hydration-drip-durban.html",
-    "/treatments/body-wellness/vitamin-drips"
+    "/treatments/medical-services/vitamin-drips"
   ),
   r(
     "/treatments/vitamin-drips-treatment/the-star-fitness-drip-durban.html",
-    "/treatments/body-wellness/vitamin-drips"
+    "/treatments/medical-services/vitamin-drips"
   ),
 
   // ─── Without .html (WordPress may have served both) ───────────────────────
-  r("/treatments/botox-treatment", "/treatments/face/anti-wrinkle-treatment"),
+  r("/treatments/botox-treatment", "/treatments/injectables/anti-wrinkle-treatment"),
   // ─── Slug rename: /botox → /anti-wrinkle-treatment ────────────────────────
-  r("/treatments/face/botox", "/treatments/face/anti-wrinkle-treatment"),
-  r("/treatments/lip-filler-treatment", "/treatments/face/lip-filler"),
-  r("/treatments/jaw-and-chin-contouring", "/treatments/face/jaw-amp-chin-contouring"),
-  r("/treatments/dermapen-microneedling-treatment", "/treatments/face/dermapen-microneedling"),
-  r("/treatments/skin-peel-treatment", "/treatments/skin/skin-peel"),
-  r("/treatments/pigmentation-treatment", "/treatments/skin/pigmentation-treatment"),
-  r("/treatments/acne-treatment", "/treatments/skin/acne"),
-  r("/treatments/excessive-sweating-treatment", "/treatments/skin/excessive-sweating"),
-  r("/treatments/body-contouring-treatment", "/treatments/body-wellness/body-contouring"),
-  r("/treatments/the-medi-lean-weight-loss-program", "/treatments/body-wellness/medi-lean"),
-  r("/treatments/varicose-veins-treatment", "/treatments/body-wellness/varicose-veins"),
-  r("/treatments/vitamin-drips-treatment", "/treatments/body-wellness/vitamin-drips"),
+  r("/treatments/injectables/botox", "/treatments/injectables/anti-wrinkle-treatment"),
+  r("/treatments/lip-filler-treatment", "/treatments/injectables/lip-filler"),
+  r("/treatments/jaw-and-chin-contouring", "/treatments/injectables/jaw-amp-chin-contouring"),
+  r("/treatments/dermapen-microneedling-treatment", "/treatments/injectables/dermapen-microneedling"),
+  r("/treatments/skin-peel-treatment", "/treatments/skin-hair/skin-peel"),
+  r("/treatments/pigmentation-treatment", "/treatments/skin-hair/pigmentation-treatment"),
+  r("/treatments/acne-treatment", "/treatments/skin-hair/acne"),
+  r("/treatments/excessive-sweating-treatment", "/treatments/skin-hair/excessive-sweating"),
+  r("/treatments/body-contouring-treatment", "/treatments/medical-services/body-contouring"),
+  r("/treatments/the-medi-lean-weight-loss-program", "/treatments/medical-services/medi-lean"),
+  r("/treatments/varicose-veins-treatment", "/treatments/medical-services/varicose-veins"),
+  r("/treatments/vitamin-drips-treatment", "/treatments/medical-services/vitamin-drips"),
 
   // ─── Legacy shop category tree (/c/...) ───────────────────────────────────
   // Confirmed 404s on 10 Aug 2026 against URLs Google still has indexed:
@@ -141,6 +141,18 @@ export const legacyRedirects: Redirect[] = [
   // Deliberately LAST: Next matches in order, so the specific brand rules
   // above win and only genuinely unknown categories fall through to /shop.
   r("/c/:path*", "/shop"),
+
+  // ─── Treatment category rename (Aug 2026) ─────────────────────────────────
+  // face → injectables, skin → skin-hair, body-wellness → medical-services.
+  // These 12 treatment URLs were live and indexed, so every old path 301s to
+  // its new home. The older .html redirects above were rewritten to point at
+  // the NEW paths directly rather than chaining through these.
+  r("/treatments/face/:slug", "/treatments/injectables/:slug"),
+  r("/treatments/skin/:slug", "/treatments/skin-hair/:slug"),
+  r("/treatments/body-wellness/:slug", "/treatments/medical-services/:slug"),
+  r("/treatments/face", "/treatments/injectables"),
+  r("/treatments/skin", "/treatments/skin-hair"),
+  r("/treatments/body-wellness", "/treatments/medical-services"),
 
   // ─── Remaining indexed 404s ───────────────────────────────────────────────
   r("/index.html", "/"),

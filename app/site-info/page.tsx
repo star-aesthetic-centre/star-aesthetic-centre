@@ -389,7 +389,7 @@ const goLiveSteps = [
 const keyPages = [
   { label: "Homepage", href: "/" },
   { label: "Treatments", href: "/treatments" },
-  { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment" },
+  { label: "Anti-Wrinkle Treatment", href: "/treatments/injectables/anti-wrinkle-treatment" },
   { label: "Dr. Rajeev Bangalee", href: "/dr-rajeev-bangalee" },
   { label: "Shop", href: "/shop" },
   { label: "Book", href: "/book" },

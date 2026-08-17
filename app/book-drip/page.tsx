@@ -27,7 +27,7 @@ export default async function BookDripPage({
           <nav className="mb-6 text-sm text-[#636374]">
             <Link href="/" className="hover:text-[#939EBA]">Home</Link>
             <span className="mx-2">›</span>
-            <Link href="/treatments/body-wellness/vitamin-drips" className="hover:text-[#939EBA]">
+            <Link href="/treatments/medical-services/vitamin-drips" className="hover:text-[#939EBA]">
               Vitamin Drips
             </Link>
             <span className="mx-2">›</span>
@@ -52,7 +52,7 @@ export default async function BookDripPage({
           <p className="mt-6 text-center text-sm text-[#636374]">
             Not sure which drip?{" "}
             <Link
-              href="/treatments/body-wellness/vitamin-drips"
+              href="/treatments/medical-services/vitamin-drips"
               className="font-semibold text-[#939EBA] hover:text-[#7A87A6]"
             >
               Compare all five →

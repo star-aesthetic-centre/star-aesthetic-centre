@@ -20,28 +20,28 @@ const treatmentsColumns = [
     {
         heading: "Face",
         items: [
-            { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment" },
-            { label: "Lip Fillers", href: "/treatments/face/lip-filler" },
-            { label: "Jaw & Chin Contouring", href: "/treatments/face/jaw-amp-chin-contouring" },
-            { label: "Dermapen Microneedling", href: "/treatments/face/dermapen-microneedling" },
+            { label: "Anti-Wrinkle Treatment", href: "/treatments/injectables/anti-wrinkle-treatment" },
+            { label: "Lip Fillers", href: "/treatments/injectables/lip-filler" },
+            { label: "Jaw & Chin Contouring", href: "/treatments/injectables/jaw-amp-chin-contouring" },
+            { label: "Dermapen Microneedling", href: "/treatments/injectables/dermapen-microneedling" },
         ],
     },
     {
         heading: "Skin",
         items: [
-            { label: "Skin Peels", href: "/treatments/skin/skin-peel" },
-            { label: "Pigmentation Treatment", href: "/treatments/skin/pigmentation-treatment" },
-            { label: "Acne Treatment", href: "/treatments/skin/acne" },
-            { label: "Excessive Sweating", href: "/treatments/skin/excessive-sweating" },
+            { label: "Skin Peels", href: "/treatments/skin-hair/skin-peel" },
+            { label: "Pigmentation Treatment", href: "/treatments/skin-hair/pigmentation-treatment" },
+            { label: "Acne Treatment", href: "/treatments/skin-hair/acne" },
+            { label: "Excessive Sweating", href: "/treatments/skin-hair/excessive-sweating" },
         ],
     },
     {
         heading: "Body & Wellness",
         items: [
-            { label: "Body Contouring", href: "/treatments/body-wellness/body-contouring" },
-            { label: "Medi-Lean Weight Loss", href: "/treatments/body-wellness/medi-lean" },
-            { label: "Varicose Veins", href: "/treatments/body-wellness/varicose-veins" },
-            { label: "Vitamin Drips", href: "/treatments/body-wellness/vitamin-drips" },
+            { label: "Body Contouring", href: "/treatments/medical-services/body-contouring" },
+            { label: "Medi-Lean Weight Loss", href: "/treatments/medical-services/medi-lean" },
+            { label: "Varicose Veins", href: "/treatments/medical-services/varicose-veins" },
+            { label: "Vitamin Drips", href: "/treatments/medical-services/vitamin-drips" },
         ],
     },
 ];
