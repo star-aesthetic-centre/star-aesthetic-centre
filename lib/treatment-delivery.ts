@@ -5,7 +5,13 @@
  *
  *   "All medical injectable treatments are personally assessed and performed
  *    by Dr Bangalee. Selected skin treatments may be performed by a trained
- *    aesthetic practitioner under clinic protocols."
+ *    assistant under clinic protocols."
+ *
+ * "Assistant" is deliberate. The original wording said "aesthetic
+ * practitioner", which reads as a professional title the clinic would have to
+ * stand behind. The practice has not confirmed her registration status, and
+ * the website must not be the thing that asserts a credential nobody has
+ * verified. "Assistant" claims only what is known to be true.
  *
  * This lives in one place because the site used to say something stronger in
  * two of them — the treatment-page doctor card claimed every treatment was
@@ -18,7 +24,7 @@
 
 export const DELIVERY_STATEMENT =
   "All medical injectable treatments are personally assessed and performed by Dr Bangalee. " +
-  "Selected skin treatments may be performed by a trained aesthetic practitioner under clinic protocols.";
+  "Selected skin treatments may be performed by a trained assistant under clinic protocols.";
 
 /**
  * Treatments involving a needle or cannula — doctor-performed, without
@@ -53,5 +59,5 @@ export function isInjectable(slug: string): boolean {
 export function deliveryNote(slug: string, treatmentTitle: string): string {
   return isInjectable(slug)
     ? `${treatmentTitle} is personally assessed and performed by Dr. Bangalee, with home-care products he selects himself.`
-    : `${treatmentTitle} is assessed and planned by Dr. Bangalee, and may be performed by a trained aesthetic practitioner under his clinic protocols.`;
+    : `${treatmentTitle} is assessed and planned by Dr. Bangalee, and may be performed by a trained assistant under his clinic protocols.`;
 }

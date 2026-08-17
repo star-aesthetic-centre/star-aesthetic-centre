@@ -81,7 +81,7 @@ export const DEFAULT_CONTACT: ContactPageContent = {
     body: "We typically respond within 2 business hours. You're welcome to call or WhatsApp us directly if you prefer.",
   },
   doctorCard: {
-    body: "Consultations and injectable procedures are assessed and performed by Dr. Bangalee. Selected skin treatments may be carried out by an appropriately trained practitioner under clinic protocols, and IV infusions may be monitored by Dr. Bangalee or an appropriately registered nursing professional.",
+    body: "All medical injectable treatments are personally assessed and performed by Dr Bangalee. Selected skin treatments may be performed by a trained assistant under clinic protocols.",
   },
   contact: {
     phone: "0315731325",
@@ -144,7 +144,7 @@ export const DEFAULT_DR: DrPageContent = {
     title: "DR. RAJEEV BANGALEE",
     subtitle: "MBBch · Aesthetic Medicine · Durban North",
     intro:
-      "A qualified GP with 20+ years of clinical experience in South Africa and the UK. Injectable treatments are personally performed by Dr. Bangalee; selected skin treatments are performed by our aesthetic therapist under his clinical protocols.",
+      "A qualified GP with 20+ years of clinical experience in South Africa and the UK. Injectable treatments are personally performed by Dr. Bangalee; selected skin treatments may be performed by a trained assistant under his clinic protocols.",
     credentialPills: ["GP · 20+ Years", "Wits Graduate 2001", "Aesthetic Med Diploma 2012", "Durban North"],
     ctaPrimary: "Book a Consultation",
     ctaSecondary: "View All Treatments",

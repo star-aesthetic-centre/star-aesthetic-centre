@@ -14,7 +14,7 @@
  * in lib/google-reviews.ts when it changes.
  *
  * Removed "100% Doctor-Led" — injectables are all performed by Dr. Bangalee,
- * but selected skin treatments are performed by an aesthetic therapist, so
+ * but selected skin treatments may be performed by a trained assistant, so
  * "100%" was contradicted elsewhere on the same page.
  */
 

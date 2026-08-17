@@ -35,7 +35,7 @@ export default function TreatmentCardGrid({
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-[#636374] sm:text-right">
             All injectable and medical procedures are personally performed by Dr. Rajeev Bangalee.
-            Selected skin treatments are performed by our aesthetic therapist under his clinical protocols.
+            Selected skin treatments may be performed by a trained assistant under his clinic protocols.
           </p>
         </div>
       )}

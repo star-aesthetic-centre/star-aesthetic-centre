@@ -522,11 +522,11 @@ export default async function DrBangaleePage() {
                 </div>
               </div>
 
-              {/* Photo 2 — Anti-wrinkle treatment with the nurse */}
+              {/* Photo 2 — Anti-wrinkle treatment with the clinic assistant */}
               <div className="group relative aspect-[4/3] overflow-hidden bg-[#E5E4E0]">
                 <Image
                   src="/images/dr-rajeev-bangalee-anti-wrinkle-treatment-durban-north.webp"
-                  alt="Dr. Rajeev Bangalee marking injection points for anti-wrinkle treatment, assisted by a nurse, Durban North"
+                  alt="Dr. Rajeev Bangalee marking injection points for anti-wrinkle treatment, assisted by a clinic assistant, Durban North"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 1024px) 50vw, 380px"
@@ -710,24 +710,9 @@ export default async function DrBangaleePage() {
           </div>
         </section>
 
-        {/* ── 8b. WHO PERFORMS YOUR TREATMENT ──────────────────────── */}
-        {/* The canonical statement. Deliberately plain and unstyled-looking:
-            this is a disclosure, not a selling point, and dressing it up
-            would undercut it. */}
-        <section className="border-b border-[#E5E4E0] bg-white py-16">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <div className="border-l-2 border-[#1B3D6E] pl-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#6B6966]">
-                Who Performs Your Treatment
-              </p>
-              <p className="mt-4 text-base leading-relaxed text-[#1A1917]">
-                {DELIVERY_STATEMENT}
-              </p>
-            </div>
-          </div>
-        </section>
-
         {/* ── 9. TREATMENTS CROSS-LINK ─────────────────────────────── */}
+        {/* The who-performs statement introduces this section — the point
+            where a patient is choosing a treatment is where it matters. */}
         <section className="py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-12 text-center">
@@ -742,7 +727,7 @@ export default async function DrBangaleePage() {
                 Treatments Offered by Dr. Bangalee
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-sm text-[#6B6966]">
-                Medical and injectable procedures are personally performed by Dr. Bangalee. Selected skin treatments, such as peels and microneedling, are performed by our aesthetic therapist under his clinical protocols.
+                {DELIVERY_STATEMENT}
               </p>
             </div>
 
