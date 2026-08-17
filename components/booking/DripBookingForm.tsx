@@ -47,6 +47,15 @@ function longDate(iso: string) {
   });
 }
 
+/**
+ * Shown when the API gives us no usable reason — a crash, a timeout, or the
+ * honeypot tripping on a real patient. "The booking could not be completed"
+ * left people with nowhere to go; a phone number turns a dead end into a
+ * booking the clinic can still take.
+ */
+const FALLBACK_ERROR =
+  "We could not complete that booking online. Please call the clinic on 031 573 1325 and we will secure your slot.";
+
 export default function DripBookingForm({ initialDrip }: { initialDrip?: string }) {
   const [drip, setDrip] = useState<DripType>(
     DRIP_TYPES.find((d) => d.slug === initialDrip) ?? DRIP_TYPES[0],
@@ -107,14 +116,14 @@ export default function DripBookingForm({ initialDrip }: { initialDrip?: string 
           patientEmail: form.get("patientEmail"),
           patientPhone: form.get("patientPhone"),
           notes: form.get("notes"),
-          company_reference: form.get("company_reference"),
+          sac_hp_ref: form.get("sac_hp_ref"),
         }),
       });
       const data = (await res.json()) as { booking?: Booking; error?: string };
-      if (!res.ok || !data.booking) throw new Error(data.error || "The booking could not be completed.");
+      if (!res.ok || !data.booking) throw new Error(data.error || FALLBACK_ERROR);
       setBooking(data.booking);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "The booking could not be completed.");
+      setError(err instanceof Error ? err.message : FALLBACK_ERROR);
       // A 409 means somebody took the slot — refresh so they can see what is left.
       fetch(`/api/drip-bookings?date=${date}`, { cache: "no-store" })
         .then((r) => r.json())
@@ -281,14 +290,19 @@ export default function DripBookingForm({ initialDrip }: { initialDrip?: string 
           </label>
         </div>
 
-        {/* Honeypot — obscure name so browsers do not autofill it. */}
+        {/* Honeypot. The name must carry NO meaning a browser or password
+            manager recognises. This was "company_reference", and something on
+            a real patient's browser filled it — autofill matches "company"
+            regardless of autoComplete="off" — which silently failed their
+            booking on 17 Aug 2026. pointer-events-none stops a stray click
+            landing in it too. */}
         <input
           type="text"
-          name="company_reference"
+          name="sac_hp_ref"
           tabIndex={-1}
           autoComplete="off"
           aria-hidden="true"
-          className="absolute left-[-9999px] h-0 w-0 opacity-0"
+          className="pointer-events-none absolute left-[-9999px] h-0 w-0 opacity-0"
         />
       </fieldset>
 

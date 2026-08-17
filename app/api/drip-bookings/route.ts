@@ -87,8 +87,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Please check the form and try again." }, { status: 400 });
   }
 
-  // Honeypot — obscure name so browsers do not autofill it.
-  if (String(body.company_reference ?? "").trim()) {
+  // Honeypot. Accepts the old field name too, so a browser cached with the
+  // previous form still submits successfully rather than silently failing.
+  //
+  // Logged loudly: when this trips it is usually a bot, but on 17 Aug 2026 it
+  // caught a real patient — something on their browser filled the old
+  // "company_reference" field and the booking died with no trace anywhere.
+  const honeypot =
+    String(body.sac_hp_ref ?? "").trim() || String(body.company_reference ?? "").trim();
+  if (honeypot) {
+    console.warn(
+      `[drip-bookings] HONEYPOT TRIPPED — value=${JSON.stringify(honeypot.slice(0, 40))} ` +
+        `name=${JSON.stringify(String(body.patientName ?? ""))} ` +
+        `email=${JSON.stringify(String(body.patientEmail ?? ""))} ` +
+        `phone=${JSON.stringify(String(body.patientPhone ?? ""))}`
+    );
     return NextResponse.json({ ok: true });
   }
 

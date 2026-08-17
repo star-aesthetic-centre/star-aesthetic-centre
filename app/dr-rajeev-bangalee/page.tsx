@@ -28,7 +28,11 @@ export async function generateMetadata(): Promise<Metadata> {
     keywords: [
       "Dr Rajeev Bangalee",
       "aesthetic doctor Durban North",
-      "aesthetic medicine specialist Durban",
+      // "Specialist" is HPCSA-restricted to registered specialities, and
+      // aesthetic medicine is not one. Use the full compliant descriptor.
+      // No internal comma: this array is serialised into a comma-delimited
+      // keywords meta tag, so a comma here would split it into two keywords.
+      "Dr Rajeev Bangalee registered medical practitioner with postgraduate training in aesthetic medicine",
       "cosmetic doctor KwaZulu-Natal",
       "Botox doctor Durban",
       "dermal fillers Durban",
@@ -37,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "GP aesthetic medicine Durban",
       "medical aesthetic clinic Durban North",
       "anti ageing treatment KwaZulu-Natal",
-      "lip filler specialist Durban",
+      "lip filler treatment Durban",
     ],
   });
 }
@@ -89,7 +93,7 @@ const personSchema = {
     {
       "@type": "EducationalOccupationalCredential",
       name: "Diploma in Aesthetic Medicine",
-      credentialCategory: "Specialist Diploma",
+      credentialCategory: "Postgraduate Diploma",
       recognizedBy: {
         "@type": "Organization",
         name: "American Academy of Aesthetic Medicine (AAAM)",
@@ -201,7 +205,7 @@ const qualifications = [
   },
   {
     year: "2001–2006",
-    degree: "General Practice & Specialist Clinical Work",
+    degree: "General Practice & Hospital Clinical Work",
     institution: "United Kingdom",
     icon: Stethoscope,
     note: "Extensive post-graduate clinical experience across NHS and private practices in the UK.",
