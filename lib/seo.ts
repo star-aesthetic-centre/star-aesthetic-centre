@@ -220,7 +220,7 @@ export function medicalProcedureSchema(options: {
     description: stripHtml(options.description).slice(0, 500),
     url: options.url,
     procedureType: "NoninvasiveProcedure",
-    howPerformed: "Performed by Dr. Rajeev Bangalee (MB, BS) at Star Aesthetic Centre, Durban North.",
+    howPerformed: "Performed by Dr. Rajeev Bangalee (MBBch) at Star Aesthetic Centre, Durban North.",
     ...(options.priceFrom
       ? {
           offers: {

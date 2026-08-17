@@ -117,7 +117,7 @@ export default function TermsPage() {
               <div className="space-y-4 text-sm leading-relaxed text-[#6B6966]">
                 <p>By accessing or using the Star Aesthetic Centre website (staraesthetic.co.za), booking a consultation or treatment, or purchasing a product from our online shop, you confirm that you have read, understood, and agree to be bound by these Terms & Conditions and our <Link href="/legal/privacy-policy" className="text-[#1B3D6E] underline underline-offset-2 hover:no-underline">Privacy Policy</Link>.</p>
                 <p>If you do not agree with any part of these terms, you must discontinue use of the website and refrain from booking our services.</p>
-                <p>These terms apply to all visitors, patients, and online shop customers of Star Aesthetic Centre, a medical aesthetic practice registered in South Africa and directed by Dr. Rajeev Bangalee, MB, BS.</p>
+                <p>These terms apply to all visitors, patients, and online shop customers of Star Aesthetic Centre, a medical aesthetic practice registered in South Africa and directed by Dr. Rajeev Bangalee, MBBch.</p>
               </div>
             </section>
 

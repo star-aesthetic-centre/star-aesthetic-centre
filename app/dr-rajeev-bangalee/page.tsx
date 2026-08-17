@@ -50,7 +50,7 @@ const personSchema = {
   honorificPrefix: "Dr.",
   jobTitle: "General Practitioner · Aesthetic Medicine",
   description:
-    "Dr. Rajeev Bangalee is the Director of Star Aesthetic Centre in Durban North, KwaZulu-Natal. A qualified GP specialising in Aesthetic Medicine with over 20 years of clinical experience in South Africa and the United Kingdom.",
+    "Dr. Rajeev Bangalee is the Director of Star Aesthetic Centre in Durban North, KwaZulu-Natal. A qualified GP with postgraduate training in aesthetic medicine and over 20 years of clinical experience in South Africa and the United Kingdom.",
   image:
     "/images/dr-rajeev-bangalee-director-of-star-aesthetic-medical-centre-durban-002.webp",
   url: `${SITE_URL}/dr-rajeev-bangalee`,
@@ -81,7 +81,7 @@ const personSchema = {
   hasCredential: [
     {
       "@type": "EducationalOccupationalCredential",
-      name: "MB, BS — Bachelor of Medicine and Bachelor of Surgery",
+      name: "MBBch — Bachelor of Medicine and Bachelor of Surgery",
       credentialCategory: "Medical Degree",
       recognizedBy: { "@type": "Organization", name: "University of the Witwatersrand" },
       dateCreated: "2001",
@@ -114,7 +114,7 @@ const faqSchema = {
       name: "What qualifications does Dr. Bangalee hold?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Dr. Bangalee holds an MB, BS from the University of the Witwatersrand (2001), a Diploma in Aesthetic Medicine from the American Academy of Aesthetic Medicine (2012), and a Clinical Management in Dermatology certificate (2015). He is registered with the HPCSA, serves as Chairman of the Durban Independent Practitioners Association (DIPA), and is a member of the KZN Doctors Healthcare Coalition (KZNDHC) and the Aesthetic and Anti-Aging Medicine Society of South Africa (AAMSSA).",
+        text: "Dr. Bangalee holds an MBBch from the University of the Witwatersrand (2001), a Diploma in Aesthetic Medicine from the American Academy of Aesthetic Medicine (2012), and a Clinical Management in Dermatology certificate (2015). He is registered with the HPCSA, serves as Chairman of the Durban Independent Practitioners Association (DIPA), and is a director of the KZN Doctors Healthcare Coalition (KZNDHC) and a member of the Aesthetic and Anti-Aging Medicine Society of South Africa (AAMSSA).",
       },
     },
     {
@@ -122,7 +122,7 @@ const faqSchema = {
       name: "Is Dr. Bangalee a qualified medical doctor?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Dr. Bangalee is a fully qualified General Practitioner (GP) who has specialised in Aesthetic Medicine. All treatments at Star Aesthetic Centre are performed or directly overseen by a licensed medical professional, not a beauty therapist or unqualified practitioner.",
+        text: "Yes. Dr. Bangalee is a fully qualified General Practitioner (GP) with postgraduate training in aesthetic medicine. All treatments at Star Aesthetic Centre are performed or directly overseen by a licensed medical professional, not a beauty therapist or unqualified practitioner.",
       },
     },
     {
@@ -194,7 +194,7 @@ const breadcrumbSchema = {
 const qualifications = [
   {
     year: "2001",
-    degree: "MB, BS — Bachelor of Medicine & Surgery",
+    degree: "MBBch — Bachelor of Medicine & Surgery",
     institution: "University of the Witwatersrand, Johannesburg",
     icon: GraduationCap,
     note: "Graduated with distinction. Commenced General Practice.",
@@ -225,7 +225,7 @@ const qualifications = [
 const affiliations = [
   "Registered — Health Professions Council of South Africa (HPCSA)",
   "Chairman — Durban Independent Practitioners Association (DIPA)",
-  "Member — KZN Doctors Healthcare Coalition (KZNDHC)",
+  "Director — KZN Doctors Healthcare Coalition (KZNDHC)",
   "Member — Aesthetic and Anti-Aging Medicine Society of South Africa (AAMSSA)",
 ];
 
@@ -254,11 +254,11 @@ const brands = [
 const faqs = [
   {
     q: "What qualifications does Dr. Bangalee hold?",
-    a: "Dr. Bangalee holds an MB, BS from the University of the Witwatersrand (2001), a Diploma in Aesthetic Medicine from the American Academy of Aesthetic Medicine (2012), and a Clinical Management in Dermatology certificate (2015). He is registered with the HPCSA, serves as Chairman of the Durban Independent Practitioners Association (DIPA), and is a member of the KZN Doctors Healthcare Coalition (KZNDHC) and the Aesthetic and Anti-Aging Medicine Society of South Africa (AAMSSA).",
+    a: "Dr. Bangalee holds an MBBch from the University of the Witwatersrand (2001), a Diploma in Aesthetic Medicine from the American Academy of Aesthetic Medicine (2012), and a Clinical Management in Dermatology certificate (2015). He is registered with the HPCSA, serves as Chairman of the Durban Independent Practitioners Association (DIPA), and is a director of the KZN Doctors Healthcare Coalition (KZNDHC) and a member of the Aesthetic and Anti-Aging Medicine Society of South Africa (AAMSSA).",
   },
   {
     q: "Is Dr. Bangalee a qualified medical doctor?",
-    a: "Yes. Dr. Bangalee is a fully qualified General Practitioner (GP) who has specialised in Aesthetic Medicine. All treatments at Star Aesthetic Centre are performed or directly overseen by a licensed medical professional — not a beauty therapist or unqualified practitioner. This distinction is critically important for patient safety.",
+    a: "Yes. Dr. Bangalee is a fully qualified General Practitioner (GP) with postgraduate training in aesthetic medicine. All treatments at Star Aesthetic Centre are performed or directly overseen by a licensed medical professional — not a beauty therapist or unqualified practitioner. This distinction is critically important for patient safety.",
   },
   {
     q: "How long has Dr. Bangalee been practising aesthetic medicine?",

@@ -5,7 +5,7 @@ import Link from "next/link";
  * "Assessed by Dr. Bangalee" — the treatment photo with a doctor byline
  * beneath it, mirroring the layout on the sister site.
  *
- * The page already said "Medically reviewed by Dr. Rajeev Bangalee, MB, BS"
+ * The page already said "Medically reviewed by Dr. Rajeev Bangalee, MBBch"
  * in the hero as plain text. A face carries that credential far further than
  * a line of grey type: this is a doctor-led clinic and the whole proposition
  * rests on it being one.
@@ -52,7 +52,7 @@ export function DoctorAssessedCard({
             </Link>
           </p>
           <p className="mt-0.5 text-xs leading-relaxed text-[#636374]">
-            MB, BS · {treatmentTitle} is planned and performed by the doctor, with home-care
+            MBBch · {treatmentTitle} is planned and performed by the doctor, with home-care
             products he selects himself.
           </p>
         </div>

@@ -46,7 +46,7 @@ export const BRAND_TERMS: GlossaryTerm[] = [
       },
     ],
     clinicRelevance:
-      "At Star Aesthetic Centre, all Anti-Wrinkle Treatments using botulinum toxin (Botox®) are performed exclusively by Dr. Rajeev Bangalee (MB, BS). Every treatment begins with a full consultation — discussing your concerns, assessing your facial anatomy, and creating a precise treatment plan. Photography is taken before and reviewed at a complimentary 2-week follow-up. Dr. Bangalee's approach is always natural-looking: refreshed, not frozen.",
+      "At Star Aesthetic Centre, all Anti-Wrinkle Treatments using botulinum toxin (Botox®) are performed exclusively by Dr. Rajeev Bangalee (MBBch). Every treatment begins with a full consultation — discussing your concerns, assessing your facial anatomy, and creating a precise treatment plan. Photography is taken before and reviewed at a complimentary 2-week follow-up. Dr. Bangalee's approach is always natural-looking: refreshed, not frozen.",
     faq: [
       {
         q: "Is Botox® the same as an Anti-Wrinkle Treatment?",

@@ -3,7 +3,7 @@
  { value: "12", label: "Expert Treatments" },
  { value: "6", label: "Skincare Brands" },
  { value: "5.0★", label: "21 Google Reviews" },
- { value: "MB, BS", label: "Doctor-Led Care" },
+ { value: "MBBch", label: "Doctor-Led Care" },
 ];
 
 /**

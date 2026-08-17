@@ -123,7 +123,7 @@ export default function ShopHero() {
 
                 <div className="mt-6 h-px w-full bg-gradient-to-r from-transparent to-[#939EBA]/40" />
                 <p className="mt-4 text-center text-[10px] text-[#636E85]">
-                  Reviewed by Dr. Rajeev Bangalee · MB, BS
+                  Reviewed by Dr. Rajeev Bangalee · MBBch
                 </p>
               </div>
             </div>

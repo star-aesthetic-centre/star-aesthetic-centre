@@ -275,7 +275,7 @@ export default function AssessmentFlow() {
                 </button>
 
                 <p className="text-xs text-[#3D4E63]">
-                    Created by Dr. Rajeev Bangalee · MB, BS · 20+ years clinical experience
+                    Created by Dr. Rajeev Bangalee · MBBch · 20+ years clinical experience
                 </p>
             </div>
         );

@@ -540,7 +540,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                             <p className="mt-6 text-xs text-[#636374]">
                                 Medically reviewed by{" "}
                                 <Link href="/dr-rajeev-bangalee" className="font-semibold text-[#939EBA] hover:underline">
-                                    Dr. Rajeev Bangalee, MB, BS
+                                    Dr. Rajeev Bangalee, MBBch
                                 </Link>
                                 {" "}· Star Aesthetic Centre, Durban North
                             </p>
@@ -957,7 +957,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                         <strong className="font-medium text-[#525866]">Medical disclaimer:</strong> Treatment results vary between individuals.
                         All procedures are performed by{" "}
                         <Link href="/dr-rajeev-bangalee" className="font-semibold text-[#636374] hover:text-[#939EBA] transition-colors">
-                            Dr. Rajeev Bangalee (MB, BS)
+                            Dr. Rajeev Bangalee (MBBch)
                         </Link>
                         , a registered medical practitioner.
                         Information on this page is for educational purposes and does not replace a personal consultation.

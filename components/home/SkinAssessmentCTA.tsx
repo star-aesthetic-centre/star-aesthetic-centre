@@ -80,7 +80,7 @@ export default function SkinAssessmentCTA() {
                                 {/* Clinic label */}
                                 <div className="mb-6">
                                     <p className="text-[10px] uppercase tracking-[0.3em] text-[#939EBA]">Star Aesthetic Centre</p>
-                                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#636E85]">Dr. Rajeev Bangalee · MB, BS</p>
+                                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#636E85]">Dr. Rajeev Bangalee · MBBch</p>
                                 </div>
 
                                 {/* Score circle */}

@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         default: "Star Aesthetic Centre — Dr. Rajeev Bangalee, Durban North",
     },
     description:
-        "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling & more — by Dr. Rajeev Bangalee (MB, BS).",
+        "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling & more — by Dr. Rajeev Bangalee (MBBch).",
     metadataBase: new URL(SITE_URL),
     keywords: DEFAULT_KEYWORDS,
     alternates: { canonical: SITE_URL },
@@ -70,7 +70,7 @@ const localBusinessSchema = {
     "url": SITE_URL,
     "logo": `${SITE_URL}/images/star-aesthetic-centre-durban-logo-001.png`,
     "image": `${SITE_URL}${DEFAULT_OG_IMAGE}`,
-    "description": "Doctor-led aesthetic treatments and curated medical skincare in Durban North by Dr. Rajeev Bangalee (MB, BS). Botox, fillers, skin peels, microneedling and more.",
+    "description": "Doctor-led aesthetic treatments and curated medical skincare in Durban North by Dr. Rajeev Bangalee (MBBch). Botox, fillers, skin peels, microneedling and more.",
     "telephone": "+27315731325",
     "email": "info@staraesthetic.site",
     "priceRange": "R850–R2500",
@@ -105,7 +105,7 @@ const localBusinessSchema = {
         "@type": "Person",
         "name": "Dr. Rajeev Bangalee",
         "jobTitle": "Aesthetic Physician",
-        "description": "MB, BS — HPCSA registered aesthetic medicine practitioner",
+        "description": "MBBch — HPCSA registered aesthetic medicine practitioner",
     },
     "medicalSpecialty": "Aesthetic Medicine",
     "sameAs": [

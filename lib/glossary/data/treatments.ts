@@ -46,7 +46,7 @@ export const TREATMENT_TERMS: GlossaryTerm[] = [
       },
     ],
     clinicRelevance:
-      "Dr Rajeev Bangalee (MB, BS) has extensive experience with botulinum toxin treatments at Star Aesthetic Centre, Durban North. He treats each patient individually — the number of units, placement, and technique are tailored to your facial anatomy and aesthetic goals. We take a conservative, natural-looking approach: the goal is refreshed, not frozen. Consultations are available to discuss what botulinum toxin can and cannot do for your specific concerns.",
+      "Dr Rajeev Bangalee (MBBch) has extensive experience with botulinum toxin treatments at Star Aesthetic Centre, Durban North. He treats each patient individually — the number of units, placement, and technique are tailored to your facial anatomy and aesthetic goals. We take a conservative, natural-looking approach: the goal is refreshed, not frozen. Consultations are available to discuss what botulinum toxin can and cannot do for your specific concerns.",
     faq: [
       {
         q: "Does botulinum toxin hurt?",

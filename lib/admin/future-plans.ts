@@ -228,7 +228,7 @@ export const DR_BANGALEE_VOICE = {
   summary:
     "Content should read as medically authoritative and aligned with Dr Bangalee’s clinical voice — not generic AI or US med-spa copy.",
   mustFeelLike: [
-    "Written or clinically reviewed by a medical doctor (MB, BS), not a marketing agency.",
+    "Written or clinically reviewed by a medical doctor (MBBch), not a marketing agency.",
     "Natural-results philosophy: refreshed, not frozen; subtle, not overdone.",
     "South African context: ZAR pricing inc VAT, Durban North location, POPIA-aware.",
     "Honest about limits: what Botox cannot fix, when filler is needed, when skincare comes first.",
@@ -237,7 +237,7 @@ export const DR_BANGALEE_VOICE = {
     "Research phase: collect real patient phrases (GBP reviews, enquiry emails, Niki transcripts).",
     "Draft in team voice using research doc — clinical accuracy first.",
     "Dr Bangalee review pass before publish (even if ghost-written initially).",
-    "“Medically reviewed by Dr Rajeev Bangalee, MB, BS” byline on every concern + learn article.",
+    "“Medically reviewed by Dr Rajeev Bangalee, MBBch” byline on every concern + learn article.",
     "Person schema + MedicalBusiness already on site — cross-link to /dr-rajeev-bangalee.",
   ],
   avoid: [

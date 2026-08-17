@@ -10,7 +10,7 @@ export const DEFAULT_HOME: HomePageContent = {
     headingLine1: "Doctor-led aesthetics.",
     headingEmphasis: "Natural-looking results.",
     subtitle:
-      "Personalised aesthetic medicine in Durban North — injectables, skin treatments and pharmaceutical-grade skincare, led by Dr. Rajeev Bangalee (MB, BS).",
+      "Personalised aesthetic medicine in Durban North — injectables, skin treatments and pharmaceutical-grade skincare, led by Dr. Rajeev Bangalee (MBBch).",
     ctaPrimary: "Book a Free 15-Minute Consultation",
     ctaSecondary: "Shop skincare",
     trustLine: "HPCSA registered · Every injectable personally performed by Dr. Bangalee",
@@ -33,14 +33,14 @@ export const DEFAULT_HOME: HomePageContent = {
     badgeLabel: "Years Experience",
     ctaLabel: "About Dr. Bangalee",
     // Aligned to the doctor page, biography, FAQ and structured data, which
-    // all state MB, BS from the University of the Witwatersrand (2001) and
+    // all state MBBch from the University of the Witwatersrand (2001) and
     // membership of HPCSA/DIPA/KZNDHC/AAMSSA. This block previously said
-    // "MBChB · University of Natal" and "SAMA · ACASA" — a different degree,
+    // "MBBch · University of Natal" and "SAMA · ACASA" — a different degree,
     // a different university and different bodies. Dr. Bangalee must confirm
     // which is correct; the Wits version is used here because it appears in
     // five places with dates while this was the single outlier.
     credentials: [
-      "MB, BS · University of the Witwatersrand",
+      "MBBch · University of the Witwatersrand",
       "Diploma in Aesthetic Medicine (AAAM)",
       "HPCSA Registered",
       "20+ Years Clinical Experience",
@@ -65,7 +65,7 @@ export const DEFAULT_HOME: HomePageContent = {
   seo: {
     title: "Star Aesthetic Centre — Doctor-Led Aesthetics in Durban North",
     description:
-      "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling and more — by Dr. Rajeev Bangalee (MB, BS). Book your consultation today.",
+      "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling and more — by Dr. Rajeev Bangalee (MBBch). Book your consultation today.",
   },
 };
 
@@ -134,7 +134,7 @@ export const DEFAULT_CONTACT: ContactPageContent = {
 };
 
 const DR_BIO_HTML = `<p>Dr. Rajeev Bangalee is the founder and director of Star Aesthetic Centre in Durban North, KwaZulu-Natal. He is a qualified General Practitioner who has dedicated his post-graduate career to the science — and the art — of aesthetic medicine.</p>
-<p>After completing his MB, BS at the University of the Witwatersrand in 2001, Dr. Bangalee pursued extensive clinical experience in the United Kingdom, working across specialised fields and gaining exposure to high standards of care and a broad patient base. This period abroad shaped his disciplined, evidence-first approach to medicine.</p>
+<p>After completing his MBBch at the University of the Witwatersrand in 2001, Dr. Bangalee pursued extensive clinical experience in the United Kingdom, working across specialised fields and gaining exposure to high standards of care and a broad patient base. This period abroad shaped his disciplined, evidence-first approach to medicine.</p>
 <p>Returning to South Africa, Dr. Bangalee formalised his aesthetic medicine training with a Diploma from the American Academy of Aesthetic Medicine in 2012 — one of the most respected internationally recognised qualifications in the field. He has since added certification in Clinical Management in Dermatology, continuously expanding his skill set through local and international workshops and conferences.</p>
 <p>What sets Dr. Bangalee apart is not only his credentials — it is his philosophy. He believes that every patient deserves a personalised plan, every product must be clinically vetted, and every result should look natural. No cookie-cutter solutions. No unnecessary procedures. Just honest, medical-grade care tailored to you.</p>`;
 
@@ -142,7 +142,7 @@ export const DEFAULT_DR: DrPageContent = {
   hero: {
     overline: "Meet the Director",
     title: "DR. RAJEEV BANGALEE",
-    subtitle: "MB, BS · Aesthetic Medicine · Durban North",
+    subtitle: "MBBch · Aesthetic Medicine · Durban North",
     intro:
       "A qualified GP with 20+ years of clinical experience in South Africa and the UK. Injectable treatments are personally performed by Dr. Bangalee; selected skin treatments are performed by our aesthetic therapist under his clinical protocols.",
     credentialPills: ["GP · 20+ Years", "Wits Graduate 2001", "Aesthetic Med Diploma 2012", "Durban North"],

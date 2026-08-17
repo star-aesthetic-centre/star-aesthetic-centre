@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const trustBadges = [
-    { icon: Award, label: "MB, BS Qualified GP" },
+    { icon: Award, label: "MBBch Qualified GP" },
     { icon: Star, label: "5.0★ · 21 Google Reviews" },
     { icon: Shield, label: "HPCSA Registered" },
     { icon: Clock, label: "20+ Years Experience" },
@@ -132,7 +132,7 @@ export default async function ContactPage() {
                                     </div>
                                     <div>
                                         <p className="font-heading font-bold text-base leading-tight">Dr. Rajeev Bangalee</p>
-                                        <p className="text-xs text-[#939EBA] mt-0.5">MB, BS · Aesthetic Medicine</p>
+                                        <p className="text-xs text-[#939EBA] mt-0.5">MBBch · Aesthetic Medicine</p>
                                     </div>
                                 </div>
                                 <p className="text-sm text-[#A8B4CC] leading-relaxed">
