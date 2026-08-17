@@ -1,6 +1,7 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/seo";
+import { whatsappLink } from "@/lib/constants/contact";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Shipping & Delivery | Star Aesthetic Centre",
@@ -147,7 +148,7 @@ export default function ShippingPage() {
                 Email Us
               </a>
               <a
-                href="https://wa.me/27769770386"
+                href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block border border-[#0F2647] text-[#0F2647] text-sm font-semibold px-8 py-3 hover:bg-[#0F2647] hover:text-white transition-colors"

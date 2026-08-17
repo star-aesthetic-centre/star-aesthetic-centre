@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { whatsappLink } from "@/lib/constants/contact";
 import { X, Phone, ChevronRight, Mic, MicOff, Loader2, MessageCircle, SkipForward } from "lucide-react";
 import { INTRODUCTION_TOUR_SECTIONS } from "@/lib/content/introduction-tour";
 import { useNiki } from "./NikiProvider";
@@ -67,11 +68,11 @@ export function NikiFloatingWidget() {
     }
   };
 
-  const whatsappText = encodeURIComponent(
+  // Raw, not encoded — whatsappLink() does the encoding.
+  const whatsappRaw =
     pageContext.type === "product" && pageContext.productName
       ? `Hi, I have a question about ${pageContext.productName} from Star Aesthetic Centre.`
-      : "Hi, I have a question for Star Aesthetic Centre."
-  );
+      : "Hi, I have a question for Star Aesthetic Centre.";
 
   return (
     <>
@@ -278,7 +279,7 @@ export function NikiFloatingWidget() {
               </div>
 
               <a
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27769770386"}?text=${whatsappText}`}
+                href={whatsappLink(whatsappRaw)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mb-2 flex items-center justify-between bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1EBD58]"

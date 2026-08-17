@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { whatsappLink } from "@/lib/constants/contact";
 import Image from "next/image";
 import { Truck, RotateCcw } from "lucide-react";
 import { RewardsCard } from "@/components/shared/RewardsCard";
@@ -211,7 +212,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
               {/* WhatsApp order */}
               <a
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27769770386"}?text=Hi%2C%20I'd%20like%20to%20order%20${encodeURIComponent(product.name)}%20from%20Star%20Aesthetic%20Centre.`}
+                href={whatsappLink(`Hi, I'd like to order ${product.name} from Star Aesthetic Centre.`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mb-6 flex w-full items-center justify-center border border-[#939EBA] py-3.5 text-sm font-semibold text-[#939EBA] transition-colors hover:bg-[#EEF0F6]"
@@ -306,7 +307,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   funnelSlug={funnelSlug}
                 />
                 <a
-                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27769770386"}`}
+                  href={whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto flex items-center justify-center border border-[#939EBA] px-8 py-4 font-semibold text-[#939EBA] hover:bg-[#EEF0F6] transition-colors"

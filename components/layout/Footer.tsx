@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { MapPin, Phone, Mail, Instagram, Facebook, Lock } from "lucide-react";
 import { HPCSA_LINE } from "@/lib/constants/practitioner";
+import { whatsappLink } from "@/lib/constants/contact";
 
 const treatmentLinks = [
     { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment" },
@@ -174,7 +175,7 @@ export default function Footer() {
                                 a written contact route is expected. */}
                             <li>
                                 <a
-                                    href="https://wa.me/27769770386"
+                                    href={whatsappLink()}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-3 text-sm text-[#636374] transition-colors hover:text-[#939EBA]"

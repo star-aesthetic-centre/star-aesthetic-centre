@@ -89,7 +89,7 @@ export const DEFAULT_CONTACT: ContactPageContent = {
     email: "info@staraesthetic.site",
     addressLine1: "22 Ennisdale Drive",
     addressLine2: "Durban North, 4051",
-    whatsappNote: "076 977 0386",
+    whatsappNote: "+27 (0)60 123 0000",
   },
   hours: [
     { day: "Monday – Friday", hours: "08:00 – 17:00" },

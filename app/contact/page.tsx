@@ -1,7 +1,8 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Mail, MessageCircle, Clock, Star, Shield, Award, ChevronRight } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Clock, Star, Shield, Award, ChevronRight } from "lucide-react";
+import { WHATSAPP_DISPLAY, whatsappLink } from "@/lib/constants/contact";
 import ContactForm from "./ContactForm";
 import { StaffLoginFooter } from "@/components/layout/StaffLoginFooter";
 import { buildPageMetadata } from "@/lib/seo";
@@ -34,8 +35,7 @@ export default async function ContactPage() {
     const content = await getSitePageContent("contact");
     const { hero, formIntro, doctorCard, contact, hours: hoursRows } = content;
     const phoneTel = contact.phone.replace(/\D/g, "");
-    const whatsappDigits = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "27769770386").replace(/\D/g, "");
-    const waUrl = `https://wa.me/${whatsappDigits.startsWith("27") ? whatsappDigits : `27${whatsappDigits}`}`;
+    const waUrl = whatsappLink();
 
     return (
         <>
@@ -164,7 +164,10 @@ export default async function ContactPage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-[#6B6966]">WhatsApp</p>
                                         <p className="text-sm font-semibold text-[#1A1917] group-hover:text-[#0F2647] transition-colors">
-                                            {contact.whatsappNote}
+                                            {/* Read from the constant, not the CMS: the
+                                                displayed number must always match the
+                                                link beside it. */}
+                                            {WHATSAPP_DISPLAY}
                                         </p>
                                     </div>
                                 </a>
@@ -184,24 +187,11 @@ export default async function ContactPage() {
                                     </div>
                                 </a>
 
-                                {/* The form above is the email route. Showing the raw
-                                    address surfaced a .site domain on a .co.za site. */}
-                                <a
-                                    href="https://wa.me/27769770386"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-4 group"
-                                >
-                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-[#E5E4E0] text-[#0F2647]">
-                                        <Mail size={18} />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-[#6B6966]">WhatsApp</p>
-                                        <p className="text-sm font-semibold text-[#1A1917] group-hover:text-[#0F2647] transition-colors">
-                                            Message the clinic
-                                        </p>
-                                    </div>
-                                </a>
+                                {/* No email row: the form is directly alongside this
+                                    list, so an address here is a second route to the
+                                    same inbox. The WhatsApp row above is the only
+                                    WhatsApp entry — this used to be a duplicate of it
+                                    wearing an envelope icon. */}
 
                                 <a
                                     href="https://maps.google.com/?q=22+Ennisdale+Drive+Durban+North"

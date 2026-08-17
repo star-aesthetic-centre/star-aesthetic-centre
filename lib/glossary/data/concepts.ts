@@ -268,7 +268,7 @@ export const CONCEPT_TERMS: GlossaryTerm[] = [
         heading: "What a Wood's lamp examination is used for",
         paragraphs: [
           "Beyond pigmentation depth assessment, a Wood's lamp can help identify certain fungal skin infections and pigment or texture irregularities not otherwise visible — making it a useful general diagnostic tool during a skin consultation, not only for pigmentation cases.",
-          "The examination itself is quick, painless, and non-invasive — it takes only a few minutes as part of a broader consultation. It does not replace clinical judgement; rather, it adds useful information that helps guide an accurate diagnosis and appropriate treatment plan.",
+          "The examination itself is quick, comfortable, and non-invasive — it takes only a few minutes as part of a broader consultation. It does not replace clinical judgement; rather, it adds useful information that helps guide an accurate diagnosis and appropriate treatment plan.",
         ],
       },
     ],
@@ -277,7 +277,7 @@ export const CONCEPT_TERMS: GlossaryTerm[] = [
     faq: [
       {
         q: "Does a Wood's lamp examination hurt?",
-        a: "No — it is completely painless and non-invasive. The lamp is simply held a short distance from the skin in a dimly lit room for a few minutes while the practitioner observes the fluorescence pattern.",
+        a: "No — it is non-invasive and most patients feel nothing at all. The lamp is simply held a short distance from the skin in a dimly lit room for a few minutes while the practitioner observes the fluorescence pattern.",
       },
       {
         q: "Can a Wood's lamp diagnose melasma?",
