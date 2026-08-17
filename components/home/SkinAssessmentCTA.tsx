@@ -22,14 +22,17 @@ export default function SkinAssessmentCTA() {
                             — Free · 3 Minutes · Instant Results
                         </p>
                         <h2 className="font-heading text-4xl sm:text-5xl lg:text-[3.5rem] font-bold uppercase text-white leading-[1.05] mb-6">
-                            What Does<br />
-                            Your Skin<br />
-                            <span className="text-[#C8A882]">Really Need?</span>
+                            Not Sure<br />
+                            <span className="text-[#C8A882]">Where to Start?</span>
                         </h2>
+                        {/* The second sentence is the important one: an online
+                            questionnaire is not a diagnosis, and saying so here
+                            is what keeps the tool educational rather than
+                            clinical. */}
                         <p className="text-[#A8B4CC] text-base sm:text-lg mb-8 leading-relaxed max-w-md">
-                            Answer 12 questions. Receive your personalised{" "}
-                            <strong className="text-white">Skin Health Score</strong> — with specific
-                            treatment and skincare recommendations reviewed by Dr. Bangalee.
+                            Take the free 3-minute <strong className="text-white">Skin Health Assessment</strong>{" "}
+                            for a general starting point. Online recommendations are educational and are not a
+                            diagnosis or treatment plan. A consultation is required before medical treatment.
                         </p>
 
                         <ul className="space-y-3 mb-10">
@@ -49,7 +52,7 @@ export default function SkinAssessmentCTA() {
                             href="/skin-assessment"
                             className="inline-flex items-center gap-3 bg-[#C8A882] px-8 py-5 text-sm font-bold uppercase tracking-[0.2em] text-white hover:bg-[#A08060] transition-colors"
                         >
-                            Discover Your Skin Score
+                            Start the Skin Assessment
                             <ArrowRight className="h-4 w-4" />
                         </Link>
                         <p className="mt-4 text-xs text-[#636E85]">

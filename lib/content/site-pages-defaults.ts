@@ -7,13 +7,13 @@ export const DEFAULT_HOME: HomePageContent = {
     // The headline now carries the differentiator and the subtitle carries
     // what / who / where.
     overline: "Durban North · Doctor-Led Aesthetics",
-    headingLine1: "Doctor-led aesthetics.",
-    headingEmphasis: "Natural-looking results.",
+    headingLine1: "Doctor-Led Aesthetic Medicine",
+    headingEmphasis: "in Durban North",
     subtitle:
-      "Personalised aesthetic medicine in Durban North — injectables, skin treatments and pharmaceutical-grade skincare, led by Dr. Rajeev Bangalee (MBBch).",
-    ctaPrimary: "Book a Free 15-Minute Consultation",
-    ctaSecondary: "Shop skincare",
-    trustLine: "HPCSA registered · Every injectable personally performed by Dr. Bangalee",
+      "Personalised injectables, skin treatments and medical aesthetic care led by Dr Rajeev Bangalee — with a considered approach focused on facial balance, skin health and natural-looking outcomes.",
+    ctaPrimary: "Book a Consultation",
+    ctaSecondary: "WhatsApp the Clinic",
+    trustLine: "Registered medical practitioner • 20+ years' clinical experience • Durban North",
     stats: [
       { value: "20+", label: "Years Experience" },
       { value: "6", label: "Premium Brands" },
@@ -41,7 +41,8 @@ export const DEFAULT_HOME: HomePageContent = {
     // five places with dates while this was the single outlier.
     credentials: [
       "MBBch · University of the Witwatersrand",
-      "Diploma in Aesthetic Medicine (AAAM)",
+      "Diploma in Aesthetic Medicine (2012), American Academy of Aesthetic Medicine",
+      "Advanced Diploma in Aesthetic Medicine (2025), Foundation for Professional Development",
       "HPCSA Reg. MP 0558605",
       "20+ Years Clinical Experience",
     ],
@@ -63,9 +64,9 @@ export const DEFAULT_HOME: HomePageContent = {
       "Every journey begins with a personalised one-on-one consultation with Dr. Bangalee. He'll assess your skin, understand your goals, and design a treatment plan made for you.",
   },
   seo: {
-    title: "Star Aesthetic Centre — Doctor-Led Aesthetics in Durban North",
+    title: "Aesthetic Doctor Durban North | Star Aesthetic Centre",
     description:
-      "Doctor-led aesthetic treatments and curated medical skincare in Durban North. Botox, fillers, skin peels, microneedling and more — by Dr. Rajeev Bangalee (MBBch). Book your consultation today.",
+      "Doctor-led aesthetic medicine in Durban North by Dr Rajeev Bangalee. Natural-looking injectables, personalised skin treatment and medical aesthetic care.",
   },
 };
 

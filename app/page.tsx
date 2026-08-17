@@ -2,6 +2,7 @@
 import HeroSection from "@/components/home/HeroSection";
 import TrustStrip from "@/components/home/TrustStrip";
 import TreatmentCategories from "@/components/home/TreatmentCategories";
+import { CareApproach, MedicalExpertise } from "@/components/home/CareApproach";
 import ProductBrands from "@/components/home/ProductBrands";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import VitaminDripSection from "@/components/home/VitaminDripSection";
@@ -46,30 +47,33 @@ export default async function HomePage() {
   return (
     <>
       {/*
-        Order matters more than anything else on this page.
+        Section order follows Dr. Bangalee's homepage brief.
 
-        Dr. Bangalee previously appeared eighth — below two shop sections and
-        the rewards programme. The clinic's differentiator is the doctor, not
-        the treatment list: hundreds of practices offer peels and filler, only
-        this one offers him. So he now sits directly under the hero.
+        I had previously moved DoctorTrust directly under the hero, reasoning
+        that the doctor is the differentiator. The brief puts him after the
+        treatments, the expertise statement and the skin assessment, so that
+        is where he now sits — the brief wins over my earlier reasoning.
 
-        Shop and rewards still earn their place, but after the patient has a
-        reason to trust the practice. A first-time visitor is asking "can I
-        trust this doctor with my face", not "how do I earn Star Lights".
+        Shop, rewards and the drip section are not in the brief. They are kept
+        but moved below the patient-facing flow, so the sequence the brief
+        specifies runs uninterrupted from hero to reviews.
       */}
       <HeroSection content={content.hero} />
-      <DoctorTrust content={content.doctorTrust} />
+      <CareApproach />
       <TreatmentCategories />
-      {/* Sits below treatments rather than under the hero, where its stat row
-          duplicated the hero's own stats. */}
-      <TrustStrip />
-      <VitaminDripSection />
+      <MedicalExpertise />
       <SkinAssessmentCTA />
+      <DoctorTrust content={content.doctorTrust} />
       <GoogleReviews />
       <ReviewInvite />
+
+      {/* Not in the brief — kept, but after the sequence it specifies. */}
+      <TrustStrip />
+      <VitaminDripSection />
       <ProductBrands />
       <FeaturedProducts />
       <PerksSection perksRewards={content.perksRewards} />
+
       <BookingCTA content={content.bookingCta} />
       <MapSection />
     </>
