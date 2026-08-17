@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { deliveryNote } from "@/lib/treatment-delivery";
 
 /**
  * "Assessed by Dr. Bangalee" — the treatment photo with a doctor byline
@@ -14,10 +15,12 @@ export function DoctorAssessedCard({
   treatmentImage,
   treatmentImageAlt,
   treatmentTitle,
+  treatmentSlug,
 }: {
   treatmentImage: string | null;
   treatmentImageAlt: string;
   treatmentTitle: string;
+  treatmentSlug: string;
 }) {
   return (
     <div className="border border-[#E2E2E6] bg-white">
@@ -52,8 +55,7 @@ export function DoctorAssessedCard({
             </Link>
           </p>
           <p className="mt-0.5 text-xs leading-relaxed text-[#636374]">
-            MBBch · {treatmentTitle} is planned and performed by the doctor, with home-care
-            products he selects himself.
+            MBBch · {deliveryNote(treatmentSlug, treatmentTitle)}
           </p>
         </div>
       </div>

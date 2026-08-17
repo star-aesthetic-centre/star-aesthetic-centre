@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { buildPageMetadata, SITE_URL } from "@/lib/seo";
 import { getSitePageContent } from "@/lib/queries/site-pages";
+import { DELIVERY_STATEMENT } from "@/lib/treatment-delivery";
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getSitePageContent("dr-rajeev-bangalee");
@@ -692,7 +693,7 @@ export default async function DrBangaleePage() {
             </p>
             <div className="mt-12 grid grid-cols-1 gap-px sm:grid-cols-3">
               {[
-                { icon: Stethoscope, title: "Medically Led", desc: "Every treatment performed by a qualified GP." },
+                { icon: Stethoscope, title: "Medically Led", desc: "Every treatment assessed by a qualified GP." },
                 { icon: Star, title: "Natural Results", desc: "Enhance, never alter. Subtlety is always the goal." },
                 { icon: Users, title: "Personalised Care", desc: "No two patients — or treatment plans — are alike." },
               ].map(({ icon: Icon, title, desc }) => (
@@ -705,6 +706,23 @@ export default async function DrBangaleePage() {
                   <p className="mt-2 text-xs leading-relaxed text-white/50">{desc}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 8b. WHO PERFORMS YOUR TREATMENT ──────────────────────── */}
+        {/* The canonical statement. Deliberately plain and unstyled-looking:
+            this is a disclosure, not a selling point, and dressing it up
+            would undercut it. */}
+        <section className="border-b border-[#E5E4E0] bg-white py-16">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <div className="border-l-2 border-[#1B3D6E] pl-6">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#6B6966]">
+                Who Performs Your Treatment
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-[#1A1917]">
+                {DELIVERY_STATEMENT}
+              </p>
             </div>
           </div>
         </section>

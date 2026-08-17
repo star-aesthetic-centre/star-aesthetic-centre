@@ -784,6 +784,7 @@ export default async function TreatmentDetail({ params }: TreatmentPageProps) {
                             treatmentImage={displayCardImage}
                             treatmentImageAlt={displayCardImageAlt}
                             treatmentTitle={displayTitle}
+                            treatmentSlug={treatment.slug}
                         />
 
                         {/* Niki Agent Card */}
