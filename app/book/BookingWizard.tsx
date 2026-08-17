@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { whatsappLink } from "@/lib/constants/contact";
 import { ChevronLeft, Check, Loader2, CalendarDays, Clock, User, Stethoscope } from 'lucide-react';
 import { HoneypotField } from '@/components/security/HoneypotField';
 import { TurnstileWidget } from '@/components/security/TurnstileWidget';
@@ -672,7 +673,7 @@ function ConfirmationScreen({
         </a>{' '}
         or via{' '}
         <a
-          href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '')}`}
+          href={whatsappLink()}
           className="font-medium text-[#1A1917] hover:text-[#C8A882]"
           target="_blank"
           rel="noopener noreferrer"

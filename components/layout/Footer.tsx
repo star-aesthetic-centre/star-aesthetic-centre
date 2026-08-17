@@ -3,6 +3,7 @@ import Image from "next/image";
 import { MapPin, Phone, Mail, Instagram, Facebook, Lock } from "lucide-react";
 import { HPCSA_LINE } from "@/lib/constants/practitioner";
 import { whatsappLink } from "@/lib/constants/contact";
+import { MedicalDisclaimer } from "@/components/layout/MedicalDisclaimer";
 
 const treatmentLinks = [
     { label: "Anti-Wrinkle Treatment", href: "/treatments/face/anti-wrinkle-treatment" },
@@ -205,6 +206,8 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
+
+                <MedicalDisclaimer />
 
                 {/* Bottom bar */}
                 <div className="mt-12 border-t-2 border-[#C8A882]/30 pt-8 text-center">

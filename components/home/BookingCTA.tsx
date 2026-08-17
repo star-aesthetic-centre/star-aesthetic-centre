@@ -1,4 +1,5 @@
 import { MessageCircle, Phone } from "lucide-react";
+import { whatsappLink } from "@/lib/constants/contact";
 import type { HomePageContent } from "@/lib/content/site-pages-types";
 
 type Props = {
@@ -6,8 +7,8 @@ type Props = {
 };
 
 export default function BookingCTA({ content }: Props) {
- const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "27315731325";
- const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hi%2C%20I'd%20like%20to%20book%20a%20consultation%20at%20Star%20Aesthetic%20Centre.`;
+ // Was falling back to the landline, which cannot receive WhatsApp at all.
+ const whatsappUrl = whatsappLink("Hi, I'd like to book a consultation at Star Aesthetic Centre.");
 
  return (
  <section className="relative overflow-hidden bg-[#F7F7F8] py-24">
